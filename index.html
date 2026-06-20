@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CISA - Website Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .site-card {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .site-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .site-card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .site-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .site-card .link-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+        
+        .site-card .link-button:hover {
+            opacity: 0.9;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 CISA</h1>
+            <p>Your Website Collection</p>
+        </div>
+        
+        <div class="sites-grid">
+            <a href="./exam_site/" class="site-card">
+                <h2>📝 Exam Site</h2>
+                <p>Comprehensive exam preparation materials and resources. Access practice questions, study guides, and assessment tools.</p>
+                <div class="link-button">Visit Exam Site →</div>
+            </a>
+            
+            <a href="./site/" class="site-card">
+                <h2>📖 Main Site</h2>
+                <p>Detailed chapters and learning materials. Explore structured content organized by chapters for continuous learning.</p>
+                <div class="link-button">Visit Main Site →</div>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>Hosted on GitHub Pages</p>
+        </div>
+    </div>
+</body>
+</html>
