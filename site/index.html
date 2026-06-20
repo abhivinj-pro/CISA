@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CISA Study Hub</title>
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  color-scheme: light;
+  --cp-bg: #f3efe6;
+  --cp-bg-elevated: #fbf8f2;
+  --cp-surface: rgba(255, 255, 255, 0.86);
+  --cp-surface-strong: rgba(255, 255, 255, 0.94);
+  --cp-surface-soft: rgba(255, 248, 238, 0.78);
+  --cp-border: rgba(113, 89, 61, 0.15);
+  --cp-border-strong: rgba(113, 89, 61, 0.28);
+  --cp-text: #1f2937;
+  --cp-text-muted: #5b6472;
+  --cp-text-soft: #7a838f;
+  --cp-accent: #c65d2e;
+  --cp-accent-hover: #a84c24;
+  --cp-accent-soft: rgba(198, 93, 46, 0.12);
+  --cp-accent-fg: #fff8f1;
+  --cp-accent-alt: #0f766e;
+  --cp-accent-alt-soft: rgba(15, 118, 110, 0.12);
+  --cp-link: #0f766e;
+  --cp-shadow: 0 24px 70px rgba(61, 43, 24, 0.14);
+  --cp-shadow-soft: 0 10px 30px rgba(61, 43, 24, 0.09);
+  --cp-overlay: rgba(251, 248, 242, 0.82);
+  --cp-highlight: rgba(198, 93, 46, 0.16);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #0d1721;
+  --cp-bg-elevated: #121f2d;
+  --cp-surface: rgba(17, 27, 39, 0.76);
+  --cp-surface-strong: rgba(19, 31, 45, 0.9);
+  --cp-surface-soft: rgba(32, 49, 68, 0.72);
+  --cp-border: rgba(148, 163, 184, 0.18);
+  --cp-border-strong: rgba(148, 163, 184, 0.34);
+  --cp-text: #e7edf5;
+  --cp-text-muted: #b0bdcb;
+  --cp-text-soft: #91a0b0;
+  --cp-accent: #f59e0b;
+  --cp-accent-hover: #f97316;
+  --cp-accent-soft: rgba(245, 158, 11, 0.16);
+  --cp-accent-fg: #111827;
+  --cp-accent-alt: #22c55e;
+  --cp-accent-alt-soft: rgba(34, 197, 94, 0.14);
+  --cp-link: #5eead4;
+  --cp-shadow: 0 26px 80px rgba(1, 6, 15, 0.45);
+  --cp-shadow-soft: 0 12px 36px rgba(1, 6, 15, 0.3);
+  --cp-overlay: rgba(9, 16, 24, 0.72);
+  --cp-highlight: rgba(245, 158, 11, 0.16);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.16), transparent 30%),
+    radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 26%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+  color: var(--cp-text);
+  font-family: "Plus Jakarta Sans", Aptos, sans-serif;
+  position: relative;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 999px;
+  filter: blur(22px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+body::before {
+  top: -12rem;
+  right: -10rem;
+  background: rgba(198, 93, 46, 0.18);
+}
+body::after {
+  bottom: -14rem;
+  left: -10rem;
+  background: rgba(15, 118, 110, 0.14);
+}
+a {
+  color: var(--cp-link);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.progress-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  box-shadow: 0 0 18px var(--cp-highlight);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 80;
+}
+.shell {
+  width: min(1480px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+.masthead {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+  align-items: stretch;
+  margin-bottom: 28px;
+}
+.hero,
+.panel,
+.chapter-card,
+.toc-panel,
+.chapter-rail,
+.content-panel,
+.tool-row,
+.callout-tile {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 24px;
+  box-shadow: var(--cp-shadow);
+  backdrop-filter: blur(18px);
+}
+.hero,
+.content-panel {
+  position: relative;
+  overflow: hidden;
+}
+.hero::before,
+.content-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 46%),
+    radial-gradient(circle at top right, var(--cp-accent-soft), transparent 30%);
+  pointer-events: none;
+}
+.hero {
+  padding: 34px;
+}
+.eyebrow {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+}
+.hero h1,
+.chapter-hero h1 {
+  margin: 18px 0 14px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 12ch;
+}
+.chapter-hero h1 {
+  max-width: none;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+.hero p,
+.chapter-hero p,
+.muted {
+  color: var(--cp-text-muted);
+  font-size: 1.02rem;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+.stat {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  box-shadow: var(--cp-shadow-soft);
+}
+.stat strong,
+.stat span {
+  display: block;
+}
+.stat strong {
+  margin-bottom: 6px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.5rem;
+}
+.hero-illustration,
+.chapter-illustration {
+  min-height: 100%;
+  padding: 26px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top left, var(--cp-accent-soft), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    var(--cp-surface-soft);
+}
+.hero-illustration svg,
+.chapter-illustration svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+.top-tools {
+  position: sticky;
+  top: 16px;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.tool-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+  align-items: center;
+  background: var(--cp-overlay);
+}
+.tool-row input {
+  min-width: 260px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  color: var(--cp-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.tool-row input:focus {
+  outline: 2px solid var(--cp-accent-soft);
+  border-color: var(--cp-accent);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--cp-shadow-soft);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+.btn:hover,
+.btn.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--cp-accent-soft));
+  color: var(--cp-text);
+}
+.btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #eb7b3a);
+  color: var(--cp-accent-fg);
+  border-color: transparent;
+  box-shadow: 0 14px 28px rgba(198, 93, 46, 0.28);
+}
+.btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 22px;
+}
+.chapter-card {
+  padding: 22px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.chapter-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  opacity: 0.92;
+}
+.chapter-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -36% auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--cp-accent-soft), transparent 65%);
+  pointer-events: none;
+}
+.chapter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 60px rgba(61, 43, 24, 0.18);
+  border-color: rgba(198, 93, 46, 0.24);
+}
+.chapter-card h2,
+.chapter-card h3 {
+  margin: 0;
+  font-size: 1.62rem;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.chapter-card h2 a {
+  color: var(--cp-text);
+}
+.chapter-card p {
+  margin: 0;
+}
+.chapter-card .chapter-subtitle {
+  margin-top: 8px;
+  color: var(--cp-text-muted);
+  font-size: 1rem;
+}
+.chapter-card .chapter-summary {
+  color: var(--cp-text-muted);
+  line-height: 1.62;
+  font-size: 1rem;
+}
+.chips,
+.quick-links,
+.chapter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--cp-surface-soft);
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text-muted);
+  font-size: 0.84rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.quick-links {
+  gap: 10px;
+}
+.quick-links .chip {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  color: var(--cp-text);
+  border-color: rgba(198, 93, 46, 0.24);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-accent-soft));
+  box-shadow: 0 8px 18px rgba(61, 43, 24, 0.12);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+.quick-links .chip:hover,
+.quick-links .chip:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.42);
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  box-shadow: 0 12px 22px rgba(61, 43, 24, 0.16);
+}
+.quick-links .chip:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.chapter-actions {
+  margin-top: 6px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.chapter-actions .btn {
+  min-height: 50px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  border-color: rgba(113, 89, 61, 0.2);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+}
+.chapter-actions .btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #dd6f33);
+  border-color: transparent;
+  color: var(--cp-accent-fg);
+  box-shadow: 0 10px 22px rgba(198, 93, 46, 0.24);
+}
+.chapter-actions .btn:hover {
+  border-color: rgba(198, 93, 46, 0.38);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--cp-accent-soft));
+}
+.chapter-actions .btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-actions .btn:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+.callout-tile {
+  padding: 20px;
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+}
+.callout-tile h3 {
+  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  box-shadow: var(--cp-shadow-soft);
+}
+.callout-tile:nth-child(1) h3 {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(14, 165, 233, 0.12));
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #1d4ed8;
+}
+.callout-tile:nth-child(2) h3 {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(249, 115, 22, 0.14));
+  border-color: rgba(245, 158, 11, 0.38);
+  color: #b45309;
+}
+.callout-tile:nth-child(3) h3 {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(20, 184, 166, 0.14));
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #047857;
+}
+.chapter-layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(250px, 320px);
+  align-items: start;
+}
+.chapter-rail,
+.toc-panel {
+  position: sticky;
+  top: 92px;
+  padding: 20px;
+  max-height: calc(100vh - 112px);
+  overflow: auto;
+  background:
+    linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface)),
+    var(--cp-overlay);
+  border: 1px solid var(--cp-border);
+  box-shadow: var(--cp-shadow-soft);
+}
+.chapter-rail nav,
+.toc-panel nav {
+  display: grid;
+  gap: 8px;
+}
+.chapter-rail .eyebrow,
+.toc-panel .eyebrow {
+  margin-bottom: 14px;
+}
+.chapter-nav-link,
+.toc-panel a {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 14px;
+  color: var(--cp-text-muted);
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-soft);
+  font-weight: 600;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, color 180ms ease;
+}
+.chapter-nav-link:hover,
+.chapter-nav-link.is-current,
+.toc-panel a:hover,
+.toc-panel a.is-active {
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border-color: var(--cp-border-strong);
+  color: var(--cp-text);
+  transform: translateX(2px);
+}
+.chapter-nav-link strong {
+  display: block;
+  margin-bottom: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+.toc-panel a {
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.content-panel {
+  padding: 26px 30px 32px;
+  background: var(--cp-surface-strong);
+}
+.chapter-hero {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.8fr);
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--cp-border);
+  margin-bottom: 24px;
+  align-items: center;
+}
+.article {
+  font-size: 1.03rem;
+  line-height: 1.82;
+}
+.article > :first-child {
+  margin-top: 0;
+}
+.article > * {
+  max-width: 74ch;
+}
+.article .table-wrap,
+.article img,
+.article pre,
+.article h2 {
+  max-width: 100%;
+}
+.article h1,
+.article h2,
+.article h3,
+.article h4,
+.article h5,
+.article h6 {
+  scroll-margin-top: 104px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--cp-text);
+}
+.article h1 {
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 2.4rem;
+}
+.article h2 {
+  margin-top: 2.4rem;
+  padding: 18px 20px;
+  border: 1px solid var(--cp-border);
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), transparent 70%);
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.7rem;
+}
+.article h3 {
+  margin-top: 1.8rem;
+  font-size: 1.24rem;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.article details.answer-collapsible {
+  margin: 18px 0;
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  box-shadow: var(--cp-shadow-soft);
+  overflow: hidden;
+}
+.article details.answer-collapsible summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  font-weight: 700;
+  color: var(--cp-text);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+}
+.article details.answer-collapsible summary::-webkit-details-marker {
+  display: none;
+}
+.article details.answer-collapsible summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 180ms ease;
+}
+.article details.answer-collapsible[open] summary::before {
+  transform: rotate(90deg);
+}
+.article details.answer-collapsible .answer-content {
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--cp-border);
+}
+.article details.answer-collapsible .answer-content > :first-child {
+  margin-top: 0;
+}
+.article details.answer-collapsible .answer-content > :last-child {
+  margin-bottom: 0;
+}
+.article hr {
+  border: 0;
+  border-top: 1px solid var(--cp-border);
+  margin: 28px 0;
+}
+.article blockquote {
+  margin: 22px 0;
+  padding: 18px 20px;
+  border-left: 4px solid var(--cp-accent);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+  border-radius: 18px;
+  box-shadow: var(--cp-shadow-soft);
+}
+.article code,
+.article pre {
+  font-family: Consolas, "Courier New", Courier, monospace;
+}
+.article :not(pre) > code {
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text);
+}
+.article pre {
+  overflow: auto;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+}
+.article ul,
+.article ol {
+  padding-left: 1.35rem;
+}
+.article li + li {
+  margin-top: 0.4rem;
+}
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+.article th,
+.article td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cp-border);
+  border-right: 1px solid var(--cp-border);
+  vertical-align: top;
+}
+.article tr:last-child td {
+  border-bottom: 0;
+}
+.article th:last-child,
+.article td:last-child {
+  border-right: 0;
+}
+.article th {
+  position: sticky;
+  top: 0;
+  background: var(--cp-surface-soft);
+  text-align: left;
+}
+.article img {
+  display: block;
+  margin: 22px 0;
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+  box-shadow: var(--cp-shadow-soft);
+}
+.toc-panel .toc,
+.toc-panel .toc ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.toc-panel .toc > ul {
+  display: grid;
+  gap: 8px;
+}
+.toc-panel .toc ul ul {
+  margin-left: 12px;
+  margin-top: 8px;
+  border-left: 1px solid var(--cp-border);
+  padding-left: 10px;
+}
+.empty-state {
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text-muted);
+  border: 1px dashed var(--cp-border-strong);
+}
+.footer-note {
+  margin-top: 22px;
+  color: var(--cp-text-soft);
+  font-size: 0.94rem;
+}
+.focus-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 75;
+  display: none;
+  min-width: 150px;
+}
+body.focus-mode {
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.08), transparent 32%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+}
+body.focus-mode .chapter-rail,
+body.focus-mode .toc-panel,
+body.focus-mode .top-tools,
+body.focus-mode .chapter-illustration {
+  display: none;
+}
+body.focus-mode .focus-fab {
+  display: inline-flex;
+}
+body.focus-mode .chapter-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+body.focus-mode .content-panel {
+  max-width: 900px;
+  margin: 0 auto;
+}
+body.focus-mode .chapter-hero {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (max-width: 1180px) {
+  .chapter-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .chapter-rail,
+  .toc-panel {
+    position: static;
+    max-height: none;
+  }
+}
+@media (max-width: 900px) {
+  .masthead,
+  .chapter-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shell {
+    width: min(100% - 24px, 1480px);
+  }
+  .hero,
+  .content-panel {
+    padding: 22px;
+  }
+  .top-tools {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .chapter-actions {
+    grid-template-columns: 1fr;
+  }
+  .hero,
+  .panel,
+  .chapter-card,
+  .toc-panel,
+  .chapter-rail,
+  .content-panel,
+  .tool-row,
+  .callout-tile {
+    border-radius: 20px;
+  }
+  .tool-row,
+  .tool-row input,
+  .btn {
+    width: 100%;
+  }
+  .focus-fab {
+    right: 12px;
+    left: 12px;
+    bottom: 14px;
+    width: auto;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="progress-bar"></div>
+  
+<div class="shell">
+  <div class="top-tools">
+    <div class="tool-row">
+      <input type="search" placeholder="Filter chapters by topic, title, or weight" data-search data-target=".js-search-item" data-empty-state="index-empty">
+    </div>
+    <div class="tool-row">
+      <button class="btn" data-action="toggle-theme">Switch theme</button>
+    </div>
+  </div>
+
+  <section class="masthead">
+    <div class="hero">
+      <span class="eyebrow">CISA Study Hub</span>
+      <h1>CISA notes organized for focused revision, recall, and exam practice.</h1>
+      <p>Use one hub for all five chapters with structured notes, rapid revision sheets, mnemonics, and probable exam questions designed for quick review before the exam.</p>
+    </div>
+    <div class="panel hero-illustration">
+<svg viewBox="0 0 360 240" role="img" aria-label="CISA NOTES emblem" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cnStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-accent)"/>
+      <stop offset="100%" stop-color="var(--cp-accent-alt)"/>
+    </linearGradient>
+    <linearGradient id="cnBadge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-surface-strong)"/>
+      <stop offset="100%" stop-color="var(--cp-surface-soft)"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="44" y="36" width="272" height="170" rx="24" fill="var(--cp-surface-strong)" stroke="var(--cp-border)" stroke-width="2"/>
+  <rect x="44" y="36" width="272" height="38" rx="24" fill="var(--cp-surface-soft)"/>
+
+  <circle cx="72" cy="55" r="5" fill="var(--cp-accent)" opacity="0.75"/>
+  <circle cx="90" cy="55" r="5" fill="var(--cp-accent-alt)" opacity="0.7"/>
+  <circle cx="108" cy="55" r="5" fill="var(--cp-border-strong)"/>
+
+  <rect x="66" y="92" width="128" height="10" rx="5" fill="var(--cp-border-strong)"/>
+  <rect x="66" y="110" width="102" height="10" rx="5" fill="var(--cp-accent-soft)"/>
+  <rect x="66" y="143" width="220" height="9" rx="4.5" fill="var(--cp-border)"/>
+  <rect x="66" y="160" width="186" height="9" rx="4.5" fill="var(--cp-border)"/>
+
+  <g transform="translate(216 88)">
+    <path d="M54 0l34 15v26c0 27-23 50-34 56C43 91 20 68 20 41V15L54 0z" fill="url(#cnBadge)" stroke="url(#cnStroke)" stroke-width="4"/>
+    <path d="M40 47l10 10 22-24" fill="none" stroke="var(--cp-accent-alt)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="180" y="124" text-anchor="middle" font-size="36" font-weight="800" letter-spacing="2.2" fill="url(#cnStroke)" font-family="Space Grotesk, Plus Jakarta Sans, sans-serif">CISA</text>
+  <text x="180" y="157" text-anchor="middle" font-size="24" font-weight="700" letter-spacing="4.5" fill="var(--cp-text-muted)" font-family="Plus Jakarta Sans, sans-serif">NOTES</text>
+</svg>
+</div>
+  </section>
+
+  <section class="callout-grid">
+    <div class="callout-tile">
+      <h3>Study structure</h3>
+      <p>Open by chapter, then use each page’s local table of contents to jump between overview, concepts, rapid revision, probable questions, and mnemonic sections.</p>
+    </div>
+    <div class="callout-tile">
+      <h3>Focus mode</h3>
+      <p>Every chapter page includes a distraction-light focus toggle and a reading progress bar for marathon revision sessions.</p>
+    </div>
+    <div class="callout-tile">
+      <h3>Quick revision</h3>
+      <p>Cards below link straight into high-value sections like rapid revision sheets, mnemonics, case-study notes, and exam questions.</p>
+    </div>
+  </section>
+
+  <section style="margin-top: 24px;">
+    <div class="chapter-grid">
+<article class="chapter-card js-search-item" data-search-text="chapter 1 CISA Chapter 1 — Information System Auditing Process Audit lifecycle, standards, evidence, controls, and risk-focused planning. 18% of CISA Exam (~27 questions)">
+  <div>
+    <h2><a href="chapter1.html">CISA Chapter 1 — Information System Auditing Process</a></h2>
+    <p class="chapter-subtitle">Audit lifecycle, standards, evidence, controls, and risk-focused planning.</p>
+  </div>
+  <div class="quick-links"><a class="chip" href="chapter1.html#rapid-revision-sheet">Rapid Revision</a> <a class="chip" href="chapter1.html#probable-exam-questions">Exam Questions</a> <a class="chip" href="chapter1.html#mnemonics-memory-aids">Mnemonics</a></div>
+  <div class="chapter-actions">
+    <a class="btn primary" href="chapter1.html">Open chapter</a>
+    <a class="btn" href="chapter1.html#rapid-revision-sheet">Jump to revision</a>
+  </div>
+</article>
+
+<article class="chapter-card js-search-item" data-search-text="chapter 2 Chapter 2: Governance and Management of IT Governance structure, risk ownership, policy control, and strategic alignment. 18% of CISA exam (~27 questions)">
+  <div>
+    <h2><a href="chapter2.html">Chapter 2: Governance and Management of IT</a></h2>
+    <p class="chapter-subtitle">Governance structure, risk ownership, policy control, and strategic alignment.</p>
+  </div>
+  <div class="quick-links"><a class="chip" href="chapter2.html#rapid-revision-sheet">Rapid Revision</a> <a class="chip" href="chapter2.html#probable-exam-questions">Exam Questions</a> <a class="chip" href="chapter2.html#mnemonics-and-memory-aids">Mnemonics</a></div>
+  <div class="chapter-actions">
+    <a class="btn primary" href="chapter2.html">Open chapter</a>
+    <a class="btn" href="chapter2.html#rapid-revision-sheet">Jump to revision</a>
+  </div>
+</article>
+
+<article class="chapter-card js-search-item" data-search-text="chapter 3 CISA Chapter 3 — Complete Exam-Ready Notes Business case, SDLC methods, project controls, testing, and deployment risk. 12% of CISA exam (~18 questions)">
+  <div>
+    <h2><a href="chapter3.html">CISA Chapter 3 — Complete Exam-Ready Notes</a></h2>
+    <p class="chapter-subtitle">Business case, SDLC methods, project controls, testing, and deployment risk.</p>
+  </div>
+  <div class="quick-links"><a class="chip" href="chapter3.html#section-10-rapid-revision-sheet">Rapid Revision</a> <a class="chip" href="chapter3.html#section-11-probable-exam-questions">Exam Questions</a> <a class="chip" href="chapter3.html#section-12-key-concept-recap-mnemonics">Mnemonics</a></div>
+  <div class="chapter-actions">
+    <a class="btn primary" href="chapter3.html">Open chapter</a>
+    <a class="btn" href="chapter3.html#section-10-rapid-revision-sheet">Jump to revision</a>
+  </div>
+</article>
+
+<article class="chapter-card js-search-item" data-search-text="chapter 4 CISA Chapter 4 – Information Systems Operations and Business Resilience IT operations, incident handling, resilience planning, and service continuity. 26% of CISA examination (~39 questions)">
+  <div>
+    <h2><a href="chapter4.html">CISA Chapter 4 – Information Systems Operations and Business Resilience</a></h2>
+    <p class="chapter-subtitle">IT operations, incident handling, resilience planning, and service continuity.</p>
+  </div>
+  <div class="quick-links"><a class="chip" href="chapter4.html#rapid-revision-sheet">Rapid Revision</a> <a class="chip" href="chapter4.html#probable-exam-questions">Exam Questions</a> <a class="chip" href="chapter4.html#critical-osi-layer-mnemonics">Mnemonics</a></div>
+  <div class="chapter-actions">
+    <a class="btn primary" href="chapter4.html">Open chapter</a>
+    <a class="btn" href="chapter4.html#rapid-revision-sheet">Jump to revision</a>
+  </div>
+</article>
+
+<article class="chapter-card js-search-item" data-search-text="chapter 5 CISA Chapter 5: Protection of Information Assets — Complete Exam Notes Security architecture, network defense, IAM, cryptography, and monitoring. 26% (~39 questions)">
+  <div>
+    <h2><a href="chapter5.html">CISA Chapter 5: Protection of Information Assets — Complete Exam Notes</a></h2>
+    <p class="chapter-subtitle">Security architecture, network defense, IAM, cryptography, and monitoring.</p>
+  </div>
+  <div class="quick-links"><a class="chip" href="chapter5.html#one-page-rapid-revision-sheet">Rapid Revision</a> <a class="chip" href="chapter5.html#probable-exam-questions">Exam Questions</a> <a class="chip" href="chapter5.html#mnemonics-and-memory-tricks">Mnemonics</a></div>
+  <div class="chapter-actions">
+    <a class="btn primary" href="chapter5.html">Open chapter</a>
+    <a class="btn" href="chapter5.html#one-page-rapid-revision-sheet">Jump to revision</a>
+  </div>
+</article>
+</div>
+    <div id="index-empty" class="empty-state" hidden>No chapters match the current filter.</div>
+  </section>
+</div>
+
+  <script>
+(() => {
+  const storageKey = "cisa-study-theme";
+  const focusKey = "cisa-study-focus";
+  const root = document.documentElement;
+
+  const savedTheme = window.localStorage.getItem(storageKey);
+  if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+  }
+
+  const themeBtn = document.querySelector("[data-action='toggle-theme']");
+  if (themeBtn) {
+    const syncThemeLabel = () => {
+      const theme = root.getAttribute("data-theme") || "light";
+      themeBtn.textContent = theme === "dark" ? "Switch to light" : "Switch to dark";
+    };
+    syncThemeLabel();
+    themeBtn.addEventListener("click", () => {
+      const nextTheme = (root.getAttribute("data-theme") || "light") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", nextTheme);
+      window.localStorage.setItem(storageKey, nextTheme);
+      syncThemeLabel();
+    });
+  }
+
+  const focusButtons = Array.from(document.querySelectorAll("[data-action='toggle-focus']"));
+  if (window.localStorage.getItem(focusKey) === "true") {
+    document.body.classList.add("focus-mode");
+  }
+  if (focusButtons.length) {
+    const syncFocusButtons = () => {
+      const active = document.body.classList.contains("focus-mode");
+      focusButtons.forEach((button) => {
+        const isFloating = button.classList.contains("focus-fab");
+        button.textContent = active ? "Exit focus mode" : "Focus mode";
+        button.classList.toggle("is-active", active && !isFloating);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    };
+    const toggleFocus = () => {
+      document.body.classList.toggle("focus-mode");
+      window.localStorage.setItem(focusKey, String(document.body.classList.contains("focus-mode")));
+      syncFocusButtons();
+    };
+    syncFocusButtons();
+    focusButtons.forEach((button) => button.addEventListener("click", toggleFocus));
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && document.body.classList.contains("focus-mode")) {
+        toggleFocus();
+      }
+    });
+  }
+
+  const progressBar = document.querySelector(".progress-bar");
+  const updateProgress = () => {
+    if (!progressBar) {
+      return;
+    }
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progressBar.style.transform = `scaleX(${ratio})`;
+  };
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+
+  const searchInput = document.querySelector("[data-search]");
+  if (searchInput) {
+    const selector = searchInput.getAttribute("data-target");
+    const items = selector ? Array.from(document.querySelectorAll(selector)) : [];
+    const emptyStateId = searchInput.getAttribute("data-empty-state");
+    const emptyState = emptyStateId ? document.getElementById(emptyStateId) : null;
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const haystack = (item.getAttribute("data-search-text") || item.textContent || "").toLowerCase();
+        const show = !query || haystack.includes(query);
+        item.style.display = show ? "" : "none";
+        if (show) {
+          visible += 1;
+        }
+      });
+      if (emptyState) {
+        emptyState.hidden = visible !== 0;
+      }
+    });
+  }
+
+  const headingLinks = Array.from(document.querySelectorAll(".toc-panel a[href^='#']"));
+  const headingTargets = headingLinks
+    .map((link) => {
+      let id = link.getAttribute("href").slice(1);
+      try {
+        id = decodeURIComponent(id);
+      } catch {
+        // Keep raw fragment when it is not URI-encoded.
+      }
+      const target = document.getElementById(id);
+      return target ? { link, target } : null;
+    })
+    .filter(Boolean);
+
+  if (headingTargets.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const current = headingTargets.find((item) => item.target === entry.target);
+          if (!current) {
+            return;
+          }
+          if (entry.isIntersecting) {
+            headingLinks.forEach((link) => link.classList.remove("is-active"));
+            current.link.classList.add("is-active");
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 1] }
+    );
+    headingTargets.forEach((item) => observer.observe(item.target));
+  }
+
+  const article = document.querySelector(".article");
+  if (article) {
+    const isAnswerLabel = (text) => /^(?:answer\s*[:.)-]|a\s*[.):-]\s*)/i.test((text || "").trim());
+
+    const buildAnswerDetails = (contentNode) => {
+      const details = document.createElement("details");
+      details.className = "answer-collapsible";
+      const summary = document.createElement("summary");
+      summary.textContent = "Show answer";
+      const wrapper = document.createElement("div");
+      wrapper.className = "answer-content";
+      wrapper.appendChild(contentNode.cloneNode(true));
+      details.appendChild(summary);
+      details.appendChild(wrapper);
+      return details;
+    };
+
+    // Split paragraphs where question and answer appear in the same paragraph.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      const htmlValue = p.innerHTML;
+      const qaMatch = htmlValue.match(
+        /^(.*?)(?:\s*-\s*|\s+)?<strong>\s*(?:Answer\s*[:.)-]|A\s*[.):-][^<]*)<\/strong>\s*([\s\S]*)$/i
+      );
+      if (!qaMatch || !/<strong>\s*Q\d*\s*:\s*<\/strong>/i.test(qaMatch[1])) {
+        return;
+      }
+
+      p.innerHTML = qaMatch[1].trim();
+      const answerP = document.createElement("p");
+      answerP.innerHTML = `<strong>Answer:</strong> ${qaMatch[2].trim()}`;
+      p.insertAdjacentElement("afterend", buildAnswerDetails(answerP));
+    });
+
+    // Wrap standalone answer paragraphs.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      if (p.closest("details.answer-collapsible")) {
+        return;
+      }
+      if (!isAnswerLabel(p.textContent)) {
+        return;
+      }
+      p.replaceWith(buildAnswerDetails(p));
+    });
+
+    // Wrap answer-only blockquotes.
+    Array.from(article.querySelectorAll("blockquote")).forEach((blockquote) => {
+      if (blockquote.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstParagraph = blockquote.querySelector("p");
+      if (!firstParagraph || !isAnswerLabel(firstParagraph.textContent)) {
+        return;
+      }
+      blockquote.replaceWith(buildAnswerDetails(blockquote));
+    });
+
+    // Wrap list items that are answer lines, keeping the list structure valid.
+    Array.from(article.querySelectorAll("li")).forEach((li) => {
+      if (li.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstStrong = li.querySelector(":scope > strong");
+      if (!firstStrong || !isAnswerLabel(firstStrong.textContent)) {
+        return;
+      }
+
+      const payload = document.createElement("div");
+      while (li.firstChild) {
+        payload.appendChild(li.firstChild);
+      }
+      li.appendChild(buildAnswerDetails(payload));
+    });
+  }
+})();
+</script>
+</body>
+</html>

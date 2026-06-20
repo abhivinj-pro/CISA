@@ -1,0 +1,3573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CISA Chapter 3 — Complete Exam-Ready Notes | CISA Study Hub</title>
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  color-scheme: light;
+  --cp-bg: #f3efe6;
+  --cp-bg-elevated: #fbf8f2;
+  --cp-surface: rgba(255, 255, 255, 0.86);
+  --cp-surface-strong: rgba(255, 255, 255, 0.94);
+  --cp-surface-soft: rgba(255, 248, 238, 0.78);
+  --cp-border: rgba(113, 89, 61, 0.15);
+  --cp-border-strong: rgba(113, 89, 61, 0.28);
+  --cp-text: #1f2937;
+  --cp-text-muted: #5b6472;
+  --cp-text-soft: #7a838f;
+  --cp-accent: #c65d2e;
+  --cp-accent-hover: #a84c24;
+  --cp-accent-soft: rgba(198, 93, 46, 0.12);
+  --cp-accent-fg: #fff8f1;
+  --cp-accent-alt: #0f766e;
+  --cp-accent-alt-soft: rgba(15, 118, 110, 0.12);
+  --cp-link: #0f766e;
+  --cp-shadow: 0 24px 70px rgba(61, 43, 24, 0.14);
+  --cp-shadow-soft: 0 10px 30px rgba(61, 43, 24, 0.09);
+  --cp-overlay: rgba(251, 248, 242, 0.82);
+  --cp-highlight: rgba(198, 93, 46, 0.16);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #0d1721;
+  --cp-bg-elevated: #121f2d;
+  --cp-surface: rgba(17, 27, 39, 0.76);
+  --cp-surface-strong: rgba(19, 31, 45, 0.9);
+  --cp-surface-soft: rgba(32, 49, 68, 0.72);
+  --cp-border: rgba(148, 163, 184, 0.18);
+  --cp-border-strong: rgba(148, 163, 184, 0.34);
+  --cp-text: #e7edf5;
+  --cp-text-muted: #b0bdcb;
+  --cp-text-soft: #91a0b0;
+  --cp-accent: #f59e0b;
+  --cp-accent-hover: #f97316;
+  --cp-accent-soft: rgba(245, 158, 11, 0.16);
+  --cp-accent-fg: #111827;
+  --cp-accent-alt: #22c55e;
+  --cp-accent-alt-soft: rgba(34, 197, 94, 0.14);
+  --cp-link: #5eead4;
+  --cp-shadow: 0 26px 80px rgba(1, 6, 15, 0.45);
+  --cp-shadow-soft: 0 12px 36px rgba(1, 6, 15, 0.3);
+  --cp-overlay: rgba(9, 16, 24, 0.72);
+  --cp-highlight: rgba(245, 158, 11, 0.16);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.16), transparent 30%),
+    radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 26%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+  color: var(--cp-text);
+  font-family: "Plus Jakarta Sans", Aptos, sans-serif;
+  position: relative;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 999px;
+  filter: blur(22px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+body::before {
+  top: -12rem;
+  right: -10rem;
+  background: rgba(198, 93, 46, 0.18);
+}
+body::after {
+  bottom: -14rem;
+  left: -10rem;
+  background: rgba(15, 118, 110, 0.14);
+}
+a {
+  color: var(--cp-link);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.progress-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  box-shadow: 0 0 18px var(--cp-highlight);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 80;
+}
+.shell {
+  width: min(1480px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+.masthead {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+  align-items: stretch;
+  margin-bottom: 28px;
+}
+.hero,
+.panel,
+.chapter-card,
+.toc-panel,
+.chapter-rail,
+.content-panel,
+.tool-row,
+.callout-tile {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 24px;
+  box-shadow: var(--cp-shadow);
+  backdrop-filter: blur(18px);
+}
+.hero,
+.content-panel {
+  position: relative;
+  overflow: hidden;
+}
+.hero::before,
+.content-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 46%),
+    radial-gradient(circle at top right, var(--cp-accent-soft), transparent 30%);
+  pointer-events: none;
+}
+.hero {
+  padding: 34px;
+}
+.eyebrow {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+}
+.hero h1,
+.chapter-hero h1 {
+  margin: 18px 0 14px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 12ch;
+}
+.chapter-hero h1 {
+  max-width: none;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+.hero p,
+.chapter-hero p,
+.muted {
+  color: var(--cp-text-muted);
+  font-size: 1.02rem;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+.stat {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  box-shadow: var(--cp-shadow-soft);
+}
+.stat strong,
+.stat span {
+  display: block;
+}
+.stat strong {
+  margin-bottom: 6px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.5rem;
+}
+.hero-illustration,
+.chapter-illustration {
+  min-height: 100%;
+  padding: 26px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top left, var(--cp-accent-soft), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    var(--cp-surface-soft);
+}
+.hero-illustration svg,
+.chapter-illustration svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+.top-tools {
+  position: sticky;
+  top: 16px;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.tool-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+  align-items: center;
+  background: var(--cp-overlay);
+}
+.tool-row input {
+  min-width: 260px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  color: var(--cp-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.tool-row input:focus {
+  outline: 2px solid var(--cp-accent-soft);
+  border-color: var(--cp-accent);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--cp-shadow-soft);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+.btn:hover,
+.btn.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--cp-accent-soft));
+  color: var(--cp-text);
+}
+.btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #eb7b3a);
+  color: var(--cp-accent-fg);
+  border-color: transparent;
+  box-shadow: 0 14px 28px rgba(198, 93, 46, 0.28);
+}
+.btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 22px;
+}
+.chapter-card {
+  padding: 22px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.chapter-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  opacity: 0.92;
+}
+.chapter-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -36% auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--cp-accent-soft), transparent 65%);
+  pointer-events: none;
+}
+.chapter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 60px rgba(61, 43, 24, 0.18);
+  border-color: rgba(198, 93, 46, 0.24);
+}
+.chapter-card h2,
+.chapter-card h3 {
+  margin: 0;
+  font-size: 1.62rem;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.chapter-card h2 a {
+  color: var(--cp-text);
+}
+.chapter-card p {
+  margin: 0;
+}
+.chapter-card .chapter-subtitle {
+  margin-top: 8px;
+  color: var(--cp-text-muted);
+  font-size: 1rem;
+}
+.chapter-card .chapter-summary {
+  color: var(--cp-text-muted);
+  line-height: 1.62;
+  font-size: 1rem;
+}
+.chips,
+.quick-links,
+.chapter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--cp-surface-soft);
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text-muted);
+  font-size: 0.84rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.quick-links {
+  gap: 10px;
+}
+.quick-links .chip {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  color: var(--cp-text);
+  border-color: rgba(198, 93, 46, 0.24);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-accent-soft));
+  box-shadow: 0 8px 18px rgba(61, 43, 24, 0.12);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+.quick-links .chip:hover,
+.quick-links .chip:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.42);
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  box-shadow: 0 12px 22px rgba(61, 43, 24, 0.16);
+}
+.quick-links .chip:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.chapter-actions {
+  margin-top: 6px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.chapter-actions .btn {
+  min-height: 50px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  border-color: rgba(113, 89, 61, 0.2);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+}
+.chapter-actions .btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #dd6f33);
+  border-color: transparent;
+  color: var(--cp-accent-fg);
+  box-shadow: 0 10px 22px rgba(198, 93, 46, 0.24);
+}
+.chapter-actions .btn:hover {
+  border-color: rgba(198, 93, 46, 0.38);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--cp-accent-soft));
+}
+.chapter-actions .btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-actions .btn:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+.callout-tile {
+  padding: 20px;
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+}
+.callout-tile h3 {
+  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  box-shadow: var(--cp-shadow-soft);
+}
+.callout-tile:nth-child(1) h3 {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(14, 165, 233, 0.12));
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #1d4ed8;
+}
+.callout-tile:nth-child(2) h3 {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(249, 115, 22, 0.14));
+  border-color: rgba(245, 158, 11, 0.38);
+  color: #b45309;
+}
+.callout-tile:nth-child(3) h3 {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(20, 184, 166, 0.14));
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #047857;
+}
+.chapter-layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(250px, 320px);
+  align-items: start;
+}
+.chapter-rail,
+.toc-panel {
+  position: sticky;
+  top: 92px;
+  padding: 20px;
+  max-height: calc(100vh - 112px);
+  overflow: auto;
+  background:
+    linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface)),
+    var(--cp-overlay);
+  border: 1px solid var(--cp-border);
+  box-shadow: var(--cp-shadow-soft);
+}
+.chapter-rail nav,
+.toc-panel nav {
+  display: grid;
+  gap: 8px;
+}
+.chapter-rail .eyebrow,
+.toc-panel .eyebrow {
+  margin-bottom: 14px;
+}
+.chapter-nav-link,
+.toc-panel a {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 14px;
+  color: var(--cp-text-muted);
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-soft);
+  font-weight: 600;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, color 180ms ease;
+}
+.chapter-nav-link:hover,
+.chapter-nav-link.is-current,
+.toc-panel a:hover,
+.toc-panel a.is-active {
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border-color: var(--cp-border-strong);
+  color: var(--cp-text);
+  transform: translateX(2px);
+}
+.chapter-nav-link strong {
+  display: block;
+  margin-bottom: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+.toc-panel a {
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.content-panel {
+  padding: 26px 30px 32px;
+  background: var(--cp-surface-strong);
+}
+.chapter-hero {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.8fr);
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--cp-border);
+  margin-bottom: 24px;
+  align-items: center;
+}
+.article {
+  font-size: 1.03rem;
+  line-height: 1.82;
+}
+.article > :first-child {
+  margin-top: 0;
+}
+.article > * {
+  max-width: 74ch;
+}
+.article .table-wrap,
+.article img,
+.article pre,
+.article h2 {
+  max-width: 100%;
+}
+.article h1,
+.article h2,
+.article h3,
+.article h4,
+.article h5,
+.article h6 {
+  scroll-margin-top: 104px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--cp-text);
+}
+.article h1 {
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 2.4rem;
+}
+.article h2 {
+  margin-top: 2.4rem;
+  padding: 18px 20px;
+  border: 1px solid var(--cp-border);
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), transparent 70%);
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.7rem;
+}
+.article h3 {
+  margin-top: 1.8rem;
+  font-size: 1.24rem;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.article details.answer-collapsible {
+  margin: 18px 0;
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  box-shadow: var(--cp-shadow-soft);
+  overflow: hidden;
+}
+.article details.answer-collapsible summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  font-weight: 700;
+  color: var(--cp-text);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+}
+.article details.answer-collapsible summary::-webkit-details-marker {
+  display: none;
+}
+.article details.answer-collapsible summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 180ms ease;
+}
+.article details.answer-collapsible[open] summary::before {
+  transform: rotate(90deg);
+}
+.article details.answer-collapsible .answer-content {
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--cp-border);
+}
+.article details.answer-collapsible .answer-content > :first-child {
+  margin-top: 0;
+}
+.article details.answer-collapsible .answer-content > :last-child {
+  margin-bottom: 0;
+}
+.article hr {
+  border: 0;
+  border-top: 1px solid var(--cp-border);
+  margin: 28px 0;
+}
+.article blockquote {
+  margin: 22px 0;
+  padding: 18px 20px;
+  border-left: 4px solid var(--cp-accent);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+  border-radius: 18px;
+  box-shadow: var(--cp-shadow-soft);
+}
+.article code,
+.article pre {
+  font-family: Consolas, "Courier New", Courier, monospace;
+}
+.article :not(pre) > code {
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text);
+}
+.article pre {
+  overflow: auto;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+}
+.article ul,
+.article ol {
+  padding-left: 1.35rem;
+}
+.article li + li {
+  margin-top: 0.4rem;
+}
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+.article th,
+.article td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cp-border);
+  border-right: 1px solid var(--cp-border);
+  vertical-align: top;
+}
+.article tr:last-child td {
+  border-bottom: 0;
+}
+.article th:last-child,
+.article td:last-child {
+  border-right: 0;
+}
+.article th {
+  position: sticky;
+  top: 0;
+  background: var(--cp-surface-soft);
+  text-align: left;
+}
+.article img {
+  display: block;
+  margin: 22px 0;
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+  box-shadow: var(--cp-shadow-soft);
+}
+.toc-panel .toc,
+.toc-panel .toc ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.toc-panel .toc > ul {
+  display: grid;
+  gap: 8px;
+}
+.toc-panel .toc ul ul {
+  margin-left: 12px;
+  margin-top: 8px;
+  border-left: 1px solid var(--cp-border);
+  padding-left: 10px;
+}
+.empty-state {
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text-muted);
+  border: 1px dashed var(--cp-border-strong);
+}
+.footer-note {
+  margin-top: 22px;
+  color: var(--cp-text-soft);
+  font-size: 0.94rem;
+}
+.focus-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 75;
+  display: none;
+  min-width: 150px;
+}
+body.focus-mode {
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.08), transparent 32%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+}
+body.focus-mode .chapter-rail,
+body.focus-mode .toc-panel,
+body.focus-mode .top-tools,
+body.focus-mode .chapter-illustration {
+  display: none;
+}
+body.focus-mode .focus-fab {
+  display: inline-flex;
+}
+body.focus-mode .chapter-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+body.focus-mode .content-panel {
+  max-width: 900px;
+  margin: 0 auto;
+}
+body.focus-mode .chapter-hero {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (max-width: 1180px) {
+  .chapter-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .chapter-rail,
+  .toc-panel {
+    position: static;
+    max-height: none;
+  }
+}
+@media (max-width: 900px) {
+  .masthead,
+  .chapter-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shell {
+    width: min(100% - 24px, 1480px);
+  }
+  .hero,
+  .content-panel {
+    padding: 22px;
+  }
+  .top-tools {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .chapter-actions {
+    grid-template-columns: 1fr;
+  }
+  .hero,
+  .panel,
+  .chapter-card,
+  .toc-panel,
+  .chapter-rail,
+  .content-panel,
+  .tool-row,
+  .callout-tile {
+    border-radius: 20px;
+  }
+  .tool-row,
+  .tool-row input,
+  .btn {
+    width: 100%;
+  }
+  .focus-fab {
+    right: 12px;
+    left: 12px;
+    bottom: 14px;
+    width: auto;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="progress-bar"></div>
+  
+<div class="shell">
+  <div class="top-tools">
+    <div class="tool-row">
+      <a class="btn" href="index.html">Back to chapter index</a>
+      <button class="btn" data-action="toggle-focus">Focus mode</button>
+      <button class="btn" data-action="toggle-theme">Switch theme</button>
+    </div>
+    <div class="tool-row">
+      <input type="search" placeholder="Filter this chapter TOC" data-search data-target=".toc-panel a" data-empty-state="toc-empty">
+    </div>
+  </div>
+
+  <div class="chapter-layout">
+    <aside class="chapter-rail">
+      <p class="eyebrow">Chapters</p>
+      <nav><a class="chapter-nav-link" href="chapter1.html"><strong>Chapter 1</strong></a>
+<a class="chapter-nav-link" href="chapter2.html"><strong>Chapter 2</strong></a>
+<a class="chapter-nav-link is-current" href="chapter3.html"><strong>Chapter 3</strong></a>
+<a class="chapter-nav-link" href="chapter4.html"><strong>Chapter 4</strong></a>
+<a class="chapter-nav-link" href="chapter5.html"><strong>Chapter 5</strong></a></nav>
+    </aside>
+
+    <main class="content-panel">
+      <section class="chapter-hero">
+        <div>
+          <span class="eyebrow">Chapter 3</span>
+          <h1>CISA Chapter 3 — Complete Exam-Ready Notes</h1>
+          <p>Information Systems Acquisition, Development and Implementation</p>
+          <div class="quick-links" style="margin-top: 12px;"><a class="chip" href="#section-10-rapid-revision-sheet">Rapid Revision</a><a class="chip" href="#section-11-probable-exam-questions">Exam Questions</a><a class="chip" href="#section-12-key-concept-recap-mnemonics">Mnemonics</a></div>
+        </div>
+        <div class="panel chapter-illustration">
+<svg viewBox="0 0 360 240" role="img" aria-label="CISA NOTES emblem" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cnStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-accent)"/>
+      <stop offset="100%" stop-color="var(--cp-accent-alt)"/>
+    </linearGradient>
+    <linearGradient id="cnBadge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-surface-strong)"/>
+      <stop offset="100%" stop-color="var(--cp-surface-soft)"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="44" y="36" width="272" height="170" rx="24" fill="var(--cp-surface-strong)" stroke="var(--cp-border)" stroke-width="2"/>
+  <rect x="44" y="36" width="272" height="38" rx="24" fill="var(--cp-surface-soft)"/>
+
+  <circle cx="72" cy="55" r="5" fill="var(--cp-accent)" opacity="0.75"/>
+  <circle cx="90" cy="55" r="5" fill="var(--cp-accent-alt)" opacity="0.7"/>
+  <circle cx="108" cy="55" r="5" fill="var(--cp-border-strong)"/>
+
+  <rect x="66" y="92" width="128" height="10" rx="5" fill="var(--cp-border-strong)"/>
+  <rect x="66" y="110" width="102" height="10" rx="5" fill="var(--cp-accent-soft)"/>
+  <rect x="66" y="143" width="220" height="9" rx="4.5" fill="var(--cp-border)"/>
+  <rect x="66" y="160" width="186" height="9" rx="4.5" fill="var(--cp-border)"/>
+
+  <g transform="translate(216 88)">
+    <path d="M54 0l34 15v26c0 27-23 50-34 56C43 91 20 68 20 41V15L54 0z" fill="url(#cnBadge)" stroke="url(#cnStroke)" stroke-width="4"/>
+    <path d="M40 47l10 10 22-24" fill="none" stroke="var(--cp-accent-alt)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="180" y="124" text-anchor="middle" font-size="36" font-weight="800" letter-spacing="2.2" fill="url(#cnStroke)" font-family="Space Grotesk, Plus Jakarta Sans, sans-serif">CISA</text>
+  <text x="180" y="157" text-anchor="middle" font-size="24" font-weight="700" letter-spacing="4.5" fill="var(--cp-text-muted)" font-family="Plus Jakarta Sans, sans-serif">NOTES</text>
+</svg>
+</div>
+      </section>
+
+      <article class="article"><h1 id="cisa-chapter-3-complete-exam-ready-notes">CISA Chapter 3 — Complete Exam-Ready Notes</h1>
+<h2 id="information-systems-acquisition-development-and-implementation">Information Systems Acquisition, Development and Implementation</h2>
+<blockquote>
+<p><strong>Domain Weight:</strong> 12% of CISA exam (~18 questions)
+<strong>Source:</strong> (2024)</p>
+</blockquote>
+<hr />
+<h1 id="table-of-contents">TABLE OF CONTENTS</h1>
+<ul>
+<li><a href="#section-1-overview--domain-outline">Section 1: Overview &amp; Domain Outline</a></li>
+<li><a href="#section-2-project-governance-and-management-31">Section 2: Project Governance and Management (3.1)</a></li>
+<li><a href="#section-3-business-case-and-feasibility-analysis-32">Section 3: Business Case and Feasibility Analysis (3.2)</a></li>
+<li><a href="#section-4-system-development-methodologies-33">Section 4: System Development Methodologies (3.3)</a></li>
+<li><a href="#section-5-control-identification-and-design-34">Section 5: Control Identification and Design (3.4)</a></li>
+<li><a href="#section-6-system-readiness-and-implementation-testing-35">Section 6: System Readiness and Implementation Testing (3.5)</a></li>
+<li><a href="#section-7-implementation-configuration-and-release-management-36">Section 7: Implementation Configuration and Release Management (3.6)</a></li>
+<li><a href="#section-8-system-migration-infrastructure-deployment-and-data-conversion-37">Section 8: System Migration, Infrastructure Deployment and Data Conversion (3.7)</a></li>
+<li><a href="#section-9-postimplementation-review-38">Section 9: Postimplementation Review (3.8)</a></li>
+<li><a href="#section-10-rapid-revision-sheet">Section 10: Rapid Revision Sheet</a></li>
+<li><a href="#section-11-probable-exam-questions">Section 11: Probable Exam Questions</a></li>
+<li><a href="#section-12-key-concept-recap--mnemonics">Section 12: Key Concept Recap &amp; Mnemonics</a></li>
+</ul>
+<hr />
+<h1 id="section-1-overview-domain-outline">SECTION 1: OVERVIEW &amp; DOMAIN OUTLINE</h1>
+<h2 id="domain-coverage">Domain Coverage</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Part A: Acquisition &amp; Development</strong></td>
+<td>Project Governance, Business Case, SDLC, Control Design</td>
+</tr>
+<tr>
+<td><strong>Part B: Implementation</strong></td>
+<td>Testing, Config Management, Migration, Post-Review</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="is-auditors-core-objectives-in-this-domain">IS Auditor's Core Objectives in This Domain</h2>
+<ul>
+<li>Evaluate IT resource and project management for alignment with org strategy</li>
+<li>Determine ownership of IT risk, controls and standards</li>
+<li>Evaluate business cases for IS projects against business objectives</li>
+<li>Evaluate controls at ALL stages of the SDLC</li>
+<li>Evaluate readiness of IS for implementation and migration to production</li>
+<li>Conduct postimplementation reviews for deliverables, controls, requirements</li>
+</ul>
+<blockquote>
+<p>📌 <strong>EXAM TIP:</strong> The IS auditor's role is <strong>advisory and evaluative</strong> — not operational. The auditor advises the project team but does NOT make the final decisions.</p>
+</blockquote>
+<hr />
+<h1 id="section-2-project-governance-and-management-31">SECTION 2: PROJECT GOVERNANCE AND MANAGEMENT (3.1)</h1>
+<h2 id="21-what-is-project-governance">2.1 What is Project Governance?</h2>
+<ul>
+<li><strong>Project Governance</strong> = Structures, policies, procedures, and controls that ensure strategic and tactical alignment of projects with enterprise goals</li>
+<li>Without proper governance, ALL aspects of a project may be compromised</li>
+<li>Governance decisions should be driven through the <strong>business case</strong></li>
+<li>Must involve periodic review of benefits achieved</li>
+</ul>
+<h2 id="22-effective-project-management-factors">2.2 Effective Project Management Factors</h2>
+<p>Projects must be managed based on THREE types of factors:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Factor Type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hard Factors</strong></td>
+<td>Deliverables, quality, costs, deadlines</td>
+</tr>
+<tr>
+<td><strong>Soft Factors</strong></td>
+<td>Team dynamics, conflict resolution, leadership, culture, communication</td>
+</tr>
+<tr>
+<td><strong>Environmental Factors</strong></td>
+<td>Political/power issues, stakeholder expectations, ethical/social issues</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>💡 <strong>Simple Explanation:</strong> Hard = what you deliver; Soft = how you work together; Environmental = who's watching.</p>
+</blockquote>
+<h2 id="23-project-management-practices-311">2.3 Project Management Practices (3.1.1)</h2>
+<ul>
+<li><strong>Project Management</strong> = Application of knowledge, skills, tools and techniques to achieve a stated objective</li>
+<li>Begins with <strong>project charter</strong> → Ends with <strong>project completion</strong></li>
+<li>Key processes: <strong>Initiating → Planning → Executing → Controlling → Monitoring → Closing</strong></li>
+</ul>
+<h2 id="24-project-management-structures-312">2.4 Project Management Structures (3.1.2)</h2>
+<p>Three organizational structures determine authority within a project:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Structure</th>
+<th>PM Authority</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Functional</strong></td>
+<td>NONE (advisory only)</td>
+<td>Work broken into departments; PM can only advise</td>
+</tr>
+<tr>
+<td><strong>Project-Structured</strong></td>
+<td>FULL authority</td>
+<td>PM has formal authority over budget, schedule and team</td>
+</tr>
+<tr>
+<td><strong>Matrix</strong></td>
+<td>SHARED</td>
+<td>Authority shared between PM and department heads</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>📌 <strong>EXAM TIP:</strong> In a <strong>functional structure</strong>, the project manager has NO formal authority — can only advise. This is the weakest PM authority.</p>
+</blockquote>
+<h3 id="key-points-on-is-projects">Key Points on IS Projects:</h3>
+<ul>
+<li>Projects should be submitted to and prioritized by the <strong>IT Steering Committee</strong></li>
+<li>The IT Steering Committee identifies the project manager</li>
+<li>The PM does <strong>NOT</strong> need to be an IT staff member</li>
+<li>IS Auditor included as a <strong>control expert</strong> in an <strong>advisory role</strong> (not audit role)</li>
+<li>If IS Auditor is too involved, they may become <strong>ineligible</strong> to audit the completed application</li>
+</ul>
+<h2 id="25-project-management-roles-and-responsibilities-313">2.5 Project Management Roles and Responsibilities (3.1.3)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Key Responsibilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Project Steering Committee</strong></td>
+<td>Overall direction; ultimately responsible for deliverables, costs, schedule; includes senior reps from all affected business areas; chaired by project sponsor</td>
+</tr>
+<tr>
+<td><strong>Senior Management</strong></td>
+<td>Demonstrates commitment; approves necessary resources</td>
+</tr>
+<tr>
+<td><strong>Project Sponsor</strong></td>
+<td>Provides funding; works with PM to define critical success factors; owns data and application; typically senior manager of primary business unit</td>
+</tr>
+<tr>
+<td><strong>User Management</strong></td>
+<td>Assumes ownership of project; allocates qualified reps; participates in business process redesign, requirements, testing, training</td>
+</tr>
+<tr>
+<td><strong>User Project Team</strong></td>
+<td>Completes tasks; communicates with system developers as subject matter experts</td>
+</tr>
+<tr>
+<td><strong>Project Manager</strong></td>
+<td>Day-to-day management; ensures adherence to standards; resolves conflicts; monitors costs and timetable; facilitates scope definition</td>
+</tr>
+<tr>
+<td><strong>Quality Assurance (QA)</strong></td>
+<td>Reviews results within/at end of each phase; confirms compliance; measures adherence to SDLC; advises on deviations</td>
+</tr>
+<tr>
+<td><strong>Systems Development Management</strong></td>
+<td>Technical support; ensures system compatibility; assumes post-installation support</td>
+</tr>
+<tr>
+<td><strong>Security Officer</strong></td>
+<td>Ensures system controls provide effective protection; consults on security throughout life cycle</td>
+</tr>
+<tr>
+<td><strong>IS Security Engineer</strong></td>
+<td>Identifies security vulnerabilities; defines security architectures and designs</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>📌 <strong>EXAM TIP:</strong> The <strong>Project Sponsor</strong> is ultimately accountable for the project — they own the data and application and provide funding.</p>
+</blockquote>
+<h2 id="26-project-management-techniques-314">2.6 Project Management Techniques (3.1.4)</h2>
+<p>Three intertwining elements must always be considered:
+- <strong>Deliverables</strong> (what)
+- <strong>Duration</strong> (when)
+- <strong>Budget</strong> (how much)</p>
+<p><strong>Key Formula:</strong> R × D = TR (Resources × Duration = Total Resources)
+- This is the classic "man × month dilemma"
+- Fewer resources = longer project
+- More resources = shorter project (but with limits — LR and LD)</p>
+<h2 id="27-portfolioprogram-management-315">2.7 Portfolio/Program Management (3.1.5)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Project</strong></td>
+<td>Single initiative with specific objectives, deliverables, start/end dates</td>
+</tr>
+<tr>
+<td><strong>Program</strong></td>
+<td>Group of projects closely linked through common strategies, objectives, budgets, schedules</td>
+</tr>
+<tr>
+<td><strong>Portfolio</strong></td>
+<td>ALL projects in an enterprise at a given point in time</td>
+</tr>
+<tr>
+<td><strong>PMO (Project Management Office)</strong></td>
+<td>Permanent structure that governs project management processes; does NOT manage project content</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="program-vs-project-vs-portfolio">Program vs. Project vs. Portfolio:</h3>
+<pre><code>PORTFOLIO (all projects) ├── PROGRAM A (group of related projects) │ ├── Project A1 │ └── Project A2 ├── PROGRAM B │ └── Project B1 └── Standalone Project C
+</code></pre>
+<h3 id="program-characteristics-vs-projects">Program characteristics (vs. Projects):</h3>
+<ul>
+<li>More complex</li>
+<li>Longer duration</li>
+<li>Higher budget</li>
+<li>Higher risk</li>
+<li>Higher strategic importance</li>
+</ul>
+<h3 id="program-roles">Program Roles:</h3>
+<ul>
+<li><strong>Program Owner</strong> — distinct from project owner</li>
+<li><strong>Program Manager</strong></li>
+<li><strong>Program Team</strong></li>
+</ul>
+<h3 id="pmo-objectives-project-portfolio-management">PMO Objectives (Project Portfolio Management):</h3>
+<ol>
+<li>Optimization of the <strong>overall portfolio</strong> (not individual projects)</li>
+<li>Prioritizing and scheduling projects</li>
+<li>Resource coordination (internal and external)</li>
+<li>Knowledge transfer throughout projects</li>
+</ol>
+<h3 id="project-portfolio-database-mandatory">Project Portfolio Database (Mandatory):</h3>
+<p>Must include: owner, schedules, objectives, project type, status, cost
+Typical reports: bar chart, profit-vs-risk matrix, progress graph</p>
+<h2 id="28-project-benefits-realization-317">2.8 Project Benefits Realization (3.1.7)</h2>
+<p><strong>Benefits Realization</strong> = Ensuring IT investments deliver measurable business value</p>
+<h3 id="key-elements">Key Elements:</h3>
+<ol>
+<li>Describe benefits management</li>
+<li>Assign a measure and target</li>
+<li>Establish tracking/measuring regimen</li>
+<li>Document assumptions</li>
+<li>Establish key responsibilities</li>
+<li>Validate benefits predicted</li>
+<li>Plan the benefit to be realized</li>
+</ol>
+<h3 id="four-phases-of-benefits-realization">Four Phases of Benefits Realization:</h3>
+<ol>
+<li><strong>Planning</strong> — Plan the benefits</li>
+<li><strong>Execution</strong> — Deliver the project</li>
+<li><strong>Transition</strong> — Move to production</li>
+<li><strong>Operations</strong> — Realize and measure benefits</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Business Example (ROI Calculation):</strong>
+- Costs: Development + controls for integrity
+- Benefits: Increase in operating profits + reduction in operating costs
+- ROI = Value of benefit / Costs → compare to enterprise cost of funds (go/no-go)</p>
+<p>📌 <strong>If an enterprise consistently fails to meet ROI objectives → suggests weakness in SDLC and project management</strong></p>
+</blockquote>
+<h2 id="29-project-initiation-318">2.9 Project Initiation (3.1.8)</h2>
+<p><strong>Project Charter</strong> = Document stating objective, stakeholders, PM and sponsor
+<strong>PID (Project Initiation Document)</strong> or <strong>PRD (Project Request Document)</strong> = Authorization for project to begin</p>
+<h3 id="methods-of-project-initiation">Methods of Project Initiation:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>One-on-one meetings</strong></td>
+<td>Two-way communication between team members and PM</td>
+</tr>
+<tr>
+<td><strong>Kick-off meetings</strong></td>
+<td>PM informs team of what must be done</td>
+</tr>
+<tr>
+<td><strong>Project start workshops</strong></td>
+<td>Preferred method; ensures open communication; builds common overview</td>
+</tr>
+<tr>
+<td><strong>Combination</strong></td>
+<td>Two or more methods combined</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="210-project-objectives-319">2.10 Project Objectives (3.1.9)</h2>
+<ul>
+<li>Project objectives must be <strong>SMART</strong>: <strong>S</strong>pecific, <strong>M</strong>easurable, <strong>A</strong>ttainable, <strong>R</strong>ealistic, <strong>T</strong>imely</li>
+</ul>
+<h3 id="obs-vs-wbs">OBS vs. WBS:</h3>
+<p>| OBS (Object Breakdown Structure) | WBS (Work Breakdown Structure) |---|---|---| <strong>What it shows</strong> | Individual components of the solution and their relationships | Tasks necessary to build each OBS element | <strong>Focus</strong> | What will be built (deliverables) | How it will be built (work packages) | <strong>Format</strong> | Hierarchical (graphical or table) | Process-oriented and phased |</p>
+<h3 id="work-packages-wps-key-rules">Work Packages (WPs) — Key Rules:</h3>
+<ul>
+<li>Each WP must have a <strong>distinct owner</strong></li>
+<li>WPs must include dependencies on other WPs</li>
+<li><strong>WPs should NOT exceed 10 days</strong> in duration</li>
+<li>WPs must be <strong>independent</strong> of each other</li>
+<li>WPs must be <strong>unique</strong> (not duplicated across the WBS)</li>
+<li>Top WBS level = final deliverable/project</li>
+<li>Subdeliverables contain WPs assigned to departments</li>
+</ul>
+<h2 id="211-project-planning-3110">2.11 Project Planning (3.1.10)</h2>
+<h3 id="is-development-project-cost-estimation-methods">IS Development Project Cost Estimation Methods:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Speed</th>
+<th>Accuracy</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Analogous Estimating</strong></td>
+<td>Fastest</td>
+<td>Lowest</td>
+<td>Uses estimates from prior projects</td>
+</tr>
+<tr>
+<td><strong>Parametric Estimating</strong></td>
+<td>Fast</td>
+<td>Good</td>
+<td>Uses statistical data from past projects (hours, material costs)</td>
+</tr>
+<tr>
+<td><strong>Bottom-Up Estimating</strong></td>
+<td>Slowest</td>
+<td>Highest</td>
+<td>Estimates each activity detail; sums all up</td>
+</tr>
+<tr>
+<td><strong>Actual Costs</strong></td>
+<td>Fast</td>
+<td>Good</td>
+<td>Extrapolates from actual costs of same system in past</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="function-point-analysis-fpa">Function Point Analysis (FPA):</h3>
+<ul>
+<li><strong>FPA</strong> = Multiple-point technique for estimating complexity in large business applications</li>
+<li>Measures size based on inputs, outputs, files, interfaces, and queries</li>
+<li><strong>5 FP count values:</strong> 1. Number of user inputs 2. Number of user outputs 3. Number of user inquiries 4. Number of files 5. Number of external interfaces</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Simple</th>
+<th>Average</th>
+<th>Complex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User inputs</td>
+<td>3</td>
+<td>4</td>
+<td>6</td>
+</tr>
+<tr>
+<td>User outputs</td>
+<td>4</td>
+<td>5</td>
+<td>7</td>
+</tr>
+<tr>
+<td>User inquiries</td>
+<td>3</td>
+<td>4</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Files</td>
+<td>7</td>
+<td>10</td>
+<td>15</td>
+</tr>
+<tr>
+<td>External interfaces</td>
+<td>5</td>
+<td>7</td>
+<td>10</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>FPA = <strong>indirect</strong> measure of software size (vs. SLOC = direct)</li>
+<li>FPA works well for <strong>business applications</strong> but NOT for OSs, process control, engineering</li>
+<li>COCOMO is more appropriate for non-business software</li>
+</ul>
+<blockquote>
+<p>📌 <strong>EXAM TIP:</strong> CISA exam does NOT test FPA calculations — just understand its use and concept.</p>
+</blockquote>
+<h3 id="scheduling-techniques">Scheduling Techniques:</h3>
+<h4 id="gantt-charts">Gantt Charts:</h4>
+<ul>
+<li>Show when activities begin and end on a timeline</li>
+<li>Show concurrent and sequential activities</li>
+<li>Show resource assignments</li>
+<li>Track milestones</li>
+<li>Compare progress to baseline</li>
+<li><strong>Best for:</strong> Showing schedule visually and tracking progress</li>
+</ul>
+<h4 id="critical-path-method-cpm">Critical Path Method (CPM):</h4>
+<ul>
+<li><strong>Critical path</strong> = Longest path through a project network</li>
+<li>Activities on the critical path have <strong>zero slack time</strong></li>
+<li>Slack time = Latest possible completion time − Earliest possible completion time</li>
+<li>One critical path per network (usually)</li>
+<li>Used to identify the <strong>shortest possible project completion time</strong></li>
+<li>Supports resource leveling (leveling peaks and valleys)</li>
+</ul>
+<h4 id="pert-program-evaluation-review-technique">PERT (Program Evaluation Review Technique):</h4>
+<ul>
+<li>CPM-type technique using <strong>three estimates</strong> per activity:</li>
+<li><strong>Optimistic</strong> (best case)</li>
+<li><strong>Most likely</strong> (based on experience)</li>
+<li><strong>Pessimistic</strong> (worst case)</li>
+<li><strong>PERT Formula:</strong> <code>(Optimistic + Pessimistic + 4 × Most Likely) / 6</code></li>
+<li>Follows a <strong>beta statistical distribution</strong> → allows confidence levels</li>
+<li>Best for projects with <strong>uncertain durations</strong> (e.g., R&amp;D, complex software)</li>
+<li><strong>PERT advantage over CPM:</strong> Incorporates probability/uncertainty</li>
+</ul>
+<h4 id="timebox-management">Timebox Management:</h4>
+<ul>
+<li>Fixed time period + predetermined resources</li>
+<li>Used in <strong>prototyping and RAD approaches</strong></li>
+<li><strong>Key advantage:</strong> Prevents cost overruns and delays</li>
+<li>Design/development phase shortened via newer tools</li>
+<li>UAT and system testing performed together</li>
+</ul>
+<blockquote>
+<p>📌 <strong>Comparison: Gantt vs CPM vs PERT</strong></p>
+</blockquote>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Gantt Chart</th>
+<th>CPM</th>
+<th>PERT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shows timeline</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Shows dependencies</td>
+<td>Partially</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Handles uncertainty</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Identifies critical path</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Visual scheduling</td>
+<td>Complex projects</td>
+<td>Uncertain projects</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="212-project-execution-3111">2.12 Project Execution (3.1.11)</h2>
+<ul>
+<li>PM + PMO start actual execution after planning is complete</li>
+<li>Monitoring of internal team production and quality metrics begins</li>
+<li>Key success factor: oversight of integrated team across requirements → architecture → design → development → testing → implementation → production</li>
+</ul>
+<h2 id="213-project-controlling-and-monitoring-3112">2.13 Project Controlling and Monitoring (3.1.12)</h2>
+<h3 id="management-of-scope-changes">Management of Scope Changes:</h3>
+<ul>
+<li>Changes to scope → changes in activities → impact on deadlines and budget</li>
+<li>Only <strong>stakeholders</strong> can submit change requests</li>
+<li>Change requests go to → Project Manager → <strong>Change Advisory Board</strong> → Project Sponsor (for final approval/rejection)</li>
+<li>All change requests must be <strong>archived</strong></li>
+</ul>
+<h3 id="earned-value-analysis-eva">Earned Value Analysis (EVA):</h3>
+<p>Used to determine if actual spending is in line with planned spending.</p>
+<p><strong>EVA Metrics:</strong>
+- Budget to date
+- Actual spending to date
+- Estimate to complete
+- Estimate at completion</p>
+<blockquote>
+<p>💡 <strong>Simple Example:</strong> If a 3-day task (8hrs/day = 24hrs total) has 8 hrs spent, but the employee says they need 20 more hours (instead of 16) → project is <strong>overrun</strong>!</p>
+</blockquote>
+<h3 id="management-of-risk">Management of Risk:</h3>
+<p>Two categories of project risk:
+1. <strong>Risk impacting business benefits</strong> → Project Sponsor is responsible
+2. <strong>Risk impacting the project itself</strong> → Project Manager is responsible</p>
+<h2 id="214-project-closing-3113">2.14 Project Closing (3.1.13)</h2>
+<ul>
+<li>System handed over to users and/or system support staff</li>
+<li>Outstanding issues must be assigned</li>
+<li>Project Sponsor must be satisfied before closure</li>
+<li>Relevant documentation and duties are handed off</li>
+<li>Team identifies <strong>lessons learned</strong></li>
+<li>Metrics: <strong>TCO (Total Cost of Ownership)</strong> and <strong>ROI</strong></li>
+</ul>
+<blockquote>
+<p><strong>Post-project review</strong> (formal) = done at end of project
+<strong>Postimplementation review</strong> = done months AFTER the project is in production</p>
+</blockquote>
+<h2 id="215-is-auditors-role-in-project-management-3114">2.15 IS Auditor's Role in Project Management (3.1.14)</h2>
+<h3 id="tracking-information-in-change-management-system-includes">Tracking information in change management system includes:</h3>
+<ul>
+<li>History of all work order activity (date, programmer assigned, changes made, date closed)</li>
+<li>History of logons/logoffs by programmers</li>
+<li>History of program deletions</li>
+<li>Adequacy of SoD and QA activities</li>
+</ul>
+<h3 id="is-auditor-tasks-include">IS Auditor Tasks Include:</h3>
+<ol>
+<li>Meet with key development team members to identify control areas</li>
+<li>Discuss appropriate controls to rank major risks</li>
+<li>Evaluate available controls and advise on system design</li>
+<li>Periodically review documentation and deliverables</li>
+<li>Identify and test existing controls for production library security</li>
+<li>Review and analyze test plans</li>
+<li>Analyze test results and audit evidence</li>
+<li>Participate in postimplementation reviews</li>
+</ol>
+<hr />
+<h1 id="section-3-business-case-and-feasibility-analysis-32">SECTION 3: BUSINESS CASE AND FEASIBILITY ANALYSIS (3.2)</h1>
+<h2 id="31-business-case">3.1 Business Case</h2>
+<ul>
+<li><strong>Business Case</strong> = Information required for an enterprise to decide whether a project should proceed</li>
+<li>Answers: "Why should this project be undertaken and/or continued?"</li>
+<li>Should be a key element of decision process <strong>throughout</strong> the project life cycle</li>
+<li><strong>Stage gates / Kill points</strong> = Decision points at which business case is formally reviewed</li>
+</ul>
+<blockquote>
+<p>📌 If business case changes during an IT project → project must be <strong>reapproved</strong> through departmental planning and approval process</p>
+</blockquote>
+<h2 id="32-feasibility-study">3.2 Feasibility Study</h2>
+<p>A feasibility study is an early study to assess if a solution is practical within established budgets and schedules.</p>
+<h3 id="six-elements-of-a-feasibility-study">Six Elements of a Feasibility Study:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Element</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Project Scope</strong></td>
+<td>Clear, concise definition of the business problem/opportunity</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Current Analysis</strong></td>
+<td>Understanding of existing system; identifies strengths and weaknesses</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Requirements</strong></td>
+<td>Definition of requirements based on stakeholder needs and constraints (business, contractual, regulatory, end-user, technical)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Approach</strong></td>
+<td>Course of action to satisfy requirements; identifies alternatives and rationale (build vs. buy)</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Evaluation</strong></td>
+<td>Examination of cost-effectiveness; includes cost comparison, schedule, ROI</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Review</strong></td>
+<td>Formal review by all stakeholders; approve/reject/request corrections; all sign the document if approved</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>🧠 <strong>Mnemonic for Feasibility Study:</strong> <strong>"SCRAE R"</strong> — <strong>S</strong>cope, <strong>C</strong>urrent, <strong>R</strong>equirements, <strong>A</strong>pproach, <strong>E</strong>valuation, <strong>R</strong>eview</p>
+</blockquote>
+<h2 id="33-is-auditors-role-in-business-case-feasibility-study">3.3 IS Auditor's Role in Business Case / Feasibility Study</h2>
+<p><strong>When reviewing a feasibility study, the IS auditor should:</strong>
+- Review and evaluate the criticality of business and IS requirements
+- Determine if existing systems can solve the problem
+- Determine reasonableness of chosen solution
+- Determine if all cost justifications/benefits are verifiable
+- Review documentation for reasonableness</p>
+<p><strong>For requirements definition, IS auditor should:</strong>
+- Verify accuracy and completeness via user interviews
+- Identify key team members; verify all user groups were represented
+- Verify management approval of project initiation and cost
+- Review conceptual design specifications for user needs
+- Review UAT specifications
+- Determine if application is a candidate for embedded audit routine</p>
+<hr />
+<h1 id="section-4-system-development-methodologies-33">SECTION 4: SYSTEM DEVELOPMENT METHODOLOGIES (3.3)</h1>
+<h2 id="41-business-application-development-331">4.1 Business Application Development (3.3.1)</h2>
+<h3 id="two-types-of-business-applications">Two Types of Business Applications:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Objective</th>
+<th>Development Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Organization-Centric</strong></td>
+<td>Collect, store, share information on need-to-know basis; regulatory compliance</td>
+<td>Traditional SDLC or software engineering</td>
+</tr>
+<tr>
+<td><strong>End-User-Centric</strong></td>
+<td>Different views of data for performance optimization; includes DSS, GIS</td>
+<td>Alternative development approaches</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="business-application-projects-triggered-by">Business Application Projects Triggered By:</h3>
+<ul>
+<li>New opportunity related to existing/new business process</li>
+<li>Problem with existing business process</li>
+<li>New technology opportunity</li>
+<li>Problem with current technology</li>
+<li>Need to align with business partners/industry standards</li>
+</ul>
+<blockquote>
+<p>Key: Business objectives must be <strong>SMART</strong> — translated into key business drivers for all affected parties</p>
+</blockquote>
+<h2 id="42-sdlc-models-332">4.2 SDLC Models (3.3.2)</h2>
+<h3 id="three-sdlc-models">Three SDLC Models:</h3>
+<h4 id="1-traditional-waterfall-model">1. Traditional Waterfall Model</h4>
+<ul>
+<li>Sequential, systematic approach</li>
+<li>Each phase flows into the next (like a waterfall)</li>
+<li>Best when: requirements are <strong>stable and well-defined</strong></li>
+<li>Primary advantage: Provides a template for all methods</li>
+</ul>
+<p><strong>Waterfall Problems:</strong>
+- Unanticipated events create iterations (difficulty)
+- Difficult to get explicit requirements upfront
+- User patience required (no working system until late)
+- Changing business environment alters requirements before delivery</p>
+<h4 id="2-v-shaped-model-verification-and-validation">2. V-Shaped Model (Verification and Validation)</h4>
+<ul>
+<li>Emphasizes relationship between development phases and testing levels</li>
+<li>Most granular testing (unit test) occurs right after coding</li>
+<li><strong>Highly disciplined</strong> with strict phases and verification throughout</li>
+</ul>
+<pre><code>User Requirements ←→ Acceptance Testing Functional Req ←→ System Test Architectural ←→ Integration Test Detailed Design ←→ Unit Test [CODING]
+</code></pre>
+<p><strong>V-Shape Problems:</strong>
+- Inflexible for complex or high-change projects
+- Concurrent dependencies may cause delays
+- Overreliance on documentation → less time for development</p>
+<h4 id="3-iterative-model">3. Iterative Model</h4>
+<ul>
+<li>Cyclical process: requirements → design → build → test → repeat</li>
+<li>Each iteration incrementally improves the process</li>
+<li>Suitable for <strong>large projects</strong>; allows independent features delivered periodically</li>
+</ul>
+<p><strong>Iterative Problems:</strong>
+- More complex project management needed
+- Risk analysis required more frequently by qualified resources
+- Overall project completion date may be ambiguous</p>
+<blockquote>
+<p>📌 <strong>Comparison Table:</strong></p>
+</blockquote>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Waterfall</th>
+<th>V-Shaped</th>
+<th>Iterative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flexibility</td>
+<td>Low</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Testing emphasis</td>
+<td>End</td>
+<td>Throughout</td>
+<td>End of each iteration</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Stable requirements</td>
+<td>Small, disciplined projects</td>
+<td>Large/complex projects</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>High</td>
+<td>Very High</td>
+<td>Low-Medium</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="43-sdlc-phases-333">4.3 SDLC Phases (3.3.3)</h2>
+<h3 id="the-6-sdlc-phases">The 6 SDLC Phases:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Name</th>
+<th>Key Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Feasibility Study</strong></td>
+<td>Determine strategic benefits; develop business case; identify ROI</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Requirements Definition</strong></td>
+<td>Define what system should do; identify stakeholders and requirements</td>
+</tr>
+<tr>
+<td>3A</td>
+<td><strong>Software Selection &amp; Acquisition</strong> (purchased)</td>
+<td>RFP to vendors; evaluate and select vendor package</td>
+</tr>
+<tr>
+<td>3B</td>
+<td><strong>Design</strong> (in-house)</td>
+<td>Detailed system design; flowcharts; program specs; test plans</td>
+</tr>
+<tr>
+<td>4A</td>
+<td><strong>Configuration</strong> (purchased)</td>
+<td>Configure system to enterprise needs; set control parameters</td>
+</tr>
+<tr>
+<td>4B</td>
+<td><strong>Development</strong> (in-house)</td>
+<td>Coding; unit testing; data conversion programs</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Final Testing &amp; Implementation</strong></td>
+<td>UAT; certification/accreditation; production migration</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Postimplementation</strong></td>
+<td>Review adequacy; measure ROI; document lessons learned</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>💡 <strong>Purchased software replaces Design + Development with Selection + Configuration</strong></p>
+</blockquote>
+<h3 id="phase-2-requirements-definition-critical">Phase 2 — Requirements Definition (Critical):</h3>
+<p>The IS auditor should pay close attention to:
+- Involvement of security engineering team
+- CIA (Confidentiality, Integrity, Availability) controls throughout data life cycle
+- Adequate audit trails defined as part of the system
+- Regulatory, statutory and legal requirements</p>
+<h3 id="phase-3b-design-key-activities">Phase 3B — Design Key Activities:</h3>
+<ul>
+<li>System flowcharts and entity relationship models</li>
+<li>Inputs/outputs (screen designs, reports)</li>
+<li>Processing steps and computation rules</li>
+<li>Data file/database design</li>
+<li>Program specifications</li>
+<li><strong>Test plans</strong> for: Unit, Subsystem, Integration, Interface, Load/Init, Stress, Security, Backup/Recovery</li>
+<li>Data conversion plans</li>
+<li>Risk assessment of data flows (including personal data protection)</li>
+</ul>
+<h3 id="phase-3b-software-baselining-design-freeze">Phase 3B — Software Baselining (Design Freeze):</h3>
+<ul>
+<li><strong>Software Baseline</strong> = Cutoff point in design; also called <strong>design freeze</strong></li>
+<li>Changes only after cost-benefit analysis and formal approval</li>
+<li>Prevents <strong>scope creep</strong> (requirements changing during development)</li>
+<li>Establishes configuration management (version numbers for work products)</li>
+<li>Work products = functional requirements, specifications, test plans</li>
+</ul>
+<h3 id="phase-4b-development-key-activities">Phase 4B — Development Key Activities:</h3>
+<ul>
+<li>Program coding standards (internal documentation, data declaration, I/O techniques)</li>
+<li>Structured programming techniques (cohesion and coupling)</li>
+<li><strong>Cohesion</strong> = Each program performs a single dedicated function</li>
+<li><strong>Coupling</strong> = Independence from other programs</li>
+<li>Higher cohesion + lower coupling = easier maintenance</li>
+</ul>
+<h3 id="programming-debugging-tools">Programming Debugging Tools:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Logic Path Monitors</strong></td>
+<td>Report sequence of events performed; identify logic errors</td>
+</tr>
+<tr>
+<td><strong>Memory Dumps</strong></td>
+<td>Picture of internal memory at a point in time; identify data inconsistencies</td>
+</tr>
+<tr>
+<td><strong>Output Analyzers</strong></td>
+<td>Compare expected vs. actual results</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="programming-languages">Programming Languages:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High-level general-purpose</td>
+<td>COBOL, C</td>
+</tr>
+<tr>
+<td>Object-oriented</td>
+<td>C++, Java</td>
+</tr>
+<tr>
+<td>IDEs</td>
+<td>Visual Studio, JBuilder</td>
+</tr>
+<tr>
+<td>Web scripting</td>
+<td>HTML, JavaScript, CSS</td>
+</tr>
+<tr>
+<td>Data-centric</td>
+<td>R, Scala, SAS</td>
+</tr>
+<tr>
+<td>Scripting</td>
+<td>Python, Perl, Shell</td>
+</tr>
+<tr>
+<td>4GLs</td>
+<td>FOCUS, Natural, dBase</td>
+</tr>
+<tr>
+<td>AI/Expert Systems</td>
+<td>Lisp, Prolog</td>
+</tr>
+<tr>
+<td>Low code/no code (LCNC)</td>
+<td>Removes traditional developers from process</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="risks-associated-with-software-development">Risks Associated with Software Development:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Risk Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strategic Risk</strong></td>
+<td>Business goals weighted without enterprise strategy</td>
+</tr>
+<tr>
+<td><strong>Business/Benefit Risk</strong></td>
+<td>New system doesn't meet business needs/expectations</td>
+</tr>
+<tr>
+<td><strong>Project/Delivery Risk</strong></td>
+<td>Exceeds financial resources; delivered late or not at all</td>
+</tr>
+<tr>
+<td>- Within project</td>
+<td>Wrong requirements; unmanaged time/cost</td>
+</tr>
+<tr>
+<td>- With suppliers</td>
+<td>Failure to communicate; late/deficient delivery</td>
+</tr>
+<tr>
+<td>- Within enterprise</td>
+<td>Stakeholders not committed; changing priorities</td>
+</tr>
+<tr>
+<td>- External environment</td>
+<td>Customers, competitors, regulations, economic conditions</td>
+</tr>
+<tr>
+<td>- With technology</td>
+<td>Chosen tech displaced; marketplace incompatibility</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Root cause of problems:</strong> Lack of discipline in managing software development process</p>
+<h2 id="44-software-development-methods-335">4.4 Software Development Methods (3.3.5)</h2>
+<h3 id="method-1-prototyping-evolutionary-development">Method 1: Prototyping (Evolutionary Development)</h3>
+<ul>
+<li>Quickly builds a working model to test aspects of design and get early user feedback</li>
+<li>Two approaches: 1. Build model → create design → develop real system 2. Gradually build actual production system using 4GL</li>
+</ul>
+<p><strong>Prototyping Risks:</strong>
+- Pressure to implement early prototype without refinement
+- Missing controls (backup recovery, security, audit trails)
+- Change control becomes complicated (changes rarely documented)
+- Functions/extras added beyond initial requirements</p>
+<h3 id="method-2-rapid-application-development-rad">Method 2: Rapid Application Development (RAD)</h3>
+<p>Enables fast development of strategically important systems while reducing cost and maintaining quality.</p>
+<p><strong>RAD uses:</strong>
+- Small, well-trained development teams
+- Evolutionary prototypes
+- Integrated power tools (modeling, prototyping, component reusability)
+- Central repository
+- Interactive requirements and design workshops
+- <strong>Rigid limits on development time frames</strong></p>
+<p><strong>RAD's 4 Major Stages:</strong>
+1. <strong>Concept Definition</strong> — Business functions and scope
+2. <strong>Functional Design</strong> — Workshops; model data/processes; working prototype
+3. <strong>Development</strong> — Physical database and application; conversion system; user aids
+4. <strong>Deployment</strong> — Final testing, training, data conversion, implementation</p>
+<blockquote>
+<p>RAD supports individual application development; does NOT support planning/analysis for the enterprise as a whole</p>
+</blockquote>
+<h3 id="method-3-agile-development">Method 3: Agile Development</h3>
+<p><strong>Core philosophy:</strong> Not all requirements can be articulated upfront → use iterative, incremental approach</p>
+<p><strong>Common Agile methods:</strong>
+- <strong>Scrum</strong> (most popular)
+- Extreme Programming (XP)
+- Crystal, ASD, FDD, DSDM</p>
+<p><strong>Agile Characteristics:</strong>
+- Small, time-boxed subprojects (<strong>sprints</strong> in Scrum)
+- Replanning at end of each iteration
+- Heavy reliance on <strong>tacit knowledge</strong> (knowledge in people's heads)
+- Small co-located teams with business AND technical representatives
+- Daily stand-up meetings with strict time limits
+- <strong>Pair-wise programming</strong> (two persons code same part)
+- Project manager as <strong>facilitator and advocate</strong> (not planner/monitor)
+- Planning and control <strong>delegated to the team</strong></p>
+<p><strong>Agile does NOT emphasize:</strong>
+- Detailed documentation
+- Managing a requirements baseline
+- Defined and repeatable processes</p>
+<blockquote>
+<p>📌 <strong>EXAM TIP:</strong> Agile relies heavily on <strong>tacit knowledge</strong>. Documentation is secondary to working functionality.</p>
+</blockquote>
+<h3 id="agile-vs-traditional-sdlc-comparison">Agile vs. Traditional SDLC Comparison:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Traditional SDLC</th>
+<th>Agile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requirements</td>
+<td>All defined upfront</td>
+<td>Evolve iteratively</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Heavy</td>
+<td>Minimal</td>
+</tr>
+<tr>
+<td>Planning</td>
+<td>Full project plan</td>
+<td>Only next iteration</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>At end</td>
+<td>Continuous</td>
+</tr>
+<tr>
+<td>Change</td>
+<td>Controlled</td>
+<td>Embraced</td>
+</tr>
+<tr>
+<td>User involvement</td>
+<td>Periodic</td>
+<td>Continuous</td>
+</tr>
+<tr>
+<td>Team size</td>
+<td>Large</td>
+<td>Small</td>
+</tr>
+<tr>
+<td>Tacit knowledge</td>
+<td>Low reliance</td>
+<td>High reliance</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="method-4-object-oriented-system-development-oosd">Method 4: Object-Oriented System Development (OOSD)</h3>
+<ul>
+<li>Groups data and procedures into <strong>objects</strong> (contrast to traditional: data separate from procedures)</li>
+<li><strong>Object attributes</strong> = data</li>
+<li><strong>Object methods</strong> = functionality</li>
+<li>Objects created from <strong>classes</strong> (templates)</li>
+<li><strong>Superclasses</strong> = parent; <strong>Subclasses</strong> = inherit parent characteristics</li>
+<li><strong>Polymorphism</strong> = same message interpreted differently by different object types</li>
+<li><strong>UML (Unified Modeling Language)</strong> = standard notation for object-oriented projects</li>
+</ul>
+<p><strong>OOSD Advantages:</strong>
+- Manages unrestricted variety of data types
+- Models complex relationships
+- Meets demands of changing environment</p>
+<p><strong>Applications:</strong> Web apps, e-business, AI, office automation, CAM</p>
+<h3 id="method-5-component-based-development">Method 5: Component-Based Development</h3>
+<ul>
+<li>Assembling applications from pre-written executable packages (components)</li>
+<li>Components communicate through defined interfaces</li>
+</ul>
+<p><strong>Types of Components:</strong> | Type | Description |------|-------------| In-process client | Run within a parent container (app, VM, applet) | Stand-alone client | Well-known examples: Excel, Word | Stand-alone server | Web services, app servers, LDAP directories | In-process server | Run on servers within containers (e.g., Oracle JavaBeans) |</p>
+<p><strong>Benefits:</strong> Reduces time, improves quality, allows focus on business functionality, promotes modularity, reduces cost, supports multiple environments</p>
+<p><strong>Risks:</strong>
+- Lack of interoperability standards between components
+- Reduced system reliability
+- Unintended system use
+- Increased vulnerability/attack surface
+- Licensing problems</p>
+<h3 id="method-6-web-based-application-development">Method 6: Web-Based Application Development</h3>
+<ul>
+<li>Uses <strong>SOAP</strong> (Simple Object Access Protocol) — XML-based; defines APIs; loosely coupled components</li>
+<li><strong>WSDL</strong> (Web Services Description Language) — XML-based; identifies SOAP specification</li>
+<li><strong>UDDI</strong> (Universal Description, Discovery and Integration) — XML-based; electronic directory for web services</li>
+<li>Buffer overflows remain a key risk (existed since early programming)</li>
+</ul>
+<h3 id="method-7-software-reengineering">Method 7: Software Reengineering</h3>
+<ul>
+<li>Updates existing system by extracting and reusing design/program components</li>
+<li><strong>BPR (Business Process Reengineering)</strong> = thorough analysis and significant redesign of business processes for better performance</li>
+</ul>
+<p><strong>BPR Steps:</strong>
+1. Define areas to review
+2. Develop a project plan
+3. Gain understanding of the process under review
+4. Redesign and streamline the process
+5. Implement and monitor the new process
+6. Establish a continuous improvement process</p>
+<blockquote>
+<p>⚠️ <strong>IS Auditor's BPR Concern:</strong> Key controls may be <strong>reengineered out</strong> of business processes. If a preventive control is removed, management must be made <strong>immediately aware</strong> and accept the potential risk. The IS auditor does NOT recommend reinserting all old controls.</p>
+</blockquote>
+<h3 id="benchmarking-process">Benchmarking Process:</h3>
+<p>6 steps: <strong>Plan → Research → Observe → Analyze → Adopt → Improve</strong></p>
+<h3 id="reverse-engineering">Reverse Engineering:</h3>
+<ul>
+<li>Studying a system to see how it works → use info to develop a similar system</li>
+<li>Methods: Decompiling object/executable code; black-box testing</li>
+<li>Advantages: Faster development; introduces improvements</li>
+<li><strong>Risk:</strong> Software license agreements often prohibit reverse engineering!</li>
+</ul>
+<h3 id="devops-devsecops">DevOps / DevSecOps:</h3>
+<ul>
+<li><strong>DevOps</strong> = Integration of development and operations to eliminate conflicts/barriers</li>
+<li>Changes control environment → IS auditor must ensure proper <strong>SoD</strong></li>
+<li><strong>DevSecOps</strong> = Promotes security-by-design; reduces likelihood of vulnerabilities</li>
+</ul>
+<h2 id="45-system-development-tools-336">4.5 System Development Tools (3.3.6)</h2>
+<h3 id="case-computer-aided-software-engineering">CASE (Computer-Aided Software Engineering):</h3>
+<p>Automated tools for software development process.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Upper CASE</strong></td>
+<td>Business and application requirements documentation (data objects, relationships, process definitions)</td>
+</tr>
+<tr>
+<td><strong>Middle CASE</strong></td>
+<td>Detailed design (screen layouts, editing criteria, data organization, process flows)</td>
+</tr>
+<tr>
+<td><strong>Lower CASE</strong></td>
+<td>Program code and database generation from detailed design specs</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>IS Auditor CASE concerns:</strong>
+- CASE tools help design but do NOT ensure design is correct
+- CASE tools must complement existing methodology
+- Integrity of data moved between CASE tools must be monitored
+- Changes to application must be reflected in CASE data
+- CASE repository must be secured (need-to-know) with strict version control</p>
+<h3 id="fourth-generation-languages-4gls">Fourth-Generation Languages (4GLs):</h3>
+<p><strong>Characteristics:</strong>
+- Nonprocedural (event-driven, object-oriented concepts)
+- Environmental independence (portable across architectures)
+- Software facilities (screen design, graphical outputs)
+- Programmer workbench concepts (part of IDE)
+- Simple language subsets for less-skilled users</p>
+<p><strong>4GL Categories:</strong> | Category | Description |----------|-------------| Query/Report Generators | Extract and produce reports (audit software) | Embedded Database 4GLs | Self-contained DBMS; may not integrate well with other systems | Relational Database 4GLs | High-level products for DBMS systems (SQL+, MANTIS) | Application Generators | Generate 3GL code (COBOL, C) for further customization |</p>
+<h2 id="46-hardwaresoftware-acquisition-338">4.6 Hardware/Software Acquisition (3.3.8)</h2>
+<p><strong>RFP (Request for Proposal)</strong> / <strong>ITT (Invitation to Tender)</strong> = specifications distributed to vendors</p>
+<h3 id="acquisition-steps">Acquisition Steps:</h3>
+<ol>
+<li>Testimonials/visits with other users</li>
+<li>Provisions for competitive bidding</li>
+<li>Analysis of bids against requirements</li>
+<li>Comparison using predefined evaluation criteria</li>
+<li>Analysis of vendor's financial condition</li>
+<li>Analysis of vendor's maintenance and support capability</li>
+<li>Review of delivery schedules</li>
+<li><strong>Pedigree of hardware</strong> (verify not from gray market)</li>
+<li>Analysis of security and control facilities</li>
+<li>Review and negotiation of price</li>
+<li>Review of contract terms (warranties, penalties, <strong>right-to-audit clauses</strong>)</li>
+<li>Prepare formal written report summarizing analysis</li>
+</ol>
+<h3 id="vendor-evaluation-criteria">Vendor Evaluation Criteria:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Project Schedule</strong></td>
+<td>Vendor's timetable for start, end, milestones</td>
+</tr>
+<tr>
+<td><strong>Turnaround Time</strong></td>
+<td>Time to fix a problem from logging</td>
+</tr>
+<tr>
+<td><strong>Response Time</strong></td>
+<td>Time system takes to respond to a query</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>Useful work per unit time (Kbps, Mbps, Gbps)</td>
+</tr>
+<tr>
+<td><strong>Workload</strong></td>
+<td>Capacity to handle required volume</td>
+</tr>
+<tr>
+<td><strong>Compatibility</strong></td>
+<td>Existing apps can run on new system</td>
+</tr>
+<tr>
+<td><strong>Capacity</strong></td>
+<td>Handle simultaneous requests and data volume</td>
+</tr>
+<tr>
+<td><strong>Utilization</strong></td>
+<td>System availability vs. downtime</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="47-system-software-acquisition-339">4.7 System Software Acquisition (3.3.9)</h2>
+<p><strong>Four software acquisition cases:</strong>
+1. Generic business process — no customization needed
+2. Vendor software needs customization
+3. Software needs to be developed by vendor
+4. Software available as SaaS (cloud)</p>
+<p><strong>RFP Contents (Figure 3.21 key items):</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Key Point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product vs. system requirements</td>
+<td>Product should come as close as possible to requirements</td>
+</tr>
+<tr>
+<td>Product scalability and interoperability</td>
+<td>Must grow/contract with enterprise; connect with other systems</td>
+</tr>
+<tr>
+<td>Customer references</td>
+<td>Validate vendor claims</td>
+</tr>
+<tr>
+<td><strong>Vendor security requirements</strong></td>
+<td>Protect data to enterprise's risk tolerance; include right-to-audit</td>
+</tr>
+<tr>
+<td>Vendor viability/financial stability</td>
+<td>Must show evidence of stability</td>
+</tr>
+<tr>
+<td>Complete documentation</td>
+<td>Level of documentation indicates quality of design</td>
+</tr>
+<tr>
+<td>Vendor support</td>
+<td>24/7 helpline, training, upgrades, maintenance</td>
+</tr>
+<tr>
+<td><strong>Source code availability</strong></td>
+<td>Via software escrow agreement (third party holds source code)</td>
+</tr>
+<tr>
+<td>Years of experience</td>
+<td>More = stability</td>
+</tr>
+<tr>
+<td>Recent/planned enhancements</td>
+<td>Short list = not being kept current</td>
+</tr>
+<tr>
+<td>Current users</td>
+<td>More users = wider acceptance</td>
+</tr>
+<tr>
+<td>Acceptance testing</td>
+<td>Allowed before purchasing commitment</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Software Escrow Agreement:</strong> Third party holds source code → enterprise can access it if vendor goes out of business</p>
+<hr />
+<h1 id="section-5-control-identification-and-design-34">SECTION 5: CONTROL IDENTIFICATION AND DESIGN (3.4)</h1>
+<h2 id="51-application-controls-341">5.1 Application Controls (3.4.1)</h2>
+<p><strong>Application Controls</strong> = Controls over input, processing and output functions</p>
+<p><strong>Goals:</strong>
+- Only complete, accurate and valid data entered and updated
+- Processing accomplishes the correct task
+- Processing results meet expectations
+- Data are maintained</p>
+<p>Controls achieve: <strong>data integrity and reliability</strong> → systems maintain integrity → functions operate as intended → information is relevant, reliable, secure and available</p>
+<h3 id="inputorigination-controls">Input/Origination Controls</h3>
+<p><strong>Input Authorization Types:</strong> | Type | Description |------|-------------| Signatures on batch forms | Evidence of proper authorization | Online access controls | Only authorized individuals can access/perform functions | Unique passwords | Enhanced by MFA; provide accountability | Terminal/workstation identification | Limits input to specific devices | Source documents | Record the data; well-designed docs increase speed and accuracy | Input data validation | Ensures expected format; prevents malicious activity |</p>
+<p><strong>Accountability Controls (Input):</strong>
+- <strong>SoD</strong> — No individual can: originate AND authorize AND verify AND distribute
+- <strong>Activity reports</strong> — Details of activity volume and hours; reviewed for authorized hours
+- <strong>Violation reports</strong> — Unsuccessful/unauthorized access attempts; indicates terminal, date, time</p>
+<h3 id="batch-controls-and-balancing">Batch Controls and Balancing</h3>
+<p><strong>Types of Batch Control Totals:</strong> | Type | Description |------|-------------| <strong>Total Monetary Amount</strong> | Sum of monetary values must match batch documents | <strong>Total Items</strong> | Count of items in batch must match processed count | <strong>Total Documents</strong> | Count of documents in batch must match processed count | <strong>Hash Totals</strong> | Total of non-value numeric fields (dates, customer numbers) — has no informative value alone; provides completeness assurance |</p>
+<p><strong>Batch Balancing Types:</strong>
+- <strong>Batch Registers</strong> — Record batch totals for comparison with system totals
+- <strong>Control Accounts</strong> — Initial edit file determines totals; reconciled with master file
+- <strong>Computer Agreement</strong> — Compares batch header details to calculated totals; accept or reject</p>
+<p><strong>Input Error Handling Options:</strong> | Option | Description |--------|-------------| Reject only error transactions | Rest of batch processed | Reject whole batch | Batch held for correction | Hold batch in suspense | Not rejected; held pending correction | Accept and flag errors | Batch processed; error transactions flagged |</p>
+<h3 id="data-validation-edits-critical-exam-area">Data Validation Edits (CRITICAL EXAM AREA!)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Edit Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sequence Check</strong></td>
+<td>Control numbers follow sequential order; duplicates rejected</td>
+<td>Invoices numbered 12001-15045; number &gt;15045 is rejected</td>
+</tr>
+<tr>
+<td><strong>Limit Check</strong></td>
+<td>Data should not exceed predetermined amount</td>
+<td>Payroll check ≤ $4,000</td>
+</tr>
+<tr>
+<td><strong>Range Check</strong></td>
+<td>Data within predetermined range of values</td>
+<td>Product codes 100-250 only</td>
+</tr>
+<tr>
+<td><strong>Validity Check</strong></td>
+<td>Data matches predetermined criteria</td>
+<td>Marital status only M or S</td>
+</tr>
+<tr>
+<td><strong>Reasonableness Check</strong></td>
+<td>Data matched to predetermined reasonable limits</td>
+<td>Widget order &gt; 20 flagged</td>
+</tr>
+<tr>
+<td><strong>Table Lookups</strong></td>
+<td>Data complies with values in a computerized table</td>
+<td>City code 1-10 matched to city name table</td>
+</tr>
+<tr>
+<td><strong>Existence Check</strong></td>
+<td>Data entered correctly and agrees with valid criteria</td>
+<td>Valid transaction code must exist</td>
+</tr>
+<tr>
+<td><strong>Key Verification</strong></td>
+<td>Keying repeated by separate person; compared to original</td>
+<td>Worker number keyed twice and compared</td>
+</tr>
+<tr>
+<td><strong>Check Digit</strong></td>
+<td>Mathematical value appended to data to detect errors</td>
+<td><strong>DETECTS TRANSPOSITION AND TRANSCRIPTION ERRORS</strong></td>
+</tr>
+<tr>
+<td><strong>Completeness Check</strong></td>
+<td>Field should not be blank/zeros</td>
+<td>Worker number blank → record rejected</td>
+</tr>
+<tr>
+<td><strong>Duplicate Check</strong></td>
+<td>New transactions matched to previously entered ones</td>
+<td>Vendor invoice not already in system</td>
+</tr>
+<tr>
+<td><strong>Logical Relationship Check</strong></td>
+<td>If condition true, then other conditions must also be true</td>
+<td>Hire date &gt; 16 years past date of birth</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>📌 <strong>EXAM TIP:</strong> <strong>Check digit</strong> is specifically effective in detecting <strong>transposition</strong> (e.g., 123 → 132) and <strong>transcription</strong> (e.g., 123 → 124) errors. This is a very common exam question!</p>
+</blockquote>
+<h3 id="processing-controls">Processing Controls</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manual Recalculations</strong></td>
+<td>Manual recalculation of a sample to verify processing</td>
+</tr>
+<tr>
+<td><strong>Editing</strong></td>
+<td>Tests accuracy, completeness and validity in program instructions</td>
+</tr>
+<tr>
+<td><strong>Run-to-Run Totals</strong></td>
+<td>Verification of data values through stages of processing</td>
+</tr>
+<tr>
+<td><strong>Programmed Controls</strong></td>
+<td>Software that detects and corrects errors (wrong file version detected)</td>
+</tr>
+<tr>
+<td><strong>Reasonableness Verification</strong></td>
+<td>Verifies calculated amounts against predetermined criteria</td>
+</tr>
+<tr>
+<td><strong>Limit Checks</strong></td>
+<td>Ensures amounts are within predetermined limits</td>
+</tr>
+<tr>
+<td><strong>Reconciliation of File Totals</strong></td>
+<td>Routine reconciliation (manual account, control record, or independent file)</td>
+</tr>
+<tr>
+<td><strong>Exception Reports</strong></td>
+<td>Identifies transactions/data outside range or criteria</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="data-file-control-types-figure-323">Data File Control Types (Figure 3.23):</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Before and After Image Reporting</strong></td>
+<td>Records data before and after a transaction; enables tracing impact</td>
+</tr>
+<tr>
+<td><strong>Maintenance Error Reporting</strong></td>
+<td>Ensures error reports are reconciled; corrections reviewed by non-initiators</td>
+</tr>
+<tr>
+<td><strong>Source Documentation Retention</strong></td>
+<td>Retained for adequate time; only authorized personnel have access</td>
+</tr>
+<tr>
+<td><strong>Internal and External Labeling</strong></td>
+<td>Labels on removable media ensure correct data is loaded</td>
+</tr>
+<tr>
+<td><strong>Version Usage</strong></td>
+<td>Ensures correct file version used for processing</td>
+</tr>
+<tr>
+<td><strong>Data File Security</strong></td>
+<td>Prevents unauthorized access by unauthorized users</td>
+</tr>
+<tr>
+<td><strong>One-for-One Checking</strong></td>
+<td>Documents agree with detailed listing of processed documents</td>
+</tr>
+<tr>
+<td><strong>Prerecorded Input</strong></td>
+<td>Certain fields preprinted to reduce initial input errors</td>
+</tr>
+<tr>
+<td><strong>Transaction Logs</strong></td>
+<td>All transaction activity recorded (date, time, user ID, terminal location)</td>
+</tr>
+<tr>
+<td><strong>File Updating and Maintenance Authorization</strong></td>
+<td>Proper authorization required for file updating</td>
+</tr>
+<tr>
+<td><strong>Parity Checking</strong></td>
+<td>Error detection for data transfers; vertical and horizontal parity checks</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="52-output-controls-342">5.2 Output Controls (3.4.2)</h2>
+<p><strong>Output Controls</strong> = Assurance that data delivered to users is presented, formatted and delivered consistently and securely</p>
+<p><strong>Key Output Controls:</strong> | Control | Description |---------|-------------| Logging and storage of sensitive forms | Negotiable, sensitive, critical forms properly logged and secured | Computer generation controls | Detailed listing of generated forms compared to physical forms | <strong>Report accuracy, completeness, timeliness</strong> | Improperly configured reports are a significant risk | <strong>Report distribution</strong> | Distributed per authorized parameters; logged before distribution | Balancing and reconciling | Application output balanced to control totals; audit trails provided | Output error handling | Error reports timely; delivered to originating department for correction | Output report retention | Record retention schedule must comply with legal regulations | <strong>Verification of receipt</strong> | Recipient signs log as evidence of receipt |</p>
+<hr />
+<h1 id="section-6-system-readiness-and-implementation-testing-35">SECTION 6: SYSTEM READINESS AND IMPLEMENTATION TESTING (3.5)</h1>
+<h2 id="61-testing-overview">6.1 Testing Overview</h2>
+<p><strong>Testing Purpose:</strong> Verifies and validates that a program, subsystem or application:
+- Performs functions for which it was designed
+- Operates without malfunction
+- Does not adversely affect other system components</p>
+<p><strong>QAT vs. UAT:</strong></p>
+<p>| QAT (Quality Assurance Testing) | UAT (User Acceptance Testing) |---|---|---| <strong>Focus</strong> | Technical aspects; documented specs | Functional aspects; user requirements | <strong>Performed by</strong> | IT department primarily | Business users | <strong>Tests</strong> | Logical design and technology | Business process scenarios | <strong>Outcome</strong> | System works as documented | System is production-ready | <strong>Combined?</strong> | <strong>NO — must NOT be combined</strong> | <strong>NO — separate objectives</strong> |</p>
+<h2 id="62-testing-classifications-351">6.2 Testing Classifications (3.5.1)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Test Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unit Testing</strong></td>
+<td>Individual program/module; tests control structure and internal operation</td>
+</tr>
+<tr>
+<td><strong>Interface/Integration Testing</strong></td>
+<td>Tests connection of two or more components passing information; evaluates inter-system data flow</td>
+</tr>
+<tr>
+<td><strong>System Testing</strong></td>
+<td>All modified programs tested collectively; done in non-production environment</td>
+</tr>
+<tr>
+<td>— Recovery Testing</td>
+<td>Tests system's ability to recover after failure</td>
+</tr>
+<tr>
+<td>— Security Testing</td>
+<td>Checks access controls; no security holes in new system</td>
+</tr>
+<tr>
+<td>— Load Testing</td>
+<td>Large data quantities; evaluates peak performance</td>
+</tr>
+<tr>
+<td>— Volume Testing</td>
+<td>Incremental data volume; finds maximum data capacity</td>
+</tr>
+<tr>
+<td>— Stress Testing</td>
+<td>Incremental concurrent users/services; finds maximum concurrent user capacity</td>
+</tr>
+<tr>
+<td>— Performance Testing</td>
+<td>Compares system performance to equivalent systems using benchmarks</td>
+</tr>
+<tr>
+<td><strong>Final Acceptance Testing</strong></td>
+<td>Done in implementation phase; has two parts: QAT and UAT</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="other-types-of-testing">Other Types of Testing:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alpha Testing</strong></td>
+<td>Internal users; first stage; also called system testing</td>
+</tr>
+<tr>
+<td><strong>Beta Testing</strong></td>
+<td>Limited external users; form of UAT; real-world exposure</td>
+</tr>
+<tr>
+<td><strong>Pilot Testing</strong></td>
+<td>Focuses on specific/predetermined aspects; preliminary evaluation; POC is an early pilot test</td>
+</tr>
+<tr>
+<td><strong>White Box Testing</strong></td>
+<td>Assesses program logic; uses test data to test logic paths (unit and integration testing) — <strong>cannot test ALL paths in large systems</strong></td>
+</tr>
+<tr>
+<td><strong>Black Box Testing</strong></td>
+<td>Tests functional operating effectiveness without regard to internal structure; applicable to integration and UAT</td>
+</tr>
+<tr>
+<td><strong>Function/Validation Testing</strong></td>
+<td>Tests functionality against detailed requirements (Are we building the right product?)</td>
+</tr>
+<tr>
+<td><strong>Regression Testing</strong></td>
+<td>Reruns test scenarios after changes/corrections to ensure no new errors introduced; uses <strong>same data</strong> as original</td>
+</tr>
+<tr>
+<td><strong>Parallel Testing</strong></td>
+<td>Test data fed into both old and new systems; results compared; verifies new system performs same as original and meets requirements</td>
+</tr>
+<tr>
+<td><strong>Sociability Testing</strong></td>
+<td>Confirms new/modified system can operate in target environment without impacting existing systems</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>📌 <strong>Common Exam Q:</strong> Purpose of parallel testing = ensure new system <strong>meets end-user requirements</strong> (NOT cost-effectiveness, not unit testing)</p>
+</blockquote>
+<h2 id="63-data-integrity-in-online-transaction-processing-acid-principle">6.3 Data Integrity in Online Transaction Processing — ACID Principle</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A — Atomicity</strong></td>
+<td>Transaction is ALL-or-NOTHING; if error occurs, all changes backed out</td>
+</tr>
+<tr>
+<td><strong>C — Consistency</strong></td>
+<td>Every transaction takes database from one consistent state to another</td>
+</tr>
+<tr>
+<td><strong>I — Isolation</strong></td>
+<td>Each transaction isolated from others; accesses only consistent data</td>
+</tr>
+<tr>
+<td><strong>D — Durability</strong></td>
+<td>Committed transactions survive subsequent hardware/software failures</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>🧠 <strong>Mnemonic:</strong> <strong>ACID</strong> — like acid, once it touches something, the effect is complete and permanent!</p>
+</blockquote>
+<h2 id="64-testing-application-systems-354">6.4 Testing Application Systems (3.5.4)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Description</th>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Snapshot</strong></td>
+<td>Records flow of designated transactions through logic paths</td>
+<td>Verifies program logic</td>
+<td>Requires extensive IS knowledge</td>
+</tr>
+<tr>
+<td><strong>Mapping</strong></td>
+<td>Identifies untested program logic; analyzes programs during execution</td>
+<td>Identifies unused code; identifies exposures</td>
+<td>Software cost</td>
+</tr>
+<tr>
+<td><strong>Tracing and Tagging</strong></td>
+<td>Tracing shows trail of instructions; tagging places indicator on transactions</td>
+<td>Exact picture of event sequence</td>
+<td>Requires extensive computer time</td>
+</tr>
+<tr>
+<td><strong>Test Data/Deck</strong></td>
+<td>Simulates transactions through real programs</td>
+<td>No source code review needed; objective review</td>
+<td>Risk of not including all scenarios; requires good IS knowledge</td>
+</tr>
+<tr>
+<td><strong>Base-Case System</strong></td>
+<td>Uses comprehensive test data sets from evaluation</td>
+<td>Comprehensive testing; verifies operations before acceptance</td>
+<td>Extensive effort to maintain; close cooperation required</td>
+</tr>
+<tr>
+<td><strong>Parallel Operation</strong></td>
+<td>Processes production data through both old and new programs; compares results</td>
+<td>Verifies new system before discontinuing old</td>
+<td>Added processing costs</td>
+</tr>
+<tr>
+<td><strong>Integrated Testing Facility (ITF)</strong></td>
+<td>Creates fictitious file in database; test transactions processed with live data</td>
+<td>Periodic testing without separate test process</td>
+<td>Needs careful planning; test data must be isolated</td>
+</tr>
+<tr>
+<td><strong>Parallel Simulation</strong></td>
+<td>Simulates application program logic using computer programs</td>
+<td>Eliminates need to prepare test data</td>
+<td>Programs must be developed</td>
+</tr>
+<tr>
+<td><strong>Transaction Selection</strong></td>
+<td>Audit software screens and selects transactions from production</td>
+<td>Independent of production system</td>
+<td>Development and maintenance cost</td>
+</tr>
+<tr>
+<td><strong>Embedded Audit Data Collection</strong></td>
+<td>Software embedded in host application; selects and generates transactions</td>
+<td>Sampling and production statistics</td>
+<td>High development cost; auditor independence issues</td>
+</tr>
+<tr>
+<td>— SCARF</td>
+<td>Auditor determines reasonableness of tests</td>
+<td>Info for further review</td>
+<td></td>
+</tr>
+<tr>
+<td>— SARF</td>
+<td>Randomly selects representative transactions</td>
+<td>Analysis of representative file</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Extended Records</strong></td>
+<td>Gathers all data affected by a particular program</td>
+<td>Records in one convenient file</td>
+<td>Adds data storage costs</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="65-is-auditors-role-in-testing">6.5 IS Auditor's Role in Testing</h2>
+<ol>
+<li>Review test plan for completeness and user participation evidence</li>
+<li>Reconcile control totals and converted data</li>
+<li>Review error reports for precision in recognizing erroneous data</li>
+<li>Verify cyclical processing correctness</li>
+<li>Verify accuracy of critical reports</li>
+<li>Interview end users about understanding of new procedures</li>
+<li>Review system documentation for completeness</li>
+<li>Verify system security functioning (develop and execute access tests)</li>
+<li>Review unit and system test plans for internal control testing</li>
+<li>Ensure accepted software delivered to implementation team (vendor cannot replace this version)</li>
+</ol>
+<h2 id="66-system-implementation-355">6.6 System Implementation (3.5.5)</h2>
+<ul>
+<li>Implementation only after successful testing</li>
+<li>Must follow enterprise change control procedures</li>
+<li>IS auditor verifies appropriate signoffs obtained before implementation</li>
+<li>Verify all data conversions are correct and complete before production implementation</li>
+</ul>
+<hr />
+<h1 id="section-7-implementation-configuration-and-release-management-36">SECTION 7: IMPLEMENTATION CONFIGURATION AND RELEASE MANAGEMENT (3.6)</h1>
+<h2 id="71-overview">7.1 Overview</h2>
+<p><strong>Configuration Management</strong> = Systematic, consistent control on attributes of IT components (hardware, software, firmware, network connectivity)</p>
+<p><strong>Key tools:</strong> ManageEngine Service Desk, SysAid, ServiceNow</p>
+<p><strong>Changes to IT systems must be:</strong> Carefully assessed → Planned → Tested → Approved → Documented → Communicated</p>
+<h2 id="72-configuration-management-systems-361">7.2 Configuration Management Systems (3.6.1)</h2>
+<ul>
+<li>Maintenance requests must be formally documented and approved by a <strong>change control group</strong> (Configuration Control Board)</li>
+<li>Uses <strong>CMDB (Configuration Management Database)</strong> — documents hardware and software assets</li>
+</ul>
+<p><strong>Check-In/Check-Out Process:</strong>
+- <strong>Check-out</strong> = Prevents/manages simultaneous code edits; requires approved change request
+- <strong>Check-in</strong> = Moving changed item to controlled environment with new version number</p>
+<p><strong>Configuration Management Plan should include:</strong>
+- All system documentation
+- Test plans and procedures
+- Software developed</p>
+<p><strong>Configuration Management Tools Support:</strong>
+1. Identifying items affected by proposed change (impact assessment)
+2. Recording configuration items affected by authorized changes
+3. Implementing changes per authorization records
+4. Registering configuration item changes
+5. Recording baselines for recovery (rollback)
+6. Preparing releases to avoid human errors</p>
+<p><strong>CIS Benchmarks</strong> = Configuration baselines from Center for Internet Security for securing systems</p>
+<hr />
+<h1 id="section-8-system-migration-infrastructure-deployment-and-data-conversion-37">SECTION 8: SYSTEM MIGRATION, INFRASTRUCTURE DEPLOYMENT AND DATA CONVERSION (3.7)</h1>
+<h2 id="81-data-migration-371">8.1 Data Migration (3.7.1)</h2>
+<p><strong>Data Conversion (Data Porting)</strong> = Required when source and target systems use different field formats, sizes, database structures or coding schemes</p>
+<p><strong>Data Conversion Objective:</strong> Convert existing data to new format while <strong>preserving meaning and integrity</strong></p>
+<p><strong>Steps for Successful Data Conversion:</strong>
+1. Determine which data to convert via programs vs. manually
+2. Perform data cleansing before conversion
+3. Identify verification methods (file comparisons, record counts, control totals, sampling)
+4. Establish parameters for successful conversion
+5. Schedule conversion tasks
+6. Design audit trail reports (data mappings and transformations)
+7. Design exception reports
+8. Establish responsibility for sign-off
+9. Develop and test conversion programs
+10. Perform conversion dress rehearsals
+11. Control outsourcing (nondisclosure, data privacy, data destruction)
+12. Run actual conversion with all necessary personnel</p>
+<p><strong>IS Auditor's Role in Data Migration:</strong>
+- Ensure tools and techniques selected are adequate
+- Data conversion achieves objectives without data loss or corruption
+- Any data loss is minimal and formally accepted by user management</p>
+<h2 id="82-changeover-go-live-cutover-techniques-372">8.2 Changeover (Go-Live / Cutover) Techniques (3.7.2)</h2>
+<h3 id="three-changeover-techniques">Three Changeover Techniques:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Description</th>
+<th>Risk Level</th>
+<th>Key Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parallel</strong></td>
+<td>Old and new systems run simultaneously; results compared; user gains confidence before old discontinued</td>
+<td>Lowest</td>
+<td>Most costly; minimizes risk; old system discontinued after confidence gained</td>
+</tr>
+<tr>
+<td><strong>Phased</strong></td>
+<td>Old system broken into modules; new system modules replace old ones sequentially</td>
+<td>Medium</td>
+<td>Step-by-step; module by module replacement</td>
+</tr>
+<tr>
+<td><strong>Abrupt (Cold Turkey/Direct Cutover)</strong></td>
+<td>Old system discontinued at cutoff date/time; new system takes over immediately</td>
+<td>Highest</td>
+<td>Fastest; least costly; highest risk</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Phased Changeover Risks:</strong>
+- Resource challenges (maintaining two unique IT environments)
+- Extension of project life cycle to cover two systems
+- Change management for requirements and customizations</p>
+<p><strong>Abrupt Changeover Steps:</strong>
+1. Conversion of files and programs; test running on test bed
+2. Installation of new hardware, OS, application and migrated data
+3. Training employees in groups
+4. Scheduling operations and test running for go-live</p>
+<p><strong>Risk items related to changeover:</strong>
+- Asset safeguarding
+- Data integrity
+- System effectiveness and efficiency
+- Change management challenges
+- Duplicate or missing records</p>
+<h2 id="83-system-change-procedures-and-program-migration-process-373">8.3 System Change Procedures and Program Migration Process (3.7.3)</h2>
+<p>IS auditor should review:
+- Methodology for authorizing, prioritizing and tracking system change requests
+- Whether emergency change procedures are in operations manuals
+- Whether change control is a formal procedure
+- Whether change control log shows all changes resolved
+- Adequacy of security access restrictions over production source and executable modules</p>
+<h2 id="84-certificationaccreditation-375">8.4 Certification/Accreditation (3.7.5)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+<th>Who does it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Certification</strong></td>
+<td>Comprehensive assessment against a standard (management, operational, technical controls); determines extent to which controls are correctly implemented</td>
+<td>Assessor enterprise</td>
+</tr>
+<tr>
+<td><strong>Accreditation</strong></td>
+<td>Official management decision by senior official to authorize operation; accepts risk to enterprise operations, assets or individuals</td>
+<td>Senior official</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Accreditation</strong> = Official authorization to operate the system</li>
+<li>Senior official who accredits accepts <strong>full responsibility and accountability</strong> for security of the system</li>
+<li>If breach occurs, the accrediting official is held <strong>accountable</strong></li>
+</ul>
+<hr />
+<h1 id="section-9-postimplementation-review-38">SECTION 9: POSTIMPLEMENTATION REVIEW (3.8)</h1>
+<h2 id="91-what-is-postimplementation-review">9.1 What is Postimplementation Review?</h2>
+<ul>
+<li><strong>Postimplementation Review</strong> = Carried out <strong>weeks or months</strong> after project completion (when benefits and shortcomings are realized)</li>
+<li>NOT the same as project closure (project closure = at end of project)</li>
+<li>Part of benefits realization process</li>
+<li>Used to determine whether appropriate controls were built into the system</li>
+</ul>
+<h2 id="92-what-does-postimplementation-review-consider">9.2 What Does Postimplementation Review Consider?</h2>
+<ol>
+<li>
+<p><strong>Adequacy of the system:</strong> - Does system meet user requirements and business objectives? - Have controls been adequately defined and implemented?</p>
+</li>
+<li>
+<p><strong>Projected cost vs. benefits / ROI measurements</strong></p>
+</li>
+<li>
+<p><strong>Recommendations</strong> for system inadequacies</p>
+</li>
+<li>
+<p><strong>Plan for implementing recommendations</strong></p>
+</li>
+<li>
+<p><strong>Assessment of development project process:</strong> - Were chosen methodologies, standards and techniques followed? - Were appropriate project management techniques used? - Is risk of operating the system within acceptable levels?</p>
+</li>
+</ol>
+<h2 id="93-project-closeout-steps-figure-328">9.3 Project Closeout Steps (Figure 3.28):</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Assign responsibility for outstanding issues; identify related budget</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Assign custody of contracts; archive or transfer documentation</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Conduct postimplementation review with project team, developers, users, stakeholders; identify lessons learned</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Document identified risks; update risk register</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Complete second postimplementation review after deliverables have been in production long enough to realize true business benefits and costs</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="94-measurements-of-critical-success-factors-figure-329">9.4 Measurements of Critical Success Factors (Figure 3.29):</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Productivity</strong></td>
+<td>Dollars spent per user; transactions per month; transactions per user</td>
+</tr>
+<tr>
+<td><strong>Quality</strong></td>
+<td>Number of discrepancies; number of disputes; fraud/misuse detection</td>
+</tr>
+<tr>
+<td><strong>Economic Value</strong></td>
+<td>Total processing time reduction; monetary value of admin costs</td>
+</tr>
+<tr>
+<td><strong>Customer Service</strong></td>
+<td>Turnaround time for customer questions; frequency of useful communications</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="95-is-auditors-role-in-postimplementation-review-381">9.5 IS Auditor's Role in Postimplementation Review (3.8.1)</h2>
+<blockquote>
+<p><strong>Key Rule:</strong> IS auditor performing postimplementation review must be <strong>independent of the system development process</strong>. An IS auditor who consulted on the system <strong>cannot</strong> perform this review.</p>
+</blockquote>
+<p><strong>IS Auditor Tasks:</strong>
+1. Determine if system objectives and requirements were achieved (end user use, trouble tickets, work orders, satisfaction)
+2. Determine if cost benefits from feasibility study are being measured and reported
+3. Review program change requests (type of changes indicate design/programming problems)
+4. Review controls built into system to ensure operating per design
+5. Review operator error logs for resource/operating problems
+6. Review input and output control balances and reports</p>
+<hr />
+<h1 id="section-10-rapid-revision-sheet">SECTION 10: RAPID REVISION SHEET</h1>
+<h2 id="one-page-quick-summary">One-Page Quick Summary</h2>
+<h3 id="domain-3-at-a-glance">Domain 3 at a Glance:</h3>
+<p><strong>Project Structures:</strong>
+- Functional → PM has NO authority
+- Project → PM has FULL authority
+- Matrix → SHARED authority</p>
+<p><strong>Roles:</strong>
+- Sponsor = funding + ownership + accountability
+- PMO = governs process, NOT content
+- IS Auditor = advisory only (may not audit if too involved)</p>
+<p><strong>SDLC Phases (6):</strong> Feasibility → Requirements → Design/Selection → Development/Configuration → Testing/Implementation → Postimplementation</p>
+<p><strong>SDLC Models:</strong> Waterfall (sequential, stable requirements) | V-Shaped (disciplined, testing emphasis) | Iterative (cyclic, large projects)</p>
+<p><strong>Development Methods:</strong>
+- Prototyping → user feedback early; risk: poor controls
+- RAD → fast, small teams, rigid time limits
+- Agile → iterative, tacit knowledge, no detailed documentation
+- OOSD → objects (data + methods); classes; polymorphism
+- DevOps/DevSecOps → security-by-design</p>
+<p><strong>Cost Estimation:</strong> Analogous (fastest) → Parametric → Bottom-Up (most accurate, slowest) → Actual Costs</p>
+<p><strong>Scheduling Tools:</strong>
+- Gantt = visual timeline
+- CPM = critical path, zero slack, deterministic
+- PERT = 3 estimates, uncertain durations; Formula: (O + P + 4ML)/6
+- Timebox = fixed period, used in RAD</p>
+<p><strong>Key Control Edits:</strong>
+- Check digit → transposition/transcription errors
+- Range check → values within range
+- Limit check → does not exceed limit
+- Duplicate check → prevents double entry
+- Completeness check → no blank fields
+- Hash total → non-value numeric totals for batch verification</p>
+<p><strong>Testing Types:</strong>
+- Unit → individual module
+- Integration → module-to-module
+- System → collective; includes load, volume, stress, security
+- UAT → user perspective; production-ready check
+- QAT → technical; do NOT combine with UAT
+- Parallel → compare old vs. new results
+- Regression → after changes; same data as original
+- White box → logic paths (internal)
+- Black box → functional (external)</p>
+<p><strong>ACID Principle:</strong> Atomicity, Consistency, Isolation, Durability</p>
+<p><strong>Changeover Techniques:</strong>
+- Parallel → lowest risk, highest cost
+- Phased → module by module
+- Abrupt → highest risk, lowest cost</p>
+<p><strong>Data Validation Edits:</strong> Sequence, Limit, Range, Validity, Reasonableness, Table Lookup, Existence, Key Verification, Check Digit, Completeness, Duplicate, Logical Relationship</p>
+<p><strong>Feasibility Study Elements (SCRAE R):</strong> Scope → Current Analysis → Requirements → Approach → Evaluation → Review</p>
+<hr />
+<h1 id="section-11-probable-exam-questions">SECTION 11: PROBABLE EXAM QUESTIONS</h1>
+<h2 id="high-probability-questions-with-answers">High-Probability Questions with Answers</h2>
+<h3 id="q1-a-project-manager-in-a-functional-organization-structure-has">Q1. A project manager in a functional organization structure has:</h3>
+<p><strong>A. No formal management authority — can only advise</strong>
+B. Full authority over budget and team
+C. Shared authority with department heads
+D. Authority over schedule only</p>
+<p><em>Answer: A — In functional structure, PM can only advise</em></p>
+<hr />
+<h3 id="q2-which-data-validation-edit-is-most-effective-in-detecting-transposition-and-transcription-errors">Q2. Which data validation edit is MOST effective in detecting transposition and transcription errors?</h3>
+<p>A. Range check
+B. Limit check
+<strong>C. Check digit</strong>
+D. Validity check</p>
+<p><em>Answer: C — Check digit is mathematically calculated to detect altered data, transpositions (123→132) and transcriptions (123→124)</em></p>
+<hr />
+<h3 id="q3-the-primary-purpose-of-parallel-testing-is-to">Q3. The PRIMARY purpose of parallel testing is to:</h3>
+<p>A. Determine whether the system is cost-effective
+B. Enable comprehensive unit and system testing
+C. Highlight errors in program interfaces with files
+<strong>D. Ensure the new system meets user requirements</strong></p>
+<p><em>Answer: D — Parallel testing compares results of old and new systems to confirm new system meets end-user requirements</em></p>
+<hr />
+<h3 id="q4-when-introducing-thin-client-architecture-which-type-of-risk-is-significantly-increased-regarding-servers">Q4. When introducing thin client architecture, which type of risk is significantly increased regarding servers?</h3>
+<p>A. Integrity
+B. Concurrency
+C. Confidentiality
+<strong>D. Availability</strong></p>
+<p><em>Answer: D — Thin client makes servers critical to operation; server failure probability increases = increased availability risk</em></p>
+<hr />
+<h3 id="q5-in-agile-development-methodology-which-of-the-following-is-most-commonly-associated">Q5. In agile development methodology, which of the following is MOST commonly associated?</h3>
+<p>A. Reliance on detailed documentation
+B. Reliance on strict standard operating procedures
+C. Lack of user requirements
+<strong>D. Heavy reliance on tacit knowledge</strong></p>
+<p><em>Answer: D — Agile teams rely on knowledge in people's heads (tacit knowledge) rather than documentation</em></p>
+<hr />
+<h3 id="q6-when-a-software-package-is-purchased-instead-of-developed-in-house-which-sdlc-phases-are-replaced">Q6. When a software package is purchased instead of developed in-house, which SDLC phases are replaced?</h3>
+<p><strong>A. Design and development phases → replaced with selection and configuration phases</strong>
+B. Feasibility and requirements phases
+C. Implementation and testing phases
+D. Nothing is replaced</p>
+<p><em>Answer: A — Selection and configuration replace design and development for purchased packages</em></p>
+<hr />
+<h3 id="q7-to-assist-in-testing-a-banking-system-with-sensitive-production-data-the-is-auditors-primary-concern-is-that-the-test-data-should-be">Q7. To assist in testing a banking system with sensitive production data, the IS auditor's PRIMARY concern is that the test data should be:</h3>
+<p><strong>A. Sanitized</strong>
+B. Complete
+C. Representative
+D. Current</p>
+<p><em>Answer: A — Test data MUST be sanitized to prevent sensitive data leaking to unauthorized persons</em></p>
+<hr />
+<h3 id="q8-user-specifications-in-a-waterfall-sdlc-project-have-not-been-met-the-most-likely-source-of-this-issue-is">Q8. User specifications in a waterfall SDLC project have not been met. The MOST likely source of this issue is:</h3>
+<p>A. Quality assurance
+<strong>B. Requirements</strong>
+C. Development
+D. User training</p>
+<p><em>Answer: B — If user specifications are not met, requirements engineering failed to correctly define/document what users needed</em></p>
+<hr />
+<h3 id="q9-during-bpr-an-is-auditor-finds-an-important-preventive-control-has-been-removed-the-auditor-should">Q9. During BPR, an IS auditor finds an important preventive control has been removed. The auditor should:</h3>
+<p><strong>A. Inform management immediately and determine if they're willing to accept the potential material risk</strong>
+B. Determine if a detective control replaced it; if not, report removal
+C. Recommend all old controls be reinstated
+D. Develop continuous audit approach</p>
+<p><em>Answer: A — Management must be immediately informed and given the choice to accept the risk. Other actions come AFTER management decision.</em></p>
+<hr />
+<h3 id="q10-which-weakness-is-most-significant-in-erp-software-used-by-a-financial-enterprise">Q10. Which weakness is MOST significant in ERP software used by a financial enterprise?</h3>
+<p><strong>A. Access controls have not been reviewed</strong>
+B. Limited documentation
+C. Two-year-old backup media not replaced
+D. Database backups once a day</p>
+<p><em>Answer: A — In a financial enterprise, unreviewed access controls have the most serious consequences given sensitive data and assets accessible</em></p>
+<hr />
+<h3 id="q11-pert-calculates-activity-duration-estimates-using">Q11. PERT calculates activity duration estimates using:</h3>
+<p>A. One estimate per activity
+B. Two estimates (optimistic and pessimistic)
+<strong>C. Three estimates: optimistic, most likely, pessimistic</strong>
+D. Four estimates based on historical data</p>
+<p><em>Answer: C — PERT formula: (O + P + 4×ML) / 6</em></p>
+<hr />
+<h3 id="q12-a-software-escrow-agreement-ensures">Q12. A software escrow agreement ensures:</h3>
+<p>A. Software remains free of bugs
+B. Vendor performs regular updates
+<strong>C. Source code is held by a third party and released if vendor goes out of business</strong>
+D. Enterprise retains full ownership of software</p>
+<p><em>Answer: C — Escrow protects enterprise by providing access to source code if vendor ceases operations</em></p>
+<hr />
+<h3 id="q13-the-acid-principles-atomicity-means">Q13. The ACID principle's "Atomicity" means:</h3>
+<p>A. Transactions are isolated from each other
+B. Database maintains consistency between transactions
+<strong>C. A transaction is all-or-nothing; if error occurs, all changes are backed out</strong>
+D. Committed transactions survive hardware failures</p>
+<p><em>Answer: C — Atomicity = complete or nothing; partial commits are not allowed</em></p>
+<hr />
+<h3 id="q14-which-changeover-technique-carries-the-lowest-risk">Q14. Which changeover technique carries the LOWEST risk?</h3>
+<p><strong>A. Parallel changeover</strong>
+B. Phased changeover
+C. Abrupt changeover
+D. All carry equal risk</p>
+<p><em>Answer: A — Parallel allows both old and new systems to run simultaneously until confidence is gained</em></p>
+<hr />
+<h3 id="q15-certification-differs-from-accreditation-in-that">Q15. Certification differs from accreditation in that:</h3>
+<p>A. Certification is performed by senior management; accreditation by auditors
+<strong>B. Certification assesses compliance with controls; accreditation is the official authorization decision to operate</strong>
+C. Accreditation is more technical than certification
+D. They are identical processes</p>
+<p><em>Answer: B — Certification = comprehensive technical assessment; Accreditation = management decision to authorize operation and accept risk</em></p>
+<hr />
+<h3 id="q16-a-hash-total-is-best-described-as">Q16. A hash total is best described as:</h3>
+<p>A. The total monetary value of all transactions in a batch
+B. The total count of all records processed
+<strong>C. The total of non-value numeric fields (e.g., customer numbers, dates) used for completeness verification</strong>
+D. A cryptographic hash of the database</p>
+<p><em>Answer: C — Hash totals aggregate non-meaningful numeric fields to verify batch completeness</em></p>
+<hr />
+<h3 id="q17-an-is-auditor-performing-a-postimplementation-review-should">Q17. An IS auditor performing a postimplementation review should:</h3>
+<p>A. Have been part of the original development team
+B. Report directly to the project manager
+<strong>C. Be independent of the system development process</strong>
+D. Focus primarily on technical performance metrics</p>
+<p><em>Answer: C — Independence is critical; if the auditor was involved in development, they cannot objectively review the same system</em></p>
+<hr />
+<h3 id="q18-the-pert-formula-for-calculating-activity-duration-is">Q18. The PERT formula for calculating activity duration is:</h3>
+<p>A. (Optimistic + Pessimistic) / 2
+B. (Optimistic + Most Likely + Pessimistic) / 3
+<strong>C. (Optimistic + Pessimistic + 4 × Most Likely) / 6</strong>
+D. (2 × Most Likely + Pessimistic) / 3</p>
+<p><em>Answer: C — Standard PERT formula using beta distribution weighting</em></p>
+<hr />
+<h1 id="section-12-key-concept-recap-mnemonics">SECTION 12: KEY CONCEPT RECAP &amp; MNEMONICS</h1>
+<h2 id="121-essential-mnemonics">12.1 Essential Mnemonics</h2>
+<h3 id="smart-objectives">📘 SMART Objectives</h3>
+<p><strong>S</strong>pecific — <strong>M</strong>easurable — <strong>A</strong>ttainable — <strong>R</strong>ealistic — <strong>T</strong>imely</p>
+<h3 id="feasibility-study-elements">📘 Feasibility Study Elements</h3>
+<p><strong>"SCRAE R"</strong>
+<strong>S</strong>cope → <strong>C</strong>urrent Analysis → <strong>R</strong>equirements → <strong>A</strong>pproach → <strong>E</strong>valuation → <strong>R</strong>eview</p>
+<h3 id="acid-principle">📘 ACID Principle</h3>
+<p><strong>A</strong>tomicity — <strong>C</strong>onsistency — <strong>I</strong>solation — <strong>D</strong>urability
+"Like acid — once applied, the reaction is COMPLETE"</p>
+<h3 id="data-validation-edits">📘 Data Validation Edits</h3>
+<p><strong>"Sequence Limits Range Validity Reasons Tables Exist — Key Checks Complete, Duplicate Logic"</strong>
+(Sequence, Limit, Range, Validity, Reasonableness, Table Lookup, Existence, Key Verification, Check Digit, Completeness, Duplicate, Logical Relationship)</p>
+<h3 id="pert-formula">📘 PERT Formula</h3>
+<p><strong>(O + P + 4ML) / 6</strong>
+"One Pessimist + Four Most Likely + One Optimist = Divide by 6"</p>
+<h3 id="cost-estimation-methods-fastest-to-most-accurate">📘 Cost Estimation Methods (fastest to most accurate)</h3>
+<p><strong>A</strong>nalogous → <strong>P</strong>arametric → <strong>B</strong>ottom-Up → <strong>A</strong>ctual (<strong>"APBA"</strong>)</p>
+<h3 id="project-structures">📘 Project Structures</h3>
+<p><strong>F</strong>unctional = <strong>F</strong>ails to give PM authority
+<strong>P</strong>roject = <strong>P</strong>M has Power
+<strong>M</strong>atrix = <strong>M</strong>anagement shared</p>
+<h3 id="changeover-techniques-by-risk-lowest-to-highest">📘 Changeover Techniques (by risk, lowest to highest)</h3>
+<p><strong>PAA</strong> = <strong>P</strong>arallel (lowest) → <strong>Ph</strong>ased → <strong>A</strong>brupt (highest)</p>
+<h3 id="rad-stages">📘 RAD Stages</h3>
+<p><strong>"CD-DD"</strong>
+<strong>C</strong>oncept Definition → Functional <strong>D</strong>esign → <strong>D</strong>evelopment → <strong>D</strong>eployment</p>
+<h3 id="batch-control-types">📘 Batch Control Types</h3>
+<p><strong>"M I D H"</strong>
+<strong>M</strong>onetary Total, <strong>I</strong>tems Total, <strong>D</strong>ocuments Total, <strong>H</strong>ash Total</p>
+<h2 id="122-critical-distinctions-to-remember">12.2 Critical Distinctions to Remember</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Distinction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>QAT vs UAT</strong></td>
+<td>QAT = technical (by IT); UAT = functional (by users); NEVER combine</td>
+</tr>
+<tr>
+<td><strong>PM in functional org</strong></td>
+<td>PM can ONLY advise — NO formal authority</td>
+</tr>
+<tr>
+<td><strong>Project Sponsor</strong></td>
+<td>Provides funding + owns data/application + chairs steering committee</td>
+</tr>
+<tr>
+<td><strong>PMO</strong></td>
+<td>Governs process ONLY — does NOT manage project content</td>
+</tr>
+<tr>
+<td><strong>PERT vs CPM</strong></td>
+<td>CPM = single deterministic estimates; PERT = 3 estimates, handles uncertainty</td>
+</tr>
+<tr>
+<td><strong>Check Digit</strong></td>
+<td>ONLY edit that detects transposition AND transcription errors</td>
+</tr>
+<tr>
+<td><strong>Hash Total</strong></td>
+<td>Non-value numeric fields (e.g., dates, account numbers) — no informational value alone</td>
+</tr>
+<tr>
+<td><strong>Postimplementation Review</strong></td>
+<td>Done MONTHS after project; auditor must be INDEPENDENT of development</td>
+</tr>
+<tr>
+<td><strong>Certification vs Accreditation</strong></td>
+<td>Certification = assessment; Accreditation = authorization decision by senior official</td>
+</tr>
+<tr>
+<td><strong>Software Baseline</strong></td>
+<td>Design Freeze = cutoff point; changes require formal approval to prevent scope creep</td>
+</tr>
+<tr>
+<td><strong>FPA</strong></td>
+<td>Indirect measure of software size; works for business apps; NOT for OSs/engineering software</td>
+</tr>
+<tr>
+<td><strong>Prototyping risk</strong></td>
+<td>Missing controls (security, backup, audit trails) and unmanageable change control</td>
+</tr>
+<tr>
+<td><strong>Agile vs Traditional</strong></td>
+<td>Agile uses tacit knowledge, iterative, no detailed docs; Traditional uses explicit docs, linear</td>
+</tr>
+<tr>
+<td><strong>White box vs Black box</strong></td>
+<td>White = tests internal logic paths; Black = tests external functionality</td>
+</tr>
+<tr>
+<td><strong>Parallel vs Regression testing</strong></td>
+<td>Parallel = old vs. new system; Regression = before vs. after change (same data)</td>
+</tr>
+<tr>
+<td><strong>IS Auditor advisory role</strong></td>
+<td>Advisory = may become ineligible to AUDIT the completed application</td>
+</tr>
+<tr>
+<td><strong>BPR — IS auditor's role</strong></td>
+<td>Identify key controls removed; inform management; management decides whether to accept risk</td>
+</tr>
+<tr>
+<td><strong>DevOps IS auditor concern</strong></td>
+<td>Ensure proper SoD (separation of duties) is maintained</td>
+</tr>
+<tr>
+<td><strong>Source code escrow</strong></td>
+<td>Third party holds source code; protects enterprise if vendor goes out of business</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="123-is-auditor-key-principles-master-these">12.3 IS Auditor Key Principles (Master These!)</h2>
+<ol>
+<li><strong>Advisory ≠ Audit:</strong> An IS auditor in an advisory role is NOT performing an audit</li>
+<li><strong>Independence is paramount:</strong> Cannot audit what you helped build</li>
+<li><strong>Controls first:</strong> IS auditor focuses on ensuring controls are designed, implemented, and functioning</li>
+<li><strong>Management decides:</strong> IS auditor recommends — management makes risk acceptance decisions</li>
+<li><strong>SoD must be protected:</strong> Even in small organizations or DevOps environments</li>
+<li><strong>Test data must be sanitized:</strong> Never use live production data without sanitizing</li>
+<li><strong>Postimplementation review</strong> = months after; measures actual ROI vs. planned</li>
+<li><strong>Business case drives governance:</strong> All decisions should align with the business case</li>
+</ol>
+<hr />
+<blockquote>
+<p><strong>END OF CHAPTER 3 NOTES</strong></p>
+<p><em>These notes cover all major concepts from, Chapter 3 (Pages 169-252). Review all tables, mnemonics, and exam questions before your exam.</em></p>
+</blockquote></article>
+    </main>
+
+    <aside class="toc-panel">
+      <p class="eyebrow">Section map</p>
+      <nav><div class="toc">
+<ul>
+<li><a href="#information-systems-acquisition-development-and-implementation">Information Systems Acquisition, Development and Implementation</a></li>
+<li><a href="#domain-coverage">Domain Coverage</a></li>
+<li><a href="#is-auditors-core-objectives-in-this-domain">IS Auditor's Core Objectives in This Domain</a></li>
+<li><a href="#21-what-is-project-governance">2.1 What is Project Governance?</a></li>
+<li><a href="#22-effective-project-management-factors">2.2 Effective Project Management Factors</a></li>
+<li><a href="#23-project-management-practices-311">2.3 Project Management Practices (3.1.1)</a></li>
+<li><a href="#24-project-management-structures-312">2.4 Project Management Structures (3.1.2)</a><ul>
+<li><a href="#key-points-on-is-projects">Key Points on IS Projects:</a></li>
+</ul>
+</li>
+<li><a href="#25-project-management-roles-and-responsibilities-313">2.5 Project Management Roles and Responsibilities (3.1.3)</a></li>
+<li><a href="#26-project-management-techniques-314">2.6 Project Management Techniques (3.1.4)</a></li>
+<li><a href="#27-portfolioprogram-management-315">2.7 Portfolio/Program Management (3.1.5)</a><ul>
+<li><a href="#program-vs-project-vs-portfolio">Program vs. Project vs. Portfolio:</a></li>
+<li><a href="#program-characteristics-vs-projects">Program characteristics (vs. Projects):</a></li>
+<li><a href="#program-roles">Program Roles:</a></li>
+<li><a href="#pmo-objectives-project-portfolio-management">PMO Objectives (Project Portfolio Management):</a></li>
+<li><a href="#project-portfolio-database-mandatory">Project Portfolio Database (Mandatory):</a></li>
+</ul>
+</li>
+<li><a href="#28-project-benefits-realization-317">2.8 Project Benefits Realization (3.1.7)</a><ul>
+<li><a href="#key-elements">Key Elements:</a></li>
+<li><a href="#four-phases-of-benefits-realization">Four Phases of Benefits Realization:</a></li>
+</ul>
+</li>
+<li><a href="#29-project-initiation-318">2.9 Project Initiation (3.1.8)</a><ul>
+<li><a href="#methods-of-project-initiation">Methods of Project Initiation:</a></li>
+</ul>
+</li>
+<li><a href="#210-project-objectives-319">2.10 Project Objectives (3.1.9)</a><ul>
+<li><a href="#obs-vs-wbs">OBS vs. WBS:</a></li>
+<li><a href="#work-packages-wps-key-rules">Work Packages (WPs) — Key Rules:</a></li>
+</ul>
+</li>
+<li><a href="#211-project-planning-3110">2.11 Project Planning (3.1.10)</a><ul>
+<li><a href="#is-development-project-cost-estimation-methods">IS Development Project Cost Estimation Methods:</a></li>
+<li><a href="#function-point-analysis-fpa">Function Point Analysis (FPA):</a></li>
+<li><a href="#scheduling-techniques">Scheduling Techniques:</a><ul>
+<li><a href="#gantt-charts">Gantt Charts:</a></li>
+<li><a href="#critical-path-method-cpm">Critical Path Method (CPM):</a></li>
+<li><a href="#pert-program-evaluation-review-technique">PERT (Program Evaluation Review Technique):</a></li>
+<li><a href="#timebox-management">Timebox Management:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#212-project-execution-3111">2.12 Project Execution (3.1.11)</a></li>
+<li><a href="#213-project-controlling-and-monitoring-3112">2.13 Project Controlling and Monitoring (3.1.12)</a><ul>
+<li><a href="#management-of-scope-changes">Management of Scope Changes:</a></li>
+<li><a href="#earned-value-analysis-eva">Earned Value Analysis (EVA):</a></li>
+<li><a href="#management-of-risk">Management of Risk:</a></li>
+</ul>
+</li>
+<li><a href="#214-project-closing-3113">2.14 Project Closing (3.1.13)</a></li>
+<li><a href="#215-is-auditors-role-in-project-management-3114">2.15 IS Auditor's Role in Project Management (3.1.14)</a><ul>
+<li><a href="#tracking-information-in-change-management-system-includes">Tracking information in change management system includes:</a></li>
+<li><a href="#is-auditor-tasks-include">IS Auditor Tasks Include:</a></li>
+</ul>
+</li>
+<li><a href="#31-business-case">3.1 Business Case</a></li>
+<li><a href="#32-feasibility-study">3.2 Feasibility Study</a><ul>
+<li><a href="#six-elements-of-a-feasibility-study">Six Elements of a Feasibility Study:</a></li>
+</ul>
+</li>
+<li><a href="#33-is-auditors-role-in-business-case-feasibility-study">3.3 IS Auditor's Role in Business Case / Feasibility Study</a></li>
+<li><a href="#41-business-application-development-331">4.1 Business Application Development (3.3.1)</a><ul>
+<li><a href="#two-types-of-business-applications">Two Types of Business Applications:</a></li>
+<li><a href="#business-application-projects-triggered-by">Business Application Projects Triggered By:</a></li>
+</ul>
+</li>
+<li><a href="#42-sdlc-models-332">4.2 SDLC Models (3.3.2)</a><ul>
+<li><a href="#three-sdlc-models">Three SDLC Models:</a><ul>
+<li><a href="#1-traditional-waterfall-model">1. Traditional Waterfall Model</a></li>
+<li><a href="#2-v-shaped-model-verification-and-validation">2. V-Shaped Model (Verification and Validation)</a></li>
+<li><a href="#3-iterative-model">3. Iterative Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#43-sdlc-phases-333">4.3 SDLC Phases (3.3.3)</a><ul>
+<li><a href="#the-6-sdlc-phases">The 6 SDLC Phases:</a></li>
+<li><a href="#phase-2-requirements-definition-critical">Phase 2 — Requirements Definition (Critical):</a></li>
+<li><a href="#phase-3b-design-key-activities">Phase 3B — Design Key Activities:</a></li>
+<li><a href="#phase-3b-software-baselining-design-freeze">Phase 3B — Software Baselining (Design Freeze):</a></li>
+<li><a href="#phase-4b-development-key-activities">Phase 4B — Development Key Activities:</a></li>
+<li><a href="#programming-debugging-tools">Programming Debugging Tools:</a></li>
+<li><a href="#programming-languages">Programming Languages:</a></li>
+<li><a href="#risks-associated-with-software-development">Risks Associated with Software Development:</a></li>
+</ul>
+</li>
+<li><a href="#44-software-development-methods-335">4.4 Software Development Methods (3.3.5)</a><ul>
+<li><a href="#method-1-prototyping-evolutionary-development">Method 1: Prototyping (Evolutionary Development)</a></li>
+<li><a href="#method-2-rapid-application-development-rad">Method 2: Rapid Application Development (RAD)</a></li>
+<li><a href="#method-3-agile-development">Method 3: Agile Development</a></li>
+<li><a href="#agile-vs-traditional-sdlc-comparison">Agile vs. Traditional SDLC Comparison:</a></li>
+<li><a href="#method-4-object-oriented-system-development-oosd">Method 4: Object-Oriented System Development (OOSD)</a></li>
+<li><a href="#method-5-component-based-development">Method 5: Component-Based Development</a></li>
+<li><a href="#method-6-web-based-application-development">Method 6: Web-Based Application Development</a></li>
+<li><a href="#method-7-software-reengineering">Method 7: Software Reengineering</a></li>
+<li><a href="#benchmarking-process">Benchmarking Process:</a></li>
+<li><a href="#reverse-engineering">Reverse Engineering:</a></li>
+<li><a href="#devops-devsecops">DevOps / DevSecOps:</a></li>
+</ul>
+</li>
+<li><a href="#45-system-development-tools-336">4.5 System Development Tools (3.3.6)</a><ul>
+<li><a href="#case-computer-aided-software-engineering">CASE (Computer-Aided Software Engineering):</a></li>
+<li><a href="#fourth-generation-languages-4gls">Fourth-Generation Languages (4GLs):</a></li>
+</ul>
+</li>
+<li><a href="#46-hardwaresoftware-acquisition-338">4.6 Hardware/Software Acquisition (3.3.8)</a><ul>
+<li><a href="#acquisition-steps">Acquisition Steps:</a></li>
+<li><a href="#vendor-evaluation-criteria">Vendor Evaluation Criteria:</a></li>
+</ul>
+</li>
+<li><a href="#47-system-software-acquisition-339">4.7 System Software Acquisition (3.3.9)</a></li>
+<li><a href="#51-application-controls-341">5.1 Application Controls (3.4.1)</a><ul>
+<li><a href="#inputorigination-controls">Input/Origination Controls</a></li>
+<li><a href="#batch-controls-and-balancing">Batch Controls and Balancing</a></li>
+<li><a href="#data-validation-edits-critical-exam-area">Data Validation Edits (CRITICAL EXAM AREA!)</a></li>
+<li><a href="#processing-controls">Processing Controls</a></li>
+<li><a href="#data-file-control-types-figure-323">Data File Control Types (Figure 3.23):</a></li>
+</ul>
+</li>
+<li><a href="#52-output-controls-342">5.2 Output Controls (3.4.2)</a></li>
+<li><a href="#61-testing-overview">6.1 Testing Overview</a></li>
+<li><a href="#62-testing-classifications-351">6.2 Testing Classifications (3.5.1)</a><ul>
+<li><a href="#other-types-of-testing">Other Types of Testing:</a></li>
+</ul>
+</li>
+<li><a href="#63-data-integrity-in-online-transaction-processing-acid-principle">6.3 Data Integrity in Online Transaction Processing — ACID Principle</a></li>
+<li><a href="#64-testing-application-systems-354">6.4 Testing Application Systems (3.5.4)</a></li>
+<li><a href="#65-is-auditors-role-in-testing">6.5 IS Auditor's Role in Testing</a></li>
+<li><a href="#66-system-implementation-355">6.6 System Implementation (3.5.5)</a></li>
+<li><a href="#71-overview">7.1 Overview</a></li>
+<li><a href="#72-configuration-management-systems-361">7.2 Configuration Management Systems (3.6.1)</a></li>
+<li><a href="#81-data-migration-371">8.1 Data Migration (3.7.1)</a></li>
+<li><a href="#82-changeover-go-live-cutover-techniques-372">8.2 Changeover (Go-Live / Cutover) Techniques (3.7.2)</a><ul>
+<li><a href="#three-changeover-techniques">Three Changeover Techniques:</a></li>
+</ul>
+</li>
+<li><a href="#83-system-change-procedures-and-program-migration-process-373">8.3 System Change Procedures and Program Migration Process (3.7.3)</a></li>
+<li><a href="#84-certificationaccreditation-375">8.4 Certification/Accreditation (3.7.5)</a></li>
+<li><a href="#91-what-is-postimplementation-review">9.1 What is Postimplementation Review?</a></li>
+<li><a href="#92-what-does-postimplementation-review-consider">9.2 What Does Postimplementation Review Consider?</a></li>
+<li><a href="#93-project-closeout-steps-figure-328">9.3 Project Closeout Steps (Figure 3.28):</a></li>
+<li><a href="#94-measurements-of-critical-success-factors-figure-329">9.4 Measurements of Critical Success Factors (Figure 3.29):</a></li>
+<li><a href="#95-is-auditors-role-in-postimplementation-review-381">9.5 IS Auditor's Role in Postimplementation Review (3.8.1)</a></li>
+<li><a href="#one-page-quick-summary">One-Page Quick Summary</a><ul>
+<li><a href="#domain-3-at-a-glance">Domain 3 at a Glance:</a></li>
+</ul>
+</li>
+<li><a href="#high-probability-questions-with-answers">High-Probability Questions with Answers</a><ul>
+<li><a href="#q1-a-project-manager-in-a-functional-organization-structure-has">Q1. A project manager in a functional organization structure has:</a></li>
+<li><a href="#q2-which-data-validation-edit-is-most-effective-in-detecting-transposition-and-transcription-errors">Q2. Which data validation edit is MOST effective in detecting transposition and transcription errors?</a></li>
+<li><a href="#q3-the-primary-purpose-of-parallel-testing-is-to">Q3. The PRIMARY purpose of parallel testing is to:</a></li>
+<li><a href="#q4-when-introducing-thin-client-architecture-which-type-of-risk-is-significantly-increased-regarding-servers">Q4. When introducing thin client architecture, which type of risk is significantly increased regarding servers?</a></li>
+<li><a href="#q5-in-agile-development-methodology-which-of-the-following-is-most-commonly-associated">Q5. In agile development methodology, which of the following is MOST commonly associated?</a></li>
+<li><a href="#q6-when-a-software-package-is-purchased-instead-of-developed-in-house-which-sdlc-phases-are-replaced">Q6. When a software package is purchased instead of developed in-house, which SDLC phases are replaced?</a></li>
+<li><a href="#q7-to-assist-in-testing-a-banking-system-with-sensitive-production-data-the-is-auditors-primary-concern-is-that-the-test-data-should-be">Q7. To assist in testing a banking system with sensitive production data, the IS auditor's PRIMARY concern is that the test data should be:</a></li>
+<li><a href="#q8-user-specifications-in-a-waterfall-sdlc-project-have-not-been-met-the-most-likely-source-of-this-issue-is">Q8. User specifications in a waterfall SDLC project have not been met. The MOST likely source of this issue is:</a></li>
+<li><a href="#q9-during-bpr-an-is-auditor-finds-an-important-preventive-control-has-been-removed-the-auditor-should">Q9. During BPR, an IS auditor finds an important preventive control has been removed. The auditor should:</a></li>
+<li><a href="#q10-which-weakness-is-most-significant-in-erp-software-used-by-a-financial-enterprise">Q10. Which weakness is MOST significant in ERP software used by a financial enterprise?</a></li>
+<li><a href="#q11-pert-calculates-activity-duration-estimates-using">Q11. PERT calculates activity duration estimates using:</a></li>
+<li><a href="#q12-a-software-escrow-agreement-ensures">Q12. A software escrow agreement ensures:</a></li>
+<li><a href="#q13-the-acid-principles-atomicity-means">Q13. The ACID principle's "Atomicity" means:</a></li>
+<li><a href="#q14-which-changeover-technique-carries-the-lowest-risk">Q14. Which changeover technique carries the LOWEST risk?</a></li>
+<li><a href="#q15-certification-differs-from-accreditation-in-that">Q15. Certification differs from accreditation in that:</a></li>
+<li><a href="#q16-a-hash-total-is-best-described-as">Q16. A hash total is best described as:</a></li>
+<li><a href="#q17-an-is-auditor-performing-a-postimplementation-review-should">Q17. An IS auditor performing a postimplementation review should:</a></li>
+<li><a href="#q18-the-pert-formula-for-calculating-activity-duration-is">Q18. The PERT formula for calculating activity duration is:</a></li>
+</ul>
+</li>
+<li><a href="#121-essential-mnemonics">12.1 Essential Mnemonics</a><ul>
+<li><a href="#smart-objectives">📘 SMART Objectives</a></li>
+<li><a href="#feasibility-study-elements">📘 Feasibility Study Elements</a></li>
+<li><a href="#acid-principle">📘 ACID Principle</a></li>
+<li><a href="#data-validation-edits">📘 Data Validation Edits</a></li>
+<li><a href="#pert-formula">📘 PERT Formula</a></li>
+<li><a href="#cost-estimation-methods-fastest-to-most-accurate">📘 Cost Estimation Methods (fastest to most accurate)</a></li>
+<li><a href="#project-structures">📘 Project Structures</a></li>
+<li><a href="#changeover-techniques-by-risk-lowest-to-highest">📘 Changeover Techniques (by risk, lowest to highest)</a></li>
+<li><a href="#rad-stages">📘 RAD Stages</a></li>
+<li><a href="#batch-control-types">📘 Batch Control Types</a></li>
+</ul>
+</li>
+<li><a href="#122-critical-distinctions-to-remember">12.2 Critical Distinctions to Remember</a></li>
+<li><a href="#123-is-auditor-key-principles-master-these">12.3 IS Auditor Key Principles (Master These!)</a></li>
+</ul>
+</div>
+</nav>
+      <div id="toc-empty" class="empty-state" hidden>No section headings match the current filter.</div>
+    </aside>
+  </div>
+  <button class="btn focus-fab" data-action="toggle-focus">Exit focus mode</button>
+</div>
+
+  <script>
+(() => {
+  const storageKey = "cisa-study-theme";
+  const focusKey = "cisa-study-focus";
+  const root = document.documentElement;
+
+  const savedTheme = window.localStorage.getItem(storageKey);
+  if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+  }
+
+  const themeBtn = document.querySelector("[data-action='toggle-theme']");
+  if (themeBtn) {
+    const syncThemeLabel = () => {
+      const theme = root.getAttribute("data-theme") || "light";
+      themeBtn.textContent = theme === "dark" ? "Switch to light" : "Switch to dark";
+    };
+    syncThemeLabel();
+    themeBtn.addEventListener("click", () => {
+      const nextTheme = (root.getAttribute("data-theme") || "light") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", nextTheme);
+      window.localStorage.setItem(storageKey, nextTheme);
+      syncThemeLabel();
+    });
+  }
+
+  const focusButtons = Array.from(document.querySelectorAll("[data-action='toggle-focus']"));
+  if (window.localStorage.getItem(focusKey) === "true") {
+    document.body.classList.add("focus-mode");
+  }
+  if (focusButtons.length) {
+    const syncFocusButtons = () => {
+      const active = document.body.classList.contains("focus-mode");
+      focusButtons.forEach((button) => {
+        const isFloating = button.classList.contains("focus-fab");
+        button.textContent = active ? "Exit focus mode" : "Focus mode";
+        button.classList.toggle("is-active", active && !isFloating);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    };
+    const toggleFocus = () => {
+      document.body.classList.toggle("focus-mode");
+      window.localStorage.setItem(focusKey, String(document.body.classList.contains("focus-mode")));
+      syncFocusButtons();
+    };
+    syncFocusButtons();
+    focusButtons.forEach((button) => button.addEventListener("click", toggleFocus));
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && document.body.classList.contains("focus-mode")) {
+        toggleFocus();
+      }
+    });
+  }
+
+  const progressBar = document.querySelector(".progress-bar");
+  const updateProgress = () => {
+    if (!progressBar) {
+      return;
+    }
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progressBar.style.transform = `scaleX(${ratio})`;
+  };
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+
+  const searchInput = document.querySelector("[data-search]");
+  if (searchInput) {
+    const selector = searchInput.getAttribute("data-target");
+    const items = selector ? Array.from(document.querySelectorAll(selector)) : [];
+    const emptyStateId = searchInput.getAttribute("data-empty-state");
+    const emptyState = emptyStateId ? document.getElementById(emptyStateId) : null;
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const haystack = (item.getAttribute("data-search-text") || item.textContent || "").toLowerCase();
+        const show = !query || haystack.includes(query);
+        item.style.display = show ? "" : "none";
+        if (show) {
+          visible += 1;
+        }
+      });
+      if (emptyState) {
+        emptyState.hidden = visible !== 0;
+      }
+    });
+  }
+
+  const headingLinks = Array.from(document.querySelectorAll(".toc-panel a[href^='#']"));
+  const headingTargets = headingLinks
+    .map((link) => {
+      let id = link.getAttribute("href").slice(1);
+      try {
+        id = decodeURIComponent(id);
+      } catch {
+        // Keep raw fragment when it is not URI-encoded.
+      }
+      const target = document.getElementById(id);
+      return target ? { link, target } : null;
+    })
+    .filter(Boolean);
+
+  if (headingTargets.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const current = headingTargets.find((item) => item.target === entry.target);
+          if (!current) {
+            return;
+          }
+          if (entry.isIntersecting) {
+            headingLinks.forEach((link) => link.classList.remove("is-active"));
+            current.link.classList.add("is-active");
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 1] }
+    );
+    headingTargets.forEach((item) => observer.observe(item.target));
+  }
+
+  const article = document.querySelector(".article");
+  if (article) {
+    const isAnswerLabel = (text) => /^(?:answer\s*[:.)-]|a\s*[.):-]\s*)/i.test((text || "").trim());
+
+    const buildAnswerDetails = (contentNode) => {
+      const details = document.createElement("details");
+      details.className = "answer-collapsible";
+      const summary = document.createElement("summary");
+      summary.textContent = "Show answer";
+      const wrapper = document.createElement("div");
+      wrapper.className = "answer-content";
+      wrapper.appendChild(contentNode.cloneNode(true));
+      details.appendChild(summary);
+      details.appendChild(wrapper);
+      return details;
+    };
+
+    // Split paragraphs where question and answer appear in the same paragraph.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      const htmlValue = p.innerHTML;
+      const qaMatch = htmlValue.match(
+        /^(.*?)(?:\s*-\s*|\s+)?<strong>\s*(?:Answer\s*[:.)-]|A\s*[.):-][^<]*)<\/strong>\s*([\s\S]*)$/i
+      );
+      if (!qaMatch || !/<strong>\s*Q\d*\s*:\s*<\/strong>/i.test(qaMatch[1])) {
+        return;
+      }
+
+      p.innerHTML = qaMatch[1].trim();
+      const answerP = document.createElement("p");
+      answerP.innerHTML = `<strong>Answer:</strong> ${qaMatch[2].trim()}`;
+      p.insertAdjacentElement("afterend", buildAnswerDetails(answerP));
+    });
+
+    // Wrap standalone answer paragraphs.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      if (p.closest("details.answer-collapsible")) {
+        return;
+      }
+      if (!isAnswerLabel(p.textContent)) {
+        return;
+      }
+      p.replaceWith(buildAnswerDetails(p));
+    });
+
+    // Wrap answer-only blockquotes.
+    Array.from(article.querySelectorAll("blockquote")).forEach((blockquote) => {
+      if (blockquote.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstParagraph = blockquote.querySelector("p");
+      if (!firstParagraph || !isAnswerLabel(firstParagraph.textContent)) {
+        return;
+      }
+      blockquote.replaceWith(buildAnswerDetails(blockquote));
+    });
+
+    // Wrap list items that are answer lines, keeping the list structure valid.
+    Array.from(article.querySelectorAll("li")).forEach((li) => {
+      if (li.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstStrong = li.querySelector(":scope > strong");
+      if (!firstStrong || !isAnswerLabel(firstStrong.textContent)) {
+        return;
+      }
+
+      const payload = document.createElement("div");
+      while (li.firstChild) {
+        payload.appendChild(li.firstChild);
+      }
+      li.appendChild(buildAnswerDetails(payload));
+    });
+  }
+})();
+</script>
+</body>
+</html>

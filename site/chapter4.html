@@ -1,0 +1,3944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CISA Chapter 4 – Information Systems Operations and Business Resilience | CISA Study Hub</title>
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  color-scheme: light;
+  --cp-bg: #f3efe6;
+  --cp-bg-elevated: #fbf8f2;
+  --cp-surface: rgba(255, 255, 255, 0.86);
+  --cp-surface-strong: rgba(255, 255, 255, 0.94);
+  --cp-surface-soft: rgba(255, 248, 238, 0.78);
+  --cp-border: rgba(113, 89, 61, 0.15);
+  --cp-border-strong: rgba(113, 89, 61, 0.28);
+  --cp-text: #1f2937;
+  --cp-text-muted: #5b6472;
+  --cp-text-soft: #7a838f;
+  --cp-accent: #c65d2e;
+  --cp-accent-hover: #a84c24;
+  --cp-accent-soft: rgba(198, 93, 46, 0.12);
+  --cp-accent-fg: #fff8f1;
+  --cp-accent-alt: #0f766e;
+  --cp-accent-alt-soft: rgba(15, 118, 110, 0.12);
+  --cp-link: #0f766e;
+  --cp-shadow: 0 24px 70px rgba(61, 43, 24, 0.14);
+  --cp-shadow-soft: 0 10px 30px rgba(61, 43, 24, 0.09);
+  --cp-overlay: rgba(251, 248, 242, 0.82);
+  --cp-highlight: rgba(198, 93, 46, 0.16);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #0d1721;
+  --cp-bg-elevated: #121f2d;
+  --cp-surface: rgba(17, 27, 39, 0.76);
+  --cp-surface-strong: rgba(19, 31, 45, 0.9);
+  --cp-surface-soft: rgba(32, 49, 68, 0.72);
+  --cp-border: rgba(148, 163, 184, 0.18);
+  --cp-border-strong: rgba(148, 163, 184, 0.34);
+  --cp-text: #e7edf5;
+  --cp-text-muted: #b0bdcb;
+  --cp-text-soft: #91a0b0;
+  --cp-accent: #f59e0b;
+  --cp-accent-hover: #f97316;
+  --cp-accent-soft: rgba(245, 158, 11, 0.16);
+  --cp-accent-fg: #111827;
+  --cp-accent-alt: #22c55e;
+  --cp-accent-alt-soft: rgba(34, 197, 94, 0.14);
+  --cp-link: #5eead4;
+  --cp-shadow: 0 26px 80px rgba(1, 6, 15, 0.45);
+  --cp-shadow-soft: 0 12px 36px rgba(1, 6, 15, 0.3);
+  --cp-overlay: rgba(9, 16, 24, 0.72);
+  --cp-highlight: rgba(245, 158, 11, 0.16);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.16), transparent 30%),
+    radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 26%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+  color: var(--cp-text);
+  font-family: "Plus Jakarta Sans", Aptos, sans-serif;
+  position: relative;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 999px;
+  filter: blur(22px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+body::before {
+  top: -12rem;
+  right: -10rem;
+  background: rgba(198, 93, 46, 0.18);
+}
+body::after {
+  bottom: -14rem;
+  left: -10rem;
+  background: rgba(15, 118, 110, 0.14);
+}
+a {
+  color: var(--cp-link);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.progress-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  box-shadow: 0 0 18px var(--cp-highlight);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 80;
+}
+.shell {
+  width: min(1480px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+.masthead {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+  align-items: stretch;
+  margin-bottom: 28px;
+}
+.hero,
+.panel,
+.chapter-card,
+.toc-panel,
+.chapter-rail,
+.content-panel,
+.tool-row,
+.callout-tile {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 24px;
+  box-shadow: var(--cp-shadow);
+  backdrop-filter: blur(18px);
+}
+.hero,
+.content-panel {
+  position: relative;
+  overflow: hidden;
+}
+.hero::before,
+.content-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 46%),
+    radial-gradient(circle at top right, var(--cp-accent-soft), transparent 30%);
+  pointer-events: none;
+}
+.hero {
+  padding: 34px;
+}
+.eyebrow {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+}
+.hero h1,
+.chapter-hero h1 {
+  margin: 18px 0 14px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 12ch;
+}
+.chapter-hero h1 {
+  max-width: none;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+.hero p,
+.chapter-hero p,
+.muted {
+  color: var(--cp-text-muted);
+  font-size: 1.02rem;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+.stat {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  box-shadow: var(--cp-shadow-soft);
+}
+.stat strong,
+.stat span {
+  display: block;
+}
+.stat strong {
+  margin-bottom: 6px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.5rem;
+}
+.hero-illustration,
+.chapter-illustration {
+  min-height: 100%;
+  padding: 26px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top left, var(--cp-accent-soft), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    var(--cp-surface-soft);
+}
+.hero-illustration svg,
+.chapter-illustration svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+.top-tools {
+  position: sticky;
+  top: 16px;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.tool-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+  align-items: center;
+  background: var(--cp-overlay);
+}
+.tool-row input {
+  min-width: 260px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  color: var(--cp-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.tool-row input:focus {
+  outline: 2px solid var(--cp-accent-soft);
+  border-color: var(--cp-accent);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--cp-shadow-soft);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+.btn:hover,
+.btn.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--cp-accent-soft));
+  color: var(--cp-text);
+}
+.btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #eb7b3a);
+  color: var(--cp-accent-fg);
+  border-color: transparent;
+  box-shadow: 0 14px 28px rgba(198, 93, 46, 0.28);
+}
+.btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 22px;
+}
+.chapter-card {
+  padding: 22px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.chapter-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  opacity: 0.92;
+}
+.chapter-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -36% auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--cp-accent-soft), transparent 65%);
+  pointer-events: none;
+}
+.chapter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 60px rgba(61, 43, 24, 0.18);
+  border-color: rgba(198, 93, 46, 0.24);
+}
+.chapter-card h2,
+.chapter-card h3 {
+  margin: 0;
+  font-size: 1.62rem;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.chapter-card h2 a {
+  color: var(--cp-text);
+}
+.chapter-card p {
+  margin: 0;
+}
+.chapter-card .chapter-subtitle {
+  margin-top: 8px;
+  color: var(--cp-text-muted);
+  font-size: 1rem;
+}
+.chapter-card .chapter-summary {
+  color: var(--cp-text-muted);
+  line-height: 1.62;
+  font-size: 1rem;
+}
+.chips,
+.quick-links,
+.chapter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--cp-surface-soft);
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text-muted);
+  font-size: 0.84rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.quick-links {
+  gap: 10px;
+}
+.quick-links .chip {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  color: var(--cp-text);
+  border-color: rgba(198, 93, 46, 0.24);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-accent-soft));
+  box-shadow: 0 8px 18px rgba(61, 43, 24, 0.12);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+.quick-links .chip:hover,
+.quick-links .chip:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.42);
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  box-shadow: 0 12px 22px rgba(61, 43, 24, 0.16);
+}
+.quick-links .chip:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.chapter-actions {
+  margin-top: 6px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.chapter-actions .btn {
+  min-height: 50px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  border-color: rgba(113, 89, 61, 0.2);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+}
+.chapter-actions .btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #dd6f33);
+  border-color: transparent;
+  color: var(--cp-accent-fg);
+  box-shadow: 0 10px 22px rgba(198, 93, 46, 0.24);
+}
+.chapter-actions .btn:hover {
+  border-color: rgba(198, 93, 46, 0.38);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--cp-accent-soft));
+}
+.chapter-actions .btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-actions .btn:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+.callout-tile {
+  padding: 20px;
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+}
+.callout-tile h3 {
+  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  box-shadow: var(--cp-shadow-soft);
+}
+.callout-tile:nth-child(1) h3 {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(14, 165, 233, 0.12));
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #1d4ed8;
+}
+.callout-tile:nth-child(2) h3 {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(249, 115, 22, 0.14));
+  border-color: rgba(245, 158, 11, 0.38);
+  color: #b45309;
+}
+.callout-tile:nth-child(3) h3 {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(20, 184, 166, 0.14));
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #047857;
+}
+.chapter-layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(250px, 320px);
+  align-items: start;
+}
+.chapter-rail,
+.toc-panel {
+  position: sticky;
+  top: 92px;
+  padding: 20px;
+  max-height: calc(100vh - 112px);
+  overflow: auto;
+  background:
+    linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface)),
+    var(--cp-overlay);
+  border: 1px solid var(--cp-border);
+  box-shadow: var(--cp-shadow-soft);
+}
+.chapter-rail nav,
+.toc-panel nav {
+  display: grid;
+  gap: 8px;
+}
+.chapter-rail .eyebrow,
+.toc-panel .eyebrow {
+  margin-bottom: 14px;
+}
+.chapter-nav-link,
+.toc-panel a {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 14px;
+  color: var(--cp-text-muted);
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-soft);
+  font-weight: 600;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, color 180ms ease;
+}
+.chapter-nav-link:hover,
+.chapter-nav-link.is-current,
+.toc-panel a:hover,
+.toc-panel a.is-active {
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border-color: var(--cp-border-strong);
+  color: var(--cp-text);
+  transform: translateX(2px);
+}
+.chapter-nav-link strong {
+  display: block;
+  margin-bottom: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+.toc-panel a {
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.content-panel {
+  padding: 26px 30px 32px;
+  background: var(--cp-surface-strong);
+}
+.chapter-hero {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.8fr);
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--cp-border);
+  margin-bottom: 24px;
+  align-items: center;
+}
+.article {
+  font-size: 1.03rem;
+  line-height: 1.82;
+}
+.article > :first-child {
+  margin-top: 0;
+}
+.article > * {
+  max-width: 74ch;
+}
+.article .table-wrap,
+.article img,
+.article pre,
+.article h2 {
+  max-width: 100%;
+}
+.article h1,
+.article h2,
+.article h3,
+.article h4,
+.article h5,
+.article h6 {
+  scroll-margin-top: 104px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--cp-text);
+}
+.article h1 {
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 2.4rem;
+}
+.article h2 {
+  margin-top: 2.4rem;
+  padding: 18px 20px;
+  border: 1px solid var(--cp-border);
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), transparent 70%);
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.7rem;
+}
+.article h3 {
+  margin-top: 1.8rem;
+  font-size: 1.24rem;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.article details.answer-collapsible {
+  margin: 18px 0;
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  box-shadow: var(--cp-shadow-soft);
+  overflow: hidden;
+}
+.article details.answer-collapsible summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  font-weight: 700;
+  color: var(--cp-text);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+}
+.article details.answer-collapsible summary::-webkit-details-marker {
+  display: none;
+}
+.article details.answer-collapsible summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 180ms ease;
+}
+.article details.answer-collapsible[open] summary::before {
+  transform: rotate(90deg);
+}
+.article details.answer-collapsible .answer-content {
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--cp-border);
+}
+.article details.answer-collapsible .answer-content > :first-child {
+  margin-top: 0;
+}
+.article details.answer-collapsible .answer-content > :last-child {
+  margin-bottom: 0;
+}
+.article hr {
+  border: 0;
+  border-top: 1px solid var(--cp-border);
+  margin: 28px 0;
+}
+.article blockquote {
+  margin: 22px 0;
+  padding: 18px 20px;
+  border-left: 4px solid var(--cp-accent);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+  border-radius: 18px;
+  box-shadow: var(--cp-shadow-soft);
+}
+.article code,
+.article pre {
+  font-family: Consolas, "Courier New", Courier, monospace;
+}
+.article :not(pre) > code {
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text);
+}
+.article pre {
+  overflow: auto;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+}
+.article ul,
+.article ol {
+  padding-left: 1.35rem;
+}
+.article li + li {
+  margin-top: 0.4rem;
+}
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+.article th,
+.article td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cp-border);
+  border-right: 1px solid var(--cp-border);
+  vertical-align: top;
+}
+.article tr:last-child td {
+  border-bottom: 0;
+}
+.article th:last-child,
+.article td:last-child {
+  border-right: 0;
+}
+.article th {
+  position: sticky;
+  top: 0;
+  background: var(--cp-surface-soft);
+  text-align: left;
+}
+.article img {
+  display: block;
+  margin: 22px 0;
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+  box-shadow: var(--cp-shadow-soft);
+}
+.toc-panel .toc,
+.toc-panel .toc ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.toc-panel .toc > ul {
+  display: grid;
+  gap: 8px;
+}
+.toc-panel .toc ul ul {
+  margin-left: 12px;
+  margin-top: 8px;
+  border-left: 1px solid var(--cp-border);
+  padding-left: 10px;
+}
+.empty-state {
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text-muted);
+  border: 1px dashed var(--cp-border-strong);
+}
+.footer-note {
+  margin-top: 22px;
+  color: var(--cp-text-soft);
+  font-size: 0.94rem;
+}
+.focus-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 75;
+  display: none;
+  min-width: 150px;
+}
+body.focus-mode {
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.08), transparent 32%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+}
+body.focus-mode .chapter-rail,
+body.focus-mode .toc-panel,
+body.focus-mode .top-tools,
+body.focus-mode .chapter-illustration {
+  display: none;
+}
+body.focus-mode .focus-fab {
+  display: inline-flex;
+}
+body.focus-mode .chapter-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+body.focus-mode .content-panel {
+  max-width: 900px;
+  margin: 0 auto;
+}
+body.focus-mode .chapter-hero {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (max-width: 1180px) {
+  .chapter-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .chapter-rail,
+  .toc-panel {
+    position: static;
+    max-height: none;
+  }
+}
+@media (max-width: 900px) {
+  .masthead,
+  .chapter-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shell {
+    width: min(100% - 24px, 1480px);
+  }
+  .hero,
+  .content-panel {
+    padding: 22px;
+  }
+  .top-tools {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .chapter-actions {
+    grid-template-columns: 1fr;
+  }
+  .hero,
+  .panel,
+  .chapter-card,
+  .toc-panel,
+  .chapter-rail,
+  .content-panel,
+  .tool-row,
+  .callout-tile {
+    border-radius: 20px;
+  }
+  .tool-row,
+  .tool-row input,
+  .btn {
+    width: 100%;
+  }
+  .focus-fab {
+    right: 12px;
+    left: 12px;
+    bottom: 14px;
+    width: auto;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="progress-bar"></div>
+  
+<div class="shell">
+  <div class="top-tools">
+    <div class="tool-row">
+      <a class="btn" href="index.html">Back to chapter index</a>
+      <button class="btn" data-action="toggle-focus">Focus mode</button>
+      <button class="btn" data-action="toggle-theme">Switch theme</button>
+    </div>
+    <div class="tool-row">
+      <input type="search" placeholder="Filter this chapter TOC" data-search data-target=".toc-panel a" data-empty-state="toc-empty">
+    </div>
+  </div>
+
+  <div class="chapter-layout">
+    <aside class="chapter-rail">
+      <p class="eyebrow">Chapters</p>
+      <nav><a class="chapter-nav-link" href="chapter1.html"><strong>Chapter 1</strong></a>
+<a class="chapter-nav-link" href="chapter2.html"><strong>Chapter 2</strong></a>
+<a class="chapter-nav-link" href="chapter3.html"><strong>Chapter 3</strong></a>
+<a class="chapter-nav-link is-current" href="chapter4.html"><strong>Chapter 4</strong></a>
+<a class="chapter-nav-link" href="chapter5.html"><strong>Chapter 5</strong></a></nav>
+    </aside>
+
+    <main class="content-panel">
+      <section class="chapter-hero">
+        <div>
+          <span class="eyebrow">Chapter 4</span>
+          <h1>CISA Chapter 4 – Information Systems Operations and Business Resilience</h1>
+          <p>Exam Weight: 26% of CISA examination (~39 questions)</p>
+          <div class="quick-links" style="margin-top: 12px;"><a class="chip" href="#rapid-revision-sheet">Rapid Revision</a><a class="chip" href="#probable-exam-questions">Exam Questions</a><a class="chip" href="#critical-osi-layer-mnemonics">Mnemonics</a><a class="chip" href="#key-concept-recap">Concept Recap</a></div>
+        </div>
+        <div class="panel chapter-illustration">
+<svg viewBox="0 0 360 240" role="img" aria-label="CISA NOTES emblem" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cnStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-accent)"/>
+      <stop offset="100%" stop-color="var(--cp-accent-alt)"/>
+    </linearGradient>
+    <linearGradient id="cnBadge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-surface-strong)"/>
+      <stop offset="100%" stop-color="var(--cp-surface-soft)"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="44" y="36" width="272" height="170" rx="24" fill="var(--cp-surface-strong)" stroke="var(--cp-border)" stroke-width="2"/>
+  <rect x="44" y="36" width="272" height="38" rx="24" fill="var(--cp-surface-soft)"/>
+
+  <circle cx="72" cy="55" r="5" fill="var(--cp-accent)" opacity="0.75"/>
+  <circle cx="90" cy="55" r="5" fill="var(--cp-accent-alt)" opacity="0.7"/>
+  <circle cx="108" cy="55" r="5" fill="var(--cp-border-strong)"/>
+
+  <rect x="66" y="92" width="128" height="10" rx="5" fill="var(--cp-border-strong)"/>
+  <rect x="66" y="110" width="102" height="10" rx="5" fill="var(--cp-accent-soft)"/>
+  <rect x="66" y="143" width="220" height="9" rx="4.5" fill="var(--cp-border)"/>
+  <rect x="66" y="160" width="186" height="9" rx="4.5" fill="var(--cp-border)"/>
+
+  <g transform="translate(216 88)">
+    <path d="M54 0l34 15v26c0 27-23 50-34 56C43 91 20 68 20 41V15L54 0z" fill="url(#cnBadge)" stroke="url(#cnStroke)" stroke-width="4"/>
+    <path d="M40 47l10 10 22-24" fill="none" stroke="var(--cp-accent-alt)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="180" y="124" text-anchor="middle" font-size="36" font-weight="800" letter-spacing="2.2" fill="url(#cnStroke)" font-family="Space Grotesk, Plus Jakarta Sans, sans-serif">CISA</text>
+  <text x="180" y="157" text-anchor="middle" font-size="24" font-weight="700" letter-spacing="4.5" fill="var(--cp-text-muted)" font-family="Plus Jakarta Sans, sans-serif">NOTES</text>
+</svg>
+</div>
+      </section>
+
+      <article class="article"><h1 id="cisa-chapter-4-information-systems-operations-and-business-resilience">CISA Chapter 4 – Information Systems Operations and Business Resilience</h1>
+<blockquote>
+<p><strong>Exam Weight:</strong> 26% of CISA examination (~39 questions)
+<strong>Structure:</strong> Part A – IS Operations | Part B – Business Resilience</p>
+</blockquote>
+<hr />
+<h1 id="table-of-contents">TABLE OF CONTENTS</h1>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.1</td>
+<td>IT Components (Networking, Hardware, Wireless)</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>IT Asset Management</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>Job Scheduling and Process Automation</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>System Interfaces</td>
+</tr>
+<tr>
+<td>4.5</td>
+<td>End-User Computing and Shadow IT</td>
+</tr>
+<tr>
+<td>4.6</td>
+<td>Systems Availability and Capacity Management</td>
+</tr>
+<tr>
+<td>4.7</td>
+<td>Problem and Incident Management</td>
+</tr>
+<tr>
+<td>4.8</td>
+<td>IT Change, Configuration and Patch Management</td>
+</tr>
+<tr>
+<td>4.9</td>
+<td>Operational Log Management</td>
+</tr>
+<tr>
+<td>4.10</td>
+<td>IT Service Level Management</td>
+</tr>
+<tr>
+<td>4.11</td>
+<td>Database Management</td>
+</tr>
+<tr>
+<td>4.12</td>
+<td>Business Impact Analysis (BIA)</td>
+</tr>
+<tr>
+<td>4.13</td>
+<td>System and Operational Resilience</td>
+</tr>
+<tr>
+<td>4.14</td>
+<td>Data Backup, Storage and Restoration</td>
+</tr>
+<tr>
+<td>4.15</td>
+<td>Business Continuity Plan (BCP)</td>
+</tr>
+<tr>
+<td>4.16</td>
+<td>Disaster Recovery Plans (DRP)</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Rapid Revision Sheet</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Exam Questions &amp; Mnemonics</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="part-a-information-systems-operations">PART A: INFORMATION SYSTEMS OPERATIONS</h1>
+<hr />
+<h2 id="41-it-components">4.1 IT Components</h2>
+<h3 id="overview">Overview</h3>
+<p>IT operations encompass everything needed to keep an organization's systems running reliably and securely. The IS auditor must understand these components to assess risks and controls effectively.</p>
+<p><strong>Key IT Operation Elements:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Element</th>
+<th>What It Is</th>
+<th>Auditor Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infrastructure</td>
+<td>Hardware, data centers, networking</td>
+<td>Effectiveness, efficiency, security</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>Routers, switches, firewalls, VPNs</td>
+<td>Security controls, access controls</td>
+</tr>
+<tr>
+<td>Applications &amp; Software</td>
+<td>OS, apps, databases, middleware</td>
+<td>Change management, access reviews</td>
+</tr>
+<tr>
+<td>System Monitoring</td>
+<td>Log analysis, event management</td>
+<td>Performance issues detection</td>
+</tr>
+<tr>
+<td>Backup &amp; Disaster Recovery</td>
+<td>DRP, replication mechanisms</td>
+<td>Business continuity readiness</td>
+</tr>
+<tr>
+<td>Virtualization &amp; Cloud</td>
+<td>IaaS, SaaS, PaaS</td>
+<td>SOC reports, third-party reviews</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Procedures, troubleshooting guides</td>
+<td>Completeness, currency</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="411-networking">4.1.1 Networking</h3>
+<h4 id="the-osi-reference-model">The OSI Reference Model</h4>
+<p>The <strong>Open Systems Interconnection (OSI)</strong> model is a 7-layer conceptual framework for network communication. Each layer is self-contained and communicates with the same layer on the remote system (peer-to-peer).</p>
+<p><strong>Memory Aid: "All People Seem To Need Data Processing"</strong> (Layer 7 → 1)</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layer #</th>
+<th>Layer Name</th>
+<th>Function</th>
+<th>Data Unit</th>
+<th>Key Protocols/Devices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td><strong>Application</strong></td>
+<td>User interface to network; provides services to apps</td>
+<td>Data</td>
+<td>HTTP, FTP, SMTP, TFTP, DNS, DHCP</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Presentation</strong></td>
+<td>Data translation, encryption, compression, reformatting</td>
+<td>Data</td>
+<td>SSL/TLS, encryption</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Session</strong></td>
+<td>Establishes, manages and terminates sessions</td>
+<td>Data</td>
+<td>NSP, SNMP, Telnet, NetBIOS</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Transport</strong></td>
+<td>End-to-end reliable/unreliable delivery, error recovery, flow control</td>
+<td>Segment</td>
+<td>TCP, UDP</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Network</strong></td>
+<td>Logical addressing (IP), routing and forwarding</td>
+<td>Packet</td>
+<td>IP, ICMP, ARP, RARP; Routers</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Data Link</strong></td>
+<td>Reliable transfer across physical link, MAC addressing, CRC error detection</td>
+<td>Frame</td>
+<td>Ethernet, PPP; Switches, Bridges</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>Physical</strong></td>
+<td>Bit transmission as electrical/optical/radio signals</td>
+<td>Bits</td>
+<td>Cables, connectors, NICs, Hubs</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Exam Point:</strong> Data travels DOWN the OSI stack on the sender side (headers/trailers added) and UP the stack on the receiver side (headers/trailers removed). Each layer adds control information as an "envelope."</p>
+</blockquote>
+<p><strong>Important OSI Layer Details:</strong>
+- <strong>Data Link Layer</strong> uses <strong>MAC (Media Access Control)</strong> addresses — unique hardware addresses assigned at manufacture
+- <strong>CRC (Cyclic Redundancy Check)</strong> detects single-bit and most multi-bit errors at Data Link layer
+- <strong>Promiscuous mode</strong> — a NIC configured to listen to ALL data (not just its own MAC address) — used in network monitoring/sniffing
+- <strong>Network Layer</strong> understands IP addresses and handles routing</p>
+<hr />
+<h4 id="tcpip-vs-osi-model">TCP/IP vs OSI Model</h4>
+<p>TCP/IP was developed BEFORE the OSI model — there is <strong>no direct match</strong> between the two.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>OSI Layers</th>
+<th>TCP/IP Layer</th>
+<th>Key Protocols</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application + Presentation + Session</td>
+<td>Application</td>
+<td>HTTP, FTP, SMTP, DNS, DHCP, SNMP, Telnet</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td>Transport</td>
+<td>TCP (reliable), UDP (unreliable)</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>Internet</td>
+<td>IP, ICMP, ARP, RARP</td>
+</tr>
+<tr>
+<td>Data Link + Physical</td>
+<td>Network Interface</td>
+<td>Ethernet, PPP, Frame Relay</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h4 id="local-area-network-lan">Local Area Network (LAN)</h4>
+<p><strong>Definition:</strong> A network covering a small local area — a room to a few buildings.</p>
+<p><strong>LAN Physical Media:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Media</th>
+<th>Use</th>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Twisted-pair (copper)</td>
+<td>Short distances (&lt;200 ft), voice and data</td>
+<td>Cheap, simple, easy to install</td>
+<td>Easy to tap, cross talk, EMI interference</td>
+</tr>
+<tr>
+<td>Coaxial cable</td>
+<td>Data and video</td>
+<td>Straightforward, readily available</td>
+<td>Thick, expensive, distance sensitive</td>
+</tr>
+<tr>
+<td>Fiber optic</td>
+<td>Long distances, voice/data/video</td>
+<td>High bandwidth, secure, no cross talk, no EMI</td>
+<td>Expensive, hard to splice/modify, fragile</td>
+</tr>
+<tr>
+<td>Radio (wireless)</td>
+<td>Short distances</td>
+<td>Cheap, convenient</td>
+<td>Easy to tap, interference, noise</td>
+</tr>
+<tr>
+<td>Microwave radio</td>
+<td>Line-of-sight, voice and data</td>
+<td>Available</td>
+<td>Easy to tap, weather-sensitive</td>
+</tr>
+<tr>
+<td>Satellite radio</td>
+<td>Wide area coverage</td>
+<td>High bandwidth</td>
+<td>Interference, delay (~300ms traditional, &lt;100ms LEO)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>LAN Topologies:</strong>
+- <strong>Bus</strong> — All devices on a single cable (legacy, rarely used)
+- <strong>Ring</strong> — Devices form a circle (legacy)
+- <strong>Star</strong> — All devices connect to a central switch/hub <strong>(current standard)</strong></p>
+<p><strong>LAN Components:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Device</th>
+<th>OSI Layer</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repeater</strong></td>
+<td>Layer 1 (Physical)</td>
+<td>Amplifies/regenerates signals; extends range</td>
+</tr>
+<tr>
+<td><strong>Hub</strong></td>
+<td>Layer 1 (Physical)</td>
+<td>Multi-port repeater; broadcasts to all ports</td>
+</tr>
+<tr>
+<td><strong>Bridge</strong></td>
+<td>Layer 2 (Data Link)</td>
+<td>Connects LAN segments; filters by MAC address; software-based</td>
+</tr>
+<tr>
+<td><strong>Layer 2 Switch</strong></td>
+<td>Layer 2 (Data Link)</td>
+<td>Store-and-forward; reduces collision domains; hardware (ASIC); faster than bridge</td>
+</tr>
+<tr>
+<td><strong>Router</strong></td>
+<td>Layer 3 (Network)</td>
+<td>Routes packets using IP addresses; logically separates networks; software-based</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Exam Point:</strong> Switches are hardware-based (ASIC) and faster than software-based bridges. Routers examine every packet — can create bottlenecks.</p>
+</blockquote>
+<p><strong>LAN Risks:</strong>
+- Unauthorized data changes (integrity loss)
+- Version control failures
+- Virus/worm infection
+- Data disclosure (no need-to-know enforcement)
+- Impersonation (masquerading as legitimate user)
+- <strong>Sniffing</strong> — harvesting network addresses to launch attacks
+- <strong>Spoofing</strong> — reconfiguring address to pretend to be different
+- Lack of audit trails; destruction of log data</p>
+<p><strong>LAN Security Controls:</strong>
+- Principle of Least Privilege (POLP)
+- Record/file locking to prevent simultaneous updates
+- Strong password policies
+- Port security using switches (prevent unknown MAC addresses)
+- Encrypting local traffic with <strong>IPSec</strong>
+- Auditor documents: topology, admin/owner, user groups, applications, procedures</p>
+<hr />
+<h4 id="wide-area-network-wan">Wide Area Network (WAN)</h4>
+<p><strong>Definition:</strong> Transmits data across geographically dispersed LANs — cities, nations.</p>
+<p><strong>Key WAN Characteristics:</strong>
+- Operates at Physical and Data Link layers
+- Data flow: Simplex (one-way), Half-duplex (one-way-at-a-time), Full-duplex (both-ways simultaneously)
+- Lines: Switched or Dedicated</p>
+<p><strong>WAN Message Techniques:</strong>
+- <strong>Message switching</strong> — Complete message sent to concentration point; stored and forwarded
+- <strong>Virtual circuits</strong> — Logical circuit between two devices: - <strong>SVC (Switched Virtual Circuit)</strong> — On-demand connectivity - <strong>PVC (Permanent Virtual Circuit)</strong> — Always-on connection</p>
+<p><strong>ISO WAN Management Tasks (ISO/IEC 10040):</strong>
+1. <strong>Fault management</strong> — Detects technical faults
+2. <strong>Configuration management</strong> — Remotely define/change device configs
+3. <strong>Accounting management</strong> — Records resource usage
+4. <strong>Performance management</strong> — Monitors usage, sets thresholds
+5. <strong>Security management</strong> — Detects suspicious traffic, generates alarms</p>
+<p><strong>Network Management Tools:</strong>
+- <strong>Response time reports</strong> — Identify slow system response
+- <strong>Downtime reports</strong> — Track line/circuit availability
+- <strong>Online monitors</strong> — Echo checking, status checking
+- <strong>Network (protocol) analyzers</strong> — Hardware-based tools at data link/network level; monitor packets
+- <strong>SNMP (Simple Network Management Protocol)</strong> — TCP/IP-based; monitors/controls network variables; polls devices via agents; use SNMPv2 or v3 for encryption
+- <strong>ICMP (Internet Control Message Protocol)</strong> — Error reporting protocol; used by <code>ping</code></p>
+<hr />
+<h4 id="converged-protocols">Converged Protocols</h4>
+<p>Protocols that merge proprietary and standard protocols over existing TCP/IP infrastructure:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Description</th>
+<th>Key Point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FC (Fiber Channel)</strong></td>
+<td>High-speed storage (up to 16 Gbps, 10 km); dedicated infrastructure</td>
+<td>More secure than IP-based storage</td>
+</tr>
+<tr>
+<td><strong>FCoE (Fiber Channel over Ethernet)</strong></td>
+<td>FC frames over Ethernet; requires 10+ Gbps</td>
+<td>Expensive to implement</td>
+</tr>
+<tr>
+<td><strong>MPLS (Multi-Protocol Label Switching)</strong></td>
+<td>Routes by short labels (20-bit) instead of full IP addresses; faster</td>
+<td>Protocol-independent; avoids routing table lookups</td>
+</tr>
+<tr>
+<td><strong>VoIP (Voice over IP)</strong></td>
+<td>Voice/video over TCP/IP; cheaper than landline</td>
+<td>Can support videoconferencing</td>
+</tr>
+<tr>
+<td><strong>iSCSI</strong></td>
+<td>SAN protocol over TCP/IP; low-cost FC alternative</td>
+<td>Easy to configure; supports DR; reusable</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>iSCSI Components:</strong>
+- <strong>Initiator</strong> — Host software/hardware that sends data to storage
+- <strong>Target</strong> — Storage device that receives the data</p>
+<hr />
+<h4 id="ipv4-vs-ipv6">IPv4 vs IPv6</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>IPv4</th>
+<th>IPv6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address size</td>
+<td>32-bit (4.3 billion addresses)</td>
+<td>128-bit (near-infinite addresses)</td>
+</tr>
+<tr>
+<td>Checksum</td>
+<td>Used</td>
+<td>Not available</td>
+</tr>
+<tr>
+<td>Transmission method</td>
+<td>Broadcasting</td>
+<td>Multicasting</td>
+</tr>
+<tr>
+<td>Encryption/Authentication</td>
+<td>Not supported</td>
+<td>Provided</td>
+</tr>
+<tr>
+<td>Address configuration</td>
+<td>Manual + DHCP</td>
+<td>Manual, DHCP, autoconfiguration, renumbering</td>
+</tr>
+<tr>
+<td>End-to-end integrity</td>
+<td>Cannot be achieved</td>
+<td>Highly achievable</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Not security-focused</td>
+<td>Enhanced for security</td>
+</tr>
+<tr>
+<td>Packet flow identification</td>
+<td>No mechanism</td>
+<td>Flow label field in header</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>IPv4 → IPv6 Transition Strategies:</strong>
+1. <strong>Dual stacking</strong> — Run both versions on same device
+2. <strong>Tunneling</strong> — Use IPv4 routing to carry IPv6 traffic</p>
+<hr />
+<h4 id="network-address-translation-nat">Network Address Translation (NAT)</h4>
+<p><strong>Definition:</strong> Converts internal IP addresses to public IP addresses for Internet communication.</p>
+<p><strong>Types of NAT:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static NAT</td>
+<td>One-to-one permanent mapping of internal to external IP</td>
+</tr>
+<tr>
+<td>Dynamic NAT</td>
+<td>Internal IP dynamically mapped from a pool of external IPs</td>
+</tr>
+<tr>
+<td>NPAT (NAT with Port Address Translation)</td>
+<td>Multiple devices share ONE public IP — different port numbers used</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>NAT Benefits:</strong> Cost reduction, improved privacy, increased security (blocks uninitiated inbound connections), flexibility, boundary enforcement</p>
+<p><strong>NAT Limitations:</strong> Time-consuming implementation, large storage for connection tables, may interfere with IPSec, compatibility issues</p>
+<hr />
+<h3 id="412-computer-hardware">4.1.2 Computer Hardware</h3>
+<p><strong>CPU Components:</strong>
+- <strong>ALU (Arithmetic Logic Unit)</strong> — Mathematical and logical operations
+- <strong>Control Unit</strong> — Directs all computer operations
+- <strong>Internal Memory (CPU registers)</strong> — Used for processing transactions</p>
+<p><strong>Types of Computers:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Key Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Supercomputer</strong></td>
+<td>Highest processing speed; specialized; very expensive</td>
+</tr>
+<tr>
+<td><strong>Mainframe</strong></td>
+<td>Large, general-purpose; proprietary OS; supports batch + real-time; thousands of users</td>
+</tr>
+<tr>
+<td><strong>High-end/Midrange servers</strong></td>
+<td>Comparable to mainframes; use UNIX/Windows; database servers</td>
+</tr>
+<tr>
+<td><strong>PC/Workstation</strong></td>
+<td>Single-user; microprocessor-based; linked to form networks</td>
+</tr>
+<tr>
+<td><strong>Thin client</strong></td>
+<td>Minimal hardware; most processing at server (e.g., Citrix, Terminal Services)</td>
+</tr>
+<tr>
+<td><strong>Laptop</strong></td>
+<td>Portable; battery-powered; vulnerable to theft</td>
+</tr>
+<tr>
+<td><strong>NUC</strong></td>
+<td>Small form factor; full desktop experience</td>
+</tr>
+<tr>
+<td><strong>SBC (Single-Board Computer)</strong></td>
+<td>Complete computer on one circuit board (e.g., Raspberry Pi)</td>
+</tr>
+<tr>
+<td><strong>Smartphones/Tablets</strong></td>
+<td>Handheld; combines computing, phone, and networking</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>HDD vs SSD:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>HDD</th>
+<th>SSD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Technology</td>
+<td>Spinning disks + moving read/write head</td>
+<td>Flash memory</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Slower</td>
+<td>Faster</td>
+</tr>
+<tr>
+<td>Durability</td>
+<td>Less durable (moving parts)</td>
+<td>More durable (no moving parts)</td>
+</tr>
+<tr>
+<td>Mechanical failure risk</td>
+<td>Higher</td>
+<td>Lower</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>GPU:</strong> Originally for graphics; now widely used for AI, ML, and high-performance computing.</p>
+<hr />
+<h3 id="413-enterprise-back-end-devices">4.1.3 Enterprise Back-End Devices</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Device</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Print server</strong></td>
+<td>Consolidates printing resources</td>
+</tr>
+<tr>
+<td><strong>File server</strong></td>
+<td>Organization-wide file access; centralized document repository</td>
+</tr>
+<tr>
+<td><strong>Application server</strong></td>
+<td>Hosts business logic; clients access applications through it</td>
+</tr>
+<tr>
+<td><strong>Web server</strong></td>
+<td>Delivers web pages via URL</td>
+</tr>
+<tr>
+<td><strong>Proxy server</strong></td>
+<td>Intermediary between users and resources</td>
+</tr>
+<tr>
+<td><strong>Database server</strong></td>
+<td>Stores data; accessed by application/web servers</td>
+</tr>
+<tr>
+<td><strong>DLP Gateway</strong></td>
+<td>Prevents data exfiltration; inspects all in/out traffic</td>
+</tr>
+<tr>
+<td><strong>Appliances</strong></td>
+<td>Specialized devices: firewalls, IDS/IPS, switches, routers, VPNs, load balancers</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Proxy Server Types:</strong>
+- <strong>Forward proxy</strong> — Client → Internet (caching, filtering, anonymizing)
+- <strong>Reverse proxy</strong> — Internet → Web server (load balancing, security, caching)
+- <strong>Open proxy</strong> — Accessible to anyone; avoided in professional organizations (phishing/spam risk)</p>
+<hr />
+<h3 id="414-usb-mass-storage-devices">4.1.4 USB Mass Storage Devices</h3>
+<p><strong>Risks of USB Devices:</strong>
+- Virus/malware vectors (very hard to defend)
+- Data theft (physical access opportunity)
+- Data/media loss (portability risk)
+- Data corruption (improper removal)
+- Compatibility issues
+- Physical damage
+- Loss of confidentiality (HIPAA violations if patient data lost)</p>
+<p><strong>USB Security Controls:</strong>
+- Encryption (renders data useless without key)
+- Granular control software (block unauthorized USB; allow specific manufacturers)
+- Personnel education
+- Lock desktop policy (auto-lock after short interval)
+- Antivirus scanning
+- Use only encrypted/approved devices
+- Include return info text file on device</p>
+<hr />
+<h3 id="415-wireless-communication-technologies">4.1.5 Wireless Communication Technologies</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Description</th>
+<th>Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wi-Fi</strong></td>
+<td>Radio waves for wireless Internet; most common</td>
+<td>Computers, smartphones, tablets</td>
+</tr>
+<tr>
+<td><strong>Bluetooth</strong></td>
+<td>Short-distance device communication</td>
+<td>Headphones, keyboards, tracking devices</td>
+</tr>
+<tr>
+<td><strong>RFID</strong></td>
+<td>Radio waves to identify/track objects</td>
+<td>Asset tracking, inventory, access control</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Wireless Advantages:</strong> Convenience, mobility, scalability</p>
+<hr />
+<h3 id="416-hardware-maintenance-program">4.1.6 Hardware Maintenance Program</h3>
+<p><strong>Information Maintained:</strong>
+- Service company details per hardware resource
+- Maintenance schedule and cost
+- Performance history (planned vs. unplanned)</p>
+<p><strong>Auditor Procedures:</strong>
+- Verify plan covers scope aligned with business requirements
+- Ensure formal maintenance plan approved and followed
+- Identify maintenance costs exceeding budget</p>
+<p><strong>Hardware Monitoring Reports:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Availability reports</strong></td>
+<td>Track uptime/downtime; detect excessive unavailability</td>
+</tr>
+<tr>
+<td><strong>Hardware error reports</strong></td>
+<td>Identify CPU, I/O, power, storage failures</td>
+</tr>
+<tr>
+<td><strong>Asset management reports</strong></td>
+<td>Inventory of network-connected equipment</td>
+</tr>
+<tr>
+<td><strong>Utilization reports</strong></td>
+<td>CPU, channel, disk usage; optimal range 85-95% for mainframes</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="42-it-asset-management">4.2 IT Asset Management</h2>
+<p><strong>Asset</strong> = Something of tangible or intangible value worth protecting.</p>
+<p><strong>Inventory Record Should Include:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Owner</td>
+<td>Person/entity responsible</td>
+</tr>
+<tr>
+<td>Designated custodian</td>
+<td>Individual responsible for maintenance/care</td>
+</tr>
+<tr>
+<td>Specific identification</td>
+<td>Unique identifiers</td>
+</tr>
+<tr>
+<td>Relative value</td>
+<td>Value to the organization</td>
+</tr>
+<tr>
+<td>Loss implications/recovery priority</td>
+<td>Impact if lost; recovery priority</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>Physical or virtual location</td>
+</tr>
+<tr>
+<td>Security/risk classification</td>
+<td>Risk classification</td>
+</tr>
+<tr>
+<td>Asset group</td>
+<td>Part of which larger information system</td>
+</tr>
+<tr>
+<td>Life cycle management</td>
+<td>Current life cycle stage</td>
+</tr>
+<tr>
+<td>Compliance requirements</td>
+<td>Legal/regulatory obligations</td>
+</tr>
+<tr>
+<td>Access controls</td>
+<td>Authorized access details</td>
+</tr>
+<tr>
+<td>Disposal date</td>
+<td>When asset was removed</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Building Initial Inventory:</strong>
+- Consult purchasing system
+- Review contracts
+- Review installed software
+- Use network scanning tools (vulnerability/asset management solutions)</p>
+<p><strong>Key Practice:</strong> Physical hardware → physically tagged; Software → tracked via network scanning + annual license confirmation. Remote wipe capability needed when employee leaves or device reported lost.</p>
+<hr />
+<h2 id="43-job-scheduling-and-production-process-automation">4.3 Job Scheduling and Production Process Automation</h2>
+<p><strong>Definition:</strong> A job schedule lists all jobs that must run, the order, and dependencies.</p>
+<p><strong>Why It Matters:</strong> Automated job scheduling controls the complex process of running thousands of daily file transfers.</p>
+<p><strong>Job Scheduling Software Advantages:</strong>
+- Reduces manual task burden
+- Job information set up only once (less operator error)
+- Dependencies defined (dependent jobs halt if predecessor fails)
+- Security over production data
+- Logs of all successes and failures</p>
+<p><strong>Scheduling Principles:</strong>
+- High-priority jobs → optimal resources
+- Maintenance (backup, reorganization) → non-peak times
+- Low-priority jobs → scheduled when resources available</p>
+<p><strong>Auditor Review Focus (Figure 4.8):</strong>
+- Are critical applications identified with highest priority?
+- Are schedules followed and rush jobs justified?
+- Does daily schedule serve as audit trail?
+- Are all job failures flagged, investigated, and communicated?
+- Are restarted jobs authorized and logged?
+- Are personnel authorized to change schedules?</p>
+<hr />
+<h2 id="44-system-interfaces">4.4 System Interfaces</h2>
+<p><strong>Definition:</strong> Allow data output from one application to be input for another with minimal human interaction.</p>
+<p><strong>Three Categories of Data Transfer:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Description</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>System-to-system</strong></td>
+<td>Data between two systems (internal/external); common in ERP, analytics</td>
+<td>Pervasive errors if not corrected quickly</td>
+</tr>
+<tr>
+<td><strong>Partner-to-partner</strong></td>
+<td>Two+ organizations interface directly</td>
+<td>Exposes confidential data to third parties</td>
+</tr>
+<tr>
+<td><strong>Person-to-person</strong></td>
+<td>Human data exchange (email attachments, shared drives)</td>
+<td>Human error, security exposure, hardest to monitor</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Controls for System Interfaces:</strong>
+- Managed File Transfer (MFT) system for tracking
+- Manage multiple transfer mechanisms and APIs
+- Encryption/decryption of data in transit
+- Reconciliation (manual or automated via cryptographic hash checksums)
+- Non-repudiation controls (ensure intended recipient is actual recipient)
+- Audit trails capturing: who sent, when, when received, data structure, how sent, who received</p>
+<p><strong>Key Risk:</strong> Data must be the same on sending and receiving system; unauthorized access during transit is a major concern.</p>
+<hr />
+<h2 id="45-end-user-computing-and-shadow-it">4.5 End-User Computing and Shadow IT</h2>
+<h3 id="end-user-computing-euc">End-User Computing (EUC)</h3>
+<p><strong>Definition:</strong> Technologies enabling non-IT professionals to create and manage technical resources.</p>
+<p><strong>EUC Risks (from lack of IT oversight):</strong>
+- No authorization mechanism
+- No authentication mechanism
+- No audit logging (Excel/Access don't have native logs)
+- No encryption for sensitive data
+- No data backup
+- Compliance risk (sensitive/private data)
+- Not in IT inventories (monitoring challenges)
+- Not in maintenance/patching schedules</p>
+<p><strong>Auditor Response:</strong> Ensure EUC policies exist; data classification applied; inventory maintained; critical EUC apps get same controls as enterprise apps.</p>
+<hr />
+<h3 id="shadow-it">Shadow IT</h3>
+<p><strong>Definition:</strong> Use of systems/services/hardware/software without IT/cybersecurity department approval.</p>
+<p><strong>Why It Grows:</strong> Low-cost cloud software, smartphone proliferation, work-from-home, personal hardware.</p>
+<p><strong>Shadow IT Controls:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shadow IT policy</td>
+<td>Aligned with business objectives and security requirements</td>
+</tr>
+<tr>
+<td>IT as service-delivery org</td>
+<td>Consultative IT culture encouraging business partnership</td>
+</tr>
+<tr>
+<td>IT budgeting/procurement</td>
+<td>IT reviews all IT purchases</td>
+</tr>
+<tr>
+<td>System consolidation</td>
+<td>Limit service providers, networks, platforms</td>
+</tr>
+<tr>
+<td>User access/admin rights</td>
+<td>Explicitly assigned; unapproved installs prevented</td>
+</tr>
+<tr>
+<td>User education</td>
+<td>Formal IT education program</td>
+</tr>
+<tr>
+<td>User activity monitoring</td>
+<td>Record and monitor user behavior</td>
+</tr>
+<tr>
+<td>User data exchange</td>
+<td>Strong end-point controls</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Key Concept:</strong> Shadow IT can drive innovation but exposes enterprise to significant risk. Controls must be continuously assessed, not one-time.</p>
+</blockquote>
+<hr />
+<h2 id="46-systems-availability-and-capacity-management">4.6 Systems Availability and Capacity Management</h2>
+<h3 id="461-is-architecture">4.6.1 IS Architecture</h3>
+<p><strong>Computer Architecture Hierarchy (bottom to top):</strong>
+1. Hardware + firmware (base)
+2. <strong>Kernel/Nucleus</strong> — Handles interruptions, process creation/destruction, memory allocation, I/O support; highly privileged; most user access restricted
+3. OS processes (system software)
+4. Applications</p>
+<p><strong>System Software Examples:</strong>
+- Access control software
+- Data communications software
+- Database management software
+- Program library management
+- Job scheduling software
+- Utility programs
+- Network management software</p>
+<hr />
+<h3 id="462-operating-systems-os">4.6.2 Operating Systems (OS)</h3>
+<p><strong>OS Functions:</strong> Interface between user, processor, and application software; manages processors, RAM, disk storage, and I/O devices.</p>
+<p><strong>Key OS Concept:</strong> Virtual storage — programs reference addresses beyond real memory; OS maps large slower memory to faster smaller working memory.</p>
+<p><strong>OS Types by Environment:</strong>
+- <strong>Single-user micro</strong> — Simple file cataloging + program loading
+- <strong>Mainframe (z/OS)</strong> — Extensive concurrent operations, batch + real-time, high reliability
+- <strong>Server OS (UNIX/Linux)</strong> — Multiprocessing, multitasking, multi-user, network management
+- <strong>Virtual environment</strong> — One physical server partitioned into multiple independent virtual servers, each running its own OS</p>
+<p><strong>Software Control Parameters deal with:</strong>
+- Data management
+- Resource management
+- Job management
+- Priority setting</p>
+<p><strong>OS Integrity Requirements:</strong>
+- Protect from deliberate/unintentional modification
+- Ensure user programs cannot interfere with privileged programs
+- Process isolation — prevent concurrent processes from interfering
+- <strong>Least privilege</strong> — Processes have no more privilege than needed</p>
+<blockquote>
+<p><strong>Windows Registry</strong> — Critical system configuration files; changes tracked by IS auditor for integrity, confidentiality, availability.</p>
+</blockquote>
+<hr />
+<h3 id="463-access-control-software">4.6.3 Access Control Software</h3>
+<p>Prevents unauthorized access to data, system functions, programs; prevents unauthorized updates.</p>
+<h3 id="464-data-communications-software">4.6.4 Data Communications Software</h3>
+<p>Transmits messages/data between points. Components: <strong>Transmitter → Transmission path → Receiver</strong></p>
+<h3 id="465-utility-programs">4.6.5 Utility Programs</h3>
+<p>System software for maintenance. Five functional categories:
+1. Understanding application systems
+2. Assessing/testing data quality
+3. Testing program integrity
+4. Faster program development
+5. Improving operational efficiency</p>
+<blockquote>
+<p><strong>Security Note:</strong> Many utilities operate outside the security system without audit trails. Access to sensitive utilities must be controlled and restricted.</p>
+</blockquote>
+<hr />
+<h3 id="466-software-licensing">4.6.6 Software Licensing</h3>
+<p><strong>Free Software Types:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open source</td>
+<td>May use, copy, modify, redistribute; source code included (e.g., Linux)</td>
+</tr>
+<tr>
+<td>Freeware</td>
+<td>Free; source code cannot be redistributed (e.g., Adobe Reader)</td>
+</tr>
+<tr>
+<td>Trial/Demo</td>
+<td>Free initially but limited functionality or time</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Paid Software Types:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Basis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Per CPU</td>
+<td>Number of CPUs/cores</td>
+</tr>
+<tr>
+<td>Per seat</td>
+<td>Number of unique users</td>
+</tr>
+<tr>
+<td>Concurrent users</td>
+<td>Total users in defined period</td>
+</tr>
+<tr>
+<td>Utilization</td>
+<td>CPU activity or active users at a time</td>
+</tr>
+<tr>
+<td>Per device</td>
+<td>Number of devices (not users)</td>
+</tr>
+<tr>
+<td>Enterprise</td>
+<td>Unlimited use throughout organization</td>
+</tr>
+<tr>
+<td>Mixed</td>
+<td>Combination of types</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Auditor Actions for License Compliance:</strong>
+1. Review listing of all software (standard, used, licensed)
+2. Obtain copies of all software contracts
+3. Scan network to list installed software
+4. Review server specs (CPUs, cores)
+5. Compare license agreements with installed software</p>
+<p><strong>Prevention of License Violations:</strong>
+- Good software asset management
+- Centralized control/distribution
+- Disable user ability to install software
+- Regular endpoint scanning
+- Documented policies requiring user sign-off</p>
+<hr />
+<h3 id="467-source-code-management">4.6.7 Source Code Management</h3>
+<p><strong>Source code</strong> = Human-readable programming language text; must be compiled to machine language.</p>
+<p><strong>Version Control System (VCS)/Revision Control Software (RCS):</strong>
+- Maintains central repository
+- Programmers "check out" → modify → "check in" (creates new revision)
+- Supports branching (copies of trunk for different customers/regions)
+- Examples: <strong>Git</strong> (distributed — DVCS), <strong>Apache Subversion</strong> (centralized)</p>
+<p><strong>VCS Advantages:</strong> Access control, change tracking, concurrent development, rollback, branching</p>
+<p><strong>Auditor Focus on Source Code:</strong>
+- Who has access
+- Who can commit (push to production)
+- Alignment with change/release management
+- Backups including offsite + escrow agreements</p>
+<hr />
+<h3 id="468-capacity-management">4.6.8 Capacity Management</h3>
+<p><strong>Definition:</strong> Planning and monitoring computing/network resources to ensure efficient and effective use.</p>
+<p><strong>Key Information for Capacity Planning:</strong>
+- CPU/vCPU utilization
+- Computer storage utilization
+- LAN/WAN bandwidth utilization
+- I/O channel utilization
+- Number of users
+- New technologies/applications
+- SLAs</p>
+<p><strong>Capacity Planning and Monitoring Cycle:</strong></p>
+<pre><code>Developing → Monitoring → Analyzing → Tuning → Implementing → Modeling → Application Sizing
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Developing</td>
+<td>Create capacity plan for current/future IT resources</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Monitor IT components against agreed service levels</td>
+</tr>
+<tr>
+<td>Analyzing</td>
+<td>Identify trends, baselines from monitoring data</td>
+</tr>
+<tr>
+<td>Tuning</td>
+<td>Optimize systems for actual/expected workload</td>
+</tr>
+<tr>
+<td>Implementing</td>
+<td>Introduce changes/new capacity</td>
+</tr>
+<tr>
+<td>Modeling</td>
+<td>Forecast future capacity trends</td>
+</tr>
+<tr>
+<td>Application sizing</td>
+<td>Predict resource needs for new capacity</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key Threshold:</strong> File server storage at 80% → install additional disk; mainframe utilization target 85-95%.</p>
+<p><strong>Application Stacking:</strong> Consolidating apps on fewer large servers — better resource use but higher impact if server goes down.</p>
+<blockquote>
+<p><strong>Capacity Monitoring is Pro-active</strong> — prevents performance problems by detecting threshold breaches before they affect business operations.</p>
+</blockquote>
+<hr />
+<h2 id="47-problem-and-incident-management">4.7 Problem and Incident Management</h2>
+<h3 id="471-problem-management">4.7.1 Problem Management</h3>
+<p><strong>Definition:</strong> Resolves issues through in-depth root cause analysis of a major incident or several similar incidents.</p>
+<p><strong>Root Cause Analysis Methods:</strong>
+- <strong>Fishbone/Ishikawa diagrams</strong> — Cause-and-effect analysis
+- <strong>Brainstorming</strong>
+- <strong>5 Whys</strong> — Iterative questioning to find root cause</p>
+<p><strong>Process:</strong>
+1. Identify problem
+2. Root cause analysis → <strong>known error</strong>
+3. Develop workaround
+4. Add to <strong>KEDB (Known Error Database)</strong>
+5. Proactively prevent recurrence</p>
+<p><strong>Problem vs Incident Management:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Problem Management</th>
+<th>Incident Management</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Objective</td>
+<td>Reduce number/severity of incidents</td>
+<td>Return to normal service ASAP</td>
+</tr>
+<tr>
+<td>Approach</td>
+<td>Proactive; root cause focus</td>
+<td>Reactive; speed focus</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>Known error database, permanent fix</td>
+<td>Service restoration</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="472-incident-handling-process">4.7.2 Incident Handling Process</h3>
+<p><strong>Incident Life Cycle:</strong>
+1. <strong>Initiation/Detection</strong>
+2. <strong>Classification</strong> (impact + urgency)
+3. <strong>Assignment</strong> to specialists
+4. <strong>Resolution</strong>
+5. <strong>Closure</strong></p>
+<p><strong>Priority Determination:</strong> Based on impact AND urgency (e.g., CIO's printer request vs. server crash → server crash gets priority by policy).</p>
+<p><strong>Escalation:</strong> Unresolved incidents escalated per IS management criteria.</p>
+<hr />
+<h3 id="473-error-logging">4.7.3 Error Logging</h3>
+<p><strong>Types of Errors Logged:</strong>
+- Application errors, System errors, Operator errors
+- Network errors, Telecommunication errors, Hardware errors</p>
+<p><strong>Error Log Entry Contents:</strong>
+- Error date, code, description, source
+- Department/position responsible
+- Escalation date/time
+- Resolution narrative and status code
+- Initials of individual maintaining and closing the log</p>
+<blockquote>
+<p><strong>Control Point:</strong> Ability to ADD to error log should not be restricted, but UPDATES should be restricted to authorized individuals. Closing an entry should be assigned to a DIFFERENT person than the one who initiated it (Separation of Duties).</p>
+</blockquote>
+<hr />
+<h3 id="474-help-desk">4.7.4 Help Desk</h3>
+<p><strong>Primary Purpose:</strong> First, single, and central point of contact for users.</p>
+<p><strong>Triage Process:</strong> Help desk ticket initiated → classified → escalated based on complexity.</p>
+<p><strong>Help Desk Functions:</strong>
+- Determine source of incidents; take corrective action
+- Initiate problem reports
+- Provide second and third-tier support
+- Maintain vendor software documentation
+- Communicate abnormal patterns to IS operations</p>
+<hr />
+<h2 id="48-it-change-configuration-and-patch-management">4.8 IT Change, Configuration and Patch Management</h2>
+<h3 id="change-management">Change Management</h3>
+<p><strong>Purpose:</strong> Control movement of application changes from test → QA → production environments.</p>
+<p><strong>Change Management Covers:</strong>
+- Hardware modifications
+- Software installation/upgrades
+- Application patching
+- Network device configuration (firewalls, routers, switches)</p>
+<p><strong>Change Categories:</strong>
+- <strong>Emergency</strong> — Immediate implementation required
+- <strong>Major</strong> — Significant changes with full testing
+- <strong>Minor</strong> — Small enhancements/fixes</p>
+<p><strong>Change Management Ensures:</strong>
+- All relevant personnel informed
+- Documentation complete and compliant
+- Testing reviewed and approved by user/project management
+- Data file conversion accurate
+- Rollback plan exists for high-risk changes
+- Legal/compliance aspects considered</p>
+<hr />
+<h3 id="481-patch-management">4.8.1 Patch Management</h3>
+<p><strong>Definition:</strong> Acquiring, testing, and installing code changes to maintain up-to-date software and address security risks.</p>
+<p><strong>Patch Management Tasks:</strong>
+1. Maintain current knowledge of available patches
+2. Decide which patches apply to which systems
+3. Test patches on non-critical systems first
+4. Document all associated procedures
+5. Backup before patching</p>
+<blockquote>
+<p><strong>Risk:</strong> Patches can be ineffective or introduce new problems. Always test before production deployment.</p>
+</blockquote>
+<hr />
+<h3 id="482-release-management">4.8.2 Release Management</h3>
+<p><strong>Definition:</strong> Process of making software available to users; a "release" is a collection of authorized changes.</p>
+<p><strong>Types of Releases:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Testing Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Major release</strong></td>
+<td>Significant new functionality; supersedes all minor releases</td>
+<td>Comprehensive testing</td>
+</tr>
+<tr>
+<td><strong>Minor release</strong></td>
+<td>Small enhancements/fixes; fixes that can't wait for major release</td>
+<td>Full release process but less demanding</td>
+</tr>
+<tr>
+<td><strong>Emergency release</strong></td>
+<td>Critical fix required immediately; avoid when possible</td>
+<td>Limited testing — increases error risk</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Delta release</strong> — Only includes items changed since last release (partial release).</p>
+<p><strong>Release Planning Includes:</strong>
+- Contents consensus
+- Release strategy (phasing by time, geography, business unit)
+- High-level schedule
+- Resource planning (including overtime)
+- Roles and responsibilities
+- Rollback plans
+- Quality plan</p>
+<hr />
+<h3 id="483-is-operations">4.8.3 IS Operations</h3>
+<p><strong>IS Operations Staff Tasks:</strong>
+- Execute and monitor scheduled jobs
+- Facilitate timely backup
+- Monitor unauthorized access to sensitive data
+- Monitor adherence to IS operations procedures
+- Participate in DRP tests
+- Monitor performance, capacity, availability, and failure of resources
+- Facilitate troubleshooting and incident handling</p>
+<p><strong>IS Operations Documentation Includes:</strong>
+- Operations procedures (job flows, equipment instructions)
+- System/application monitoring procedures
+- Error/problem detection procedures
+- Problem escalation procedures
+- Backup and recovery procedures</p>
+<hr />
+<h2 id="49-operational-log-management">4.9 Operational Log Management</h2>
+<h3 id="definition">Definition</h3>
+<p>Operational logs (audit trails) track and log activities — providing historical records of actions, events, and interactions.</p>
+<blockquote>
+<p><strong>Key Use:</strong> Log monitoring used as a <strong>compensating control</strong> when primary controls (like separation of duties) are not feasible in small organizations.</p>
+</blockquote>
+<h3 id="491-types-of-logs">4.9.1 Types of Logs</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Log Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Event log</strong></td>
+<td>Network traffic, login attempts, failed passwords, application events</td>
+</tr>
+<tr>
+<td><strong>Server log</strong></td>
+<td>Activities related to a specific server</td>
+</tr>
+<tr>
+<td><strong>System log</strong></td>
+<td>OS events: startup, shutdowns, errors, warnings</td>
+</tr>
+<tr>
+<td><strong>Access log</strong></td>
+<td>Who/what accessed applications or files; compensating control</td>
+</tr>
+<tr>
+<td><strong>Change log</strong></td>
+<td>Chronological list of changes to applications/files</td>
+</tr>
+<tr>
+<td><strong>Availability log</strong></td>
+<td>System uptime/performance; used for SLA compliance</td>
+</tr>
+<tr>
+<td><strong>Resource log</strong></td>
+<td>Connectivity issues, capacity limits; early breach indicator</td>
+</tr>
+<tr>
+<td><strong>Threat log</strong></td>
+<td>Traffic matching predefined security profile; firewall alerts</td>
+</tr>
+<tr>
+<td><strong>Database log</strong></td>
+<td>Insertions, updates, deletions; maintains data integrity</td>
+</tr>
+<tr>
+<td><strong>Error log</strong></td>
+<td>System problems with details for resolution</td>
+</tr>
+<tr>
+<td><strong>Firewall log</strong></td>
+<td>Incoming/outgoing traffic through firewall</td>
+</tr>
+<tr>
+<td><strong>OS log</strong></td>
+<td>Data file versions, programs scheduled, utility usage; verifies OS integrity</td>
+</tr>
+<tr>
+<td><strong>Application log</strong></td>
+<td>Efficiency, authorization of changes, unauthorized access</td>
+</tr>
+<tr>
+<td><strong>Access control log</strong></td>
+<td>Access control effectiveness for critical data, DBMSs, apps</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="492-log-management-cycle">4.9.2 Log Management Cycle</h3>
+<pre><code>Generate → Alert → Store/Protect → Analyze → Report → Archive/Retain
+</code></pre>
+<p><strong>Three-Tier Log Infrastructure:</strong>
+1. <strong>Log generation tier</strong> — Hosts generating log data (clients/servers)
+2. <strong>Log analysis and storage tier</strong> — Log servers receiving, storing, aggregating (collectors/aggregators)
+3. <strong>Log monitoring tier</strong> — Consoles for monitoring, reviewing, reporting</p>
+<p><strong>SIEM (Security Information and Event Management):</strong>
+- Integrates data from multiple log sources
+- Real-time monitoring, event correlation, threat detection
+- More comprehensive than standalone log management</p>
+<p><strong>Log Analysis Techniques:</strong>
+- <strong>Parsing</strong> — Extract relevant info; normalize different formats
+- <strong>Event correlation</strong> — Identify relationships between events (SIEM provides this)
+- <strong>Pattern matching</strong> — Search for predefined attack signatures
+- <strong>Statistical analysis</strong> — Mean, median, std deviation, time-series analysis for anomaly detection</p>
+<p><strong>Log Security:</strong>
+- Protect from alteration (intruders try to hide by altering logs)
+- Centralize on secure SIEM server
+- Use encrypted file systems/databases
+- Role-based access controls
+- Regular automated backups (offsite/cloud)
+- Retention policy per regulatory requirements</p>
+<p><strong>At minimum, logs must capture:</strong> Timestamp, user information, event information</p>
+<hr />
+<h2 id="410-it-service-level-management">4.10 IT Service Level Management</h2>
+<h3 id="overview_1">Overview</h3>
+<p>ITSM manages IT through discrete processes to deliver service to the business. SLAs maintain and improve customer satisfaction.</p>
+<p><strong>Frameworks:</strong>
+- <strong>ITIL</strong> — Detailed framework for operational service management based on business value
+- <strong>ISO 20000</strong> — International ITSM standard; ensures ITSM processes align with business needs</p>
+<h3 id="4101-service-level-agreements-slas">4.10.1 Service Level Agreements (SLAs)</h3>
+<p><strong>Definition:</strong> Agreement between IT organization (internal or external) and customer detailing services provided.</p>
+<p><strong>SLA Characteristics:</strong> Accuracy, completeness, timeliness, security</p>
+<p><strong>Monitoring Tools for SLA Compliance:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exception reports</strong></td>
+<td>Identify applications that didn't complete successfully</td>
+</tr>
+<tr>
+<td><strong>System and application logs</strong></td>
+<td>Identify application problems</td>
+</tr>
+<tr>
+<td><strong>Operator problem reports</strong></td>
+<td>Manual logs of computer operations problems</td>
+</tr>
+<tr>
+<td><strong>Operator work schedules</strong></td>
+<td>Ensure proper staffing for service requirements</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>When SLA terms not met:</strong> Service provider may pay fines or reduce billing per contractual obligations.</p>
+<p><strong>OLA (Operational Level Agreement):</strong> Internal agreements covering delivery of services that support IT's delivery to business.</p>
+<hr />
+<h3 id="4102-monitoring-service-levels">4.10.2 Monitoring Service Levels</h3>
+<ul>
+<li>Must be regularly monitored by appropriate management level</li>
+<li>Especially critical for outsourced services</li>
+<li><strong>Key principle:</strong> When service delivery is outsourced, only responsibility for service provision is outsourced — <strong>accountability remains with the organization</strong></li>
+<li>Assurance methods: questionnaires, onsite visits, third-party reports (SSAE 18 SOC 1, SOC 2, SOC 3)</li>
+</ul>
+<hr />
+<h2 id="411-database-management">4.11 Database Management</h2>
+<h3 id="overview_2">Overview</h3>
+<p>A <strong>DBMS</strong> organizes, controls, and enables use of data for application programs.</p>
+<p><strong>DBMS Functions:</strong> Reduced data redundancy, decreased access time, basic security over sensitive data.</p>
+<p><strong>DBMS Advantages:</strong>
+- Data independence for application systems
+- Flexibility in meeting changing data requirements
+- Transaction processing efficiency
+- Reduction of data redundancy
+- Maximized data consistency
+- Minimized maintenance cost through sharing
+- Enforced data/programming standards and security
+- Data integrity checks</p>
+<hr />
+<h3 id="4111-dbms-architecture">4.11.1 DBMS Architecture</h3>
+<p><strong>Metadata</strong> — Data elements defining the database (logical/physical fields, relationships, queries).</p>
+<p><strong>Three types of metadata/schemas:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Schema Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conceptual schema</td>
+<td>High-level logical view</td>
+</tr>
+<tr>
+<td>External schema</td>
+<td>User/application view</td>
+</tr>
+<tr>
+<td>Internal schema</td>
+<td>Physical storage details</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Data Dictionary/Directory System (DD/DS):</strong>
+- Identifies fields along with characteristics and uses
+- <strong>Active data dictionary</strong> — Requires entries for all data elements; assists processing
+- <strong>Passive dictionary</strong> — Read-only repository
+- Benefits: Enhanced documentation, common validation, facilitates programming, standardized methods</p>
+<hr />
+<h3 id="4112-database-structure-types">4.11.2 Database Structure Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Description</th>
+<th>Key Feature</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hierarchical</strong></td>
+<td>Parent-child relationships; tree structure; 1:N</td>
+<td>Only one parent per child; data duplication needed for multi-parent</td>
+<td>Windows Registry, Geographic Info Systems</td>
+</tr>
+<tr>
+<td><strong>Network</strong></td>
+<td>Set-based; owner + member records; allows multiple parents</td>
+<td>Complex, difficult to modify</td>
+<td>Rarely used in current environments</td>
+</tr>
+<tr>
+<td><strong>Relational</strong></td>
+<td>Tables (rows/tuples + columns/attributes); SQL-based</td>
+<td>Dynamic; join operations; normalization; most flexible</td>
+<td>ERP systems; Oracle, DB2, SQL Server</td>
+</tr>
+<tr>
+<td><strong>Object-Oriented (OODBMS)</strong></td>
+<td>Data stored as objects; encapsulation + inheritance</td>
+<td>Supports complex data types</td>
+<td>Engineering, science, spatial databases, graphics/audio</td>
+</tr>
+<tr>
+<td><strong>NoSQL</strong></td>
+<td>Developed for big data; unstructured data</td>
+<td>Sharding, dynamic schemas</td>
+<td>MongoDB, Cassandra</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Relational Database Properties:</strong>
+- Values are atomic (single, irreducible)
+- Each row uniquely identifiable (primary key)
+- Column values are of the same kind
+- Sequence of rows/columns is insignificant
+- Each column has a unique name</p>
+<p><strong>Normalization Rules (Relational):</strong>
+- Each attribute has only one value per instance
+- Attributes contain no internal structure
+- Each tuple = primary key + independent attributes
+- Foreign keys: null or linked to existing value (<strong>referential integrity</strong>)</p>
+<p><strong>NoSQL Database Types:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key-value</td>
+<td>Items stored as attribute name (key) with value</td>
+</tr>
+<tr>
+<td>Column-oriented</td>
+<td>Values of a column grouped together</td>
+</tr>
+<tr>
+<td>Graph database</td>
+<td>Based on graph theory (mathematical relationship models)</td>
+</tr>
+<tr>
+<td>Document-oriented</td>
+<td>Manages document-oriented info (XML, JSON)</td>
+</tr>
+<tr>
+<td>Time series</td>
+<td>Data with timestamps (stock data, logs, sensors)</td>
+</tr>
+<tr>
+<td>Spatial</td>
+<td>Stores/queries spatial data (maps, GPS)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>NoSQL Advantage:</strong> Sharding (horizontal partitioning across servers) and dynamic schemas.</p>
+<hr />
+<h3 id="4113-database-controls">4.11.3 Database Controls</h3>
+<p>Controls to maintain database integrity and availability:
+- Establish definition standards
+- Implement data backup and recovery procedures
+- Establish access controls (including privileged access)
+- Ensure only authorized personnel can update
+- Handle concurrent access (transaction commit, record locking)
+- Ensure accuracy, completeness, and consistency in table/column definitions
+- Minimize use of non-system tools
+- Use database checkpoints to minimize data loss
+- Implement <strong>DAM (Database Activity Monitoring)</strong> technology
+- Use performance reporting tools (storage space, buffer size, CPU use)</p>
+<hr />
+<h1 id="part-b-business-resilience">PART B: BUSINESS RESILIENCE</h1>
+<hr />
+<h2 id="412-business-impact-analysis-bia">4.12 Business Impact Analysis (BIA)</h2>
+<h3 id="definition_1">Definition</h3>
+<p>BIA is a <strong>critical step</strong> in developing the business continuity strategy. It evaluates critical processes, determines timeframes, priorities, resources, and interdependencies.</p>
+<p><strong>BIA Requires:</strong>
+- High-level senior management support/sponsorship
+- Extensive IT and end-user personnel involvement
+- Approval of information resource criticality by senior management</p>
+<h3 id="three-key-bia-questions">Three Key BIA Questions:</h3>
+<p><strong>1. What are the different business processes?</strong>
+Indicators of criticality:
+- Supports health and safety (hospital records, air traffic control)
+- Disruption causes income loss or exceptional costs
+- Required for legal/statutory compliance
+- Affects significant number of users/business segments</p>
+<p><strong>2. What critical information resources support critical business processes?</strong>
+Examples of critical processes:
+- Receiving payments, producing goods/services
+- Paying employees, advertising
+- Dispatching finished goods
+- Regulatory compliance</p>
+<p><strong>3. What is the critical recovery period?</strong>
+- Financial institutions → shorter recovery period
+- Manufacturing → longer recovery period
+- Time of year/week matters (e.g., Saturday midnight gives more recovery time than Monday midnight for a bank)</p>
+<h3 id="bia-data-collection-methods">BIA Data Collection Methods:</h3>
+<ol>
+<li><strong>Questionnaire approach</strong> — Detailed questionnaire circulated to key users</li>
+<li><strong>Interview approach</strong> — Group interviews with key users</li>
+<li><strong>Workshop approach</strong> — IT + end users together to determine acceptable downtime and vital resources</li>
+</ol>
+<h3 id="cost-analysis">Cost Analysis</h3>
+<p><strong>Two Independent Cost Factors:</strong></p>
+<pre><code>Total Cost = Downtime Cost + Recovery Cost Downtime Cost: Increases with time (idle resources, lost sales, financial costs, indirect costs)
+Recovery Cost: Decreases with target recovery time (BCP preparation, testing, offsite backup, insurance) Optimal point = Minimum of Total Cost curve (U-curve bottom)
+</code></pre>
+<h3 id="classification-of-operations-criticality-analysis">Classification of Operations (Criticality Analysis)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Classification</th>
+<th>Description</th>
+<th>Manual Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Critical</strong></td>
+<td>Cannot be performed unless replaced by identical capability; manual methods impossible</td>
+<td>None possible</td>
+</tr>
+<tr>
+<td><strong>Vital</strong></td>
+<td>Can be performed manually but only briefly (usually ≤5 days)</td>
+<td>Short-term manual possible</td>
+</tr>
+<tr>
+<td><strong>Sensitive</strong></td>
+<td>Can be performed manually at tolerable cost for extended period but difficult</td>
+<td>Extended manual possible with extra staff</td>
+</tr>
+<tr>
+<td><strong>Nonsensitive</strong></td>
+<td>Interruption for extended period with little/no cost</td>
+<td>Easy manual alternative</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="key-recovery-metrics">Key Recovery Metrics</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Definition</th>
+<th>Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RPO (Recovery Point Objective)</strong></td>
+<td>Earliest acceptable time to recover data; how much data loss is acceptable</td>
+<td>Low RPO → need data mirroring/real-time replication</td>
+</tr>
+<tr>
+<td><strong>RTO (Recovery Time Objective)</strong></td>
+<td>Earliest time business operations must resume after disaster</td>
+<td>Low RTO → need hot site, clustering</td>
+</tr>
+<tr>
+<td><strong>MTTR (Mean Time to Repair)</strong></td>
+<td>Average time to repair a failed system</td>
+<td>High MTTR → longer downtime, lost productivity</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Exam Critical:</strong> RPO affects DATA PROTECTION solutions. RTO affects RECOVERY SITE/INFRASTRUCTURE solutions.</p>
+</blockquote>
+<p><strong>Additional Parameters:</strong>
+- <strong>Interruption window</strong> — Maximum wait time from failure to restoration
+- <strong>SDO (Service Delivery Objective)</strong> — Level of service during alternate mode
+- <strong>MTO (Maximum Tolerable Outage)</strong> — Maximum time in alternate mode before bigger problems arise</p>
+<p><strong>ALE (Annual Loss Expectancy):</strong> Risk × Impact = Maximum reasonable preparation cost
+<em>Example: 0.1% risk × $10M impact = $10,000/5 years</em></p>
+<hr />
+<h2 id="413-system-and-operational-resilience">4.13 System and Operational Resilience</h2>
+<h3 id="system-resilience">System Resilience</h3>
+<p>Ability of a system to withstand/adapt to disruptions while maintaining core functions.</p>
+<p><strong>Built using:</strong> Redundant components, failover mechanisms, robust backup strategies.</p>
+<h3 id="application-resiliency-clustering">Application Resiliency: Clustering</h3>
+<p><strong>Cluster</strong> — Software installed on every server (node) in which application runs. Prevents single point of failure (SPOF).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Cluster Type</th>
+<th>Description</th>
+<th>Recovery</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Active-Passive</strong></td>
+<td>App runs on ONE active node; passive nodes take over on failure</td>
+<td>Brief downtime on failover</td>
+<td>No special app setup needed</td>
+</tr>
+<tr>
+<td><strong>Active-Active</strong></td>
+<td>App runs on ALL nodes; load balanced; concurrent data access</td>
+<td>Near-zero downtime</td>
+<td>App must be cluster-aware</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Geo-clusters</strong> — Span cities/countries/continents
+<strong>Metro-clusters</strong> — Span one city</p>
+<h3 id="telecommunication-network-resiliency">Telecommunication Network Resiliency</h3>
+<p><strong>Methods for Network Protection:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Redundancy</strong></td>
+<td>Extra capacity; multiple paths between routers; dynamic routing (OSPF, EIGRP); failover devices</td>
+</tr>
+<tr>
+<td><strong>Alternative routing</strong></td>
+<td>Different medium (copper vs fiber); different networks if normal unavailable; counter-rotating fiber rings</td>
+</tr>
+<tr>
+<td><strong>Diverse routing</strong></td>
+<td>Traffic through split or duplicate cable facilities with different sheaths</td>
+</tr>
+<tr>
+<td><strong>Long-haul network diversity</strong></td>
+<td>Multiple long-distance carriers; automatic rerouting software</td>
+</tr>
+<tr>
+<td><strong>Last-mile circuit protection</strong></td>
+<td>Redundant local carrier circuits + microwave + coaxial access to local loop</td>
+</tr>
+<tr>
+<td><strong>Voice recovery</strong></td>
+<td>Redundant cabling and VoIP</td>
+</tr>
+<tr>
+<td><strong>Satellite connectivity</strong></td>
+<td>Broadband satellite for locations lacking other options</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="414-data-backup-storage-and-restoration">4.14 Data Backup, Storage and Restoration</h2>
+<h3 id="raid-redundant-array-of-independent-disks">RAID (Redundant Array of Independent Disks)</h3>
+<p><strong>Definition:</strong> Data storage virtualization combining multiple physical disks into logical units for redundancy/performance.</p>
+<p><strong>Data Replication Types:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Performance Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Synchronous</strong></td>
+<td>Local write not confirmed until remote site confirms receipt</td>
+<td>Lower write performance; data safe</td>
+</tr>
+<tr>
+<td><strong>Asynchronous</strong></td>
+<td>Data replicated on scheduled basis with some delay</td>
+<td>Better performance; some data loss possible</td>
+</tr>
+<tr>
+<td><strong>Adaptive</strong></td>
+<td>Switches between modes based on network load</td>
+<td>Best of both worlds</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4142-backup-and-restoration">4.14.2 Backup and Restoration</h3>
+<p><strong>Backup Types:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What's Backed Up</th>
+<th>Restore Requirement</th>
+<th>Speed</th>
+<th>Storage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Full</strong></td>
+<td>ALL files and folders</td>
+<td>One backup set</td>
+<td>Slowest</td>
+<td>Most</td>
+</tr>
+<tr>
+<td><strong>Incremental</strong></td>
+<td>Only files changed since LAST incremental or full</td>
+<td>All incremental sets since last full</td>
+<td>Fastest to backup</td>
+<td>Least</td>
+</tr>
+<tr>
+<td><strong>Differential</strong></td>
+<td>All files changed since LAST FULL backup</td>
+<td>Last full + last differential</td>
+<td>Medium</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Exam Point:</strong> Incremental = only changes since LAST incremental. Differential = all changes since LAST FULL backup (cumulative). Restoring differential is FASTER than incremental; backing up incremental is FASTER than differential.</p>
+</blockquote>
+<p><strong>Media Rotation: Grandfather-Father-Son (GFS) Method:</strong>
+- <strong>Son</strong> = Daily backups (within week)
+- <strong>Father</strong> = Last backup of the week
+- <strong>Grandfather</strong> = Last backup of the month (year-end → yearly backup)</p>
+<p><strong>3-2-1 Backup Strategy:</strong>
+- <strong>3</strong> copies of data (1 primary + 2 backups)
+- <strong>2</strong> different types of storage media
+- <strong>1</strong> copy offsite</p>
+<p><strong>Immutable Backup</strong> — Cannot be altered, changed, or deleted; protects against ransomware.</p>
+<p><strong>Offsite Library Controls:</strong>
+- Secure physical access (authorized personnel only)
+- Encrypt backup media (especially in transit)
+- Fire-resistant physical construction
+- Located away from data center (different disaster zone)
+- Maintain media inventory for specified retention time
+- Record all media movements</p>
+<p><strong>Cloud Backup Controls:</strong>
+- Encrypt data in transit
+- Store encrypted data; limit access to encryption keys
+- Verify backup/restore times meet RTO/RPO requirements</p>
+<p><strong>Types of Backup Devices:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VTL (Virtual Tape Library)</td>
+<td>Disk storage mimicking tape library</td>
+<td>DR with hardware-based replication</td>
+</tr>
+<tr>
+<td>Host-based replication</td>
+<td>Software on servers; real-time (sync) or delayed (async)</td>
+<td>Flexible; no specialized hardware</td>
+</tr>
+<tr>
+<td>Disk-array replication</td>
+<td>Hardware-level replication; transparent to apps</td>
+<td>Highest performance</td>
+</tr>
+<tr>
+<td>Snapshot technology</td>
+<td>Point-in-time copies; full or changed blocks only</td>
+<td>Efficient backup without production overhead</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="415-business-continuity-plan-bcp">4.15 Business Continuity Plan (BCP)</h2>
+<h3 id="overview_3">Overview</h3>
+<p>BCP enables the business to continue operations during any kind of disturbance. It is <strong>primarily the responsibility of senior management</strong>.</p>
+<p><strong>BCP Components:</strong>
+- <strong>Continuity of operations plan</strong> — Maintain operations during recovery
+- <strong>DRP</strong> — Recover facility rendered inoperable; relocate operations
+- <strong>Business resumption plan</strong> — Return to normal operations</p>
+<p><strong>BCP Takes Into Consideration:</strong>
+- Critical operations necessary for survival
+- Human/material resources supporting them
+- Contractual commitments (including third-party IT services)</p>
+<hr />
+<h3 id="4151-it-business-continuity-planning">4.15.1 IT Business Continuity Planning</h3>
+<p><strong>Key Principle:</strong> Application criticality is determined by the <strong>role of the application in supporting the organization's strategy</strong> — NOT by replacement cost, vendor support, or associated threats.</p>
+<p><strong>Minimizing Disaster Likelihood:</strong>
+- Data center location: Not on flood plain, earthquake fault line, or near explosive materials
+- Resilient network topologies (Loop or Mesh with alternative processing facilities built in)</p>
+<hr />
+<h3 id="4152-disasters-and-disruptive-events">4.15.2 Disasters and Disruptive Events</h3>
+<p><strong>Types of Disruptions:</strong>
+- Natural: earthquakes, floods, tornados, fire, severe weather
+- Utility failures: power, telecommunications, gas supply
+- Human-caused: terrorist attacks, hacker attacks, human error
+- System malfunctions: accidental deletions, untested releases, DoS attacks, viruses</p>
+<p><strong>Pandemic Planning:</strong> Unique challenges — scale and duration hard to predict; impacts people differently than physical disasters.</p>
+<p><strong>Black Swan Events:</strong> Surprise events with major effects that cannot be anticipated; management should consider contingency planning for critical processes.</p>
+<p><strong>Image/Reputation Management:</strong>
+- Appoint trained spokesperson ONLY
+- Pre-draft generic announcement with blanks
+- Don't state causes; state investigation started
+- Don't assume liability
+- Don't blame the system</p>
+<hr />
+<h3 id="4153-business-continuity-planning-process-life-cycle">4.15.3 Business Continuity Planning Process (Life Cycle)</h3>
+<pre><code>Initiation → Risk Assessment &amp; Analysis → BIA → Strategy →
+Execution (risk countermeasures) → BC Awareness Training → Plan Development &amp; Testing → Maintenance
+</code></pre>
+<hr />
+<h3 id="4154-business-continuity-policy">4.15.4 Business Continuity Policy</h3>
+<p><strong>Purposes:</strong>
+- Message to internal stakeholders (employees, management, board)
+- Communication to external stakeholders (shareholders, regulators)
+- Empowers those responsible for BC
+- States general principles (risk assessment, BIA, redundancy targets)</p>
+<p><strong>Key Principle:</strong> BCP policy should be <strong>proactive</strong> — detect/prevent disruptions AND mitigate consequences.</p>
+<hr />
+<h3 id="4155-incident-classification">4.15.5 Incident Classification</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Negligible</strong></td>
+<td>No perceptible damage</td>
+<td>Brief OS crash with full recovery; momentary power outage with UPS</td>
+</tr>
+<tr>
+<td><strong>Minor</strong></td>
+<td>No material financial impact</td>
+<td>Internet outage in single office of large corporation</td>
+</tr>
+<tr>
+<td><strong>Major</strong></td>
+<td>Negative material impact; may affect other systems</td>
+<td>Ransomware attack compromising servers</td>
+</tr>
+<tr>
+<td><strong>Crisis</strong></td>
+<td>Serious material impact on continued functioning; substantially disrupts operations</td>
+<td>Multi-site outage; data loss at scale</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Starting point:</strong> Any non-negligible incident defaults to provisional severity Level 3; reassessed as incident evolves.</p>
+</blockquote>
+<hr />
+<h3 id="4158-components-of-a-bcp-figure-439">4.15.8 Components of a BCP (Figure 4.39)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Plan</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BCP</td>
+<td>Procedures for sustaining mission/business operations during significant disruption</td>
+</tr>
+<tr>
+<td>COOP (Continuity of Operations Plan)</td>
+<td>Guidance to sustain MEFs at alternate site for up to 30 days; federally mandated</td>
+</tr>
+<tr>
+<td>Crisis Communications Plan</td>
+<td>Internal/external communications; control rumors</td>
+</tr>
+<tr>
+<td>CIP (Critical Infrastructure Protection) Plan</td>
+<td>Protect national critical infrastructure</td>
+</tr>
+<tr>
+<td>Cyber Incident Response Plan</td>
+<td>Mitigate/correct cyberattacks (virus, worm, Trojan)</td>
+</tr>
+<tr>
+<td>DRP</td>
+<td>Procedures for relocating IS operations to alternate location</td>
+</tr>
+<tr>
+<td>ISCP (Information System Contingency Plan)</td>
+<td>Recover single information system</td>
+</tr>
+<tr>
+<td>OEP (Occupant Emergency Plan)</td>
+<td>Minimize loss of life/injury; protect property</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="4159-plan-testing">4.15.9 Plan Testing</h3>
+<p><strong>Test Types (in order of increasing rigor):</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Test Type</th>
+<th>Description</th>
+<th>Disruption Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Desk-based/Tabletop (paper test)</strong></td>
+<td>Walk through plan on paper with key players</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Preparedness test</strong></td>
+<td>Localized version using actual resources; partial simulation</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>Full operational test</strong></td>
+<td>Complete shutdown and full recovery execution</td>
+<td>High</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Test Phases:</strong>
+1. <strong>Pretest</strong> — Setup actions (transporting equipment, etc.)
+2. <strong>Test</strong> — Actual operational activities
+3. <strong>Posttest</strong> — Cleanup; evaluate plan; implement improvements</p>
+<p><strong>Test Measurements:</strong>
+- <strong>Time</strong> — Elapsed time for tasks
+- <strong>Amount</strong> — Work performed at backup site
+- <strong>Count</strong> — Vital records at backup site vs. required; critical systems recovered
+- <strong>Accuracy</strong> — Data entry accuracy vs. normal</p>
+<p><strong>Plan Maintenance Triggers:</strong>
+- Business process changes (new departments, key personnel)
+- New resources/applications acquired
+- Business strategy changes
+- Software/hardware environment changes
+- New threat events
+- Key personnel contact changes</p>
+<p><strong>BCP Coordinator Responsibilities:</strong>
+- Periodic review schedule (at least annually)
+- Unscheduled revisions for significant changes
+- Update plan within 30 days of review
+- Coordinate scheduled and unscheduled tests
+- Training on emergency/recovery procedures
+- Maintain historical documentation</p>
+<hr />
+<h3 id="41511-auditing-business-continuity">4.15.11 Auditing Business Continuity</h3>
+<p><strong>IS Auditor Tasks:</strong>
+- Understand BC strategy and connection to business objectives
+- Review BIA findings (reflect current priorities)
+- Evaluate BCPs against standards/regulations (including RTO/RPO)
+- Verify BCP effectiveness via previous test results
+- Evaluate cloud-based mechanisms
+- Evaluate offsite storage (facility inspection, contents, security, environmental)
+- Verify backup media transport security
+- Evaluate personnel emergency response capability
+- Ensure plan maintenance process is in place</p>
+<blockquote>
+<p><strong>IS Auditor Role in DRP Testing:</strong> IS auditor should <strong>observe</strong> tests — NOT develop, maintain, or declare disasters. IS auditor should ALWAYS be present during DRP tests to ensure procedures meet targets.</p>
+</blockquote>
+<hr />
+<h2 id="416-disaster-recovery-plans-drp">4.16 Disaster Recovery Plans (DRP)</h2>
+<h3 id="overview_4">Overview</h3>
+<p>DRP is an element of internal control to manage availability and restore critical processes/IT services after interruption.</p>
+<p><strong>Key Outcomes of DR Planning:</strong>
+1. Changes to IT infrastructure, processes, procedures (IT DR strategies spanning 3-5 years)
+2. DRPs documenting response to incidents from simple emergencies to full disasters</p>
+<hr />
+<h3 id="4161-rpo-rto-and-mttr">4.16.1 RPO, RTO, and MTTR</h3>
+<blockquote>
+<p><strong>Exam Critical Table:</strong></p>
+</blockquote>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Definition</th>
+<th>If LOW, Use...</th>
+<th>If HIGH, Use...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RPO</strong></td>
+<td>Maximum acceptable data loss (in time)</td>
+<td>Data mirroring, real-time replication</td>
+<td>Tape backups, periodic backups</td>
+</tr>
+<tr>
+<td><strong>RTO</strong></td>
+<td>Maximum acceptable downtime</td>
+<td>Hot site, clustering, dedicated spare servers</td>
+<td>Warm/cold site, manual recovery</td>
+</tr>
+<tr>
+<td><strong>MTTR</strong></td>
+<td>Average repair time</td>
+<td>N/A (lower is better)</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Technology vs. RTO/RPO (Center = 0-1 hour, more expensive):</strong></p>
+<pre><code>RPO (0→hours): Real-time replication → Delayed replication → Log shipping → Snapshots → Disk-based → Tape backups RTO (0→hours): Active-active clustering → Active-passive clustering → Hot standby → Cold standby
+</code></pre>
+<p><strong>MTTR Factors:</strong>
+- Complexity of system
+- Availability of spare parts
+- Technician skill and experience
+- Number of technicians available
+- Maintenance procedures</p>
+<hr />
+<h3 id="4163-recovery-alternatives">4.16.3 Recovery Alternatives</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Alternative</th>
+<th>Description</th>
+<th>Readiness</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cold site</strong></td>
+<td>Space + basic infrastructure; NO IT equipment</td>
+<td>Needs hardware/software installation when activated</td>
+<td>Lowest</td>
+</tr>
+<tr>
+<td><strong>Warm site</strong></td>
+<td>Partially configured with network + some peripherals; NO main computer</td>
+<td>Programs/current data must be loaded</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td><strong>Hot site</strong></td>
+<td>Fully configured; all IT + communications equipment installed; may have near-real-time data</td>
+<td>Operational within hours/minutes</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>Mirrored site</strong></td>
+<td>Fully redundant; real-time data replication; fully staffed</td>
+<td>Immediate; no interruption</td>
+<td>Highest</td>
+</tr>
+<tr>
+<td><strong>Mobile site</strong></td>
+<td>Packaged facility on transportable vehicles</td>
+<td>Delivered and set up at specified location</td>
+<td>Varies</td>
+</tr>
+<tr>
+<td><strong>Reciprocal agreements</strong></td>
+<td>Agreement between similar companies to share IT facilities</td>
+<td>Difficult to enforce; compatibility issues; not recommended</td>
+<td>Low (but unreliable)</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Sports Analogy:</strong> Cold site = substitute on bench; Warm site = substitute warming up; Hot site = substitute on sideline ready to enter.</p>
+</blockquote>
+<p><strong>Selection Factors:</strong>
+- Criticality of business process and supporting applications
+- Cost
+- Time required to recover
+- Security</p>
+<p><strong>Alternate Site Considerations:</strong>
+- Beyond geographic area affected by the same disaster
+- Adequate separation from primary site based on nature of disruptive events</p>
+<hr />
+<h3 id="4164-development-of-drp">4.16.4 Development of DRP</h3>
+<p><strong>IT DRP Contents:</strong>
+- Procedures for declaring a disaster (escalation procedures)
+- Criteria for plan activation
+- Linkage with overarching plans (BCP, crisis management plan)
+- Recovery teams and their responsibilities
+- Contact and notification lists
+- Step-by-step recovery process
+- Recovery procedures for each IT system/component
+- Vendor and supplier contacts
+- Resources required for recovery</p>
+<p><strong>DRP Scenarios:</strong>
+- Loss of network connectivity
+- Loss of key IT system
+- Loss of processing site (server room)
+- Loss of critical data
+- Loss of office
+- Loss of key service provider (cloud)</p>
+<p><strong>Recovery Teams:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Team</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Incident response team</td>
+<td>Receives all incident reports; postmortem analysis</td>
+</tr>
+<tr>
+<td>Emergency action team</td>
+<td>First responders, evacuation, fire wardens</td>
+</tr>
+<tr>
+<td>Information security team</td>
+<td>Maintains security at alternate site; monitors security</td>
+</tr>
+<tr>
+<td>Damage assessment team</td>
+<td>Assesses extent of damage; estimates recovery time</td>
+</tr>
+<tr>
+<td>Emergency management team</td>
+<td>Coordinates all teams; key decisions; activates BCP</td>
+</tr>
+<tr>
+<td>Offsite storage team</td>
+<td>Obtains/ships media and records to recovery facility</td>
+</tr>
+<tr>
+<td>Software team</td>
+<td>Restores system packs, loads/tests OS software</td>
+</tr>
+<tr>
+<td>Applications team</td>
+<td>Restores backup system/application programs</td>
+</tr>
+<tr>
+<td>Network recovery team</td>
+<td>Reroutes communications; reestablishes host network control</td>
+</tr>
+<tr>
+<td>Transportation team</td>
+<td>Locates recovery site; coordinates employee transport</td>
+</tr>
+<tr>
+<td>Salvage team</td>
+<td>Detailed damage assessment; filing insurance claims</td>
+</tr>
+<tr>
+<td>Relocation team</td>
+<td>Coordinates move from hot site to new/restored location</td>
+</tr>
+<tr>
+<td>Legal affairs team</td>
+<td>Handles legal issues from incidents/service unavailability</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="4165-disaster-recovery-testing-methods">4.16.5 Disaster Recovery Testing Methods</h3>
+<p><strong>Types of Tests:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Test Type</th>
+<th>Description</th>
+<th>Disruption Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Checklist review</strong></td>
+<td>Distribute checklists to team members; review currency</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Structured walk-through</strong></td>
+<td>Team physically implements plans on paper; assess effectiveness</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Simulation test</strong></td>
+<td>Roleplay disaster scenario; do NOT activate recovery site</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Parallel test</strong></td>
+<td>Recovery site brought to operational readiness; PRIMARY SITE CONTINUES normally</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>Full interruption test</strong></td>
+<td>Operations SHUT DOWN at primary; shifted to recovery site; most rigorous</td>
+<td>High</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Testing Progression:</strong> Start simple → increase gradually → build confidence → minimize risk.</p>
+<p><strong>Surprise tests</strong> — Advantageous (realistic) but potentially disruptive and can alienate personnel.</p>
+<p><strong>Test Metrics:</strong>
+- Time (elapsed time for tasks; was RTO met?)
+- Data (all required data recovered; was RPO met?)
+- Amount (work performed at backup site)
+- Count (critical systems recovered; transactions processed)
+- Accuracy (data entry accuracy vs. normal)</p>
+<hr />
+<h3 id="4166-invoking-drp">4.16.6 Invoking DRP</h3>
+<p><strong>Triggering Process:</strong>
+1. Designated individual notified immediately when triggering event occurs
+2. Follow pre-established escalation protocol
+3. Invoke appropriate recovery plan (IT DRP)
+4. Mobilize required teams
+5. Evaluate incident to match against tested scenario
+6. Follow documented recovery procedures
+7. Document all decisions made → update procedures after recovery</p>
+<hr />
+<h1 id="rapid-revision-sheet">RAPID REVISION SHEET</h1>
+<h2 id="key-definitions-30-second-review">Key Definitions (30-Second Review)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPO</td>
+<td>How much data loss is acceptable; affects backup/replication technology</td>
+</tr>
+<tr>
+<td>RTO</td>
+<td>How long system can be down; affects recovery site type</td>
+</tr>
+<tr>
+<td>MTTR</td>
+<td>Average repair time for failed system</td>
+</tr>
+<tr>
+<td>BIA</td>
+<td>Evaluates critical processes, timeframes, priorities, interdependencies</td>
+</tr>
+<tr>
+<td>BCP</td>
+<td>Plan for business to continue during disruption</td>
+</tr>
+<tr>
+<td>DRP</td>
+<td>Plan to recover IT systems/relocate operations after disaster</td>
+</tr>
+<tr>
+<td>KEDB</td>
+<td>Known Error Database — repository of known errors + workarounds</td>
+</tr>
+<tr>
+<td>SLA</td>
+<td>Agreement detailing IT services provided between IT org and customer</td>
+</tr>
+<tr>
+<td>SIEM</td>
+<td>Integrates log sources with real-time monitoring and event correlation</td>
+</tr>
+<tr>
+<td>POLP</td>
+<td>Principle of Least Privilege — minimum access needed for role</td>
+</tr>
+<tr>
+<td>EUC</td>
+<td>End-User Computing — non-IT users building their own applications</td>
+</tr>
+<tr>
+<td>Shadow IT</td>
+<td>IT used without proper IT/cybersecurity department approval</td>
+</tr>
+<tr>
+<td>RAID</td>
+<td>Data storage virtualization combining physical disks for redundancy</td>
+</tr>
+<tr>
+<td>GFS</td>
+<td>Grandfather-Father-Son backup rotation method</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>Network Address Translation — converts internal IPs to public IPs</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="critical-osi-layer-mnemonics">Critical OSI Layer Mnemonics</h2>
+<p><strong>Layer 7→1: "All People Seem To Need Data Processing"</strong>
+- Application, Presentation, Session, Transport, Network, Data link, Physical</p>
+<p><strong>Layer 1→7: "Please Do Not Throw Sausage Pizza Away"</strong>
+- Physical, Data link, Network, Transport, Session, Presentation, Application</p>
+<hr />
+<h2 id="recovery-site-comparison">Recovery Site Comparison</h2>
+<pre><code>COST: Cold &lt; Warm &lt; Hot &lt; Mirrored
+SPEED: Mirrored &gt; Hot &gt; Warm &gt; Cold
+</code></pre>
+<hr />
+<h2 id="backup-scheme-quick-reference">Backup Scheme Quick Reference</h2>
+<pre><code>FULL: Everything → Fastest restore, Slowest backup, Most storage
+INCREMENTAL: Since last backup → Fastest backup, Slowest restore, Least storage
+DIFFERENTIAL: Since last FULL → Medium speed both ways, Medium storage
+</code></pre>
+<hr />
+<h2 id="bcp-vs-drp-key-distinction">BCP vs DRP (Key Distinction)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>BCP</th>
+<th>DRP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Organization-wide plan</td>
+<td>IT-specific subcomponent of BCP</td>
+</tr>
+<tr>
+<td>Continues business at reduced capability</td>
+<td>Recovers IT systems/infrastructure</td>
+</tr>
+<tr>
+<td>Senior management's primary responsibility</td>
+<td>IT department's primary responsibility</td>
+</tr>
+<tr>
+<td>Addresses people, processes, and technology</td>
+<td>Focused on technical recovery</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="rporto-technology-selection">RPO/RTO Technology Selection</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Low RPO (minutes)</th>
+<th>High RPO (hours)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data mirroring</td>
+<td>Tape/disk backups</td>
+</tr>
+<tr>
+<td>Real-time replication</td>
+<td>Periodic backups</td>
+</tr>
+<tr>
+<td>Synchronous replication</td>
+<td>Log shipping</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Low RTO (minutes)</th>
+<th>High RTO (hours/days)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hot site</td>
+<td>Warm/Cold site</td>
+</tr>
+<tr>
+<td>Active-active clustering</td>
+<td>Active-passive clustering</td>
+</tr>
+<tr>
+<td>Mirrored site</td>
+<td>Manual recovery</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="database-model-quick-compare">Database Model Quick Compare</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Relationship</th>
+<th>Flexibility</th>
+<th>Current Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hierarchical</td>
+<td>1:N, tree structure</td>
+<td>Low</td>
+<td>Windows Registry, GIS</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>Multi-owner</td>
+<td>Low</td>
+<td>Rare</td>
+</tr>
+<tr>
+<td>Relational</td>
+<td>Tables, SQL, joins</td>
+<td>High</td>
+<td>Most enterprise apps</td>
+</tr>
+<tr>
+<td>OODBMS</td>
+<td>Objects</td>
+<td>Medium</td>
+<td>Engineering, spatial</td>
+</tr>
+<tr>
+<td>NoSQL</td>
+<td>Varies</td>
+<td>Very High</td>
+<td>Big data, web apps</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="is-auditors-role-in-drpbcp">IS Auditor's Role in DRP/BCP</h2>
+<p>✅ <strong>Should DO:</strong>
+- Observe and evaluate DRP tests
+- Review BIA findings
+- Evaluate BCPs against standards
+- Review offsite storage
+- Inspect alternative processing contracts</p>
+<p>❌ <strong>Should NOT DO:</strong>
+- Develop the DRP/BCP
+- Maintain the DRP/BCP
+- Declare a disaster
+- Develop recovery procedures (execution role)</p>
+<hr />
+<h2 id="log-types-and-auditor-use">Log Types and Auditor Use</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Audit Objective</th>
+<th>Log Type to Review</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detect security breaches</td>
+<td>Event log, Threat log, Firewall log</td>
+</tr>
+<tr>
+<td>SLA compliance</td>
+<td>Availability log</td>
+</tr>
+<tr>
+<td>Unauthorized access</td>
+<td>Access log, Access control log</td>
+</tr>
+<tr>
+<td>Change management</td>
+<td>Change log</td>
+</tr>
+<tr>
+<td>Data integrity</td>
+<td>Database log</td>
+</tr>
+<tr>
+<td>OS integrity</td>
+<td>OS log</td>
+</tr>
+<tr>
+<td>Application issues</td>
+<td>Application log, Error log</td>
+</tr>
+<tr>
+<td>Network breach</td>
+<td>Resource log</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="probable-exam-questions">PROBABLE EXAM QUESTIONS</h1>
+<p><strong>Q1:</strong> Which recovery site is MOST appropriate for mission-critical systems with low tolerance for interruption?
+<strong>Answer:</strong> Hot site — fully configured, ready within hours/minutes.</p>
+<p><strong>Q2:</strong> An IS auditor is testing change management. What is the MOST effective method?
+<strong>Answer:</strong> Trace from <strong>system-generated information</strong> to change management documentation (to detect undocumented changes). Going the other direction risks missing unauthorized changes.</p>
+<p><strong>Q3:</strong> Data mirroring should be implemented when:
+<strong>Answer:</strong> RPO is <strong>low</strong> (minutes) — organization cannot afford to lose even a few minutes of data.</p>
+<p><strong>Q4:</strong> The criticality classification of a software application in BCP is determined by:
+<strong>Answer:</strong> The <strong>nature of the business and the value of the application to the business</strong> (its role in supporting business strategy).</p>
+<p><strong>Q5:</strong> When auditing client-server database security, the IS auditor should be MOST concerned about:
+<strong>Answer:</strong> <strong>System utilities</strong> — they may enable unauthorized changes to data without adequate controls.</p>
+<p><strong>Q6:</strong> The FIRST thing an IS auditor should examine when reviewing a network for Internet communications:
+<strong>Answer:</strong> <strong>Network architecture and design</strong> — provides the overall picture of network connectivity.</p>
+<p><strong>Q7:</strong> Which allows an enterprise to extend its intranet across the Internet to business partners?
+<strong>Answer:</strong> <strong>VPN (Virtual Private Network)</strong> — uses tunneling/encapsulation over public networks.</p>
+<p><strong>Q8:</strong> Which component of BCP is PRIMARILY the IT department's responsibility?
+<strong>Answer:</strong> <strong>Restoring IT systems and data after a disaster</strong> within designated timeframes.</p>
+<p><strong>Q9:</strong> Who is PRIMARILY responsible for developing the BCP?
+<strong>Answer:</strong> <strong>Senior management</strong> — they are accountable for the results.</p>
+<p><strong>Q10:</strong> What is benchmarking used for in IT performance evaluation?
+<strong>Answer:</strong> Determining the <strong>level of performance offered by similar IPF environments</strong> (not user satisfaction or goal accomplishment).</p>
+<p><strong>Q11:</strong> Which backup type requires the LEAST storage but the LONGEST restore time?
+<strong>Answer:</strong> <strong>Incremental backup</strong>.</p>
+<p><strong>Q12:</strong> The purpose of SNMP is:
+<strong>Answer:</strong> To monitor and control network variables, manage configurations, and collect performance/security statistics across all network devices.</p>
+<p><strong>Q13:</strong> An IS auditor should be involved in DRP testing by:
+<strong>Answer:</strong> <strong>Observing</strong> the test — NOT developing, maintaining, or executing the DRP.</p>
+<p><strong>Q14:</strong> Shadow IT refers to:
+<strong>Answer:</strong> Use of systems/services/hardware/software <strong>without proper IT/cybersecurity department approval</strong>.</p>
+<p><strong>Q15:</strong> What is the relationship between RTO and disaster tolerance?
+<strong>Answer:</strong> The <strong>lower the RTO, the lower the disaster tolerance</strong> — the business cannot tolerate prolonged downtime.</p>
+<hr />
+<h1 id="key-concept-recap">KEY CONCEPT RECAP</h1>
+<h2 id="the-5-layer-framework-for-this-chapter">The 5-Layer Framework for This Chapter</h2>
+<pre><code>Layer 1: INFRASTRUCTURE (Hardware, Networking, Software)
+Layer 2: OPERATIONS (Scheduling, Interfaces, Asset Mgmt, Log Mgmt)
+Layer 3: SERVICE MANAGEMENT (Incident, Problem, Change, SLA)
+Layer 4: CONTINUITY PLANNING (BIA, BCP, DRP)
+Layer 5: RECOVERY EXECUTION (Backup, Recovery Sites, DR Testing)
+</code></pre>
+<h2 id="essential-frameworksstandards">Essential Frameworks/Standards</h2>
+<ul>
+<li><strong>OSI Model</strong> — 7-layer network communication standard</li>
+<li><strong>TCP/IP</strong> — De facto Internet standard (4 layers)</li>
+<li><strong>ITIL</strong> — IT Service Management best practices</li>
+<li><strong>ISO 20000</strong> — International ITSM standard</li>
+<li><strong>ISO 22301</strong> — Business continuity management systems</li>
+<li><strong>COBIT</strong> — IT governance framework (includes BC/DR guidance)</li>
+<li><strong>SSAE 18 (SOC 1/2/3)</strong> — Third-party service provider assurance reports</li>
+</ul>
+<h2 id="critical-relationships">Critical Relationships</h2>
+<ul>
+<li><strong>BIA → drives BCP/DRP</strong> — BIA determines priorities for the plan</li>
+<li><strong>RPO → drives backup strategy</strong> — How much data loss is tolerable</li>
+<li><strong>RTO → drives recovery site choice</strong> — How long can we be down</li>
+<li><strong>Problem Management → reduces Incident Management</strong> — Fewer incidents needed</li>
+<li><strong>Incident Management → feeds Problem Management</strong> — Patterns identified become problems</li>
+</ul>
+<hr />
+<h1 id="memory-aids-mnemonics">MEMORY AIDS / MNEMONICS</h1>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Mnemonic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSI Layers (7→1)</td>
+<td><strong>A</strong>ll <strong>P</strong>eople <strong>S</strong>eem <strong>T</strong>o <strong>N</strong>eed <strong>D</strong>ata <strong>P</strong>rocessing</td>
+</tr>
+<tr>
+<td>OSI Layers (1→7)</td>
+<td><strong>P</strong>lease <strong>D</strong>o <strong>N</strong>ot <strong>T</strong>hrow <strong>S</strong>ausage <strong>P</strong>izza <strong>A</strong>way</td>
+</tr>
+<tr>
+<td>ISO WAN Mgmt Tasks</td>
+<td><strong>FCAPS</strong> — Fault, Configuration, Accounting, Performance, Security</td>
+</tr>
+<tr>
+<td>Recovery sites (cost ascending)</td>
+<td><strong>C</strong>old <strong>W</strong>arm <strong>H</strong>ot <strong>M</strong>irrored → <strong>C</strong>heaper <strong>W</strong>eeks <strong>H</strong>otter <strong>M</strong>ore</td>
+</tr>
+<tr>
+<td>Backup schemes</td>
+<td><strong>FID</strong> — Full (most storage), Incremental (least), Differential (middle)</td>
+</tr>
+<tr>
+<td>BIA 3 Questions</td>
+<td><strong>WHAT processes? WHAT resources? WHEN must recovery happen?</strong></td>
+</tr>
+<tr>
+<td>Classification of systems</td>
+<td><strong>CVNS</strong> — Critical, Vital, Nonsensitive, Sensitive (high to low criticality... rearrange to CVSN)</td>
+</tr>
+<tr>
+<td>GFS Backup rotation</td>
+<td><strong>G</strong>randfather = Monthly, <strong>F</strong>ather = Weekly, <strong>S</strong>on = Daily</td>
+</tr>
+<tr>
+<td>3-2-1 Backup rule</td>
+<td><strong>3</strong> copies, <strong>2</strong> media types, <strong>1</strong> offsite</td>
+</tr>
+<tr>
+<td>LAN components by OSI layer</td>
+<td><strong>P</strong>hysical = <strong>H</strong>ubs+Repeaters; <strong>D</strong>ata Link = <strong>B</strong>ridges+<strong>S</strong>witches; <strong>N</strong>etwork = <strong>R</strong>outers</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<p><em>End of Chapter 4 Notes — *
+</em>Notes cover all 103 pages (pp. 253-356) of the original chapter*</p></article>
+    </main>
+
+    <aside class="toc-panel">
+      <p class="eyebrow">Section map</p>
+      <nav><div class="toc">
+<ul>
+<li><a href="#41-it-components">4.1 IT Components</a><ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#411-networking">4.1.1 Networking</a><ul>
+<li><a href="#the-osi-reference-model">The OSI Reference Model</a></li>
+<li><a href="#tcpip-vs-osi-model">TCP/IP vs OSI Model</a></li>
+<li><a href="#local-area-network-lan">Local Area Network (LAN)</a></li>
+<li><a href="#wide-area-network-wan">Wide Area Network (WAN)</a></li>
+<li><a href="#converged-protocols">Converged Protocols</a></li>
+<li><a href="#ipv4-vs-ipv6">IPv4 vs IPv6</a></li>
+<li><a href="#network-address-translation-nat">Network Address Translation (NAT)</a></li>
+</ul>
+</li>
+<li><a href="#412-computer-hardware">4.1.2 Computer Hardware</a></li>
+<li><a href="#413-enterprise-back-end-devices">4.1.3 Enterprise Back-End Devices</a></li>
+<li><a href="#414-usb-mass-storage-devices">4.1.4 USB Mass Storage Devices</a></li>
+<li><a href="#415-wireless-communication-technologies">4.1.5 Wireless Communication Technologies</a></li>
+<li><a href="#416-hardware-maintenance-program">4.1.6 Hardware Maintenance Program</a></li>
+</ul>
+</li>
+<li><a href="#42-it-asset-management">4.2 IT Asset Management</a></li>
+<li><a href="#43-job-scheduling-and-production-process-automation">4.3 Job Scheduling and Production Process Automation</a></li>
+<li><a href="#44-system-interfaces">4.4 System Interfaces</a></li>
+<li><a href="#45-end-user-computing-and-shadow-it">4.5 End-User Computing and Shadow IT</a><ul>
+<li><a href="#end-user-computing-euc">End-User Computing (EUC)</a></li>
+<li><a href="#shadow-it">Shadow IT</a></li>
+</ul>
+</li>
+<li><a href="#46-systems-availability-and-capacity-management">4.6 Systems Availability and Capacity Management</a><ul>
+<li><a href="#461-is-architecture">4.6.1 IS Architecture</a></li>
+<li><a href="#462-operating-systems-os">4.6.2 Operating Systems (OS)</a></li>
+<li><a href="#463-access-control-software">4.6.3 Access Control Software</a></li>
+<li><a href="#464-data-communications-software">4.6.4 Data Communications Software</a></li>
+<li><a href="#465-utility-programs">4.6.5 Utility Programs</a></li>
+<li><a href="#466-software-licensing">4.6.6 Software Licensing</a></li>
+<li><a href="#467-source-code-management">4.6.7 Source Code Management</a></li>
+<li><a href="#468-capacity-management">4.6.8 Capacity Management</a></li>
+</ul>
+</li>
+<li><a href="#47-problem-and-incident-management">4.7 Problem and Incident Management</a><ul>
+<li><a href="#471-problem-management">4.7.1 Problem Management</a></li>
+<li><a href="#472-incident-handling-process">4.7.2 Incident Handling Process</a></li>
+<li><a href="#473-error-logging">4.7.3 Error Logging</a></li>
+<li><a href="#474-help-desk">4.7.4 Help Desk</a></li>
+</ul>
+</li>
+<li><a href="#48-it-change-configuration-and-patch-management">4.8 IT Change, Configuration and Patch Management</a><ul>
+<li><a href="#change-management">Change Management</a></li>
+<li><a href="#481-patch-management">4.8.1 Patch Management</a></li>
+<li><a href="#482-release-management">4.8.2 Release Management</a></li>
+<li><a href="#483-is-operations">4.8.3 IS Operations</a></li>
+</ul>
+</li>
+<li><a href="#49-operational-log-management">4.9 Operational Log Management</a><ul>
+<li><a href="#definition">Definition</a></li>
+<li><a href="#491-types-of-logs">4.9.1 Types of Logs</a></li>
+<li><a href="#492-log-management-cycle">4.9.2 Log Management Cycle</a></li>
+</ul>
+</li>
+<li><a href="#410-it-service-level-management">4.10 IT Service Level Management</a><ul>
+<li><a href="#overview_1">Overview</a></li>
+<li><a href="#4101-service-level-agreements-slas">4.10.1 Service Level Agreements (SLAs)</a></li>
+<li><a href="#4102-monitoring-service-levels">4.10.2 Monitoring Service Levels</a></li>
+</ul>
+</li>
+<li><a href="#411-database-management">4.11 Database Management</a><ul>
+<li><a href="#overview_2">Overview</a></li>
+<li><a href="#4111-dbms-architecture">4.11.1 DBMS Architecture</a></li>
+<li><a href="#4112-database-structure-types">4.11.2 Database Structure Types</a></li>
+<li><a href="#4113-database-controls">4.11.3 Database Controls</a></li>
+</ul>
+</li>
+<li><a href="#412-business-impact-analysis-bia">4.12 Business Impact Analysis (BIA)</a><ul>
+<li><a href="#definition_1">Definition</a></li>
+<li><a href="#three-key-bia-questions">Three Key BIA Questions:</a></li>
+<li><a href="#bia-data-collection-methods">BIA Data Collection Methods:</a></li>
+<li><a href="#cost-analysis">Cost Analysis</a></li>
+<li><a href="#classification-of-operations-criticality-analysis">Classification of Operations (Criticality Analysis)</a></li>
+<li><a href="#key-recovery-metrics">Key Recovery Metrics</a></li>
+</ul>
+</li>
+<li><a href="#413-system-and-operational-resilience">4.13 System and Operational Resilience</a><ul>
+<li><a href="#system-resilience">System Resilience</a></li>
+<li><a href="#application-resiliency-clustering">Application Resiliency: Clustering</a></li>
+<li><a href="#telecommunication-network-resiliency">Telecommunication Network Resiliency</a></li>
+</ul>
+</li>
+<li><a href="#414-data-backup-storage-and-restoration">4.14 Data Backup, Storage and Restoration</a><ul>
+<li><a href="#raid-redundant-array-of-independent-disks">RAID (Redundant Array of Independent Disks)</a></li>
+<li><a href="#4142-backup-and-restoration">4.14.2 Backup and Restoration</a></li>
+</ul>
+</li>
+<li><a href="#415-business-continuity-plan-bcp">4.15 Business Continuity Plan (BCP)</a><ul>
+<li><a href="#overview_3">Overview</a></li>
+<li><a href="#4151-it-business-continuity-planning">4.15.1 IT Business Continuity Planning</a></li>
+<li><a href="#4152-disasters-and-disruptive-events">4.15.2 Disasters and Disruptive Events</a></li>
+<li><a href="#4153-business-continuity-planning-process-life-cycle">4.15.3 Business Continuity Planning Process (Life Cycle)</a></li>
+<li><a href="#4154-business-continuity-policy">4.15.4 Business Continuity Policy</a></li>
+<li><a href="#4155-incident-classification">4.15.5 Incident Classification</a></li>
+<li><a href="#4158-components-of-a-bcp-figure-439">4.15.8 Components of a BCP (Figure 4.39)</a></li>
+<li><a href="#4159-plan-testing">4.15.9 Plan Testing</a></li>
+<li><a href="#41511-auditing-business-continuity">4.15.11 Auditing Business Continuity</a></li>
+</ul>
+</li>
+<li><a href="#416-disaster-recovery-plans-drp">4.16 Disaster Recovery Plans (DRP)</a><ul>
+<li><a href="#overview_4">Overview</a></li>
+<li><a href="#4161-rpo-rto-and-mttr">4.16.1 RPO, RTO, and MTTR</a></li>
+<li><a href="#4163-recovery-alternatives">4.16.3 Recovery Alternatives</a></li>
+<li><a href="#4164-development-of-drp">4.16.4 Development of DRP</a></li>
+<li><a href="#4165-disaster-recovery-testing-methods">4.16.5 Disaster Recovery Testing Methods</a></li>
+<li><a href="#4166-invoking-drp">4.16.6 Invoking DRP</a></li>
+</ul>
+</li>
+<li><a href="#key-definitions-30-second-review">Key Definitions (30-Second Review)</a></li>
+<li><a href="#critical-osi-layer-mnemonics">Critical OSI Layer Mnemonics</a></li>
+<li><a href="#recovery-site-comparison">Recovery Site Comparison</a></li>
+<li><a href="#backup-scheme-quick-reference">Backup Scheme Quick Reference</a></li>
+<li><a href="#bcp-vs-drp-key-distinction">BCP vs DRP (Key Distinction)</a></li>
+<li><a href="#rporto-technology-selection">RPO/RTO Technology Selection</a></li>
+<li><a href="#database-model-quick-compare">Database Model Quick Compare</a></li>
+<li><a href="#is-auditors-role-in-drpbcp">IS Auditor's Role in DRP/BCP</a></li>
+<li><a href="#log-types-and-auditor-use">Log Types and Auditor Use</a></li>
+<li><a href="#the-5-layer-framework-for-this-chapter">The 5-Layer Framework for This Chapter</a></li>
+<li><a href="#essential-frameworksstandards">Essential Frameworks/Standards</a></li>
+<li><a href="#critical-relationships">Critical Relationships</a></li>
+</ul>
+</div>
+</nav>
+      <div id="toc-empty" class="empty-state" hidden>No section headings match the current filter.</div>
+    </aside>
+  </div>
+  <button class="btn focus-fab" data-action="toggle-focus">Exit focus mode</button>
+</div>
+
+  <script>
+(() => {
+  const storageKey = "cisa-study-theme";
+  const focusKey = "cisa-study-focus";
+  const root = document.documentElement;
+
+  const savedTheme = window.localStorage.getItem(storageKey);
+  if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+  }
+
+  const themeBtn = document.querySelector("[data-action='toggle-theme']");
+  if (themeBtn) {
+    const syncThemeLabel = () => {
+      const theme = root.getAttribute("data-theme") || "light";
+      themeBtn.textContent = theme === "dark" ? "Switch to light" : "Switch to dark";
+    };
+    syncThemeLabel();
+    themeBtn.addEventListener("click", () => {
+      const nextTheme = (root.getAttribute("data-theme") || "light") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", nextTheme);
+      window.localStorage.setItem(storageKey, nextTheme);
+      syncThemeLabel();
+    });
+  }
+
+  const focusButtons = Array.from(document.querySelectorAll("[data-action='toggle-focus']"));
+  if (window.localStorage.getItem(focusKey) === "true") {
+    document.body.classList.add("focus-mode");
+  }
+  if (focusButtons.length) {
+    const syncFocusButtons = () => {
+      const active = document.body.classList.contains("focus-mode");
+      focusButtons.forEach((button) => {
+        const isFloating = button.classList.contains("focus-fab");
+        button.textContent = active ? "Exit focus mode" : "Focus mode";
+        button.classList.toggle("is-active", active && !isFloating);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    };
+    const toggleFocus = () => {
+      document.body.classList.toggle("focus-mode");
+      window.localStorage.setItem(focusKey, String(document.body.classList.contains("focus-mode")));
+      syncFocusButtons();
+    };
+    syncFocusButtons();
+    focusButtons.forEach((button) => button.addEventListener("click", toggleFocus));
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && document.body.classList.contains("focus-mode")) {
+        toggleFocus();
+      }
+    });
+  }
+
+  const progressBar = document.querySelector(".progress-bar");
+  const updateProgress = () => {
+    if (!progressBar) {
+      return;
+    }
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progressBar.style.transform = `scaleX(${ratio})`;
+  };
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+
+  const searchInput = document.querySelector("[data-search]");
+  if (searchInput) {
+    const selector = searchInput.getAttribute("data-target");
+    const items = selector ? Array.from(document.querySelectorAll(selector)) : [];
+    const emptyStateId = searchInput.getAttribute("data-empty-state");
+    const emptyState = emptyStateId ? document.getElementById(emptyStateId) : null;
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const haystack = (item.getAttribute("data-search-text") || item.textContent || "").toLowerCase();
+        const show = !query || haystack.includes(query);
+        item.style.display = show ? "" : "none";
+        if (show) {
+          visible += 1;
+        }
+      });
+      if (emptyState) {
+        emptyState.hidden = visible !== 0;
+      }
+    });
+  }
+
+  const headingLinks = Array.from(document.querySelectorAll(".toc-panel a[href^='#']"));
+  const headingTargets = headingLinks
+    .map((link) => {
+      let id = link.getAttribute("href").slice(1);
+      try {
+        id = decodeURIComponent(id);
+      } catch {
+        // Keep raw fragment when it is not URI-encoded.
+      }
+      const target = document.getElementById(id);
+      return target ? { link, target } : null;
+    })
+    .filter(Boolean);
+
+  if (headingTargets.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const current = headingTargets.find((item) => item.target === entry.target);
+          if (!current) {
+            return;
+          }
+          if (entry.isIntersecting) {
+            headingLinks.forEach((link) => link.classList.remove("is-active"));
+            current.link.classList.add("is-active");
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 1] }
+    );
+    headingTargets.forEach((item) => observer.observe(item.target));
+  }
+
+  const article = document.querySelector(".article");
+  if (article) {
+    const isAnswerLabel = (text) => /^(?:answer\s*[:.)-]|a\s*[.):-]\s*)/i.test((text || "").trim());
+
+    const buildAnswerDetails = (contentNode) => {
+      const details = document.createElement("details");
+      details.className = "answer-collapsible";
+      const summary = document.createElement("summary");
+      summary.textContent = "Show answer";
+      const wrapper = document.createElement("div");
+      wrapper.className = "answer-content";
+      wrapper.appendChild(contentNode.cloneNode(true));
+      details.appendChild(summary);
+      details.appendChild(wrapper);
+      return details;
+    };
+
+    // Split paragraphs where question and answer appear in the same paragraph.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      const htmlValue = p.innerHTML;
+      const qaMatch = htmlValue.match(
+        /^(.*?)(?:\s*-\s*|\s+)?<strong>\s*(?:Answer\s*[:.)-]|A\s*[.):-][^<]*)<\/strong>\s*([\s\S]*)$/i
+      );
+      if (!qaMatch || !/<strong>\s*Q\d*\s*:\s*<\/strong>/i.test(qaMatch[1])) {
+        return;
+      }
+
+      p.innerHTML = qaMatch[1].trim();
+      const answerP = document.createElement("p");
+      answerP.innerHTML = `<strong>Answer:</strong> ${qaMatch[2].trim()}`;
+      p.insertAdjacentElement("afterend", buildAnswerDetails(answerP));
+    });
+
+    // Wrap standalone answer paragraphs.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      if (p.closest("details.answer-collapsible")) {
+        return;
+      }
+      if (!isAnswerLabel(p.textContent)) {
+        return;
+      }
+      p.replaceWith(buildAnswerDetails(p));
+    });
+
+    // Wrap answer-only blockquotes.
+    Array.from(article.querySelectorAll("blockquote")).forEach((blockquote) => {
+      if (blockquote.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstParagraph = blockquote.querySelector("p");
+      if (!firstParagraph || !isAnswerLabel(firstParagraph.textContent)) {
+        return;
+      }
+      blockquote.replaceWith(buildAnswerDetails(blockquote));
+    });
+
+    // Wrap list items that are answer lines, keeping the list structure valid.
+    Array.from(article.querySelectorAll("li")).forEach((li) => {
+      if (li.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstStrong = li.querySelector(":scope > strong");
+      if (!firstStrong || !isAnswerLabel(firstStrong.textContent)) {
+        return;
+      }
+
+      const payload = document.createElement("div");
+      while (li.firstChild) {
+        payload.appendChild(li.firstChild);
+      }
+      li.appendChild(buildAnswerDetails(payload));
+    });
+  }
+})();
+</script>
+</body>
+</html>

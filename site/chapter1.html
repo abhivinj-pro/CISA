@@ -1,0 +1,3297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CISA Chapter 1 — Information System Auditing Process | CISA Study Hub</title>
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  color-scheme: light;
+  --cp-bg: #f3efe6;
+  --cp-bg-elevated: #fbf8f2;
+  --cp-surface: rgba(255, 255, 255, 0.86);
+  --cp-surface-strong: rgba(255, 255, 255, 0.94);
+  --cp-surface-soft: rgba(255, 248, 238, 0.78);
+  --cp-border: rgba(113, 89, 61, 0.15);
+  --cp-border-strong: rgba(113, 89, 61, 0.28);
+  --cp-text: #1f2937;
+  --cp-text-muted: #5b6472;
+  --cp-text-soft: #7a838f;
+  --cp-accent: #c65d2e;
+  --cp-accent-hover: #a84c24;
+  --cp-accent-soft: rgba(198, 93, 46, 0.12);
+  --cp-accent-fg: #fff8f1;
+  --cp-accent-alt: #0f766e;
+  --cp-accent-alt-soft: rgba(15, 118, 110, 0.12);
+  --cp-link: #0f766e;
+  --cp-shadow: 0 24px 70px rgba(61, 43, 24, 0.14);
+  --cp-shadow-soft: 0 10px 30px rgba(61, 43, 24, 0.09);
+  --cp-overlay: rgba(251, 248, 242, 0.82);
+  --cp-highlight: rgba(198, 93, 46, 0.16);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #0d1721;
+  --cp-bg-elevated: #121f2d;
+  --cp-surface: rgba(17, 27, 39, 0.76);
+  --cp-surface-strong: rgba(19, 31, 45, 0.9);
+  --cp-surface-soft: rgba(32, 49, 68, 0.72);
+  --cp-border: rgba(148, 163, 184, 0.18);
+  --cp-border-strong: rgba(148, 163, 184, 0.34);
+  --cp-text: #e7edf5;
+  --cp-text-muted: #b0bdcb;
+  --cp-text-soft: #91a0b0;
+  --cp-accent: #f59e0b;
+  --cp-accent-hover: #f97316;
+  --cp-accent-soft: rgba(245, 158, 11, 0.16);
+  --cp-accent-fg: #111827;
+  --cp-accent-alt: #22c55e;
+  --cp-accent-alt-soft: rgba(34, 197, 94, 0.14);
+  --cp-link: #5eead4;
+  --cp-shadow: 0 26px 80px rgba(1, 6, 15, 0.45);
+  --cp-shadow-soft: 0 12px 36px rgba(1, 6, 15, 0.3);
+  --cp-overlay: rgba(9, 16, 24, 0.72);
+  --cp-highlight: rgba(245, 158, 11, 0.16);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.16), transparent 30%),
+    radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 26%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+  color: var(--cp-text);
+  font-family: "Plus Jakarta Sans", Aptos, sans-serif;
+  position: relative;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 999px;
+  filter: blur(22px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+body::before {
+  top: -12rem;
+  right: -10rem;
+  background: rgba(198, 93, 46, 0.18);
+}
+body::after {
+  bottom: -14rem;
+  left: -10rem;
+  background: rgba(15, 118, 110, 0.14);
+}
+a {
+  color: var(--cp-link);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.progress-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  box-shadow: 0 0 18px var(--cp-highlight);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 80;
+}
+.shell {
+  width: min(1480px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+.masthead {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+  align-items: stretch;
+  margin-bottom: 28px;
+}
+.hero,
+.panel,
+.chapter-card,
+.toc-panel,
+.chapter-rail,
+.content-panel,
+.tool-row,
+.callout-tile {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 24px;
+  box-shadow: var(--cp-shadow);
+  backdrop-filter: blur(18px);
+}
+.hero,
+.content-panel {
+  position: relative;
+  overflow: hidden;
+}
+.hero::before,
+.content-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 46%),
+    radial-gradient(circle at top right, var(--cp-accent-soft), transparent 30%);
+  pointer-events: none;
+}
+.hero {
+  padding: 34px;
+}
+.eyebrow {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+}
+.hero h1,
+.chapter-hero h1 {
+  margin: 18px 0 14px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 12ch;
+}
+.chapter-hero h1 {
+  max-width: none;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+.hero p,
+.chapter-hero p,
+.muted {
+  color: var(--cp-text-muted);
+  font-size: 1.02rem;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+.stat {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  box-shadow: var(--cp-shadow-soft);
+}
+.stat strong,
+.stat span {
+  display: block;
+}
+.stat strong {
+  margin-bottom: 6px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.5rem;
+}
+.hero-illustration,
+.chapter-illustration {
+  min-height: 100%;
+  padding: 26px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top left, var(--cp-accent-soft), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    var(--cp-surface-soft);
+}
+.hero-illustration svg,
+.chapter-illustration svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+.top-tools {
+  position: sticky;
+  top: 16px;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.tool-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+  align-items: center;
+  background: var(--cp-overlay);
+}
+.tool-row input {
+  min-width: 260px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  color: var(--cp-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.tool-row input:focus {
+  outline: 2px solid var(--cp-accent-soft);
+  border-color: var(--cp-accent);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--cp-shadow-soft);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+.btn:hover,
+.btn.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--cp-accent-soft));
+  color: var(--cp-text);
+}
+.btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #eb7b3a);
+  color: var(--cp-accent-fg);
+  border-color: transparent;
+  box-shadow: 0 14px 28px rgba(198, 93, 46, 0.28);
+}
+.btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 22px;
+}
+.chapter-card {
+  padding: 22px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.chapter-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  opacity: 0.92;
+}
+.chapter-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -36% auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--cp-accent-soft), transparent 65%);
+  pointer-events: none;
+}
+.chapter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 60px rgba(61, 43, 24, 0.18);
+  border-color: rgba(198, 93, 46, 0.24);
+}
+.chapter-card h2,
+.chapter-card h3 {
+  margin: 0;
+  font-size: 1.62rem;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.chapter-card h2 a {
+  color: var(--cp-text);
+}
+.chapter-card p {
+  margin: 0;
+}
+.chapter-card .chapter-subtitle {
+  margin-top: 8px;
+  color: var(--cp-text-muted);
+  font-size: 1rem;
+}
+.chapter-card .chapter-summary {
+  color: var(--cp-text-muted);
+  line-height: 1.62;
+  font-size: 1rem;
+}
+.chips,
+.quick-links,
+.chapter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--cp-surface-soft);
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text-muted);
+  font-size: 0.84rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.quick-links {
+  gap: 10px;
+}
+.quick-links .chip {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  color: var(--cp-text);
+  border-color: rgba(198, 93, 46, 0.24);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-accent-soft));
+  box-shadow: 0 8px 18px rgba(61, 43, 24, 0.12);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+.quick-links .chip:hover,
+.quick-links .chip:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.42);
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  box-shadow: 0 12px 22px rgba(61, 43, 24, 0.16);
+}
+.quick-links .chip:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.chapter-actions {
+  margin-top: 6px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.chapter-actions .btn {
+  min-height: 50px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  border-color: rgba(113, 89, 61, 0.2);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+}
+.chapter-actions .btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #dd6f33);
+  border-color: transparent;
+  color: var(--cp-accent-fg);
+  box-shadow: 0 10px 22px rgba(198, 93, 46, 0.24);
+}
+.chapter-actions .btn:hover {
+  border-color: rgba(198, 93, 46, 0.38);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--cp-accent-soft));
+}
+.chapter-actions .btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-actions .btn:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+.callout-tile {
+  padding: 20px;
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+}
+.callout-tile h3 {
+  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  box-shadow: var(--cp-shadow-soft);
+}
+.callout-tile:nth-child(1) h3 {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(14, 165, 233, 0.12));
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #1d4ed8;
+}
+.callout-tile:nth-child(2) h3 {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(249, 115, 22, 0.14));
+  border-color: rgba(245, 158, 11, 0.38);
+  color: #b45309;
+}
+.callout-tile:nth-child(3) h3 {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(20, 184, 166, 0.14));
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #047857;
+}
+.chapter-layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(250px, 320px);
+  align-items: start;
+}
+.chapter-rail,
+.toc-panel {
+  position: sticky;
+  top: 92px;
+  padding: 20px;
+  max-height: calc(100vh - 112px);
+  overflow: auto;
+  background:
+    linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface)),
+    var(--cp-overlay);
+  border: 1px solid var(--cp-border);
+  box-shadow: var(--cp-shadow-soft);
+}
+.chapter-rail nav,
+.toc-panel nav {
+  display: grid;
+  gap: 8px;
+}
+.chapter-rail .eyebrow,
+.toc-panel .eyebrow {
+  margin-bottom: 14px;
+}
+.chapter-nav-link,
+.toc-panel a {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 14px;
+  color: var(--cp-text-muted);
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-soft);
+  font-weight: 600;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, color 180ms ease;
+}
+.chapter-nav-link:hover,
+.chapter-nav-link.is-current,
+.toc-panel a:hover,
+.toc-panel a.is-active {
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border-color: var(--cp-border-strong);
+  color: var(--cp-text);
+  transform: translateX(2px);
+}
+.chapter-nav-link strong {
+  display: block;
+  margin-bottom: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+.toc-panel a {
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.content-panel {
+  padding: 26px 30px 32px;
+  background: var(--cp-surface-strong);
+}
+.chapter-hero {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.8fr);
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--cp-border);
+  margin-bottom: 24px;
+  align-items: center;
+}
+.article {
+  font-size: 1.03rem;
+  line-height: 1.82;
+}
+.article > :first-child {
+  margin-top: 0;
+}
+.article > * {
+  max-width: 74ch;
+}
+.article .table-wrap,
+.article img,
+.article pre,
+.article h2 {
+  max-width: 100%;
+}
+.article h1,
+.article h2,
+.article h3,
+.article h4,
+.article h5,
+.article h6 {
+  scroll-margin-top: 104px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--cp-text);
+}
+.article h1 {
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 2.4rem;
+}
+.article h2 {
+  margin-top: 2.4rem;
+  padding: 18px 20px;
+  border: 1px solid var(--cp-border);
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), transparent 70%);
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.7rem;
+}
+.article h3 {
+  margin-top: 1.8rem;
+  font-size: 1.24rem;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.article details.answer-collapsible {
+  margin: 18px 0;
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  box-shadow: var(--cp-shadow-soft);
+  overflow: hidden;
+}
+.article details.answer-collapsible summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  font-weight: 700;
+  color: var(--cp-text);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+}
+.article details.answer-collapsible summary::-webkit-details-marker {
+  display: none;
+}
+.article details.answer-collapsible summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 180ms ease;
+}
+.article details.answer-collapsible[open] summary::before {
+  transform: rotate(90deg);
+}
+.article details.answer-collapsible .answer-content {
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--cp-border);
+}
+.article details.answer-collapsible .answer-content > :first-child {
+  margin-top: 0;
+}
+.article details.answer-collapsible .answer-content > :last-child {
+  margin-bottom: 0;
+}
+.article hr {
+  border: 0;
+  border-top: 1px solid var(--cp-border);
+  margin: 28px 0;
+}
+.article blockquote {
+  margin: 22px 0;
+  padding: 18px 20px;
+  border-left: 4px solid var(--cp-accent);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+  border-radius: 18px;
+  box-shadow: var(--cp-shadow-soft);
+}
+.article code,
+.article pre {
+  font-family: Consolas, "Courier New", Courier, monospace;
+}
+.article :not(pre) > code {
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text);
+}
+.article pre {
+  overflow: auto;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+}
+.article ul,
+.article ol {
+  padding-left: 1.35rem;
+}
+.article li + li {
+  margin-top: 0.4rem;
+}
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+.article th,
+.article td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cp-border);
+  border-right: 1px solid var(--cp-border);
+  vertical-align: top;
+}
+.article tr:last-child td {
+  border-bottom: 0;
+}
+.article th:last-child,
+.article td:last-child {
+  border-right: 0;
+}
+.article th {
+  position: sticky;
+  top: 0;
+  background: var(--cp-surface-soft);
+  text-align: left;
+}
+.article img {
+  display: block;
+  margin: 22px 0;
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+  box-shadow: var(--cp-shadow-soft);
+}
+.toc-panel .toc,
+.toc-panel .toc ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.toc-panel .toc > ul {
+  display: grid;
+  gap: 8px;
+}
+.toc-panel .toc ul ul {
+  margin-left: 12px;
+  margin-top: 8px;
+  border-left: 1px solid var(--cp-border);
+  padding-left: 10px;
+}
+.empty-state {
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text-muted);
+  border: 1px dashed var(--cp-border-strong);
+}
+.footer-note {
+  margin-top: 22px;
+  color: var(--cp-text-soft);
+  font-size: 0.94rem;
+}
+.focus-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 75;
+  display: none;
+  min-width: 150px;
+}
+body.focus-mode {
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.08), transparent 32%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+}
+body.focus-mode .chapter-rail,
+body.focus-mode .toc-panel,
+body.focus-mode .top-tools,
+body.focus-mode .chapter-illustration {
+  display: none;
+}
+body.focus-mode .focus-fab {
+  display: inline-flex;
+}
+body.focus-mode .chapter-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+body.focus-mode .content-panel {
+  max-width: 900px;
+  margin: 0 auto;
+}
+body.focus-mode .chapter-hero {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (max-width: 1180px) {
+  .chapter-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .chapter-rail,
+  .toc-panel {
+    position: static;
+    max-height: none;
+  }
+}
+@media (max-width: 900px) {
+  .masthead,
+  .chapter-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shell {
+    width: min(100% - 24px, 1480px);
+  }
+  .hero,
+  .content-panel {
+    padding: 22px;
+  }
+  .top-tools {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .chapter-actions {
+    grid-template-columns: 1fr;
+  }
+  .hero,
+  .panel,
+  .chapter-card,
+  .toc-panel,
+  .chapter-rail,
+  .content-panel,
+  .tool-row,
+  .callout-tile {
+    border-radius: 20px;
+  }
+  .tool-row,
+  .tool-row input,
+  .btn {
+    width: 100%;
+  }
+  .focus-fab {
+    right: 12px;
+    left: 12px;
+    bottom: 14px;
+    width: auto;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="progress-bar"></div>
+  
+<div class="shell">
+  <div class="top-tools">
+    <div class="tool-row">
+      <a class="btn" href="index.html">Back to chapter index</a>
+      <button class="btn" data-action="toggle-focus">Focus mode</button>
+      <button class="btn" data-action="toggle-theme">Switch theme</button>
+    </div>
+    <div class="tool-row">
+      <input type="search" placeholder="Filter this chapter TOC" data-search data-target=".toc-panel a" data-empty-state="toc-empty">
+    </div>
+  </div>
+
+  <div class="chapter-layout">
+    <aside class="chapter-rail">
+      <p class="eyebrow">Chapters</p>
+      <nav><a class="chapter-nav-link is-current" href="chapter1.html"><strong>Chapter 1</strong></a>
+<a class="chapter-nav-link" href="chapter2.html"><strong>Chapter 2</strong></a>
+<a class="chapter-nav-link" href="chapter3.html"><strong>Chapter 3</strong></a>
+<a class="chapter-nav-link" href="chapter4.html"><strong>Chapter 4</strong></a>
+<a class="chapter-nav-link" href="chapter5.html"><strong>Chapter 5</strong></a></nav>
+    </aside>
+
+    <main class="content-panel">
+      <section class="chapter-hero">
+        <div>
+          <span class="eyebrow">Chapter 1</span>
+          <h1>CISA Chapter 1 — Information System Auditing Process</h1>
+          <p>Domain Weight: 18% of CISA Exam (~27 questions)</p>
+          <div class="quick-links" style="margin-top: 12px;"><a class="chip" href="#rapid-revision-sheet">Rapid Revision</a><a class="chip" href="#probable-exam-questions">Exam Questions</a><a class="chip" href="#mnemonics-memory-aids">Mnemonics</a><a class="chip" href="#key-concept-recap">Concept Recap</a></div>
+        </div>
+        <div class="panel chapter-illustration">
+<svg viewBox="0 0 360 240" role="img" aria-label="CISA NOTES emblem" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cnStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-accent)"/>
+      <stop offset="100%" stop-color="var(--cp-accent-alt)"/>
+    </linearGradient>
+    <linearGradient id="cnBadge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-surface-strong)"/>
+      <stop offset="100%" stop-color="var(--cp-surface-soft)"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="44" y="36" width="272" height="170" rx="24" fill="var(--cp-surface-strong)" stroke="var(--cp-border)" stroke-width="2"/>
+  <rect x="44" y="36" width="272" height="38" rx="24" fill="var(--cp-surface-soft)"/>
+
+  <circle cx="72" cy="55" r="5" fill="var(--cp-accent)" opacity="0.75"/>
+  <circle cx="90" cy="55" r="5" fill="var(--cp-accent-alt)" opacity="0.7"/>
+  <circle cx="108" cy="55" r="5" fill="var(--cp-border-strong)"/>
+
+  <rect x="66" y="92" width="128" height="10" rx="5" fill="var(--cp-border-strong)"/>
+  <rect x="66" y="110" width="102" height="10" rx="5" fill="var(--cp-accent-soft)"/>
+  <rect x="66" y="143" width="220" height="9" rx="4.5" fill="var(--cp-border)"/>
+  <rect x="66" y="160" width="186" height="9" rx="4.5" fill="var(--cp-border)"/>
+
+  <g transform="translate(216 88)">
+    <path d="M54 0l34 15v26c0 27-23 50-34 56C43 91 20 68 20 41V15L54 0z" fill="url(#cnBadge)" stroke="url(#cnStroke)" stroke-width="4"/>
+    <path d="M40 47l10 10 22-24" fill="none" stroke="var(--cp-accent-alt)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="180" y="124" text-anchor="middle" font-size="36" font-weight="800" letter-spacing="2.2" fill="url(#cnStroke)" font-family="Space Grotesk, Plus Jakarta Sans, sans-serif">CISA</text>
+  <text x="180" y="157" text-anchor="middle" font-size="24" font-weight="700" letter-spacing="4.5" fill="var(--cp-text-muted)" font-family="Plus Jakarta Sans, sans-serif">NOTES</text>
+</svg>
+</div>
+      </section>
+
+      <article class="article"><h1 id="cisa-chapter-1-information-system-auditing-process">CISA Chapter 1 — Information System Auditing Process</h1>
+<blockquote>
+<p><strong>Domain Weight:</strong> 18% of CISA Exam (~27 questions)
+<strong>Two Parts:</strong> Part A – Planning | Part B – Execution</p>
+</blockquote>
+<hr />
+<h1 id="table-of-contents">TABLE OF CONTENTS</h1>
+<ol>
+<li><a href="#1-overview">Overview &amp; IS Audit Defined</a></li>
+<li><a href="#11-standards">1.1 IS Audit Standards, Guidelines &amp; Code of Ethics</a></li>
+<li><a href="#12-audit-types">1.2 Types of Audits, Assessments &amp; Reviews</a></li>
+<li><a href="#13-risk-based-planning">1.3 Risk-Based Audit Planning</a></li>
+<li><a href="#14-controls">1.4 Types of Controls and Considerations</a></li>
+<li><a href="#15-project-management">1.5 Audit Project Management</a></li>
+<li><a href="#16-sampling">1.6 Audit Testing and Sampling Methodology</a></li>
+<li><a href="#17-evidence">1.7 Audit Evidence Collection Techniques</a></li>
+<li><a href="#18-data-analytics">1.8 Audit Data Analytics</a></li>
+<li><a href="#19-reporting">1.9 Reporting and Communication Techniques</a></li>
+<li><a href="#110-qa">1.10 Quality Assurance and Improvement</a></li>
+<li><a href="#rapid-revision">Rapid Revision Sheet</a></li>
+<li><a href="#exam-questions">Probable Exam Questions</a></li>
+<li><a href="#key-concepts">Key Concept Recap</a></li>
+<li><a href="#mnemonics">Mnemonics &amp; Memory Aids</a></li>
+</ol>
+<hr />
+<h1 id="1-overview">1. OVERVIEW</h1>
+<h2 id="what-is-is-audit">What is IS Audit?</h2>
+<p>IS Audit is the <strong>formal examination and/or testing of information systems</strong> to determine whether:</p>
+<ul>
+<li>IS are in <strong>compliance</strong> with applicable laws, regulations, contracts and/or industry guidelines</li>
+<li>IS and related processes comply with <strong>governance criteria</strong>, policies and procedures</li>
+<li><strong>CIA</strong> (Confidentiality, Integrity, Availability) of IS data meet appropriate levels</li>
+<li>IS operations are being accomplished <strong>efficiently</strong> and effectiveness targets are being met</li>
+</ul>
+<h3 id="is-vs-it-know-the-difference">IS vs IT — Know the Difference!</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Information System (IS)</strong></td>
+<td>Combination of strategic, managerial and operational activities and related processes for gathering, processing, storing, distributing and using <strong>information + its related technologies</strong> (includes people + process + IT)</td>
+</tr>
+<tr>
+<td><strong>Information Technology (IT)</strong></td>
+<td>The hardware, software, communication and other facilities used to <strong>input, store, process, transmit and output data</strong></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Simple Rule:</strong> IS = IT + People + Process. IT is just the technology component.</p>
+</blockquote>
+<h2 id="three-major-audit-process-phases">Three Major Audit Process Phases</h2>
+<pre><code>[Planning] → [Fieldwork/Documentation] → [Reporting/Follow-Up]
+</code></pre>
+<ul>
+<li><strong>Planning</strong> — Defines strategy, scope and objectives</li>
+<li><strong>Fieldwork/Documentation</strong> — Evidence gathering, testing controls, documenting results</li>
+<li><strong>Reporting/Follow-Up</strong> — Draft/issue report, follow up on corrective actions</li>
+</ul>
+<blockquote>
+<p>Subphases can be customized as long as they comply with applicable standards (e.g., ITAF).</p>
+</blockquote>
+<hr />
+<h1 id="11-is-audit-standards-guidelines-code-of-ethics">1.1 IS AUDIT STANDARDS, GUIDELINES &amp; CODE OF ETHICS</h1>
+<h2 id="the-three-level-isaca-framework">The Three-Level ISACA Framework</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What It Is</th>
+<th>Mandatory?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Standards</strong></td>
+<td>Define mandatory requirements for IS auditing and reporting</td>
+<td>✅ YES</td>
+</tr>
+<tr>
+<td><strong>Guidelines</strong></td>
+<td>Provide guidance on HOW to implement standards; use professional judgment</td>
+<td>Not mandatory, but must justify departure</td>
+</tr>
+<tr>
+<td><strong>Tools &amp; Techniques</strong></td>
+<td>Examples of processes; do NOT set requirements</td>
+<td>❌ NO</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Memory Trick:</strong> <strong>SGT</strong> = Standards (Mandatory) → Guidelines (Guidance) → Techniques (Examples)</p>
+</blockquote>
+<h2 id="standards-categories">Standards Categories</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>General</strong></td>
+<td>Guiding principles — ethics, independence, objectivity, due care, competency</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Conduct of the assignment — planning, scoping, risk, evidence, supervision</td>
+</tr>
+<tr>
+<td><strong>Reporting</strong></td>
+<td>Types of reports, communication methods, information communicated</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="isaca-code-of-professional-ethics-7-principles">ISACA Code of Professional Ethics — 7 Principles</h2>
+<blockquote>
+<p>🔑 <strong>EXAM NOTE:</strong> You don't need to memorize numbers — understand and apply the principles.</p>
+</blockquote>
+<ol>
+<li><strong>Support</strong> implementation and compliance with appropriate standards for IS governance and management</li>
+<li><strong>Perform duties</strong> with objectivity, due diligence and professional care per professional standards</li>
+<li><strong>Serve stakeholders</strong> lawfully; maintain high standards of conduct; don't discredit the profession</li>
+<li><strong>Maintain privacy and confidentiality</strong> of information obtained — don't use for personal benefit or release to inappropriate parties</li>
+<li><strong>Maintain competency</strong> — only undertake activities you can complete with required skills and knowledge</li>
+<li><strong>Inform appropriate parties</strong> of results — disclose all significant facts known (don't distort results)</li>
+<li><strong>Support professional education</strong> of stakeholders on IS governance and management</li>
+</ol>
+<blockquote>
+<p><strong>Memory Aid:</strong> <strong>SPSMIC</strong> → Support, Perform, Serve, Maintain (privacy), Maintain (competency), Inform, Create (education)</p>
+</blockquote>
+<h2 id="itaftm-it-assurance-framework">ITAF™ (IT Assurance Framework)</h2>
+<p>A <strong>comprehensive, best-practice reference model</strong> that:
+- Establishes standards for IS auditor roles, responsibilities, knowledge and skills
+- Defines terms and concepts specific to IS assurance
+- Provides guidance on planning, design, conduct and reporting of IS audit assignments</p>
+<blockquote>
+<p><strong>EXAM NOTE:</strong> You will NOT be tested on ITAF's organizational arrangement, but you WILL be tested on applying the standards.</p>
+</blockquote>
+<h2 id="is-internal-audit-function">IS Internal Audit Function</h2>
+<h3 id="audit-charter-key-facts">Audit Charter — Key Facts</h3>
+<ul>
+<li>Establishes the <strong>mandate</strong> to perform IS audit</li>
+<li>Approved by the <strong>Board of Directors and Audit Committee</strong> (or senior management if these don't exist)</li>
+<li>Covers the entire scope of audit activities for an entity</li>
+<li>States management's <strong>responsibility, objectives and delegation of authority</strong></li>
+<li>Should only be changed if the change is <strong>thoroughly justified</strong></li>
+<li>Overarching document (vs. engagement letter which is specific to one audit)</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audit Charter</strong></td>
+<td>Entire scope of all audit activities in an entity</td>
+</tr>
+<tr>
+<td><strong>Engagement Letter</strong></td>
+<td>Specific to a particular audit exercise with specific objective</td>
+</tr>
+<tr>
+<td><strong>Contract/SOW</strong></td>
+<td>For external IS audit firms</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="reporting-line">Reporting Line</h3>
+<ul>
+<li>IS audit function should be <strong>independent</strong> and report to:</li>
+<li>The <strong>audit committee</strong> (if one exists), OR</li>
+<li>The <strong>highest management level</strong> (e.g., board of directors)</li>
+</ul>
+<h3 id="using-other-auditorsexperts">Using Other Auditors/Experts</h3>
+<p>When outsourcing IS audit work, consider:
+- Laws and regulations restricting outsourcing
+- Audit charter or contractual stipulations
+- Impact on IS audit risk and professional liability
+- Independence and objectivity of external experts
+- Professional competence and qualifications</p>
+<blockquote>
+<p><strong>KEY POINT:</strong> Even if audit WORK is outsourced, <strong>professional liability is NOT necessarily transferred</strong>. The original IS auditor/entity remains responsible.</p>
+</blockquote>
+<hr />
+<h1 id="12-types-of-audits-assessments-reviews">1.2 TYPES OF AUDITS, ASSESSMENTS &amp; REVIEWS</h1>
+<h2 id="audit-vs-assessment-vs-review">Audit vs. Assessment vs. Review</h2>
+<ul>
+<li><strong>Formal Audit</strong> → Highest level of assurance; formal inspection and verification</li>
+<li><strong>Assessment/Review</strong> → Less formal; less negative stigma; focus on opportunities for improvement</li>
+</ul>
+<h2 id="types-of-audits-comprehensive-table">Types of Audits — Comprehensive Table</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Audit Type</th>
+<th>Purpose</th>
+<th>Key Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IS Audit</strong></td>
+<td>Collect/evaluate evidence on IS safeguarding, integrity, availability, efficiency</td>
+<td>Broadest IS-specific audit</td>
+</tr>
+<tr>
+<td><strong>Compliance Audit</strong></td>
+<td>Test controls for adherence to regulations or industry standards</td>
+<td>Often overlaps with other audits</td>
+</tr>
+<tr>
+<td><strong>Financial Audit</strong></td>
+<td>Assess accuracy of financial reporting</td>
+<td>Involves substantive testing; IS auditors use risk/control-based approach</td>
+</tr>
+<tr>
+<td><strong>Operational Audit</strong></td>
+<td>Evaluate internal control structure in a given process/area</td>
+<td>IS audits of application controls are examples</td>
+</tr>
+<tr>
+<td><strong>Integrated Audit</strong></td>
+<td>Combines financial + operational audit steps</td>
+<td>May or may not use IS auditor; single comprehensive report</td>
+</tr>
+<tr>
+<td><strong>Administrative Audit</strong></td>
+<td>Assess efficiency of operational productivity</td>
+<td>Focused on operations efficiency</td>
+</tr>
+<tr>
+<td><strong>Third-Party Service Audit</strong></td>
+<td>Audit outsourced financial/business processes</td>
+<td>Issues opinion via service auditor's report</td>
+</tr>
+<tr>
+<td><strong>Fraud Audit</strong></td>
+<td>Discover fraudulent activity</td>
+<td>Uses specific tools and data analysis</td>
+</tr>
+<tr>
+<td><strong>Forensic Audit</strong></td>
+<td>Discover, disclose and follow up on fraud/crime</td>
+<td>Primary purpose: develop evidence for law enforcement</td>
+</tr>
+<tr>
+<td><strong>Computer Forensic Audit</strong></td>
+<td>Analyze electronic devices to gather/preserve evidence</td>
+<td>IS auditor assists forensic specialist</td>
+</tr>
+<tr>
+<td><strong>Functional Audit</strong></td>
+<td>Evaluate software functionality vs. requirements</td>
+<td>Conducted before delivery or after implementation</td>
+</tr>
+<tr>
+<td><strong>Readiness Assessment</strong></td>
+<td>Review current state of compliance before formal audit</td>
+<td>Focus on control DESIGN (not operating effectiveness)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="121-control-self-assessment-csa">1.2.1 Control Self-Assessment (CSA)</h2>
+<h3 id="what-is-csa">What is CSA?</h3>
+<p>An assessment of controls made by the <strong>staff and management of the unit</strong> being assessed — NOT the IS auditor. IS auditor acts as <strong>facilitator</strong>.</p>
+<h3 id="key-objective">Key Objective</h3>
+<blockquote>
+<p>Leverage the internal audit function by <strong>shifting some control monitoring responsibilities to functional areas</strong> — NOT to replace audit, but to ENHANCE it.</p>
+</blockquote>
+<h3 id="csa-implementation-methods">CSA Implementation Methods</h3>
+<ul>
+<li>Questionnaires and surveys</li>
+<li><strong>Facilitated workshops</strong> (IS auditor leads, management participates)</li>
+<li>Informal peer reviews</li>
+</ul>
+<h3 id="benefits-of-csa">Benefits of CSA</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Early detection of risk</strong></td>
+<td>Proactive risk identification</td>
+</tr>
+<tr>
+<td><strong>Better internal controls</strong></td>
+<td>More effective and improved controls</td>
+</tr>
+<tr>
+<td><strong>Cohesive teams</strong></td>
+<td>Employee involvement creates ownership</td>
+</tr>
+<tr>
+<td><strong>Sense of ownership</strong></td>
+<td>Employees take control accountability</td>
+</tr>
+<tr>
+<td><strong>Increased awareness</strong></td>
+<td>Better understanding of objectives and risk</td>
+</tr>
+<tr>
+<td><strong>Reduced control cost</strong></td>
+<td>More efficient monitoring</td>
+</tr>
+<tr>
+<td><strong>Improved audit rating</strong></td>
+<td>Better audit outcomes</td>
+</tr>
+<tr>
+<td><strong>Assurance to stakeholders</strong></td>
+<td>Management demonstrates control adequacy</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="disadvantages-of-csa">Disadvantages of CSA</h3>
+<ul>
+<li>Could be mistaken as a <strong>replacement</strong> for audit (it's NOT)</li>
+<li>May be regarded as <strong>additional workload</strong></li>
+<li>Failure to act on suggestions can <strong>damage employee morale</strong></li>
+<li><strong>Lack of audit knowledge</strong> may limit effectiveness in detecting weak controls</li>
+</ul>
+<h3 id="is-auditors-role-in-csa">IS Auditor's Role in CSA</h3>
+<ul>
+<li>IS auditor is the <strong>FACILITATOR</strong> (not the evaluator)</li>
+<li>Management is the <strong>PARTICIPANT</strong></li>
+<li>IS auditor guides auditees in assessing their environment based on risk</li>
+</ul>
+<blockquote>
+<p>🔑 <strong>EXAM FAVORITE:</strong> "KEY benefit of CSA = Management ownership of internal controls is reinforced." This is the #1 tested answer!</p>
+</blockquote>
+<h2 id="122-integrated-auditing">1.2.2 Integrated Auditing</h2>
+<h3 id="definition">Definition</h3>
+<p>Combining appropriate audit disciplines (IS + financial + operational) to assess key internal controls over an operation, process or entity — <strong>focused on risk</strong>.</p>
+<h3 id="integrated-audit-process-steps">Integrated Audit Process Steps:</h3>
+<ol>
+<li>Identify risk faced by the organization for the area being audited</li>
+<li>Identify relevant key controls</li>
+<li>Review and understand the design of key controls</li>
+<li>Test IT system support for key controls</li>
+<li>Test operational effectiveness of management controls</li>
+<li>Issue a combined report/opinion on control risk, design and weaknesses</li>
+</ol>
+<h3 id="benefits-of-integration">Benefits of Integration:</h3>
+<ul>
+<li><strong>Single audit</strong> with one comprehensive report</li>
+<li>Staff development and retention (variety in work)</li>
+<li>Process owners understand the linkage between controls and audit procedures</li>
+<li>Management understands the linkage between control effectiveness and IT resource use</li>
+<li>Shareholders understand corporate governance impact on financial statements</li>
+</ul>
+<hr />
+<h1 id="13-risk-based-audit-planning">1.3 RISK-BASED AUDIT PLANNING</h1>
+<h2 id="what-is-audit-planning">What is Audit Planning?</h2>
+<p>Establishing the overall <strong>audit strategy</strong> and detailing <strong>specific procedures</strong> at the beginning of the audit.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Planning Type</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Short-term</strong></td>
+<td>Audit issues to be covered during the current year</td>
+</tr>
+<tr>
+<td><strong>Long-term</strong></td>
+<td>Risk-related issues regarding changes in the organization's IT strategic direction</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="audit-universe">Audit Universe</h2>
+<p>The <strong>audit universe</strong> lists ALL processes that may be considered for audit. Each process undergoes a risk assessment.</p>
+<p><strong>Example — Reputation Risk Rating Scale:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Rating</th>
+<th>Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High</td>
+<td>Reputational damage recovery takes <strong>&gt;6 months</strong></td>
+</tr>
+<tr>
+<td>Medium</td>
+<td>Recovery takes <strong>3–6 months</strong></td>
+</tr>
+<tr>
+<td>Low</td>
+<td>Recovery takes <strong>&lt;3 months</strong></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>Processes rated "high" form the <strong>ideal annual audit plan</strong>. Resource gaps are documented to show management the risk accepted.</p>
+</blockquote>
+<p><strong>Important:</strong> Annual planning analysis should occur <strong>at least annually</strong> and must be:
+- Reviewed by <strong>senior audit management</strong>
+- Approved by the <strong>audit committee or board of directors</strong>
+- Communicated to relevant management levels
+- Updated when key risk environment changes (e.g., acquisitions, new regulations)</p>
+<h2 id="steps-to-perform-audit-planning-fig-13">Steps to Perform Audit Planning (Fig. 1.3)</h2>
+<pre><code>1. Understand the organization's mission, objectives, purpose and processes
+2. Understand governance structure and practices related to audit objectives
+3. Understand changes in the business environment
+4. Review prior work papers
+5. Identify policies, standards, guidelines, procedures and organizational structure
+6. Perform a risk analysis to design the audit plan
+7. Set the audit scope and objectives
+8. Develop the audit approach/strategy
+9. Assign personnel resources
+10. Address engagement logistics
+11. Identify opportunities for continuous audit/automation using CAATs
+</code></pre>
+<h2 id="131-individual-audit-assignments">1.3.1 Individual Audit Assignments</h2>
+<p>When planning individual audits, IS auditors must understand:
+- General business practices and functions relating to the audit subject
+- Types of information systems and technology supporting the activity
+- The regulatory environment in which the business operates</p>
+<p>Consider: System implementation/upgrade deadlines, current/future technologies, requirements from business process owners, IS resource limitations.</p>
+<h2 id="132-effect-of-laws-and-regulations-on-is-audit-planning">1.3.2 Effect of Laws and Regulations on IS Audit Planning</h2>
+<p>Two major areas of concern:
+1. <strong>Legal requirements</strong> applicable to audit or IS audit (laws, regulations, contracts)
+2. <strong>Legal requirements</strong> placed on the auditee regarding its systems, data management, reporting</p>
+<p>Steps to determine compliance with external requirements:
+1. Identify government or other external requirements (electronic data, personal data, copyrights, IS practices, IS audits)
+2. Document applicable laws and regulations
+3. Assess whether management has considered external requirements in plans, policies, standards
+4. Review internal IT documents addressing adherence to applicable laws
+5. Determine adherence to established procedures
+6. Determine if procedures ensure contracts with external IT providers reflect legal requirements</p>
+<blockquote>
+<p><strong>EXAM NOTE:</strong> CISA candidates will NOT be asked about specific laws/regulations but may be asked HOW to audit for compliance.</p>
+</blockquote>
+<h2 id="risk-based-audit-planning-key-requirements">Risk-Based Audit Planning — Key Requirements</h2>
+<p>An IS auditor must understand:
+- External and internal factors affecting the organization
+- Selection and application of policies and procedures
+- Organization's objectives and strategies
+- Measurement and review of organization's performance</p>
+<p>Also understand key components:
+- Strategy management
+- Business products and services
+- Corporate governance process
+- Transaction types, partners and flows within information systems</p>
+<h2 id="133-audit-risk-and-materiality">1.3.3 Audit Risk and Materiality</h2>
+<h3 id="audit-risk-definition">Audit Risk Definition</h3>
+<p>The risk that information collected <strong>may contain a material error that goes undetected</strong> during the audit.</p>
+<h3 id="four-types-of-audit-risk">Four Types of Audit Risk</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Risk Type</th>
+<th>Definition</th>
+<th>Key Point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inherent Risk</strong></td>
+<td>Risk level/exposure WITHOUT considering controls management has implemented</td>
+<td>Exists independent of the audit; due to nature of business</td>
+</tr>
+<tr>
+<td><strong>Control Risk</strong></td>
+<td>Risk of material error NOT prevented/detected on timely basis by internal controls</td>
+<td>High for manual log reviews; low for computerized data validation</td>
+</tr>
+<tr>
+<td><strong>Detection Risk</strong></td>
+<td>Risk that material errors/misstatements will NOT be detected by the IS auditor</td>
+<td>Reduced by proper sampling and quality control</td>
+</tr>
+<tr>
+<td><strong>Overall Audit Risk</strong></td>
+<td>Risk that auditor may NOT detect a material error in financial/information reports</td>
+<td>Objective: limit to a sufficiently low level</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="materiality">Materiality</h3>
+<ul>
+<li>Refers to the <strong>importance/significance</strong> of information regarding its impact on the entity being audited</li>
+<li><strong>Inverse relationship:</strong> Higher materiality → Lower acceptable audit risk (and vice versa)</li>
+<li>An individual error may be minor, but <strong>combined with others could become material</strong></li>
+</ul>
+<blockquote>
+<p>🔑 <strong>KEY DISTINCTION:</strong> Audit risk ≠ Statistical sampling risk. Sampling risk = risk that incorrect assumptions are made about characteristics of a population from which a sample is drawn.</p>
+</blockquote>
+<h2 id="134-risk-assessment">1.3.4 Risk Assessment</h2>
+<h3 id="who-is-responsible">Who is Responsible?</h3>
+<ul>
+<li><strong>IT management</strong> is responsible for conducting risk assessments</li>
+<li>IS auditor may ASSIST if expertise is not present internally</li>
+<li>IS auditor may perform a <strong>separate</strong> risk assessment for audit planning purposes</li>
+</ul>
+<p>Risk assessments should:
+- Identify, quantify and prioritize risk
+- Guide management action and priorities for implementing controls
+- Be performed <strong>periodically</strong> and whenever significant changes occur</p>
+<h2 id="135-is-audit-risk-assessment-techniques">1.3.5 IS Audit Risk Assessment Techniques</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simple Classification</strong></td>
+<td>High/Medium/Low based on auditor's judgment</td>
+</tr>
+<tr>
+<td><strong>Scoring System</strong></td>
+<td>Variables (technical complexity, financial loss, control procedures) assigned weights</td>
+</tr>
+<tr>
+<td><strong>Subjective Assessment</strong></td>
+<td>Based on business knowledge, management directives, historical perspectives</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>IS auditors should leverage management's risk assessment results (with <strong>professional skepticism</strong> due to potential independence impairment).</p>
+</blockquote>
+<h3 id="benefits-of-risk-assessment-based-auditing">Benefits of Risk Assessment-Based Auditing:</h3>
+<ul>
+<li>Enables effective allocation of limited audit resources</li>
+<li>Ensures relevant information from all management levels</li>
+<li>Establishes basis for managing the audit department</li>
+<li>Provides summary of how audit subjects relate to overall organization and business plans</li>
+</ul>
+<h2 id="136-risk-analysis">1.3.6 Risk Analysis</h2>
+<ul>
+<li>A <strong>subset</strong> of risk assessment used during audit planning</li>
+<li>Identifies risk and vulnerabilities so an IS auditor can determine controls needed</li>
+<li>Does NOT provide sufficient evidence to support the audit opinion (only helps plan)</li>
+</ul>
+<hr />
+<h1 id="14-types-of-controls-and-considerations">1.4 TYPES OF CONTROLS AND CONSIDERATIONS</h1>
+<h2 id="what-is-a-control">What is a Control?</h2>
+<p>A control <strong>prevents, detects and/or contains an incident</strong> and <strong>enables recovery</strong> from a risk event.</p>
+<p>Controls are composed of policies, procedures, practices and organizational structures implemented to <strong>reduce risk</strong>.</p>
+<h2 id="141-internal-controls">1.4.1 Internal Controls</h2>
+<ul>
+<li>Operate at ALL levels within an organization</li>
+<li><strong>Board of directors and senior management</strong> are responsible for establishing appropriate culture</li>
+<li>Two key aspects of controls: 1. What <strong>should be achieved</strong> 2. What <strong>should be avoided</strong></li>
+</ul>
+<p>Control activities include: approvals, authorizations, verifications, reconciliations, performance reviews, asset security, separation of duties (SoD).</p>
+<h2 id="142-control-objectives-and-control-measures">1.4.2 Control Objectives and Control Measures</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Control Objective</strong></td>
+<td>Desired result/purpose to be achieved by implementing control activities; linked to company's strategic goals</td>
+</tr>
+<tr>
+<td><strong>Control Measure</strong></td>
+<td>Activity contributing to fulfillment of a control objective</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="control-objectives-relate-to">Control Objectives relate to:</h3>
+<ul>
+<li>Effectiveness and efficiency of operations</li>
+<li>Reliability of financial reporting</li>
+<li>Compliance with applicable laws and regulations</li>
+<li>Safeguarding information assets</li>
+</ul>
+<h3 id="specific-is-control-objectives-include">Specific IS Control Objectives include:</h3>
+<ul>
+<li>Safeguarding information assets from improper access</li>
+<li>Ensuring SDLC processes are established and effective</li>
+<li>Ensuring integrity of OS environments and network management</li>
+<li>Ensuring integrity of sensitive application environments through:</li>
+<li><strong>Authorization of input</strong> (each transaction authorized and entered once)</li>
+<li><strong>Validation of input</strong> (validated, no negative impact on processing)</li>
+<li><strong>Accuracy and completeness</strong> of transaction processing</li>
+<li><strong>Reliability</strong> of overall information processing</li>
+<li><strong>Accuracy, completeness and security</strong> of output</li>
+<li><strong>Database CIA</strong> (confidentiality, integrity, availability)</li>
+<li>Appropriate identification and authentication of users</li>
+<li>Efficiency and effectiveness of operations</li>
+<li>Compliance with laws and regulations</li>
+<li>Availability of IT services (BCPs/DRPs)</li>
+<li>Protection via incident response plans</li>
+<li>Integrity via change management procedures</li>
+<li>Outsourced processes with clearly defined SLAs</li>
+</ul>
+<h2 id="general-control-methods-fig-15">General Control Methods (Fig. 1.5)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Managerial (Administrative)</strong></td>
+<td>Controls related to oversight, reporting, procedures and operations</td>
+<td>Policies/procedures, accounting controls, employee training, compliance reporting</td>
+</tr>
+<tr>
+<td><strong>Technical (Logical)</strong></td>
+<td>Controls provided through use of technology/equipment (requires proper managerial controls to work)</td>
+<td>Firewalls, IDS, passwords, antimalware</td>
+</tr>
+<tr>
+<td><strong>Physical</strong></td>
+<td>Controls that physically restrict access to facility or hardware (require maintenance and monitoring)</td>
+<td>Access badges, locks, CCTV</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="business-application-controls">Business Application Controls</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Business System</th>
+<th>Risk</th>
+<th>IS-Specific Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ecommerce</strong></td>
+<td>SQL injection attacks</td>
+<td>Secure coding training, SDLC code reviews, input validity checks</td>
+</tr>
+<tr>
+<td><strong>EDI</strong></td>
+<td>Data interception/manipulation</td>
+<td>Encryption controls</td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>Social engineering/phishing</td>
+<td>Spam filtering, hyperlink verification, phishing training</td>
+</tr>
+<tr>
+<td><strong>ICS/SCADA</strong></td>
+<td>Direct impact on human life if compromised</td>
+<td>Perimeter security, network segmentation, MFA</td>
+</tr>
+<tr>
+<td><strong>AI/Expert Systems</strong></td>
+<td>Inherent bias in decision trees</td>
+<td>Ensure proper expertise used in developing assumptions/formulas</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="143-control-classifications">1.4.3 Control Classifications</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control Type</th>
+<th>Purpose</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Preventive</strong></td>
+<td>Inhibit/impede attempts to violate security (strongest)</td>
+<td>Encryption, user authentication, vault doors, MFA</td>
+</tr>
+<tr>
+<td><strong>Deterrent</strong></td>
+<td>Discourage intentional/unintentional compromise</td>
+<td>Warning banners, acceptable use policies, security cameras</td>
+</tr>
+<tr>
+<td><strong>Detective</strong></td>
+<td>Warn of violations WITHOUT stopping them</td>
+<td>Audit trails, IDS, checksums</td>
+</tr>
+<tr>
+<td><strong>Corrective</strong></td>
+<td>Remediate errors, omissions, unauthorized uses when detected</td>
+<td>Data backups, error correction, automated failover</td>
+</tr>
+<tr>
+<td><strong>Compensating</strong></td>
+<td>Offset deficiency when baseline controls cannot meet requirements due to constraints</td>
+<td>Isolated network segments, third-party challenge-response</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="control-purpose-visual-framework">Control Purpose Visual Framework:</h3>
+<pre><code>REDUCE LIKELIHOOD MITIGATE CONSEQUENCES Preventive controls + Corrective controls Detective controls + Recovery procedures
+</code></pre>
+<blockquote>
+<p>🔑 <strong>KEY EXAM POINT:</strong>
+- <strong>Preventive</strong> &gt; <strong>Detective</strong> in strength (preventive stops the threat)
+- <strong>Corrective</strong> = helps recover from impact
+- <strong>Backup and restore</strong> = CORRECTIVE (not preventive, not detective)</p>
+</blockquote>
+<h3 id="control-interaction-with-threats-fig-19">Control Interaction with Threats (Fig. 1.9):</h3>
+<pre><code>Threat → Deterrent Control → Preventive Control → [if bypassed] → Detective Control ↓ Compensating Control ↓ Corrective Control → Reduces Impact
+</code></pre>
+<h2 id="144-control-relationship-to-risk">1.4.4 Control Relationship to Risk</h2>
+<ul>
+<li><strong>Direct relationship:</strong> Risk is addressed through control; control is justified by the risk it addresses</li>
+<li>If controls don't mitigate risk to acceptable level → <strong>additional controls needed</strong></li>
+<li>If appropriate countermeasures can't be implemented → use <strong>compensating controls</strong></li>
+<li>Compensating controls must <strong>achieve the same result</strong> as the underperforming control</li>
+</ul>
+<h2 id="145-prescriptive-controls-and-frameworks">1.4.5 Prescriptive Controls and Frameworks</h2>
+<p>Organizations may use prescriptive control sets as a reference:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CIS 18 Critical Security Controls</strong></td>
+<td>Prioritized cybersecurity best practices</td>
+</tr>
+<tr>
+<td><strong>OWASP SAMM</strong></td>
+<td>Software security strategies</td>
+</tr>
+<tr>
+<td><strong>SOC Reports</strong></td>
+<td>Service organization control assurance</td>
+</tr>
+<tr>
+<td><strong>PCI DSS</strong></td>
+<td>Credit card data security requirements</td>
+</tr>
+<tr>
+<td><strong>CSA Cloud Controls Matrix (CCM)</strong></td>
+<td>Cloud security controls</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>When prescriptive controls don't apply to an organization, <strong>reasons and validation of non-applicability must be formally documented</strong>.</p>
+</blockquote>
+<h2 id="146-evaluation-of-the-control-environment">1.4.6 Evaluation of the Control Environment</h2>
+<h3 id="management-control-monitoring">Management Control Monitoring</h3>
+<p>Management performs its own monitoring to:
+- Ensure control requirements are met
+- Ensure standards are being followed
+- Ensure employees comply with policies</p>
+<p>IS auditor may leverage management's monitoring results as <strong>reassurance</strong> (not a substitute for independent audit).</p>
+<p>IS auditor should ensure management monitoring processes include:
+- Remediation of identified exceptions and lessons learned
+- Metrics established for critical processes based on risk assessment
+- Specific, quantifiable outputs for reporting
+- Independence considerations
+- Reporting that establishes thresholds and tracks success over time</p>
+<hr />
+<h1 id="15-audit-project-management">1.5 AUDIT PROJECT MANAGEMENT</h1>
+<h2 id="overview">Overview</h2>
+<p>Once the audit is planned, the IS auditor executes it through these key steps:</p>
+<pre><code>1. Plan the audit engagement (project-specific risk)
+2. Build the audit plan (chart tasks across a timeline, estimate time)
+3. Execute the plan
+4. Monitor project activity (actual vs. planned progress)
+</code></pre>
+<h2 id="151-audit-objectives">1.5.1 Audit Objectives</h2>
+<ul>
+<li><strong>Audit objective</strong> = specific goals that must be accomplished by the audit</li>
+<li><strong>Control objective</strong> = how an internal control SHOULD function (different concept!)</li>
+<li>IS auditor must translate broad audit objectives into <strong>specific IS audit objectives</strong></li>
+</ul>
+<h3 id="primary-purposes-of-is-audit">Primary purposes of IS audit:</h3>
+<ul>
+<li>Identify control objectives and related controls</li>
+<li>Determine whether to perform compliance or substantive testing</li>
+<li>Identify both general and application controls</li>
+</ul>
+<h2 id="152-audit-phases-detailed-breakdown">1.5.2 Audit Phases — Detailed Breakdown</h2>
+<h3 id="planning-phase-fig-112">Planning Phase (Fig. 1.12)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Audit Step</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Determine audit subject</td>
+<td>Identify area to be audited (business function, system, location)</td>
+</tr>
+<tr>
+<td>2. Define audit objective</td>
+<td>Identify purpose (e.g., "determine if program changes occur in a controlled environment")</td>
+</tr>
+<tr>
+<td>3. Set audit scope</td>
+<td>Specific systems, function or unit to include; define testing points and technical skills needed</td>
+</tr>
+<tr>
+<td>4. Perform preaudit planning</td>
+<td>Risk assessment; interview auditee; identify regulatory requirements; define resources, budget, timeline, communication plan</td>
+</tr>
+<tr>
+<td>5. Determine procedures and data gathering steps</td>
+<td>Identify policies/standards; regulatory requirements; interview list; tools; test scripts; evaluation criteria</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="fieldworkdocumentation-phase-fig-113">Fieldwork/Documentation Phase (Fig. 1.13)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Audit Step</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Acquire data</td>
+<td>Establish process to collect audit evidence; advance request list; secure collection (e.g., fileshare); GRC tools</td>
+</tr>
+<tr>
+<td>2. Test controls</td>
+<td>Use interviews, observations, inspections; sampling when needed</td>
+</tr>
+<tr>
+<td>3. Discover and validate issues</td>
+<td>Identify deviations from expected outcomes (policy requirements)</td>
+</tr>
+<tr>
+<td>4. Document results</td>
+<td>Document in audit program and work papers per organizational standards</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="reportingfollow-up-phase-fig-114">Reporting/Follow-Up Phase (Fig. 1.14)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Audit Step</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Gather report requirements</td>
+<td>Identify reporting requirements from internal standards or external requirements</td>
+</tr>
+<tr>
+<td>2. Draft report</td>
+<td>Reviewed by IS audit leadership before auditee review; includes overall results and recommendations</td>
+</tr>
+<tr>
+<td>3. Issue report</td>
+<td>Finalized and issued; retained per retention requirements; presented to oversight function (audit committee)</td>
+</tr>
+<tr>
+<td>4. Follow up</td>
+<td>Establish process to follow up on management's remediation progress</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="153-audit-programs">1.5.3 Audit Programs</h2>
+<p>An <strong>audit program</strong> is a <strong>step-by-step set of audit procedures and instructions</strong> to complete an audit.</p>
+<h3 id="main-purposes">Main Purposes:</h3>
+<ul>
+<li>Formal documentation of audit procedures and sequential steps</li>
+<li>Creation of repeatable, easy-to-use procedures</li>
+<li>Documentation of testing type (compliance and/or substantive)</li>
+<li>Meeting generally accepted audit standards</li>
+</ul>
+<h3 id="general-audit-procedures">General Audit Procedures:</h3>
+<ol>
+<li>Obtain and record understanding of audit area/subject</li>
+<li>Create risk assessment and general audit plan/schedule</li>
+<li>Perform detailed audit planning (steps, timeline)</li>
+<li>Conduct preliminary review</li>
+<li>Evaluate the audit area/subject</li>
+<li>Verify and evaluate appropriateness of controls</li>
+<li>Conduct <strong>compliance testing</strong> (tests of controls)</li>
+<li>Conduct <strong>substantive testing</strong> (confirms accuracy of information)</li>
+<li>Report (communicate results)</li>
+<li>Follow up (internal audit function)</li>
+</ol>
+<h3 id="minimum-skills-for-developing-an-audit-program">Minimum Skills for Developing an Audit Program:</h3>
+<ul>
+<li>Understanding of enterprise and industry to categorize risk</li>
+<li>Knowledge of IT space and technologies</li>
+<li>Understanding of relationship between business risk and IT risk</li>
+<li>Knowledge of risk assessment practices</li>
+<li>Understanding of testing procedures (GAS, specialized software, flowcharting, audit logs, inquiry, observations, walk-throughs, reperformance)</li>
+</ul>
+<h2 id="154-audit-work-papers">1.5.4 Audit Work Papers</h2>
+<ul>
+<li><strong>Purpose:</strong> Bridge between audit objectives and final report</li>
+<li>Work papers = all plans, programs, activities, tests, findings, incidents</li>
+<li>Provide seamless transition with <strong>traceability and support</strong> from objectives to report</li>
+<li>Should consider <strong>security</strong> — same controls assessed in the audit should protect work papers</li>
+<li>Require a <strong>retention and destruction process</strong> based on legal requirements</li>
+</ul>
+<h2 id="155-fraud-irregularities-and-illegal-acts">1.5.5 Fraud, Irregularities and Illegal Acts</h2>
+<ul>
+<li><strong>Management</strong> is primarily responsible for establishing controls to deter/detect fraud</li>
+<li>IS auditors must be aware of fraud indicators and be alert to fraud possibilities</li>
+<li>During regular assurance work, if indicators of fraud found → communicate need for investigation to appropriate authorities</li>
+<li>Major fraud → communicate to <strong>audit committee</strong> in a timely manner</li>
+<li>IS auditors should be aware of legal requirements for fraud reporting</li>
+</ul>
+<h2 id="156-agile-auditing">1.5.6 Agile Auditing</h2>
+<h3 id="overview_1">Overview</h3>
+<p>Agile concepts applied to IS audit to provide <strong>faster and more efficient</strong> audit outcomes.</p>
+<h3 id="agile-vs-traditional-audit">Agile vs. Traditional Audit</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Traditional Audit</th>
+<th>Agile Audit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planning</td>
+<td>Several months</td>
+<td>Weeks or even days (sprint cycles)</td>
+</tr>
+<tr>
+<td>Phases</td>
+<td>Strictly separated</td>
+<td>Blurred/combined (run in parallel)</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Fixed</td>
+<td>Flexible (real-time adjustments)</td>
+</tr>
+<tr>
+<td>Findings</td>
+<td>Reported at end</td>
+<td>Real-time assurance to customers</td>
+</tr>
+<tr>
+<td>Plan review</td>
+<td>Annually</td>
+<td>Quarterly or more frequently</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="benefits-of-agile-auditing">Benefits of Agile Auditing:</h3>
+<ul>
+<li><strong>Reduced end-to-end planning</strong> (condensed sprint cycles)</li>
+<li><strong>Streamlined engagements</strong> (planning, fieldwork, reporting combined)</li>
+<li><strong>Direct customer collaboration</strong> (auditees in daily scrum/standup)</li>
+<li><strong>Flexible audit scope</strong> (adjustments as new information is discovered)</li>
+<li><strong>Real-time assurance</strong> (findings shared as discovered, not just at report end)</li>
+<li><strong>Frequent audit plan updates</strong> (quarterly review of audit backlog)</li>
+</ul>
+<blockquote>
+<p><strong>KEY:</strong> Agile does NOT compromise auditor objectivity, independence or professional skepticism.</p>
+</blockquote>
+<hr />
+<h1 id="16-audit-testing-and-sampling-methodology">1.6 AUDIT TESTING AND SAMPLING METHODOLOGY</h1>
+<h2 id="compliance-vs-substantive-testing">Compliance vs. Substantive Testing</h2>
+<p>| Compliance Testing (Tests of Controls) | Substantive Testing (Tests of Details) |--|---------------------------------------|----------------------------------------| <strong>Purpose</strong> | Evaluate OPERATING EFFECTIVENESS of controls in preventing/detecting/correcting material weaknesses | Detect material weaknesses at the ASSERTION level; confirm accuracy of actual data | <strong>Question answered</strong> | "Are controls working?" | "Is the data accurate?" | <strong>Examples</strong> | User access rights, change control procedures, log reviews, license audits | Interest calculation on account sample, vouching transactions to supporting documents | <strong>When to use</strong> | To test if management policies are being followed | When controls are weak or need to verify data accuracy |</p>
+<blockquote>
+<p><strong>KEY RELATIONSHIP:</strong> Strong controls (good compliance test results) → Less substantive testing needed. Weak controls → More substantive testing required.</p>
+</blockquote>
+<h2 id="161-compliance-vs-substantive-testing-deeper-dive">1.6.1 Compliance vs. Substantive Testing — Deeper Dive</h2>
+<pre><code>[Preliminary Review] → [Assess control environment] ↓
+[Compliance Testing] → Tests if controls are being applied ↓ (if controls strong) ↓ (if controls weak)
+[Minimal Substantive] [Extensive Substantive Testing]
+</code></pre>
+<h2 id="162-sampling">1.6.2 Sampling</h2>
+<h3 id="definition_1">Definition</h3>
+<p>Used when time and cost preclude testing ALL transactions. <strong>Sample</strong> = subset of population used for testing.</p>
+<h3 id="two-general-approaches">Two General Approaches</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Statistical Sampling</strong></td>
+<td>Objective method; uses mathematical laws of probability to calculate sample size, select items and evaluate results. Results are mathematically quantifiable.</td>
+</tr>
+<tr>
+<td><strong>Nonstatistical (Judgmental)</strong></td>
+<td>Uses audit judgment for sample size and selection; decisions based on which items are most material and risky</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="statistical-sampling-terminology">Statistical Sampling Terminology</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Confidence Coefficient/Level</strong></td>
+<td>% probability that sample represents the population (e.g., 95% = high assurance). Higher confidence → larger sample.</td>
+</tr>
+<tr>
+<td><strong>Level of Risk</strong></td>
+<td>1 minus confidence coefficient (e.g., if 95% confidence → 5% risk)</td>
+</tr>
+<tr>
+<td><strong>Precision</strong></td>
+<td>Acceptable range difference between sample and actual population. Higher precision → smaller sample. Lower precision → larger sample.</td>
+</tr>
+<tr>
+<td><strong>Expected Error Rate</strong></td>
+<td>Estimated % of errors that may exist. Higher error rate → larger sample.</td>
+</tr>
+<tr>
+<td><strong>Sample Mean</strong></td>
+<td>Average value of the sample</td>
+</tr>
+<tr>
+<td><strong>Sample Standard Deviation</strong></td>
+<td>Variance of sample values from the mean (spread/dispersion)</td>
+</tr>
+<tr>
+<td><strong>Tolerable Error Rate</strong></td>
+<td>Maximum misstatement/errors without material misstatement. Used as upper precision limit in compliance testing.</td>
+</tr>
+<tr>
+<td><strong>Population Standard Deviation</strong></td>
+<td>Measures relationship to normal distribution; larger std deviation → larger sample</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="types-of-attribute-sampling-compliance-testing-how-many">Types of Attribute Sampling (Compliance Testing — "How many?")</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attribute Sampling</strong> (Fixed-size)</td>
+<td>Estimate rate (%) of occurrence of an attribute</td>
+<td>Standard compliance testing</td>
+</tr>
+<tr>
+<td><strong>Stop-or-Go Sampling</strong></td>
+<td>Prevent excessive sampling; stop at earliest possible moment</td>
+<td>When you expect relatively few errors</td>
+</tr>
+<tr>
+<td><strong>Discovery Sampling</strong></td>
+<td>Discover fraud, circumvention, irregularities</td>
+<td>When seeking out a specific irregularity; single error = entire population flagged</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="types-of-variable-sampling-substantive-testing-monetaryquantity-values">Types of Variable Sampling (Substantive Testing — monetary/quantity values)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stratified Mean Per Unit</strong></td>
+<td>Population divided into groups; samples drawn from each group; smaller overall sample size</td>
+</tr>
+<tr>
+<td><strong>Unstratified Mean Per Unit</strong></td>
+<td>Sample mean calculated and projected as estimated total</td>
+</tr>
+<tr>
+<td><strong>Difference Estimation</strong></td>
+<td>Estimates total difference between audited and book (unaudited) values based on sample differences</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="sampling-risk">Sampling Risk</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Risk of Incorrect Acceptance</strong></td>
+<td>Material weakness assessed as UNLIKELY when population IS materially misstated (dangerous — miss a problem!)</td>
+</tr>
+<tr>
+<td><strong>Risk of Incorrect Rejection</strong></td>
+<td>Material weakness assessed as LIKELY when population is NOT materially misstated (wasteful — reject good data)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="steps-in-sample-selection-fig-118">Steps in Sample Selection (Fig. 1.18):</h3>
+<pre><code>1. Determine the objective
+2. Define the population
+3. Determine the method
+4. [Execute and evaluate]
+</code></pre>
+<hr />
+<h1 id="17-audit-evidence-collection-techniques">1.7 AUDIT EVIDENCE COLLECTION TECHNIQUES</h1>
+<h2 id="what-is-audit-evidence">What is Audit Evidence?</h2>
+<p>Any information used by an IS auditor to determine whether the entity or data being audited <strong>follows established criteria</strong> and <strong>supports audit conclusions</strong>.</p>
+<p>Evidence must be: <strong>Sufficient, Relevant, and Competent</strong></p>
+<ul>
+<li><strong>Competent</strong> = Both reliable AND relevant</li>
+<li><strong>Sufficient</strong> = Enough quantity (judgment-based)</li>
+<li><strong>Appropriate</strong> = High quality (the IFAC standard)</li>
+</ul>
+<h2 id="evidence-reliability-determinants">Evidence Reliability Determinants</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>More Reliable</th>
+<th>Less Reliable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>External sources</td>
+<td>Internal sources</td>
+</tr>
+<tr>
+<td><strong>Provider qualifications</strong></td>
+<td>Highly qualified, relevant expertise</td>
+<td>Unknown/limited qualifications</td>
+</tr>
+<tr>
+<td><strong>Objectivity</strong></td>
+<td>Objective, direct evidence</td>
+<td>Requires judgment or interpretation</td>
+</tr>
+<tr>
+<td><strong>Timing</strong></td>
+<td>Current, available</td>
+<td>May not be retrievable later (e.g., dynamic spreadsheets)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="evidence-gathering-techniques">Evidence-Gathering Techniques</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reviewing IS Organization Structures</strong></td>
+<td>Evaluate SoD; assess organizational controls including distributed processing</td>
+</tr>
+<tr>
+<td><strong>Reviewing IS Policies and Procedures</strong></td>
+<td>Verify appropriate policies exist; personnel understand them; they are being followed</td>
+</tr>
+<tr>
+<td><strong>Reviewing IS Standards</strong></td>
+<td>Understand existing standards in the organization</td>
+</tr>
+<tr>
+<td><strong>Reviewing IS Documentation</strong></td>
+<td>Review systems docs (feasibility studies, SLAs, test plans, security plans, BCPs, QA reports)</td>
+</tr>
+<tr>
+<td><strong>Interviewing Appropriate Personnel</strong></td>
+<td>Organized, objective-driven; documented via notes; never accusatory</td>
+</tr>
+<tr>
+<td><strong>Observing Processes</strong></td>
+<td>Unobtrusive; document in detail; can verify actual functions, procedures, reporting relationships</td>
+</tr>
+<tr>
+<td><strong>Reperformance</strong></td>
+<td>Strongest evidence technique; actually perform the control in real time</td>
+</tr>
+<tr>
+<td><strong>Walk-throughs</strong></td>
+<td>Confirm understanding of controls; identify evidence needed for effectiveness testing</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>🔑 <strong>Reperformance</strong> provides the BEST evidence when inquiry, observation and inspection are insufficient.</p>
+</blockquote>
+<h2 id="171-interviewing-and-observing-personnel">1.7.1 Interviewing and Observing Personnel</h2>
+<h3 id="interviewing-guidelines">Interviewing Guidelines:</h3>
+<ul>
+<li>Organized in advance with clearly communicated objectives</li>
+<li>Follow a fixed outline</li>
+<li>Documented by interview notes</li>
+<li>Use an interview form or checklist</li>
+<li><strong>Never accusatory</strong> — help people feel comfortable</li>
+<li><strong>Verify notes with the interviewee</strong></li>
+</ul>
+<h3 id="observation-identifies">Observation Identifies:</h3>
+<ul>
+<li><strong>Actual functions</strong> — who is actually doing the job</li>
+<li><strong>Actual processes/procedures</strong> — walk-through for compliance evidence</li>
+<li><strong>Security awareness</strong> — understanding of preventive/detective security measures</li>
+<li><strong>Reporting relationships</strong> — SoD compliance</li>
+</ul>
+<h3 id="observation-drawback">Observation Drawback:</h3>
+<blockquote>
+<p>Personnel, upon noticing they are being observed, <strong>may change their usual behavior</strong> — called the <strong>Hawthorne Effect</strong>.</p>
+</blockquote>
+<hr />
+<h1 id="18-audit-data-analytics">1.8 AUDIT DATA ANALYTICS</h1>
+<h2 id="what-can-data-analytics-do-for-is-auditors">What Can Data Analytics Do for IS Auditors?</h2>
+<ul>
+<li>Determine operational effectiveness of the current control environment</li>
+<li>Determine effectiveness of antifraud procedures and controls</li>
+<li>Identify business process errors and inefficiencies</li>
+<li>Identify exceptions or unusual business rules</li>
+<li>Identify fraud</li>
+<li>Identify poor data quality areas</li>
+<li>Conduct risk assessment at the planning phase</li>
+</ul>
+<h2 id="data-analytics-process">Data Analytics Process:</h2>
+<pre><code>1. Set the scope (audit objectives, data needs, sources, reliability)
+2. Identify and obtain the data
+3. Validate the data: • Validate balances independent of data set • Reconcile detailed data to report control totals • Validate numeric, character and date fields • Verify time period of data set • Verify all necessary fields are in the acquired data set
+4. Execute the tests (scripts, analytical tests)
+5. Document the results (purpose, data sources, conclusions)
+6. Review the results (adequate procedures, reviewed by qualified person)
+7. Retain the results (program files, scripts, macros, data files)
+</code></pre>
+<h2 id="analytics-use-cases-in-auditing">Analytics Use Cases in Auditing:</h2>
+<ul>
+<li>Combine logical access files with HR employee master files for authorized users</li>
+<li>Combine file library settings with change management data</li>
+<li>Match ingress/egress records to identify tailgating in physical security logs</li>
+<li>Review table/system configuration settings</li>
+<li>Review system logs for unauthorized access</li>
+<li>Test system conversion</li>
+<li>Test logical access SoD (e.g., Active Directory + job descriptions)</li>
+</ul>
+<h2 id="181-computer-assisted-audit-techniques-caats">1.8.1 Computer-Assisted Audit Techniques (CAATs)</h2>
+<h3 id="what-are-caats">What are CAATs?</h3>
+<p>Software tools that enable IS auditors to <strong>gather and analyze data independently</strong> during an IS audit, especially when different hardware/software environments make manual collection impossible.</p>
+<h3 id="types-of-caats">Types of CAATs:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GAS (Generalized Audit Software)</strong></td>
+<td>Reads data from various database platforms, flat files, ASCII formats. Supports: file access, file reorganization, data selection, statistical functions, arithmetic functions</td>
+</tr>
+<tr>
+<td><strong>Utility Software</strong></td>
+<td>Subset of DBMS software (e.g., report generators) — provides evidence on control effectiveness</td>
+</tr>
+<tr>
+<td><strong>Test Data</strong></td>
+<td>Sample data to assess logic errors and whether program meets objectives</td>
+</tr>
+<tr>
+<td><strong>Application Software Tracing &amp; Mapping</strong></td>
+<td>Traces application processing paths</td>
+</tr>
+<tr>
+<td><strong>Expert Systems</strong></td>
+<td>Provides audit direction based on knowledge base of senior auditors</td>
+</tr>
+<tr>
+<td><strong>Debugging and Scanning Software</strong></td>
+<td>Identifies vulnerabilities and weaknesses</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="caats-can-perform">CAATs Can Perform:</h3>
+<ul>
+<li>Tests of details of transactions and balances</li>
+<li>Analytical review procedures</li>
+<li>Compliance tests of IS general controls</li>
+<li>Compliance tests of IS application controls</li>
+<li>Network and OS vulnerability assessments</li>
+<li>Penetration testing</li>
+<li>Application security testing and source code security scans</li>
+</ul>
+<h3 id="caats-cost-benefit-considerations">CAATs Cost-Benefit Considerations:</h3>
+<ul>
+<li>Ease of use for audit staff; training requirements</li>
+<li>Complexity of coding and maintenance</li>
+<li>Flexibility of uses; installation requirements</li>
+<li>Processing efficiencies</li>
+<li>Ensuring data integrity (authenticity, timestamps)</li>
+<li>Permission to install on auditee servers</li>
+<li>Confidentiality of data being processed</li>
+</ul>
+<h3 id="caats-best-practice">CAATs Best Practice:</h3>
+<blockquote>
+<p>IS auditors should request <strong>read-only access</strong> to production data. Data manipulation must be done on <strong>copies</strong> in a controlled environment (NOT on production data).</p>
+</blockquote>
+<h2 id="182-continuous-auditing-and-monitoring">1.8.2 Continuous Auditing and Monitoring</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Continuous Auditing</strong></td>
+<td>IS auditor performs tests and assessments in real-time or near-real-time; reports results within much shorter time frame than traditional audit</td>
+</tr>
+<tr>
+<td><strong>Continuous Monitoring</strong></td>
+<td>Organization observes performance of processes, systems or data (e.g., antivirus, IDS)</td>
+</tr>
+<tr>
+<td><strong>Continuous Assurance</strong></td>
+<td>Achieved when BOTH continuous auditing AND monitoring take place</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>KEY:</strong> Continuous monitoring should <strong>NEVER be considered a substitute</strong> for the audit function (lacks independence and objectivity).</p>
+</blockquote>
+<h3 id="continuous-auditing-advantages">Continuous Auditing Advantages:</h3>
+<ul>
+<li>Captures internal control problems as they occur, preventing negative effects</li>
+<li>Reduces delays, planning time, audit inefficiencies</li>
+<li>Provides real-time data and exception reporting</li>
+</ul>
+<h3 id="continuous-auditing-disadvantages">Continuous Auditing Disadvantages:</h3>
+<ul>
+<li>Requires full top management support and extensive technical knowledge</li>
+<li>Auditors may hesitate to trust automated tools over personal judgment</li>
+<li>Need mechanisms to eliminate false negatives and false positives</li>
+</ul>
+<h2 id="183-five-continuous-auditing-techniques">1.8.3 Five Continuous Auditing Techniques</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Complexity</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SCARF/EAM</strong> (System Control Audit Review File/Embedded Audit Modules)</td>
+<td>Very High</td>
+<td>Regular processing cannot be interrupted; audit software embedded in host applications</td>
+</tr>
+<tr>
+<td><strong>Snapshots</strong></td>
+<td>Medium</td>
+<td>An audit trail is required; "pictures" of processing path for tagged transactions</td>
+</tr>
+<tr>
+<td><strong>Audit Hooks</strong></td>
+<td>Low</td>
+<td>Only select transactions/processes need to be examined; embedded hooks/triggers</td>
+</tr>
+<tr>
+<td><strong>ITF</strong> (Integrated Test Facility)</td>
+<td>High</td>
+<td>Not beneficial to use test data; dummy entities in production files for testing</td>
+</tr>
+<tr>
+<td><strong>CIS</strong> (Continuous and Intermittent Simulation)</td>
+<td>Medium</td>
+<td>Transactions meeting certain criteria need to be examined; simulation during process run</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="continuous-auditing-techniques-used-at-all-data-levels">Continuous Auditing Techniques Used at All Data Levels:</h3>
+<ul>
+<li>Transaction logging, query tools, statistics and data analysis, DBMSs</li>
+<li>Data warehouses, data marts, data mining, intelligent agents</li>
+<li>EAM, neural network technologies, XBRL standards</li>
+</ul>
+<h2 id="184-artificial-intelligence-in-is-audit">1.8.4 Artificial Intelligence in IS Audit</h2>
+<h3 id="aiml-use-cases-in-is-audit">AI/ML Use Cases in IS Audit:</h3>
+<ul>
+<li>Detect fraudulent transactions</li>
+<li>Perform data quality checks</li>
+<li>Screen for negative news</li>
+<li>Automate data processing</li>
+</ul>
+<h3 id="aiml-efficiency-gains">AI/ML Efficiency Gains:</h3>
+<ul>
+<li><strong>Efficiency:</strong> Automating tedious manual processes (work paper markups, data manipulation)</li>
+<li><strong>Reduced risk:</strong> Ability to increase audit sample sizes; more time for analysis</li>
+</ul>
+<h3 id="aiml-techniques-for-is-audit-fig-121">AI/ML Techniques for IS Audit (Fig. 1.21):</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Document Classification</strong></td>
+<td>Understanding SOPs, policies; making inferences from previous audit reports</td>
+</tr>
+<tr>
+<td><strong>Text Summarization</strong></td>
+<td>Generating audit observations; auto-generating checklists</td>
+</tr>
+<tr>
+<td><strong>Topic Analysis</strong></td>
+<td>Analyzing data; building keyword rule engines</td>
+</tr>
+<tr>
+<td><strong>Search and Retrieval</strong></td>
+<td>Making similar audit report inferences</td>
+</tr>
+<tr>
+<td><strong>Statistical Analysis</strong></td>
+<td>Aggregating data; interpreting data</td>
+</tr>
+<tr>
+<td><strong>Sentiment Analysis</strong></td>
+<td>Identifying key issues and risk; making intelligent inferences for reports</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="aiml-audit-risk-and-considerations">AI/ML Audit Risk and Considerations:</h3>
+<blockquote>
+<p><strong>CRITICAL EXAM POINTS:</strong>
+- AI/ML results must ALWAYS be interpreted by a <strong>person</strong>
+- Training data must be <strong>correct and adequate</strong> (cover both usual and unusual cases)
+- Tendency to trust the machine must be validated by exhaustive testing
+- AI tools introduce <strong>ethics and bias of human judgment</strong> (stereotyping)
+- AI/ML are an evolution of CAATs — same considerations apply</p>
+</blockquote>
+<hr />
+<h1 id="19-reporting-and-communication-techniques">1.9 REPORTING AND COMMUNICATION TECHNIQUES</h1>
+<h2 id="key-principles-of-audit-reporting">Key Principles of Audit Reporting</h2>
+<ul>
+<li>Communication skills (written AND verbal) determine effectiveness of the reporting process</li>
+<li>IS auditor needs: <strong>facilitation, negotiation and conflict resolution</strong> skills</li>
+<li>Understand <strong>materiality</strong> (relative importance based on business impact)</li>
+</ul>
+<h2 id="191-communicating-audit-results">1.9.1 Communicating Audit Results</h2>
+<h3 id="exit-interview-conducted-at-end-of-audit">Exit Interview (Conducted at End of Audit):</h3>
+<ul>
+<li>Discuss findings and recommendations with auditee management</li>
+<li>Ensure facts are <strong>correct and material</strong></li>
+<li>Ensure recommendations are <strong>realistic and cost-effective</strong></li>
+<li>If not cost-effective → negotiate alternatives with auditee management</li>
+<li>Recommend <strong>implementation dates</strong> for agreed-on recommendations</li>
+</ul>
+<h3 id="escalation-path">Escalation Path:</h3>
+<pre><code>Discuss with auditee management first ↓ (if agreed)
+Brief senior auditee management ↓
+Present periodic summary to audit committee
+</code></pre>
+<blockquote>
+<p>IS auditors are ultimately responsible to <strong>senior management and the audit committee</strong> — attempts by lower levels to deny access would limit audit independence.</p>
+</blockquote>
+<h2 id="192-audit-report-objectives-six-objectives">1.9.2 Audit Report Objectives (Six Objectives)</h2>
+<ol>
+<li><strong>Formally present</strong> audit results to the auditee (and audit client, if different)</li>
+<li><strong>Serve as formal closure</strong> of the audit engagement</li>
+<li><strong>Provide statements of assurance</strong> and identify areas needing corrective action</li>
+<li><strong>Serve as valued reference</strong> for parties researching the auditee or audit topic</li>
+<li><strong>Serve as basis</strong> for a follow-up audit if findings were presented</li>
+<li><strong>Promote audit credibility</strong> (well-developed and well-written report)</li>
+</ol>
+<h2 id="193-audit-report-structure-and-contents">1.9.3 Audit Report Structure and Contents</h2>
+<p>Audit reports usually include:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Introduction</strong></td>
+<td>Audit objectives, limitations, scope, period of coverage, audit procedures overview, methodology and guidelines</td>
+</tr>
+<tr>
+<td><strong>Audit Findings</strong></td>
+<td>Presented in separate sections, often grouped by materiality and/or intended recipient</td>
+</tr>
+<tr>
+<td><strong>Overall Conclusion/Opinion</strong></td>
+<td>Adequacy of controls and procedures examined; actual potential risk identified</td>
+</tr>
+<tr>
+<td><strong>Reservations/Qualifications</strong></td>
+<td>Any limitations on the scope or conclusions</td>
+</tr>
+<tr>
+<td><strong>Detailed Findings &amp; Recommendations</strong></td>
+<td>Based on materiality and intended recipient (e.g., audit committee reports may exclude findings only relevant to local management)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="key-reporting-principles">Key Reporting Principles:</h3>
+<ul>
+<li>Provide a <strong>balanced</strong> report (positive constructive comments + negative findings)</li>
+<li>IS auditor makes <strong>final decision</strong> on what to include or exclude</li>
+<li>Report should be issued in a <strong>timely manner</strong> to encourage prompt corrective action</li>
+<li>Prior communication of significant findings should <strong>NOT alter</strong> intent or content of final report</li>
+<li>Minor findings may be communicated via <strong>memorandum</strong> rather than full report</li>
+</ul>
+<h2 id="194-audit-documentation">1.9.4 Audit Documentation</h2>
+<h3 id="what-must-it-include-minimum">What Must It Include? (Minimum)</h3>
+<ul>
+<li>Planning and preparation of audit scope and objectives</li>
+<li>Description and/or walk-throughs of scoped audit area</li>
+<li>Audit program</li>
+<li>Audit steps performed and evidence gathered</li>
+<li>Use of services of other auditors and experts</li>
+<li>Audit findings, conclusions and recommendations</li>
+<li>Document identification and dates</li>
+</ul>
+<h3 id="also-recommended">Also Recommended:</h3>
+<ul>
+<li>Copy of the report issued</li>
+<li>Evidence of supervisory review</li>
+</ul>
+<h3 id="documentation-standards">Documentation Standards:</h3>
+<ul>
+<li>Should be <strong>dated, initialed, page-numbered</strong>, relevant, complete, clear, self-contained, properly labeled</li>
+<li>May be automated</li>
+<li>Audit documentation is generally <strong>property of the auditee</strong> — access only to authorized personnel</li>
+<li>For external parties requesting access → <strong>prior approval of senior management and legal counsel</strong> required</li>
+</ul>
+<h2 id="195-follow-up-activities">1.9.5 Follow-Up Activities</h2>
+<ul>
+<li>IS audit is an <strong>ongoing process</strong> — not effective without follow-up</li>
+<li>IS auditors should have a <strong>follow-up program</strong> to check if corrective actions were implemented</li>
+<li>Timing depends on <strong>criticality of findings</strong> and IS auditor's judgment</li>
+<li>Results of follow-up communicated to <strong>appropriate levels of management</strong></li>
+</ul>
+<h2 id="196-types-of-is-audit-reports">1.9.6 Types of IS Audit Reports</h2>
+<ul>
+<li>Most IS audits result in a <strong>single IS audit report</strong></li>
+<li>In some cases, multiple reports (e.g., + confidential security report with technical details)</li>
+<li>Format depends on: scope, objectives, degree of IT process examination, requirements from audit client and auditee</li>
+</ul>
+<h3 id="types-of-engagement-reporting">Types of Engagement Reporting:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Engagement Type</th>
+<th>Description</th>
+<th>Assurance Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Review</strong></td>
+<td>Less comprehensive</td>
+<td>Lower assurance</td>
+</tr>
+<tr>
+<td><strong>Examination</strong></td>
+<td>More comprehensive; requires stronger evidence for opinion</td>
+<td>Higher assurance</td>
+</tr>
+<tr>
+<td><strong>Agreed-Upon Procedures</strong></td>
+<td>Narrowly defined scope; may include testing; no opinion expressed</td>
+<td>Limited/no opinion</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="110-quality-assurance-and-improvement-of-the-audit-process">1.10 QUALITY ASSURANCE AND IMPROVEMENT OF THE AUDIT PROCESS</h1>
+<h2 id="1101-audit-committee-oversight">1.10.1 Audit Committee Oversight</h2>
+<ul>
+<li>Audit committee is responsible for <strong>oversight of the IS audit function</strong> and interaction with the chief audit executive</li>
+<li>If no audit committee exists → designated group or individual assumes oversight responsibilities</li>
+<li><strong>Continuous performance monitoring</strong> of the audit function should be established with periodic reporting</li>
+</ul>
+<h2 id="1102-audit-quality-assurance">1.10.2 Audit Quality Assurance</h2>
+<ul>
+<li>Quality of individual audits is the responsibility of <strong>audit leadership and assigned project leads</strong></li>
+<li>They ensure <strong>documented audit procedures</strong> are followed</li>
+<li>Documented procedures can be in audit manuals, wikis, sampling guidance, etc. — must be known to all IS audit team members</li>
+<li>IS audit leadership reviews <strong>work papers and final deliverables</strong> (audit reports)</li>
+<li>A <strong>formal review process</strong> should be established for all audit types based on risk and authoritative guidance</li>
+</ul>
+<h2 id="1103-audit-team-training-and-development">1.10.3 Audit Team Training and Development</h2>
+<ul>
+<li>A <strong>formal development plan</strong> should be established for all IS audit team members</li>
+<li>Should include applicable training programs and certifications by role</li>
+<li>IS audit leadership must ensure <strong>budget</strong> supports training and development needs</li>
+</ul>
+<h2 id="1104-monitoring">1.10.4 Monitoring</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Monitoring Initiative</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audit QA</strong></td>
+<td>Results of QA procedures periodically reviewed and summarized; identify trends and lessons learned; actionable items remediated and tracked formally</td>
+</tr>
+<tr>
+<td><strong>Independence Monitoring</strong></td>
+<td>Process for IS auditors to self-report potential independence impairments; periodic checks; integrated into greater audit function</td>
+</tr>
+<tr>
+<td><strong>Certification and Accreditations</strong></td>
+<td>Ownership assigned to IS audit leadership; ensure compliance with certification/accreditation bodies</td>
+</tr>
+<tr>
+<td><strong>Continued Professional Education</strong></td>
+<td>Monitor compliance with CPE requirements from internal development plans or external certifying bodies</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="rapid-revision-sheet">RAPID REVISION SHEET</h1>
+<h2 id="one-page-summary">One-Page Summary</h2>
+<h3 id="domain-weight-18-27-questions">Domain Weight: 18% (~27 questions)</h3>
+<h3 id="key-audit-process">Key Audit Process:</h3>
+<p><strong>Planning → Fieldwork/Documentation → Reporting/Follow-Up</strong></p>
+<h3 id="isaca-framework">ISACA Framework:</h3>
+<ul>
+<li><strong>Standards</strong> (Mandatory) &gt; <strong>Guidelines</strong> (Guidance) &gt; <strong>Tools &amp; Techniques</strong> (Examples)</li>
+<li>Standards categories: <strong>General, Performance, Reporting</strong></li>
+</ul>
+<h3 id="code-of-ethics-7-principles">Code of Ethics (7 Principles):</h3>
+<p>Support | Perform | Serve | Maintain Privacy | Maintain Competency | Inform | Support Education</p>
+<h3 id="audit-charter">Audit Charter:</h3>
+<ul>
+<li>Approved by <strong>Board of Directors + Audit Committee</strong></li>
+<li>Covers ENTIRE audit scope (vs. Engagement Letter = specific audit)</li>
+<li>Professional liability stays with IS auditor even when work is outsourced</li>
+</ul>
+<h3 id="csa-key-facts">CSA Key Facts:</h3>
+<ul>
+<li>IS auditor = <strong>FACILITATOR</strong></li>
+<li>Primary benefit = <strong>Management ownership of internal controls</strong></li>
+<li>NOT a replacement for audit; ENHANCES it</li>
+<li>Methods: Questionnaires, Facilitated Workshops, Peer Reviews</li>
+</ul>
+<h3 id="audit-types-to-remember">Audit Types to Remember:</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compliance</td>
+<td>Controls vs. regulations</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Internal control structure in a process</td>
+</tr>
+<tr>
+<td>Integrated</td>
+<td>Financial + operational combined</td>
+</tr>
+<tr>
+<td>Forensic</td>
+<td>Fraud/crime evidence for law enforcement</td>
+</tr>
+<tr>
+<td>Readiness</td>
+<td>Current state BEFORE formal audit</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="audit-risk-types">Audit Risk Types:</h3>
+<p><strong>I</strong>nherent → <strong>C</strong>ontrol → <strong>D</strong>etection → <strong>O</strong>verall
+- <strong>Inherent</strong> = no controls considered
+- <strong>Control</strong> = controls don't prevent/detect
+- <strong>Detection</strong> = auditor doesn't find it
+- Higher materiality → LOWER acceptable audit risk</p>
+<h3 id="control-classifications">Control Classifications:</h3>
+<p><strong>P</strong>reventive (strongest) → <strong>D</strong>eterrent → <strong>D</strong>etective → <strong>C</strong>orrective → <strong>C</strong>ompensating</p>
+<h3 id="sampling-quick-reference">Sampling Quick Reference:</h3>
+<ul>
+<li><strong>Attribute Sampling</strong> → Compliance testing ("How many?")</li>
+<li>Stop-or-Go → Few errors expected</li>
+<li>Discovery → Find fraud (1 error = entire population suspicious)</li>
+<li><strong>Variable Sampling</strong> → Substantive testing (monetary values)</li>
+<li>Higher confidence coefficient → <strong>LARGER</strong> sample</li>
+<li>Higher precision → <strong>SMALLER</strong> sample</li>
+</ul>
+<h3 id="evidence-reliability-external-internal-objective-subjective-reperformance-best">Evidence Reliability: External &gt; Internal; Objective &gt; Subjective; Reperformance = Best</h3>
+<h3 id="caats">CAATs:</h3>
+<ul>
+<li>Read-only access to production data</li>
+<li>Manipulate COPIES only</li>
+<li>GAS = reads databases, flat files, ASCII</li>
+</ul>
+<h3 id="continuous-auditing-techniques">Continuous Auditing Techniques:</h3>
+<p><strong>SCARF/EAM, Snapshots, Audit Hooks, ITF, CIS</strong></p>
+<h3 id="aiml">AI/ML:</h3>
+<ul>
+<li>Results must ALWAYS be interpreted by a PERSON</li>
+<li>Training data must be correct and adequate</li>
+<li>AI introduces human bias into results</li>
+</ul>
+<h3 id="reporting">Reporting:</h3>
+<ul>
+<li>Exit interview → Discuss with auditee management FIRST</li>
+<li>6 Objectives of audit reports</li>
+<li>Audit documentation is property of the AUDITEE</li>
+<li>External party access requires approval from senior management + legal counsel</li>
+</ul>
+<hr />
+<h1 id="probable-exam-questions">PROBABLE EXAM QUESTIONS</h1>
+<h2 id="high-probability-questions">High-Probability Questions</h2>
+<p><strong>1.</strong> Which of the following outlines the overall authority to perform an IS audit?</p>
+<blockquote>
+<p><strong>Answer: C. The approved audit charter</strong> (states responsibility, authority and accountability)</p>
+</blockquote>
+<p><strong>2.</strong> What is the KEY benefit of a Control Self-Assessment (CSA)?</p>
+<blockquote>
+<p><strong>Answer: A. Management ownership of internal controls supporting business objectives is reinforced</strong></p>
+</blockquote>
+<p><strong>3.</strong> When developing a risk-based audit program, an IS auditor MOST likely focuses on:</p>
+<blockquote>
+<p><strong>Answer: A. Business processes</strong> (risk-based approach requires understanding business processes)</p>
+</blockquote>
+<p><strong>4.</strong> Which type of audit risk assumes an absence of compensating controls?</p>
+<blockquote>
+<p><strong>Answer: C. Inherent risk</strong> (assessed without considering any management controls)</p>
+</blockquote>
+<p><strong>5.</strong> The MOST critical step when planning an IS audit is:</p>
+<blockquote>
+<p><strong>Answer: D. Performance of a risk assessment</strong> (required by ISACA Standard 1201)</p>
+</blockquote>
+<p><strong>6.</strong> The approach for planning IS audit coverage should be based on:</p>
+<blockquote>
+<p><strong>Answer: A. Risk</strong> (risk-based approach is the foundation of audit planning)</p>
+</blockquote>
+<p><strong>7.</strong> The MOST important reason for reviewing audit planning at periodic intervals is:</p>
+<blockquote>
+<p><strong>Answer: B. To consider changes to the risk environment</strong></p>
+</blockquote>
+<p><strong>8.</strong> A daily backup stored offsite and used to restore files is an example of a:</p>
+<blockquote>
+<p><strong>Answer: C. Corrective control</strong> (corrects/minimizes impact of a disruption)</p>
+</blockquote>
+<p><strong>9.</strong> An IS auditor finds a system software weakness during an application controls review. The IS auditor should:</p>
+<blockquote>
+<p><strong>Answer: D. Review the relevant system software controls and recommend a detailed system software review</strong></p>
+</blockquote>
+<p><strong>10.</strong> Who is primarily responsible for conducting risk assessments?</p>
+<blockquote>
+<p><strong>Answer: IT management</strong> (IS auditor may assist but management is ultimately responsible)</p>
+</blockquote>
+<p><strong>11.</strong> What is the PRIMARY role of an IS auditor in a CSA workshop?</p>
+<blockquote>
+<p><strong>Answer: Facilitator</strong> (management is the participant, not the auditor)</p>
+</blockquote>
+<p><strong>12.</strong> Professional liability when IS audit is outsourced:</p>
+<blockquote>
+<p><strong>Answer: Liability is NOT necessarily transferred</strong> — the original auditor/entity remains responsible</p>
+</blockquote>
+<p><strong>13.</strong> In the integrated audit approach, the IS auditor's role during risk assessment is to:</p>
+<blockquote>
+<p><strong>Answer: Understand and identify risk under topical areas such as IT infrastructure, IT governance, and IT operations</strong></p>
+</blockquote>
+<p><strong>14.</strong> The BEST evidence-gathering technique when inquiry and observation are insufficient:</p>
+<blockquote>
+<p><strong>Answer: Reperformance</strong> (actually performing the control in real time)</p>
+</blockquote>
+<p><strong>15.</strong> External evidence is more reliable than internal evidence because:</p>
+<blockquote>
+<p><strong>Answer: Independence of the provider</strong> — external sources are independent</p>
+</blockquote>
+<p><strong>16.</strong> Which continuous auditing technique is most suitable when regular processing cannot be interrupted?</p>
+<blockquote>
+<p><strong>Answer: SCARF/EAM</strong> (embedded in host application, monitoring selectively)</p>
+</blockquote>
+<p><strong>17.</strong> AI/ML results in IS audit must ALWAYS be:</p>
+<blockquote>
+<p><strong>Answer: Interpreted at some point by a person</strong></p>
+</blockquote>
+<p><strong>18.</strong> Stop-or-go sampling is used when:</p>
+<blockquote>
+<p><strong>Answer: The IS auditor believes relatively few errors will be found in a population</strong></p>
+</blockquote>
+<p><strong>19.</strong> Discovery sampling is most appropriate when:</p>
+<blockquote>
+<p><strong>Answer: The objective is to seek out fraud, irregularities or circumvention of regulations</strong></p>
+</blockquote>
+<p><strong>20.</strong> Variable sampling is primarily used in:</p>
+<blockquote>
+<p><strong>Answer: Substantive testing</strong> (deals with monetary values and quantities)</p>
+</blockquote>
+<hr />
+<h1 id="key-concept-recap">KEY CONCEPT RECAP</h1>
+<h2 id="the-big-5-concepts-always-tested">The "Big 5" Concepts Always Tested:</h2>
+<ol>
+<li><strong>CSA primary benefit</strong> = Management ownership/reinforcement of internal controls</li>
+<li><strong>Audit risk</strong> = Inherent + Control + Detection; Higher materiality = Lower acceptable audit risk</li>
+<li><strong>Audit charter</strong> = Establishes authority for ALL audit activities; approved by Board/Audit Committee</li>
+<li><strong>Risk-based audit approach</strong> = Most critical step = Risk assessment; focus on business processes</li>
+<li><strong>Control classifications</strong> = Preventive (strongest) → Deterrent → Detective → Corrective → Compensating</li>
+</ol>
+<h2 id="the-must-know-relationships">The "Must Know" Relationships:</h2>
+<ul>
+<li><strong>More controls → Less substantive testing required</strong></li>
+<li><strong>Higher confidence coefficient → Larger sample size</strong></li>
+<li><strong>Higher materiality → Lower acceptable audit risk</strong></li>
+<li><strong>External evidence → More reliable than internal</strong></li>
+<li><strong>Reperformance → Most reliable evidence technique</strong></li>
+</ul>
+<h2 id="common-confusions">Common Confusions:</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Often Confused</th>
+<th>Clarification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Audit Charter vs. Engagement Letter</td>
+<td>Charter = ALL audits; Letter = ONE specific audit</td>
+</tr>
+<tr>
+<td>CSA vs. Internal Audit</td>
+<td>CSA enhances audit; does NOT replace it</td>
+</tr>
+<tr>
+<td>Continuous Auditing vs. Continuous Monitoring</td>
+<td>CA = IS auditor function; CM = Management function</td>
+</tr>
+<tr>
+<td>Compliance Testing vs. Substantive Testing</td>
+<td>Compliance = Are controls working?; Substantive = Is data accurate?</td>
+</tr>
+<tr>
+<td>Inherent Risk vs. Control Risk</td>
+<td>Inherent = No controls considered; Control = Controls fail to prevent</td>
+</tr>
+<tr>
+<td>IS vs. IT</td>
+<td>IS = IT + People + Process; IT = Just the technology</td>
+</tr>
+<tr>
+<td>Corrective vs. Detective vs. Preventive</td>
+<td>Backup = Corrective (restores); IDS = Detective (detects); MFA = Preventive (prevents)</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="mnemonics-memory-aids">MNEMONICS &amp; MEMORY AIDS</h1>
+<h2 id="1-isaca-standards-hierarchy">1. ISACA Standards Hierarchy</h2>
+<p><strong>"SGT (Sergeant) leads the way!"</strong>
+- <strong>S</strong>tandards (Mandatory — Sergeant's orders)
+- <strong>G</strong>uidelines (Guidance — follow the sergeant's advice)
+- <strong>T</strong>ools &amp; Techniques (Examples — optional tools)</p>
+<h2 id="2-audit-process-phases">2. Audit Process Phases</h2>
+<p><strong>"PFR" — Please Follow Rules</strong>
+- <strong>P</strong>lanning
+- <strong>F</strong>ieldwork/Documentation
+- <strong>R</strong>eporting/Follow-Up</p>
+<h2 id="3-types-of-audit-risk">3. Types of Audit Risk</h2>
+<p><strong>"I Can Detect Overall"</strong>
+- <strong>I</strong>nherent risk
+- <strong>C</strong>ontrol risk
+- <strong>D</strong>etection risk
+- <strong>O</strong>verall audit risk</p>
+<h2 id="4-control-classifications-in-order-of-occurrence">4. Control Classifications (in order of occurrence)</h2>
+<p><strong>"Pretty Dumb Dogs Can Compensate"</strong>
+- <strong>P</strong>reventive
+- <strong>D</strong>eterrent
+- <strong>D</strong>etective
+- <strong>C</strong>orrective
+- <strong>C</strong>ompensating</p>
+<h2 id="5-isaca-code-of-ethics">5. ISACA Code of Ethics</h2>
+<p><strong>"SPSMIC-E"</strong>
+- <strong>S</strong>upport standards
+- <strong>P</strong>erform with objectivity
+- <strong>S</strong>erve stakeholders lawfully
+- <strong>M</strong>aintain privacy/confidentiality
+- <strong>I</strong>nform appropriate parties
+- <strong>C</strong>ompetency — maintain it
+- <strong>E</strong>ducation — support stakeholder learning</p>
+<h2 id="6-continuous-auditing-techniques">6. Continuous Auditing Techniques</h2>
+<p><strong>"SSAIC" — Some Systems Always Integrate Continuously</strong>
+- <strong>S</strong>CARF/EAM
+- <strong>S</strong>napshots
+- <strong>A</strong>udit Hooks
+- <strong>I</strong>TF (Integrated Test Facility)
+- <strong>C</strong>IS (Continuous and Intermittent Simulation)</p>
+<h2 id="7-audit-report-components-6-objectives">7. Audit Report Components (6 Objectives)</h2>
+<p><strong>"FRARSAP" — Find Reliable Audit Results and Share All Positives</strong>
+- <strong>F</strong>ormally present results
+- <strong>R</strong>ecord (serve as formal closure)
+- <strong>A</strong>ssurance (provide statements of assurance)
+- <strong>R</strong>eference (valued reference for researchers)
+- <strong>S</strong>ubsequent audit (basis for follow-up)
+- <strong>P</strong>romotion (promote audit credibility)</p>
+<h2 id="8-evidence-reliability-order-most-least-reliable">8. Evidence Reliability Order (Most → Least Reliable)</h2>
+<p><strong>"REOPI" — Really Excellent Objective People Inform</strong>
+- <strong>R</strong>eperformance (best)
+- <strong>E</strong>xternal (sources)
+- <strong>O</strong>bjective evidence
+- <strong>P</strong>ersonnel (qualified)
+- <strong>I</strong>nternal sources (least)</p>
+<h2 id="9-sampling-size-relationship">9. Sampling Size Relationship</h2>
+<p><strong>"CEEP" — Confidence is Expensive, Errors are Proportional</strong>
+- <strong>C</strong>onfidence coefficient ↑ → Sample size ↑
+- <strong>E</strong>xpected error rate ↑ → Sample size ↑
+- <strong>E</strong>rror tolerance (tolerable error rate) ↑ → Sample size ↓
+- <strong>P</strong>recision ↑ → Sample size ↓</p>
+<h2 id="10-risk-based-audit-approach">10. Risk-Based Audit Approach</h2>
+<p><strong>"ESCO" — Everyone Should Control Outcomes"</strong>
+- <strong>E</strong>valuate risk candidates
+- <strong>S</strong>chedule audits based on risk ratings
+- <strong>C</strong>onduct compliance or substantive testing
+- <strong>O</strong>pinion/conclusion on control environment</p>
+<hr />
+<p><em>Notes compiled from (2024 Edition)</em>
+<em>Domain 1: Information System Auditing Process</em>
+<em>These notes cover 100% of the exam content for Chapter 1.</em></p></article>
+    </main>
+
+    <aside class="toc-panel">
+      <p class="eyebrow">Section map</p>
+      <nav><div class="toc">
+<ul>
+<li><a href="#what-is-is-audit">What is IS Audit?</a><ul>
+<li><a href="#is-vs-it-know-the-difference">IS vs IT — Know the Difference!</a></li>
+</ul>
+</li>
+<li><a href="#three-major-audit-process-phases">Three Major Audit Process Phases</a></li>
+<li><a href="#the-three-level-isaca-framework">The Three-Level ISACA Framework</a></li>
+<li><a href="#standards-categories">Standards Categories</a></li>
+<li><a href="#isaca-code-of-professional-ethics-7-principles">ISACA Code of Professional Ethics — 7 Principles</a></li>
+<li><a href="#itaftm-it-assurance-framework">ITAF™ (IT Assurance Framework)</a></li>
+<li><a href="#is-internal-audit-function">IS Internal Audit Function</a><ul>
+<li><a href="#audit-charter-key-facts">Audit Charter — Key Facts</a></li>
+<li><a href="#reporting-line">Reporting Line</a></li>
+<li><a href="#using-other-auditorsexperts">Using Other Auditors/Experts</a></li>
+</ul>
+</li>
+<li><a href="#audit-vs-assessment-vs-review">Audit vs. Assessment vs. Review</a></li>
+<li><a href="#types-of-audits-comprehensive-table">Types of Audits — Comprehensive Table</a></li>
+<li><a href="#121-control-self-assessment-csa">1.2.1 Control Self-Assessment (CSA)</a><ul>
+<li><a href="#what-is-csa">What is CSA?</a></li>
+<li><a href="#key-objective">Key Objective</a></li>
+<li><a href="#csa-implementation-methods">CSA Implementation Methods</a></li>
+<li><a href="#benefits-of-csa">Benefits of CSA</a></li>
+<li><a href="#disadvantages-of-csa">Disadvantages of CSA</a></li>
+<li><a href="#is-auditors-role-in-csa">IS Auditor's Role in CSA</a></li>
+</ul>
+</li>
+<li><a href="#122-integrated-auditing">1.2.2 Integrated Auditing</a><ul>
+<li><a href="#definition">Definition</a></li>
+<li><a href="#integrated-audit-process-steps">Integrated Audit Process Steps:</a></li>
+<li><a href="#benefits-of-integration">Benefits of Integration:</a></li>
+</ul>
+</li>
+<li><a href="#what-is-audit-planning">What is Audit Planning?</a></li>
+<li><a href="#audit-universe">Audit Universe</a></li>
+<li><a href="#steps-to-perform-audit-planning-fig-13">Steps to Perform Audit Planning (Fig. 1.3)</a></li>
+<li><a href="#131-individual-audit-assignments">1.3.1 Individual Audit Assignments</a></li>
+<li><a href="#132-effect-of-laws-and-regulations-on-is-audit-planning">1.3.2 Effect of Laws and Regulations on IS Audit Planning</a></li>
+<li><a href="#risk-based-audit-planning-key-requirements">Risk-Based Audit Planning — Key Requirements</a></li>
+<li><a href="#133-audit-risk-and-materiality">1.3.3 Audit Risk and Materiality</a><ul>
+<li><a href="#audit-risk-definition">Audit Risk Definition</a></li>
+<li><a href="#four-types-of-audit-risk">Four Types of Audit Risk</a></li>
+<li><a href="#materiality">Materiality</a></li>
+</ul>
+</li>
+<li><a href="#134-risk-assessment">1.3.4 Risk Assessment</a><ul>
+<li><a href="#who-is-responsible">Who is Responsible?</a></li>
+</ul>
+</li>
+<li><a href="#135-is-audit-risk-assessment-techniques">1.3.5 IS Audit Risk Assessment Techniques</a><ul>
+<li><a href="#benefits-of-risk-assessment-based-auditing">Benefits of Risk Assessment-Based Auditing:</a></li>
+</ul>
+</li>
+<li><a href="#136-risk-analysis">1.3.6 Risk Analysis</a></li>
+<li><a href="#what-is-a-control">What is a Control?</a></li>
+<li><a href="#141-internal-controls">1.4.1 Internal Controls</a></li>
+<li><a href="#142-control-objectives-and-control-measures">1.4.2 Control Objectives and Control Measures</a><ul>
+<li><a href="#control-objectives-relate-to">Control Objectives relate to:</a></li>
+<li><a href="#specific-is-control-objectives-include">Specific IS Control Objectives include:</a></li>
+</ul>
+</li>
+<li><a href="#general-control-methods-fig-15">General Control Methods (Fig. 1.5)</a></li>
+<li><a href="#business-application-controls">Business Application Controls</a></li>
+<li><a href="#143-control-classifications">1.4.3 Control Classifications</a><ul>
+<li><a href="#control-purpose-visual-framework">Control Purpose Visual Framework:</a></li>
+<li><a href="#control-interaction-with-threats-fig-19">Control Interaction with Threats (Fig. 1.9):</a></li>
+</ul>
+</li>
+<li><a href="#144-control-relationship-to-risk">1.4.4 Control Relationship to Risk</a></li>
+<li><a href="#145-prescriptive-controls-and-frameworks">1.4.5 Prescriptive Controls and Frameworks</a></li>
+<li><a href="#146-evaluation-of-the-control-environment">1.4.6 Evaluation of the Control Environment</a><ul>
+<li><a href="#management-control-monitoring">Management Control Monitoring</a></li>
+</ul>
+</li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#151-audit-objectives">1.5.1 Audit Objectives</a><ul>
+<li><a href="#primary-purposes-of-is-audit">Primary purposes of IS audit:</a></li>
+</ul>
+</li>
+<li><a href="#152-audit-phases-detailed-breakdown">1.5.2 Audit Phases — Detailed Breakdown</a><ul>
+<li><a href="#planning-phase-fig-112">Planning Phase (Fig. 1.12)</a></li>
+<li><a href="#fieldworkdocumentation-phase-fig-113">Fieldwork/Documentation Phase (Fig. 1.13)</a></li>
+<li><a href="#reportingfollow-up-phase-fig-114">Reporting/Follow-Up Phase (Fig. 1.14)</a></li>
+</ul>
+</li>
+<li><a href="#153-audit-programs">1.5.3 Audit Programs</a><ul>
+<li><a href="#main-purposes">Main Purposes:</a></li>
+<li><a href="#general-audit-procedures">General Audit Procedures:</a></li>
+<li><a href="#minimum-skills-for-developing-an-audit-program">Minimum Skills for Developing an Audit Program:</a></li>
+</ul>
+</li>
+<li><a href="#154-audit-work-papers">1.5.4 Audit Work Papers</a></li>
+<li><a href="#155-fraud-irregularities-and-illegal-acts">1.5.5 Fraud, Irregularities and Illegal Acts</a></li>
+<li><a href="#156-agile-auditing">1.5.6 Agile Auditing</a><ul>
+<li><a href="#overview_1">Overview</a></li>
+<li><a href="#agile-vs-traditional-audit">Agile vs. Traditional Audit</a></li>
+<li><a href="#benefits-of-agile-auditing">Benefits of Agile Auditing:</a></li>
+</ul>
+</li>
+<li><a href="#compliance-vs-substantive-testing">Compliance vs. Substantive Testing</a></li>
+<li><a href="#161-compliance-vs-substantive-testing-deeper-dive">1.6.1 Compliance vs. Substantive Testing — Deeper Dive</a></li>
+<li><a href="#162-sampling">1.6.2 Sampling</a><ul>
+<li><a href="#definition_1">Definition</a></li>
+<li><a href="#two-general-approaches">Two General Approaches</a></li>
+<li><a href="#statistical-sampling-terminology">Statistical Sampling Terminology</a></li>
+<li><a href="#types-of-attribute-sampling-compliance-testing-how-many">Types of Attribute Sampling (Compliance Testing — "How many?")</a></li>
+<li><a href="#types-of-variable-sampling-substantive-testing-monetaryquantity-values">Types of Variable Sampling (Substantive Testing — monetary/quantity values)</a></li>
+<li><a href="#sampling-risk">Sampling Risk</a></li>
+<li><a href="#steps-in-sample-selection-fig-118">Steps in Sample Selection (Fig. 1.18):</a></li>
+</ul>
+</li>
+<li><a href="#what-is-audit-evidence">What is Audit Evidence?</a></li>
+<li><a href="#evidence-reliability-determinants">Evidence Reliability Determinants</a></li>
+<li><a href="#evidence-gathering-techniques">Evidence-Gathering Techniques</a></li>
+<li><a href="#171-interviewing-and-observing-personnel">1.7.1 Interviewing and Observing Personnel</a><ul>
+<li><a href="#interviewing-guidelines">Interviewing Guidelines:</a></li>
+<li><a href="#observation-identifies">Observation Identifies:</a></li>
+<li><a href="#observation-drawback">Observation Drawback:</a></li>
+</ul>
+</li>
+<li><a href="#what-can-data-analytics-do-for-is-auditors">What Can Data Analytics Do for IS Auditors?</a></li>
+<li><a href="#data-analytics-process">Data Analytics Process:</a></li>
+<li><a href="#analytics-use-cases-in-auditing">Analytics Use Cases in Auditing:</a></li>
+<li><a href="#181-computer-assisted-audit-techniques-caats">1.8.1 Computer-Assisted Audit Techniques (CAATs)</a><ul>
+<li><a href="#what-are-caats">What are CAATs?</a></li>
+<li><a href="#types-of-caats">Types of CAATs:</a></li>
+<li><a href="#caats-can-perform">CAATs Can Perform:</a></li>
+<li><a href="#caats-cost-benefit-considerations">CAATs Cost-Benefit Considerations:</a></li>
+<li><a href="#caats-best-practice">CAATs Best Practice:</a></li>
+</ul>
+</li>
+<li><a href="#182-continuous-auditing-and-monitoring">1.8.2 Continuous Auditing and Monitoring</a><ul>
+<li><a href="#continuous-auditing-advantages">Continuous Auditing Advantages:</a></li>
+<li><a href="#continuous-auditing-disadvantages">Continuous Auditing Disadvantages:</a></li>
+</ul>
+</li>
+<li><a href="#183-five-continuous-auditing-techniques">1.8.3 Five Continuous Auditing Techniques</a><ul>
+<li><a href="#continuous-auditing-techniques-used-at-all-data-levels">Continuous Auditing Techniques Used at All Data Levels:</a></li>
+</ul>
+</li>
+<li><a href="#184-artificial-intelligence-in-is-audit">1.8.4 Artificial Intelligence in IS Audit</a><ul>
+<li><a href="#aiml-use-cases-in-is-audit">AI/ML Use Cases in IS Audit:</a></li>
+<li><a href="#aiml-efficiency-gains">AI/ML Efficiency Gains:</a></li>
+<li><a href="#aiml-techniques-for-is-audit-fig-121">AI/ML Techniques for IS Audit (Fig. 1.21):</a></li>
+<li><a href="#aiml-audit-risk-and-considerations">AI/ML Audit Risk and Considerations:</a></li>
+</ul>
+</li>
+<li><a href="#key-principles-of-audit-reporting">Key Principles of Audit Reporting</a></li>
+<li><a href="#191-communicating-audit-results">1.9.1 Communicating Audit Results</a><ul>
+<li><a href="#exit-interview-conducted-at-end-of-audit">Exit Interview (Conducted at End of Audit):</a></li>
+<li><a href="#escalation-path">Escalation Path:</a></li>
+</ul>
+</li>
+<li><a href="#192-audit-report-objectives-six-objectives">1.9.2 Audit Report Objectives (Six Objectives)</a></li>
+<li><a href="#193-audit-report-structure-and-contents">1.9.3 Audit Report Structure and Contents</a><ul>
+<li><a href="#key-reporting-principles">Key Reporting Principles:</a></li>
+</ul>
+</li>
+<li><a href="#194-audit-documentation">1.9.4 Audit Documentation</a><ul>
+<li><a href="#what-must-it-include-minimum">What Must It Include? (Minimum)</a></li>
+<li><a href="#also-recommended">Also Recommended:</a></li>
+<li><a href="#documentation-standards">Documentation Standards:</a></li>
+</ul>
+</li>
+<li><a href="#195-follow-up-activities">1.9.5 Follow-Up Activities</a></li>
+<li><a href="#196-types-of-is-audit-reports">1.9.6 Types of IS Audit Reports</a><ul>
+<li><a href="#types-of-engagement-reporting">Types of Engagement Reporting:</a></li>
+</ul>
+</li>
+<li><a href="#1101-audit-committee-oversight">1.10.1 Audit Committee Oversight</a></li>
+<li><a href="#1102-audit-quality-assurance">1.10.2 Audit Quality Assurance</a></li>
+<li><a href="#1103-audit-team-training-and-development">1.10.3 Audit Team Training and Development</a></li>
+<li><a href="#1104-monitoring">1.10.4 Monitoring</a></li>
+<li><a href="#one-page-summary">One-Page Summary</a><ul>
+<li><a href="#domain-weight-18-27-questions">Domain Weight: 18% (~27 questions)</a></li>
+<li><a href="#key-audit-process">Key Audit Process:</a></li>
+<li><a href="#isaca-framework">ISACA Framework:</a></li>
+<li><a href="#code-of-ethics-7-principles">Code of Ethics (7 Principles):</a></li>
+<li><a href="#audit-charter">Audit Charter:</a></li>
+<li><a href="#csa-key-facts">CSA Key Facts:</a></li>
+<li><a href="#audit-types-to-remember">Audit Types to Remember:</a></li>
+<li><a href="#audit-risk-types">Audit Risk Types:</a></li>
+<li><a href="#control-classifications">Control Classifications:</a></li>
+<li><a href="#sampling-quick-reference">Sampling Quick Reference:</a></li>
+<li><a href="#evidence-reliability-external-internal-objective-subjective-reperformance-best">Evidence Reliability: External &gt; Internal; Objective &gt; Subjective; Reperformance = Best</a></li>
+<li><a href="#caats">CAATs:</a></li>
+<li><a href="#continuous-auditing-techniques">Continuous Auditing Techniques:</a></li>
+<li><a href="#aiml">AI/ML:</a></li>
+<li><a href="#reporting">Reporting:</a></li>
+</ul>
+</li>
+<li><a href="#high-probability-questions">High-Probability Questions</a></li>
+<li><a href="#the-big-5-concepts-always-tested">The "Big 5" Concepts Always Tested:</a></li>
+<li><a href="#the-must-know-relationships">The "Must Know" Relationships:</a></li>
+<li><a href="#common-confusions">Common Confusions:</a></li>
+<li><a href="#1-isaca-standards-hierarchy">1. ISACA Standards Hierarchy</a></li>
+<li><a href="#2-audit-process-phases">2. Audit Process Phases</a></li>
+<li><a href="#3-types-of-audit-risk">3. Types of Audit Risk</a></li>
+<li><a href="#4-control-classifications-in-order-of-occurrence">4. Control Classifications (in order of occurrence)</a></li>
+<li><a href="#5-isaca-code-of-ethics">5. ISACA Code of Ethics</a></li>
+<li><a href="#6-continuous-auditing-techniques">6. Continuous Auditing Techniques</a></li>
+<li><a href="#7-audit-report-components-6-objectives">7. Audit Report Components (6 Objectives)</a></li>
+<li><a href="#8-evidence-reliability-order-most-least-reliable">8. Evidence Reliability Order (Most → Least Reliable)</a></li>
+<li><a href="#9-sampling-size-relationship">9. Sampling Size Relationship</a></li>
+<li><a href="#10-risk-based-audit-approach">10. Risk-Based Audit Approach</a></li>
+</ul>
+</div>
+</nav>
+      <div id="toc-empty" class="empty-state" hidden>No section headings match the current filter.</div>
+    </aside>
+  </div>
+  <button class="btn focus-fab" data-action="toggle-focus">Exit focus mode</button>
+</div>
+
+  <script>
+(() => {
+  const storageKey = "cisa-study-theme";
+  const focusKey = "cisa-study-focus";
+  const root = document.documentElement;
+
+  const savedTheme = window.localStorage.getItem(storageKey);
+  if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+  }
+
+  const themeBtn = document.querySelector("[data-action='toggle-theme']");
+  if (themeBtn) {
+    const syncThemeLabel = () => {
+      const theme = root.getAttribute("data-theme") || "light";
+      themeBtn.textContent = theme === "dark" ? "Switch to light" : "Switch to dark";
+    };
+    syncThemeLabel();
+    themeBtn.addEventListener("click", () => {
+      const nextTheme = (root.getAttribute("data-theme") || "light") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", nextTheme);
+      window.localStorage.setItem(storageKey, nextTheme);
+      syncThemeLabel();
+    });
+  }
+
+  const focusButtons = Array.from(document.querySelectorAll("[data-action='toggle-focus']"));
+  if (window.localStorage.getItem(focusKey) === "true") {
+    document.body.classList.add("focus-mode");
+  }
+  if (focusButtons.length) {
+    const syncFocusButtons = () => {
+      const active = document.body.classList.contains("focus-mode");
+      focusButtons.forEach((button) => {
+        const isFloating = button.classList.contains("focus-fab");
+        button.textContent = active ? "Exit focus mode" : "Focus mode";
+        button.classList.toggle("is-active", active && !isFloating);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    };
+    const toggleFocus = () => {
+      document.body.classList.toggle("focus-mode");
+      window.localStorage.setItem(focusKey, String(document.body.classList.contains("focus-mode")));
+      syncFocusButtons();
+    };
+    syncFocusButtons();
+    focusButtons.forEach((button) => button.addEventListener("click", toggleFocus));
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && document.body.classList.contains("focus-mode")) {
+        toggleFocus();
+      }
+    });
+  }
+
+  const progressBar = document.querySelector(".progress-bar");
+  const updateProgress = () => {
+    if (!progressBar) {
+      return;
+    }
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progressBar.style.transform = `scaleX(${ratio})`;
+  };
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+
+  const searchInput = document.querySelector("[data-search]");
+  if (searchInput) {
+    const selector = searchInput.getAttribute("data-target");
+    const items = selector ? Array.from(document.querySelectorAll(selector)) : [];
+    const emptyStateId = searchInput.getAttribute("data-empty-state");
+    const emptyState = emptyStateId ? document.getElementById(emptyStateId) : null;
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const haystack = (item.getAttribute("data-search-text") || item.textContent || "").toLowerCase();
+        const show = !query || haystack.includes(query);
+        item.style.display = show ? "" : "none";
+        if (show) {
+          visible += 1;
+        }
+      });
+      if (emptyState) {
+        emptyState.hidden = visible !== 0;
+      }
+    });
+  }
+
+  const headingLinks = Array.from(document.querySelectorAll(".toc-panel a[href^='#']"));
+  const headingTargets = headingLinks
+    .map((link) => {
+      let id = link.getAttribute("href").slice(1);
+      try {
+        id = decodeURIComponent(id);
+      } catch {
+        // Keep raw fragment when it is not URI-encoded.
+      }
+      const target = document.getElementById(id);
+      return target ? { link, target } : null;
+    })
+    .filter(Boolean);
+
+  if (headingTargets.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const current = headingTargets.find((item) => item.target === entry.target);
+          if (!current) {
+            return;
+          }
+          if (entry.isIntersecting) {
+            headingLinks.forEach((link) => link.classList.remove("is-active"));
+            current.link.classList.add("is-active");
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 1] }
+    );
+    headingTargets.forEach((item) => observer.observe(item.target));
+  }
+
+  const article = document.querySelector(".article");
+  if (article) {
+    const isAnswerLabel = (text) => /^(?:answer\s*[:.)-]|a\s*[.):-]\s*)/i.test((text || "").trim());
+
+    const buildAnswerDetails = (contentNode) => {
+      const details = document.createElement("details");
+      details.className = "answer-collapsible";
+      const summary = document.createElement("summary");
+      summary.textContent = "Show answer";
+      const wrapper = document.createElement("div");
+      wrapper.className = "answer-content";
+      wrapper.appendChild(contentNode.cloneNode(true));
+      details.appendChild(summary);
+      details.appendChild(wrapper);
+      return details;
+    };
+
+    // Split paragraphs where question and answer appear in the same paragraph.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      const htmlValue = p.innerHTML;
+      const qaMatch = htmlValue.match(
+        /^(.*?)(?:\s*-\s*|\s+)?<strong>\s*(?:Answer\s*[:.)-]|A\s*[.):-][^<]*)<\/strong>\s*([\s\S]*)$/i
+      );
+      if (!qaMatch || !/<strong>\s*Q\d*\s*:\s*<\/strong>/i.test(qaMatch[1])) {
+        return;
+      }
+
+      p.innerHTML = qaMatch[1].trim();
+      const answerP = document.createElement("p");
+      answerP.innerHTML = `<strong>Answer:</strong> ${qaMatch[2].trim()}`;
+      p.insertAdjacentElement("afterend", buildAnswerDetails(answerP));
+    });
+
+    // Wrap standalone answer paragraphs.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      if (p.closest("details.answer-collapsible")) {
+        return;
+      }
+      if (!isAnswerLabel(p.textContent)) {
+        return;
+      }
+      p.replaceWith(buildAnswerDetails(p));
+    });
+
+    // Wrap answer-only blockquotes.
+    Array.from(article.querySelectorAll("blockquote")).forEach((blockquote) => {
+      if (blockquote.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstParagraph = blockquote.querySelector("p");
+      if (!firstParagraph || !isAnswerLabel(firstParagraph.textContent)) {
+        return;
+      }
+      blockquote.replaceWith(buildAnswerDetails(blockquote));
+    });
+
+    // Wrap list items that are answer lines, keeping the list structure valid.
+    Array.from(article.querySelectorAll("li")).forEach((li) => {
+      if (li.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstStrong = li.querySelector(":scope > strong");
+      if (!firstStrong || !isAnswerLabel(firstStrong.textContent)) {
+        return;
+      }
+
+      const payload = document.createElement("div");
+      while (li.firstChild) {
+        payload.appendChild(li.firstChild);
+      }
+      li.appendChild(buildAnswerDetails(payload));
+    });
+  }
+})();
+</script>
+</body>
+</html>

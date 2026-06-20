@@ -1,0 +1,4507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CISA Chapter 5: Protection of Information Assets — Complete Exam Notes | CISA Study Hub</title>
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  color-scheme: light;
+  --cp-bg: #f3efe6;
+  --cp-bg-elevated: #fbf8f2;
+  --cp-surface: rgba(255, 255, 255, 0.86);
+  --cp-surface-strong: rgba(255, 255, 255, 0.94);
+  --cp-surface-soft: rgba(255, 248, 238, 0.78);
+  --cp-border: rgba(113, 89, 61, 0.15);
+  --cp-border-strong: rgba(113, 89, 61, 0.28);
+  --cp-text: #1f2937;
+  --cp-text-muted: #5b6472;
+  --cp-text-soft: #7a838f;
+  --cp-accent: #c65d2e;
+  --cp-accent-hover: #a84c24;
+  --cp-accent-soft: rgba(198, 93, 46, 0.12);
+  --cp-accent-fg: #fff8f1;
+  --cp-accent-alt: #0f766e;
+  --cp-accent-alt-soft: rgba(15, 118, 110, 0.12);
+  --cp-link: #0f766e;
+  --cp-shadow: 0 24px 70px rgba(61, 43, 24, 0.14);
+  --cp-shadow-soft: 0 10px 30px rgba(61, 43, 24, 0.09);
+  --cp-overlay: rgba(251, 248, 242, 0.82);
+  --cp-highlight: rgba(198, 93, 46, 0.16);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #0d1721;
+  --cp-bg-elevated: #121f2d;
+  --cp-surface: rgba(17, 27, 39, 0.76);
+  --cp-surface-strong: rgba(19, 31, 45, 0.9);
+  --cp-surface-soft: rgba(32, 49, 68, 0.72);
+  --cp-border: rgba(148, 163, 184, 0.18);
+  --cp-border-strong: rgba(148, 163, 184, 0.34);
+  --cp-text: #e7edf5;
+  --cp-text-muted: #b0bdcb;
+  --cp-text-soft: #91a0b0;
+  --cp-accent: #f59e0b;
+  --cp-accent-hover: #f97316;
+  --cp-accent-soft: rgba(245, 158, 11, 0.16);
+  --cp-accent-fg: #111827;
+  --cp-accent-alt: #22c55e;
+  --cp-accent-alt-soft: rgba(34, 197, 94, 0.14);
+  --cp-link: #5eead4;
+  --cp-shadow: 0 26px 80px rgba(1, 6, 15, 0.45);
+  --cp-shadow-soft: 0 12px 36px rgba(1, 6, 15, 0.3);
+  --cp-overlay: rgba(9, 16, 24, 0.72);
+  --cp-highlight: rgba(245, 158, 11, 0.16);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.16), transparent 30%),
+    radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 26%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+  color: var(--cp-text);
+  font-family: "Plus Jakarta Sans", Aptos, sans-serif;
+  position: relative;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 999px;
+  filter: blur(22px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+body::before {
+  top: -12rem;
+  right: -10rem;
+  background: rgba(198, 93, 46, 0.18);
+}
+body::after {
+  bottom: -14rem;
+  left: -10rem;
+  background: rgba(15, 118, 110, 0.14);
+}
+a {
+  color: var(--cp-link);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.progress-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  box-shadow: 0 0 18px var(--cp-highlight);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 80;
+}
+.shell {
+  width: min(1480px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+.masthead {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+  align-items: stretch;
+  margin-bottom: 28px;
+}
+.hero,
+.panel,
+.chapter-card,
+.toc-panel,
+.chapter-rail,
+.content-panel,
+.tool-row,
+.callout-tile {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 24px;
+  box-shadow: var(--cp-shadow);
+  backdrop-filter: blur(18px);
+}
+.hero,
+.content-panel {
+  position: relative;
+  overflow: hidden;
+}
+.hero::before,
+.content-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 46%),
+    radial-gradient(circle at top right, var(--cp-accent-soft), transparent 30%);
+  pointer-events: none;
+}
+.hero {
+  padding: 34px;
+}
+.eyebrow {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+}
+.hero h1,
+.chapter-hero h1 {
+  margin: 18px 0 14px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 12ch;
+}
+.chapter-hero h1 {
+  max-width: none;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+.hero p,
+.chapter-hero p,
+.muted {
+  color: var(--cp-text-muted);
+  font-size: 1.02rem;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+.stat {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  box-shadow: var(--cp-shadow-soft);
+}
+.stat strong,
+.stat span {
+  display: block;
+}
+.stat strong {
+  margin-bottom: 6px;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.5rem;
+}
+.hero-illustration,
+.chapter-illustration {
+  min-height: 100%;
+  padding: 26px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top left, var(--cp-accent-soft), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+    var(--cp-surface-soft);
+}
+.hero-illustration svg,
+.chapter-illustration svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+.top-tools {
+  position: sticky;
+  top: 16px;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.tool-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+  align-items: center;
+  background: var(--cp-overlay);
+}
+.tool-row input {
+  min-width: 260px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-strong);
+  color: var(--cp-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.tool-row input:focus {
+  outline: 2px solid var(--cp-accent-soft);
+  border-color: var(--cp-accent);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--cp-shadow-soft);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+.btn:hover,
+.btn.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--cp-accent-soft));
+  color: var(--cp-text);
+}
+.btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #eb7b3a);
+  color: var(--cp-accent-fg);
+  border-color: transparent;
+  box-shadow: 0 14px 28px rgba(198, 93, 46, 0.28);
+}
+.btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 22px;
+}
+.chapter-card {
+  padding: 22px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.chapter-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cp-accent), var(--cp-accent-alt));
+  opacity: 0.92;
+}
+.chapter-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -36% auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--cp-accent-soft), transparent 65%);
+  pointer-events: none;
+}
+.chapter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 60px rgba(61, 43, 24, 0.18);
+  border-color: rgba(198, 93, 46, 0.24);
+}
+.chapter-card h2,
+.chapter-card h3 {
+  margin: 0;
+  font-size: 1.62rem;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.chapter-card h2 a {
+  color: var(--cp-text);
+}
+.chapter-card p {
+  margin: 0;
+}
+.chapter-card .chapter-subtitle {
+  margin-top: 8px;
+  color: var(--cp-text-muted);
+  font-size: 1rem;
+}
+.chapter-card .chapter-summary {
+  color: var(--cp-text-muted);
+  line-height: 1.62;
+  font-size: 1rem;
+}
+.chips,
+.quick-links,
+.chapter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--cp-surface-soft);
+  border: 1px solid var(--cp-border);
+  color: var(--cp-text-muted);
+  font-size: 0.84rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.quick-links {
+  gap: 10px;
+}
+.quick-links .chip {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  color: var(--cp-text);
+  border-color: rgba(198, 93, 46, 0.24);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-accent-soft));
+  box-shadow: 0 8px 18px rgba(61, 43, 24, 0.12);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+.quick-links .chip:hover,
+.quick-links .chip:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(198, 93, 46, 0.42);
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  box-shadow: 0 12px 22px rgba(61, 43, 24, 0.16);
+}
+.quick-links .chip:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.chapter-actions {
+  margin-top: 6px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.chapter-actions .btn {
+  min-height: 50px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  border-color: rgba(113, 89, 61, 0.2);
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+  color: var(--cp-text);
+}
+.chapter-actions .btn.primary {
+  background: linear-gradient(135deg, var(--cp-accent), #dd6f33);
+  border-color: transparent;
+  color: var(--cp-accent-fg);
+  box-shadow: 0 10px 22px rgba(198, 93, 46, 0.24);
+}
+.chapter-actions .btn:hover {
+  border-color: rgba(198, 93, 46, 0.38);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--cp-accent-soft));
+}
+.chapter-actions .btn.primary:hover {
+  background: linear-gradient(135deg, var(--cp-accent-hover), var(--cp-accent));
+  color: var(--cp-accent-fg);
+}
+.chapter-actions .btn:focus-visible {
+  outline: 2px solid var(--cp-accent);
+  outline-offset: 2px;
+}
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+.callout-tile {
+  padding: 20px;
+  background: linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface));
+}
+.callout-tile h3 {
+  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  box-shadow: var(--cp-shadow-soft);
+}
+.callout-tile:nth-child(1) h3 {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(14, 165, 233, 0.12));
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #1d4ed8;
+}
+.callout-tile:nth-child(2) h3 {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(249, 115, 22, 0.14));
+  border-color: rgba(245, 158, 11, 0.38);
+  color: #b45309;
+}
+.callout-tile:nth-child(3) h3 {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(20, 184, 166, 0.14));
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #047857;
+}
+.chapter-layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(250px, 320px);
+  align-items: start;
+}
+.chapter-rail,
+.toc-panel {
+  position: sticky;
+  top: 92px;
+  padding: 20px;
+  max-height: calc(100vh - 112px);
+  overflow: auto;
+  background:
+    linear-gradient(180deg, var(--cp-surface-strong), var(--cp-surface)),
+    var(--cp-overlay);
+  border: 1px solid var(--cp-border);
+  box-shadow: var(--cp-shadow-soft);
+}
+.chapter-rail nav,
+.toc-panel nav {
+  display: grid;
+  gap: 8px;
+}
+.chapter-rail .eyebrow,
+.toc-panel .eyebrow {
+  margin-bottom: 14px;
+}
+.chapter-nav-link,
+.toc-panel a {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 14px;
+  color: var(--cp-text-muted);
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-soft);
+  font-weight: 600;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, color 180ms ease;
+}
+.chapter-nav-link:hover,
+.chapter-nav-link.is-current,
+.toc-panel a:hover,
+.toc-panel a.is-active {
+  background: linear-gradient(135deg, var(--cp-accent-soft), var(--cp-accent-alt-soft));
+  border-color: var(--cp-border-strong);
+  color: var(--cp-text);
+  transform: translateX(2px);
+}
+.chapter-nav-link strong {
+  display: block;
+  margin-bottom: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+.toc-panel a {
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.content-panel {
+  padding: 26px 30px 32px;
+  background: var(--cp-surface-strong);
+}
+.chapter-hero {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.8fr);
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--cp-border);
+  margin-bottom: 24px;
+  align-items: center;
+}
+.article {
+  font-size: 1.03rem;
+  line-height: 1.82;
+}
+.article > :first-child {
+  margin-top: 0;
+}
+.article > * {
+  max-width: 74ch;
+}
+.article .table-wrap,
+.article img,
+.article pre,
+.article h2 {
+  max-width: 100%;
+}
+.article h1,
+.article h2,
+.article h3,
+.article h4,
+.article h5,
+.article h6 {
+  scroll-margin-top: 104px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--cp-text);
+}
+.article h1 {
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 2.4rem;
+}
+.article h2 {
+  margin-top: 2.4rem;
+  padding: 18px 20px;
+  border: 1px solid var(--cp-border);
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--cp-accent-soft), transparent 70%);
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-size: 1.7rem;
+}
+.article h3 {
+  margin-top: 1.8rem;
+  font-size: 1.24rem;
+  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+}
+.article details.answer-collapsible {
+  margin: 18px 0;
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  box-shadow: var(--cp-shadow-soft);
+  overflow: hidden;
+}
+.article details.answer-collapsible summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  font-weight: 700;
+  color: var(--cp-text);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+}
+.article details.answer-collapsible summary::-webkit-details-marker {
+  display: none;
+}
+.article details.answer-collapsible summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 180ms ease;
+}
+.article details.answer-collapsible[open] summary::before {
+  transform: rotate(90deg);
+}
+.article details.answer-collapsible .answer-content {
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--cp-border);
+}
+.article details.answer-collapsible .answer-content > :first-child {
+  margin-top: 0;
+}
+.article details.answer-collapsible .answer-content > :last-child {
+  margin-bottom: 0;
+}
+.article hr {
+  border: 0;
+  border-top: 1px solid var(--cp-border);
+  margin: 28px 0;
+}
+.article blockquote {
+  margin: 22px 0;
+  padding: 18px 20px;
+  border-left: 4px solid var(--cp-accent);
+  background: linear-gradient(135deg, var(--cp-accent-soft), rgba(255, 255, 255, 0));
+  border-radius: 18px;
+  box-shadow: var(--cp-shadow-soft);
+}
+.article code,
+.article pre {
+  font-family: Consolas, "Courier New", Courier, monospace;
+}
+.article :not(pre) > code {
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text);
+}
+.article pre {
+  overflow: auto;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+}
+.article ul,
+.article ol {
+  padding-left: 1.35rem;
+}
+.article li + li {
+  margin-top: 0.4rem;
+}
+.table-wrap {
+  overflow-x: auto;
+  margin: 22px 0;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+.article th,
+.article td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--cp-border);
+  border-right: 1px solid var(--cp-border);
+  vertical-align: top;
+}
+.article tr:last-child td {
+  border-bottom: 0;
+}
+.article th:last-child,
+.article td:last-child {
+  border-right: 0;
+}
+.article th {
+  position: sticky;
+  top: 0;
+  background: var(--cp-surface-soft);
+  text-align: left;
+}
+.article img {
+  display: block;
+  margin: 22px 0;
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+  box-shadow: var(--cp-shadow-soft);
+}
+.toc-panel .toc,
+.toc-panel .toc ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.toc-panel .toc > ul {
+  display: grid;
+  gap: 8px;
+}
+.toc-panel .toc ul ul {
+  margin-left: 12px;
+  margin-top: 8px;
+  border-left: 1px solid var(--cp-border);
+  padding-left: 10px;
+}
+.empty-state {
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text-muted);
+  border: 1px dashed var(--cp-border-strong);
+}
+.footer-note {
+  margin-top: 22px;
+  color: var(--cp-text-soft);
+  font-size: 0.94rem;
+}
+.focus-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 75;
+  display: none;
+  min-width: 150px;
+}
+body.focus-mode {
+  background:
+    radial-gradient(circle at top left, rgba(198, 93, 46, 0.08), transparent 32%),
+    linear-gradient(180deg, var(--cp-bg-elevated), var(--cp-bg));
+}
+body.focus-mode .chapter-rail,
+body.focus-mode .toc-panel,
+body.focus-mode .top-tools,
+body.focus-mode .chapter-illustration {
+  display: none;
+}
+body.focus-mode .focus-fab {
+  display: inline-flex;
+}
+body.focus-mode .chapter-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+body.focus-mode .content-panel {
+  max-width: 900px;
+  margin: 0 auto;
+}
+body.focus-mode .chapter-hero {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (max-width: 1180px) {
+  .chapter-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .chapter-rail,
+  .toc-panel {
+    position: static;
+    max-height: none;
+  }
+}
+@media (max-width: 900px) {
+  .masthead,
+  .chapter-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shell {
+    width: min(100% - 24px, 1480px);
+  }
+  .hero,
+  .content-panel {
+    padding: 22px;
+  }
+  .top-tools {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .chapter-actions {
+    grid-template-columns: 1fr;
+  }
+  .hero,
+  .panel,
+  .chapter-card,
+  .toc-panel,
+  .chapter-rail,
+  .content-panel,
+  .tool-row,
+  .callout-tile {
+    border-radius: 20px;
+  }
+  .tool-row,
+  .tool-row input,
+  .btn {
+    width: 100%;
+  }
+  .focus-fab {
+    right: 12px;
+    left: 12px;
+    bottom: 14px;
+    width: auto;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="progress-bar"></div>
+  
+<div class="shell">
+  <div class="top-tools">
+    <div class="tool-row">
+      <a class="btn" href="index.html">Back to chapter index</a>
+      <button class="btn" data-action="toggle-focus">Focus mode</button>
+      <button class="btn" data-action="toggle-theme">Switch theme</button>
+    </div>
+    <div class="tool-row">
+      <input type="search" placeholder="Filter this chapter TOC" data-search data-target=".toc-panel a" data-empty-state="toc-empty">
+    </div>
+  </div>
+
+  <div class="chapter-layout">
+    <aside class="chapter-rail">
+      <p class="eyebrow">Chapters</p>
+      <nav><a class="chapter-nav-link" href="chapter1.html"><strong>Chapter 1</strong></a>
+<a class="chapter-nav-link" href="chapter2.html"><strong>Chapter 2</strong></a>
+<a class="chapter-nav-link" href="chapter3.html"><strong>Chapter 3</strong></a>
+<a class="chapter-nav-link" href="chapter4.html"><strong>Chapter 4</strong></a>
+<a class="chapter-nav-link is-current" href="chapter5.html"><strong>Chapter 5</strong></a></nav>
+    </aside>
+
+    <main class="content-panel">
+      <section class="chapter-hero">
+        <div>
+          <span class="eyebrow">Chapter 5</span>
+          <h1>CISA Chapter 5: Protection of Information Assets — Complete Exam Notes</h1>
+          <p>1. Information Asset Security Policies, Frameworks, Standards &amp; Guidelines</p>
+          <div class="quick-links" style="margin-top: 12px;"><a class="chip" href="#one-page-rapid-revision-sheet">Rapid Revision</a><a class="chip" href="#probable-exam-questions">Exam Questions</a><a class="chip" href="#mnemonics-and-memory-tricks">Mnemonics</a></div>
+        </div>
+        <div class="panel chapter-illustration">
+<svg viewBox="0 0 360 240" role="img" aria-label="CISA NOTES emblem" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cnStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-accent)"/>
+      <stop offset="100%" stop-color="var(--cp-accent-alt)"/>
+    </linearGradient>
+    <linearGradient id="cnBadge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--cp-surface-strong)"/>
+      <stop offset="100%" stop-color="var(--cp-surface-soft)"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="44" y="36" width="272" height="170" rx="24" fill="var(--cp-surface-strong)" stroke="var(--cp-border)" stroke-width="2"/>
+  <rect x="44" y="36" width="272" height="38" rx="24" fill="var(--cp-surface-soft)"/>
+
+  <circle cx="72" cy="55" r="5" fill="var(--cp-accent)" opacity="0.75"/>
+  <circle cx="90" cy="55" r="5" fill="var(--cp-accent-alt)" opacity="0.7"/>
+  <circle cx="108" cy="55" r="5" fill="var(--cp-border-strong)"/>
+
+  <rect x="66" y="92" width="128" height="10" rx="5" fill="var(--cp-border-strong)"/>
+  <rect x="66" y="110" width="102" height="10" rx="5" fill="var(--cp-accent-soft)"/>
+  <rect x="66" y="143" width="220" height="9" rx="4.5" fill="var(--cp-border)"/>
+  <rect x="66" y="160" width="186" height="9" rx="4.5" fill="var(--cp-border)"/>
+
+  <g transform="translate(216 88)">
+    <path d="M54 0l34 15v26c0 27-23 50-34 56C43 91 20 68 20 41V15L54 0z" fill="url(#cnBadge)" stroke="url(#cnStroke)" stroke-width="4"/>
+    <path d="M40 47l10 10 22-24" fill="none" stroke="var(--cp-accent-alt)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="180" y="124" text-anchor="middle" font-size="36" font-weight="800" letter-spacing="2.2" fill="url(#cnStroke)" font-family="Space Grotesk, Plus Jakarta Sans, sans-serif">CISA</text>
+  <text x="180" y="157" text-anchor="middle" font-size="24" font-weight="700" letter-spacing="4.5" fill="var(--cp-text-muted)" font-family="Plus Jakarta Sans, sans-serif">NOTES</text>
+</svg>
+</div>
+      </section>
+
+      <article class="article"><h1 id="cisa-chapter-5-protection-of-information-assets-complete-exam-notes">CISA Chapter 5: Protection of Information Assets — Complete Exam Notes</h1>
+<hr />
+<hr />
+<h2 id="table-of-contents">📋 TABLE OF CONTENTS</h2>
+<ol>
+<li><a href="#51">Information Asset Security Policies, Frameworks, Standards &amp; Guidelines</a></li>
+<li><a href="#52">Physical and Environmental Controls</a></li>
+<li><a href="#53">Identity and Access Management (IAM)</a></li>
+<li><a href="#54">Network and Endpoint Security</a></li>
+<li><a href="#55">Data Loss Prevention (DLP)</a></li>
+<li><a href="#56">Data Encryption</a></li>
+<li><a href="#57">Public Key Infrastructure (PKI)</a></li>
+<li><a href="#58">Cloud and Virtualized Environments</a></li>
+<li><a href="#59">Mobile, Wireless, and IoT Devices</a></li>
+<li><a href="#510">Security Awareness Training and Programs</a></li>
+<li><a href="#511">Information System Attack Methods and Techniques</a></li>
+<li><a href="#512">Security Testing Tools and Techniques</a></li>
+<li><a href="#513">Security Monitoring Logs, Tools, and Techniques</a></li>
+<li><a href="#514">Security Incident Response Management</a></li>
+<li><a href="#515">Evidence Collection and Forensics</a></li>
+<li><a href="#rapid">Rapid Revision Sheet</a></li>
+<li><a href="#exam-q">Probable Exam Questions</a></li>
+<li><a href="#mnemonics">Mnemonics &amp; Memory Tricks</a></li>
+</ol>
+<hr />
+<p><a name="51"></a></p>
+<h2 id="51-information-asset-security-policies-frameworks-standards-and-guidelines">5.1 Information Asset Security Policies, Frameworks, Standards, and Guidelines</h2>
+<h3 id="overview">Overview</h3>
+<p>Security policies are the foundation of any information security program. They define acceptable behavior, controls, and governance.</p>
+<h3 id="policy-elements-8-core">Policy Elements (8 Core)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Who and what the policy covers</td>
+</tr>
+<tr>
+<td><strong>Policy Statement</strong></td>
+<td>High-level intent and rules</td>
+</tr>
+<tr>
+<td><strong>Objectives</strong></td>
+<td>CIA (Confidentiality, Integrity, Availability)</td>
+</tr>
+<tr>
+<td><strong>Guidance</strong></td>
+<td>Specific instructions</td>
+</tr>
+<tr>
+<td><strong>Monitoring</strong></td>
+<td>How compliance is measured</td>
+</tr>
+<tr>
+<td><strong>Governance</strong></td>
+<td>Oversight responsibilities</td>
+</tr>
+<tr>
+<td><strong>Compliance</strong></td>
+<td>Legal/regulatory requirements</td>
+</tr>
+<tr>
+<td><strong>Privacy</strong></td>
+<td>Data protection requirements</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="characteristics-of-a-good-security-policy">Characteristics of a Good Security Policy</h3>
+<ul>
+<li>Executive support (management commitment)</li>
+<li>Business-driven (aligned with business goals)</li>
+<li>Simple and accessible</li>
+<li>Integrated with other policies</li>
+<li>Strategic but with clear guidance</li>
+<li>Specifies penalties for violations</li>
+<li>Flexible and regularly updated</li>
+</ul>
+<h3 id="types-of-security-policies">Types of Security Policies</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Organizational/Master</strong></td>
+<td>Enterprise-wide security</td>
+<td>Overall IS security policy</td>
+</tr>
+<tr>
+<td><strong>System-Specific (SysSP)</strong></td>
+<td>For specific systems/technologies</td>
+<td>Firewall policy, server policy</td>
+</tr>
+<tr>
+<td><strong>Issue-Specific (ISSP)</strong></td>
+<td>For specific security issues</td>
+<td>Acceptable use, BYOD, remote access, incident response, change control, IAM, access control</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> ISSP = Issue-Specific Security Policy. Examples include AUP, BYOD, remote access, change control, and incident response policies.</p>
+</blockquote>
+<h3 id="standards-vs-frameworks">Standards vs. Frameworks</h3>
+<p>| Standards | Frameworks |--|-----------|------------| <strong>Nature</strong> | Mandatory rules | Processes/guidelines defining policies | <strong>Flexibility</strong> | Less flexible | More flexible | <strong>Purpose</strong> | Compliance baseline | Strategic guidance |</p>
+<h3 id="key-security-frameworks">Key Security Frameworks</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Description</th>
+<th>Key Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ISO/IEC 27001</strong></td>
+<td>ISMS requirements (organizational, people, physical, tech controls)</td>
+<td>International standard for ISMS</td>
+</tr>
+<tr>
+<td><strong>Zachman</strong></td>
+<td>Enterprise architecture classification grid</td>
+<td>6×6 matrix (who, what, when, where, why, how)</td>
+</tr>
+<tr>
+<td><strong>TOGAF</strong></td>
+<td>Enterprise architecture; aligns business &amp; architecture</td>
+<td>Open Group standard</td>
+</tr>
+<tr>
+<td><strong>SABSA</strong></td>
+<td>Risk-driven security architecture; lifecycle model</td>
+<td>Business risk-driven</td>
+</tr>
+<tr>
+<td><strong>COBIT</strong></td>
+<td>IT governance; links IT to business goals</td>
+<td>5 principles, 37 practices</td>
+</tr>
+<tr>
+<td><strong>NIST CSF</strong></td>
+<td>Flexible cybersecurity risk management</td>
+<td>Identify, Protect, Detect, Respond, Recover</td>
+</tr>
+<tr>
+<td><strong>ITIL</strong></td>
+<td>IT service management standardization</td>
+<td>Service lifecycle model</td>
+</tr>
+<tr>
+<td><strong>CIS CSC</strong></td>
+<td>Technical security controls</td>
+<td>No risk management focus; purely technical</td>
+</tr>
+<tr>
+<td><strong>PCI DSS</strong></td>
+<td>Payment card data security</td>
+<td>12 requirements for card-handling orgs</td>
+</tr>
+<tr>
+<td><strong>CSA STAR</strong></td>
+<td>Cloud assurance framework</td>
+<td>Voluntary self-assessments, attestations, certifications</td>
+</tr>
+<tr>
+<td><strong>CSA CCM</strong></td>
+<td>Cloud security controls</td>
+<td>197 control objectives in 17 domains</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> CIS CSC = only technical controls, NO risk management. NIST CSF = risk management framework. PCI DSS = payment cards specifically.</p>
+</blockquote>
+<h3 id="security-baselines">Security Baselines</h3>
+<ul>
+<li><strong>Definition:</strong> Minimum acceptable security level for systems</li>
+<li><strong>Purpose:</strong> Ensure all systems meet a standard starting point</li>
+<li><strong>Topics covered:</strong></li>
+<li>Environment/inventory management</li>
+<li>Malware protection</li>
+<li>Password policies</li>
+<li>Patching and updates</li>
+<li>Minimizing services (attack surface reduction)</li>
+<li>Vulnerability management and auditing</li>
+<li>Backup/recovery/BC</li>
+<li>IT staff responsibilities</li>
+</ul>
+<hr />
+<p><a name="52"></a></p>
+<h2 id="52-physical-and-environmental-controls">5.2 Physical and Environmental Controls</h2>
+<h3 id="overview_1">Overview</h3>
+<p>Physical controls protect information assets from physical threats like unauthorized access, environmental hazards, and equipment damage.</p>
+<h3 id="power-failure-types-and-controls">Power Failure Types and Controls</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Duration</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Blackout</strong></td>
+<td>Total power loss</td>
+<td>Any duration</td>
+<td>UPS + Generator</td>
+</tr>
+<tr>
+<td><strong>Brownout</strong></td>
+<td>Reduced voltage (108-125V AC)</td>
+<td>Extended</td>
+<td>Voltage regulator, UPS</td>
+</tr>
+<tr>
+<td><strong>Sag/Spike</strong></td>
+<td>Brief voltage drop/surge</td>
+<td>Milliseconds</td>
+<td>Surge protector</td>
+</tr>
+<tr>
+<td><strong>Surge</strong></td>
+<td>Extended overvoltage</td>
+<td>Seconds</td>
+<td>UPS with surge protection</td>
+</tr>
+<tr>
+<td><strong>EMI</strong></td>
+<td>Electromagnetic interference</td>
+<td>—</td>
+<td>Shielding</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Duration</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Very short (ms)</td>
+<td>Surge protectors</td>
+</tr>
+<tr>
+<td>Short-intermediate (seconds – 30 min)</td>
+<td>UPS (Uninterruptible Power Supply)</td>
+</tr>
+<tr>
+<td>Long-term (hours-days)</td>
+<td>Diesel/gasoline/propane generators</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="fire-detection-and-suppression">Fire Detection and Suppression</h3>
+<ul>
+<li><strong>Water detectors:</strong> Under raised floors</li>
+<li><strong>Smoke detectors:</strong> Above AND below ceiling tiles; linked to monitored station with audible alarms</li>
+<li><strong>Fire suppression systems:</strong> Auto-activate on high heat</li>
+<li><strong>Wet pipe sprinklers:</strong> Water always in pipes; fastest response</li>
+<li><strong>Dry-pipe:</strong> Water held back by pressurized air (used in cold environments)</li>
+<li><strong>FM-200 (HFC-227ea / heptafluoropropane):</strong> Clean agent, safe for electronics</li>
+<li><strong>Novec 1230:</strong> Green alternative clean agent</li>
+<li><strong>Types of application:</strong> Total flooding vs. local application</li>
+</ul>
+<h3 id="computer-room-placement-best-practices">Computer Room Placement Best Practices</h3>
+<ul>
+<li><strong>Best location:</strong> Middle floors (3rd–6th)</li>
+<li><strong>Avoid:</strong> Basement (flooding), top floor (roof leaks, fire), external walls</li>
+<li><strong>Avoid proximity to:</strong> Water/gas pipes, paper storage, airports, chemical plants, railways</li>
+</ul>
+<h3 id="physical-access-controls">Physical Access Controls</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bolting locks</strong></td>
+<td>Metal key; should have "do not duplicate" marking</td>
+</tr>
+<tr>
+<td><strong>Combination/cipher locks</strong></td>
+<td>Change combinations when employee leaves</td>
+</tr>
+<tr>
+<td><strong>Electronic door locks</strong></td>
+<td>Card/token/biometric; individually assignable; can be deactivated remotely</td>
+</tr>
+<tr>
+<td><strong>Biometric locks</strong></td>
+<td>Fingerprint, retina, etc.</td>
+</tr>
+<tr>
+<td><strong>Mantrap/Airlock</strong></td>
+<td>Two interlocking doors; one person at a time; prevents piggybacking</td>
+</tr>
+<tr>
+<td><strong>Deadman doors</strong></td>
+<td>Special mantrap for delivery areas</td>
+</tr>
+<tr>
+<td><strong>ID badges</strong></td>
+<td>Different colors for visitors vs. employees</td>
+</tr>
+<tr>
+<td><strong>Video cameras</strong></td>
+<td>Motion-activated; strategically placed; recorded</td>
+</tr>
+<tr>
+<td><strong>Security guards</strong></td>
+<td>Must be bonded if external</td>
+</tr>
+<tr>
+<td><strong>Lighting</strong></td>
+<td>Illuminates entry points</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> Mantrap/airlock = prevents piggybacking/tailgating. Piggybacking is a physical access exposure.</p>
+</blockquote>
+<h3 id="physical-access-exposures">Physical Access Exposures</h3>
+<ul>
+<li>Unauthorized entry</li>
+<li>Vandalism and theft</li>
+<li>Copying, alteration, disclosure of data</li>
+<li>Blackmail/embezzlement</li>
+<li>Wiretapping</li>
+</ul>
+<p><strong>Perpetrators:</strong> Disgruntled employees, former employees, outsiders, accidental actors</p>
+<h3 id="auditing-physical-security">Auditing Physical Security</h3>
+<ul>
+<li>Tour computer site including above ceiling tiles and below raised floors</li>
+<li>Check all paths of entry (not just main doors)</li>
+<li>Verify visitor logs and escort procedures</li>
+</ul>
+<h3 id="icsscada-security">ICS/SCADA Security</h3>
+<p><strong>Types:</strong> SCADA (Supervisory Control and Data Acquisition), PLCs (Programmable Logic Controllers), RTUs (Remote Terminal Units)</p>
+<p><strong>ICS Security Risks:</strong>
+- Poor security posture / default passwords
+- Improper input validation
+- Improper authentication
+- Poor configuration
+- Embedded legacy software
+- Network design weaknesses
+- Technology depreciation
+- Incompatibility with modern standards
+- Weak protocols
+- Dependencies on ICT infrastructure
+- Third-party presence
+- Compliance risk</p>
+<p><strong>ICS Best Practices:</strong>
+- Asset inventory
+- Network baseline monitoring
+- Network segmentation (firewalls understanding ICS protocols)
+- Principle of Least Privilege (POLP)
+- IDS/IPS deployment
+- Secure remote access
+- Physical security
+- Redundancy
+- System hardening
+- Incident Response Plan (IRP)
+- Supply chain security</p>
+<hr />
+<p><a name="53"></a></p>
+<h2 id="53-identity-and-access-management-iam">5.3 Identity and Access Management (IAM)</h2>
+<h3 id="overview_2">Overview</h3>
+<p>IAM is the first line of defense in information security. It controls who can access what resources.</p>
+<blockquote>
+<p><strong>Key principle:</strong> Identification is separate from authentication.</p>
+</blockquote>
+<h3 id="iam-components-4">IAM Components (4)</h3>
+<ol>
+<li><strong>Authentication Services</strong> — Verify identity claims</li>
+<li><strong>Authorization Services</strong> — Determine what authenticated users can access</li>
+<li><strong>User Management</strong> — Provisioning and deprovisioning of accounts</li>
+<li><strong>Central User Repository</strong> — Centralized directory (e.g., Active Directory)</li>
+</ol>
+<h3 id="iam-life-cycle">IAM Life Cycle</h3>
+<pre><code>Enrollment → Role Determination → Provisioning → Review/Updating → Deprovisioning
+</code></pre>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> <strong>Privilege creep</strong> occurs at the <strong>Review/Updating</strong> stage when accumulated access rights exceed current job needs.</p>
+</blockquote>
+<h3 id="authentication-types">Authentication Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Factor</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Password</strong></td>
+<td>Something you know</td>
+<td>PIN, passphrase</td>
+</tr>
+<tr>
+<td><strong>Token</strong></td>
+<td>Something you have</td>
+<td>Smart card, hardware token; used in REST APIs</td>
+</tr>
+<tr>
+<td><strong>Biometric</strong></td>
+<td>Something you are</td>
+<td>Fingerprint, iris, retina</td>
+</tr>
+<tr>
+<td><strong>Certificate-based</strong></td>
+<td>Something you have</td>
+<td>Digital certificate</td>
+</tr>
+<tr>
+<td><strong>MFA</strong></td>
+<td>2+ factors</td>
+<td>Password + OTP</td>
+</tr>
+<tr>
+<td><strong>Adaptive/Risk-based</strong></td>
+<td>Context-based</td>
+<td>Location, device, behavior</td>
+</tr>
+<tr>
+<td><strong>LDAP</strong></td>
+<td>Directory bind</td>
+<td>Active Directory (most common LDAP)</td>
+</tr>
+<tr>
+<td><strong>Smart card</strong></td>
+<td>Possession + PIN</td>
+<td>PKI-based card</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="single-sign-on-sso">Single Sign-On (SSO)</h3>
+<ul>
+<li><strong>Concept:</strong> One set of credentials for access to multiple systems</li>
+<li><strong>Architecture:</strong> Primary domain authenticates; secondary domains trust the primary</li>
+<li><strong>Advantages:</strong> Fewer passwords to manage, simplified administration, reduced overhead</li>
+<li><strong>Disadvantages:</strong> Single point of failure, OS support challenges, costly to implement</li>
+</ul>
+<h3 id="authorization-types">Authorization Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Coarse-grained</strong></td>
+<td>High-level, role-based</td>
+<td>General access control</td>
+</tr>
+<tr>
+<td><strong>Fine-grained</strong></td>
+<td>Detailed conditions, attributes</td>
+<td>Enforces POLP strictly</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="access-control-models">Access Control Models</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Full Name</th>
+<th>Key Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MAC</strong></td>
+<td>Mandatory Access Control</td>
+<td>Default deny; system enforced; not user-modifiable; for sensitive environments</td>
+</tr>
+<tr>
+<td><strong>DAC</strong></td>
+<td>Discretionary Access Control</td>
+<td>Data owner controls access; additional filter over MAC</td>
+</tr>
+<tr>
+<td><strong>RuBAC</strong></td>
+<td>Rule-Based Access Control</td>
+<td>ACL-defined rules; equal for all users</td>
+</tr>
+<tr>
+<td><strong>RBAC</strong></td>
+<td>Role-Based Access Control</td>
+<td>Based on user roles; <strong>industry standard</strong></td>
+</tr>
+<tr>
+<td><strong>ABAC</strong></td>
+<td>Attribute-Based Access Control</td>
+<td>User + resource + environment attributes</td>
+</tr>
+<tr>
+<td><strong>PBAC</strong></td>
+<td>Policy-Based Access Control</td>
+<td>Business roles + policies; used in ZTA</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> MAC = system enforced, cannot be changed by users. DAC = user/owner controlled. RBAC = most common in industry.</p>
+</blockquote>
+<h3 id="zero-trust-architecture-zta">Zero-Trust Architecture (ZTA)</h3>
+<ul>
+<li><strong>Principle:</strong> "Never Trust, Always Verify"</li>
+<li><strong>Approach:</strong> Session-based access; POLP; dynamic PBAC; continuous monitoring</li>
+<li><strong>Best practices:</strong> Monitor all traffic, update devices, POLP, segment network, use security keys for MFA, threat intelligence integration</li>
+</ul>
+<h3 id="privileged-access-management-pam">Privileged Access Management (PAM)</h3>
+<p><strong>Types of privileged accounts:</strong>
+- Administrator accounts
+- Emergency/"break-glass" accounts
+- Service accounts
+- Application accounts
+- SSH keys</p>
+<p><strong>Benefits of PAM:</strong> Reduced attack surface, POLP enforcement, streamlined rights, monitoring, secure access</p>
+<p><strong>Challenges:</strong> Credential management, tracking activity, ineffective threat analysis, cloud access, authentication vulnerabilities</p>
+<h3 id="biometrics">Biometrics</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Full Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FER</strong></td>
+<td>Failure to Enroll Rate</td>
+<td>Cannot enroll in system</td>
+</tr>
+<tr>
+<td><strong>FRR / Type 1</strong></td>
+<td>False Rejection Rate</td>
+<td>Legitimate user rejected (false negative)</td>
+</tr>
+<tr>
+<td><strong>FAR / Type 2</strong></td>
+<td>False Acceptance Rate</td>
+<td>Impostor accepted (false positive)</td>
+</tr>
+<tr>
+<td><strong>CER/EER</strong></td>
+<td>Crossover Error Rate / Equal Error Rate</td>
+<td>Where FRR = FAR; measures overall accuracy</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> Lower CER = better biometric accuracy. FAR = Type 2 error (more dangerous — lets bad people in).</p>
+</blockquote>
+<p><strong>Biometric accuracy ranking (best CER to worst):</strong>
+Palm &gt; Hand geometry &gt; Iris &gt; Retina &gt; Fingerprint &gt; Voice</p>
+<h3 id="federated-identity-management-fim">Federated Identity Management (FIM)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Type</th>
+<th>Key Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SAML</strong></td>
+<td>XML-based</td>
+<td>Authentication + authorization across domains</td>
+</tr>
+<tr>
+<td><strong>OAuth</strong></td>
+<td>Token-based</td>
+<td>Authorization only; no credentials shared</td>
+</tr>
+<tr>
+<td><strong>OIDC</strong></td>
+<td>JSON-based</td>
+<td>Adds identity layer to OAuth 2.0</td>
+</tr>
+<tr>
+<td><strong>SCIM</strong></td>
+<td>Provisioning</td>
+<td>Cross-domain identity management; keeps info updated</td>
+</tr>
+</tbody>
+</table></div>
+<p>| FIM | SSO |--|-----|-----| <strong>Architecture</strong> | Decentralized | Centralized | <strong>Scope</strong> | Cross-domain/cross-organization | Within same org/domain | <strong>Relationship</strong> | FIM can support SSO across domains | SSO is subset of FIM |</p>
+<h3 id="password-security-best-practices">Password Security Best Practices</h3>
+<ul>
+<li>Minimum length per threat model (modern: 8+ chars, recommended 12+)</li>
+<li>No dictionary words or personal details</li>
+<li>History: last 13 passwords cannot be reused</li>
+<li>Change: 30-day cycle for privileged; 90-day for regular users</li>
+<li>Max 5 failed attempts → account lockout</li>
+<li>15-minute inactivity → automatic timeout</li>
+<li>Always encrypted in storage AND transit</li>
+</ul>
+<h3 id="password-attacks">Password Attacks</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Description</th>
+<th>Defense</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sniffing</strong></td>
+<td>Capture plaintext passwords</td>
+<td>Encryption in transit</td>
+</tr>
+<tr>
+<td><strong>Phishing</strong></td>
+<td>Trick user into revealing password</td>
+<td>Security awareness</td>
+</tr>
+<tr>
+<td><strong>Brute force</strong></td>
+<td>Try all combinations</td>
+<td>Account lockout, complexity</td>
+</tr>
+<tr>
+<td><strong>Dictionary</strong></td>
+<td>Try common words</td>
+<td>Complexity requirements</td>
+</tr>
+<tr>
+<td><strong>Keylogger</strong></td>
+<td>Record keystrokes</td>
+<td>Endpoint security</td>
+</tr>
+<tr>
+<td><strong>Rainbow table</strong></td>
+<td>Precomputed hash lookup</td>
+<td><strong>Salting</strong></td>
+</tr>
+<tr>
+<td><strong>Credential stuffing</strong></td>
+<td>Use leaked credentials on other sites</td>
+<td>MFA, monitoring</td>
+</tr>
+<tr>
+<td><strong>Password spraying</strong></td>
+<td>Few passwords tried on many accounts</td>
+<td>Lockout policies</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="identity-governance-and-administration-iga">Identity Governance and Administration (IGA)</h3>
+<p><strong>IA elements:</strong> Connectors, automated workflows, provisioning lifecycle, entitlement management
+<strong>IG elements:</strong> Separation of Duties (SoD), user access review, RBAC, analytics/reporting</p>
+<h3 id="idaas-identity-as-a-service">IDaaS (Identity as a Service)</h3>
+<ul>
+<li>Cloud-based IAM subscription</li>
+<li>Supports SSO, MFA, user identity management, provisioning, cloud directory</li>
+<li><strong>Benefits:</strong> Reduced costs, improved security, scalability, flexibility</li>
+<li><strong>Risks:</strong> Internet dependency, limited customization, security concerns, compliance, integration issues</li>
+</ul>
+<hr />
+<p><a name="54"></a></p>
+<h2 id="54-network-and-endpoint-security">5.4 Network and Endpoint Security</h2>
+<h3 id="network-types">Network Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Range</th>
+<th>Protocol/Tech</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PAN</strong></td>
+<td>~10m</td>
+<td>Bluetooth piconet</td>
+</tr>
+<tr>
+<td><strong>LAN</strong></td>
+<td>Building</td>
+<td>Ethernet, Wi-Fi</td>
+</tr>
+<tr>
+<td><strong>SAN</strong></td>
+<td>Data center</td>
+<td>Block-level storage</td>
+</tr>
+<tr>
+<td><strong>WAN</strong></td>
+<td>Internet-scale</td>
+<td>Leased lines, MPLS</td>
+</tr>
+<tr>
+<td><strong>NAS</strong></td>
+<td>Network-attached</td>
+<td>File-level storage (vs. SAN which is block-level)</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> SAN = block-level, NAS = file-level. Remember "S-Block, N-File."</p>
+</blockquote>
+<h3 id="signal-transmission">Signal Transmission</h3>
+<p>| Baseband | Broadband |--|----------|-----------| <strong>Channels</strong> | Single channel | Multiple channels | <strong>Method</strong> | Direct signal injection | Frequency division multiplexing | <strong>Examples</strong> | Ethernet | Cable TV, DSL |</p>
+<h3 id="vpn">VPN</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Remote-access VPN</strong></td>
+<td>Individual user to corporate network</td>
+</tr>
+<tr>
+<td><strong>Intranet VPN</strong></td>
+<td>Site-to-site within same organization</td>
+</tr>
+<tr>
+<td><strong>Extranet VPN</strong></td>
+<td>Site-to-site between organizations</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>VPN Protocols:</strong> | Protocol | Feature | Note |---------|---------|------| <strong>IPSec</strong> | Tunnel mode (entire packet) or Transport mode (data only) | Most secure | <strong>IKEv2</strong> | Mobile-friendly; reconnects after interruption | Good for mobile | <strong>PPTP</strong> | Point-to-Point Tunneling | Has known vulnerabilities | <strong>SSTP</strong> | HTTPS-based | Good for firewalls | <strong>L2TP/IPSec</strong> | L2TP + IPSec for security | Common combo | <strong>OpenVPN</strong> | Open-source; SSL/TLS | Highly configurable |</p>
+<h3 id="firewall-types">Firewall Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Generation</th>
+<th>Type</th>
+<th>Layer</th>
+<th>Capability</th>
+<th>Vulnerability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1st Gen</strong></td>
+<td>Packet filtering</td>
+<td>Network (L3)</td>
+<td>IP/port filtering</td>
+<td>IP spoofing, source routing, fragmentation</td>
+</tr>
+<tr>
+<td><strong>2nd Gen</strong></td>
+<td>Application-level (proxy)</td>
+<td>Application (L7)</td>
+<td>Protocol-aware; HTTP proxy = WAF</td>
+<td>Performance overhead</td>
+</tr>
+<tr>
+<td><strong>2nd Gen</strong></td>
+<td>Circuit-level</td>
+<td>Session (L5)</td>
+<td>Single general proxy</td>
+<td>Cannot inspect application data</td>
+</tr>
+<tr>
+<td><strong>3rd Gen</strong></td>
+<td>Stateful inspection</td>
+<td>L3-L4</td>
+<td>Tracks destination IPs, matches responses</td>
+<td>More complex to administer</td>
+</tr>
+<tr>
+<td><strong>Next Gen</strong></td>
+<td>NGFW</td>
+<td>L3-L7</td>
+<td>Application awareness, DPI, IDS/IPS, threat intelligence, antimalware</td>
+<td>Complex</td>
+</tr>
+<tr>
+<td><strong>Web</strong></td>
+<td>WAF</td>
+<td>L7</td>
+<td>HTTP/HTTPS protection; XSS, CSRF, SQLi</td>
+<td>Limited to web traffic</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> NGFW ≠ WAF. NGFW = Layers 3-4 network protection. WAF = Layer 7 web application protection.</p>
+</blockquote>
+<h3 id="firewall-implementations">Firewall Implementations</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Description</th>
+<th>Security Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Screened-host</strong></td>
+<td>Packet-filter router + bastion host</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>Dual-homed</strong></td>
+<td>Firewall with 2 network interfaces</td>
+<td>Moderate-high</td>
+</tr>
+<tr>
+<td><strong>Screened-subnet (DMZ)</strong></td>
+<td>2 routers + bastion host; creates DMZ</td>
+<td><strong>Highest (3 layers)</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="utm-unified-threat-management">UTM (Unified Threat Management)</h3>
+<p>All-in-one security appliance combining: Antivirus, antimalware, sandboxing, firewall, IDS/IPS, VPN, DLP, web filtering</p>
+<h3 id="network-segmentation">Network Segmentation</h3>
+<ul>
+<li><strong>Technologies:</strong> VLAN, firewall, SDN, host-based</li>
+<li><strong>Benefits:</strong> Performance improvement, limits attack damage, protects vulnerable devices, compliance, defense-in-depth, monitoring</li>
+<li><strong>Micro-segmentation:</strong> More granular than traditional segmentation; focuses on east-west traffic within data centers</li>
+</ul>
+<h3 id="endpoint-security">Endpoint Security</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Description</th>
+<th>Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EDR</strong></td>
+<td>Endpoint Detection &amp; Response</td>
+<td>Data collection agents, automated response, forensics analysis</td>
+</tr>
+<tr>
+<td><strong>XDR</strong></td>
+<td>Extended Detection &amp; Response</td>
+<td>Extends across endpoints, cloud, email; broader data analysis</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="cdn-content-delivery-networks">CDN (Content Delivery Networks)</h3>
+<ul>
+<li><strong>Types:</strong> Dynamic, static, streaming content</li>
+<li><strong>Risks:</strong> Session hijacking, credential theft, DDoS, performance risk</li>
+</ul>
+<h3 id="ntp-network-time-protocol">NTP (Network Time Protocol)</h3>
+<ul>
+<li><strong>Purpose:</strong> Clock synchronization across network devices</li>
+<li><strong>Risks:</strong> Spoofing, Kiss of Death (KoD) attacks, UDP fragment injection</li>
+</ul>
+<hr />
+<p><a name="55"></a></p>
+<h2 id="55-data-loss-prevention-dlp">5.5 Data Loss Prevention (DLP)</h2>
+<h3 id="overview_3">Overview</h3>
+<p>DLP prevents unauthorized disclosure of sensitive information by monitoring, detecting, and blocking data movements.</p>
+<h3 id="dlp-types">DLP Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What It Monitors</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Network-based</strong></td>
+<td>Data in transit; outgoing network traffic</td>
+<td>Deep Packet Inspection (DPI); scans outgoing data</td>
+</tr>
+<tr>
+<td><strong>Endpoint-based</strong></td>
+<td>Files, external devices (USB)</td>
+<td>Agent software on endpoints</td>
+</tr>
+<tr>
+<td><strong>Cloud DLP</strong></td>
+<td>Cloud storage and services</td>
+<td>API integration with cloud platforms</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="data-states">Data States</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>State</th>
+<th>Description</th>
+<th>DLP Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data at rest</strong></td>
+<td>Stored data</td>
+<td>Crawlers scan storage</td>
+</tr>
+<tr>
+<td><strong>Data in transit</strong></td>
+<td>Being transmitted</td>
+<td>Network appliances, DPI, packet reassembly</td>
+</tr>
+<tr>
+<td><strong>Data in use</strong></td>
+<td>Being processed</td>
+<td>Agent software monitoring endpoint actions</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="causes-of-data-leakage">Causes of Data Leakage</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Technology</strong></td>
+<td>Unencrypted storage, software vulnerabilities, lost devices</td>
+</tr>
+<tr>
+<td><strong>Process</strong></td>
+<td>Poor governance, no retention policy, misconfiguration</td>
+</tr>
+<tr>
+<td><strong>People</strong></td>
+<td>Negligence, lack of training, insider threats</td>
+</tr>
+<tr>
+<td><strong>Threat actors</strong></td>
+<td>Malware, sabotage, APTs</td>
+</tr>
+<tr>
+<td><strong>Natural disasters</strong></td>
+<td>Floods, fires, earthquakes</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="dlp-content-analysis-methods">DLP Content Analysis Methods</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Regular expression matching</strong></td>
+<td>Pattern-based text matching</td>
+</tr>
+<tr>
+<td><strong>Structured fingerprinting (EDM)</strong></td>
+<td>Exact Data Matching for databases</td>
+</tr>
+<tr>
+<td><strong>Exact file matching (EFM)</strong></td>
+<td>Hash-based file comparison</td>
+</tr>
+<tr>
+<td><strong>Indexed document matching (IDM)</strong></td>
+<td>Partial document matching</td>
+</tr>
+<tr>
+<td><strong>Lexicon matching</strong></td>
+<td>Conceptual/keyword analysis</td>
+</tr>
+<tr>
+<td><strong>Statistical analysis</strong></td>
+<td>ML/Bayesian probability models</td>
+</tr>
+<tr>
+<td><strong>Categorization</strong></td>
+<td>Rule-based classification</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="dlp-deployment-modes">DLP Deployment Modes</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Passive</strong></td>
+<td>Monitoring only; alerts but does not block</td>
+</tr>
+<tr>
+<td><strong>Active</strong></td>
+<td>Blocking + alerting; stops data exfiltration</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<p><a name="56"></a></p>
+<h2 id="56-data-encryption">5.6 Data Encryption</h2>
+<h3 id="overview_4">Overview</h3>
+<p>Encryption protects data confidentiality in transit and at rest, deters unauthorized alteration, and verifies authenticity.</p>
+<h3 id="encryption-elements">Encryption Elements</h3>
+<pre><code>Security = Algorithm + Key + Key Length
+Longer key → Harder to brute force
+</code></pre>
+<h3 id="symmetric-vs-asymmetric-encryption">Symmetric vs. Asymmetric Encryption</h3>
+<p>| Symmetric | Asymmetric |--|-----------|------------| <strong>Keys</strong> | Same key for encrypt/decrypt | Public key encrypts; private key decrypts | <strong>Distribution</strong> | Key shared out-of-band (challenge) | Public key freely distributed | <strong>Speed</strong> | Faster | Slower | <strong>Key length</strong> | Shorter | Longer | <strong>Digital signing</strong> | Cannot sign | Can sign (private key encrypts hash) | <strong>Use case</strong> | Bulk data encryption | Key exchange, digital signatures | <strong>Examples</strong> | DES (withdrawn), 3DES, AES, RC4 | RSA (1024-4096 bit) |</p>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> AES = current symmetric standard (128, 192, or 256-bit). RSA = primary asymmetric algorithm.</p>
+</blockquote>
+<h3 id="hashing">Hashing</h3>
+<ul>
+<li><strong>Purpose:</strong> One-way function; integrity verification</li>
+<li><strong>Output:</strong> Fixed-length regardless of input size</li>
+<li><strong>No key required</strong> (optional salt)</li>
+<li><strong>Cannot be reversed</strong></li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Output Size</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MD5</strong></td>
+<td>128 bits</td>
+<td>Weak; avoid</td>
+</tr>
+<tr>
+<td><strong>SHA-1</strong></td>
+<td>160 bits</td>
+<td>Deprecated</td>
+</tr>
+<tr>
+<td><strong>SHA-256</strong></td>
+<td>256 bits</td>
+<td>Current standard</td>
+</tr>
+<tr>
+<td><strong>SHA-512</strong></td>
+<td>512 bits</td>
+<td>High security</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> Industry is transitioning from SHA-1 to SHA-2/SHA-3. <strong>Salting</strong> defeats rainbow table attacks.</p>
+</blockquote>
+<h3 id="encryption-vs-hashing-comparison">Encryption vs. Hashing Comparison</h3>
+<p>| Encryption | Hashing |--|------------|---------| <strong>Direction</strong> | Two-way (reversible) | One-way (irreversible) | <strong>Output length</strong> | Variable | Fixed | <strong>Key required</strong> | Yes | No (optional salt) | <strong>Purpose</strong> | Confidentiality | Integrity verification |</p>
+<h3 id="encryption-modes">Encryption Modes</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+<th>Headers Encrypted?</th>
+<th>Security</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Link encryption</strong></td>
+<td>All traffic including headers; decrypts at each hop</td>
+<td>Yes</td>
+<td>Simple but complex key distribution</td>
+</tr>
+<tr>
+<td><strong>End-to-End (E2EE)</strong></td>
+<td>Stays encrypted from source to destination</td>
+<td>No</td>
+<td>More secure</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="advanced-encryption-types">Advanced Encryption Types</h3>
+<h4 id="ecc-elliptic-curve-cryptography">ECC (Elliptic Curve Cryptography)</h4>
+<ul>
+<li>Smaller keys than RSA for equivalent security</li>
+<li>Faster key generation</li>
+<li>Modern RSA successor</li>
+</ul>
+<h4 id="quantum-cryptography">Quantum Cryptography</h4>
+<ul>
+<li>Uses photons through fiber optic cables</li>
+<li>QKD (Quantum Key Distribution) detects eavesdropping</li>
+<li><strong>Limitations:</strong> Polarization changes, max ~500km range, high cost, single-destination per channel</li>
+</ul>
+<h4 id="homomorphic-encryption">Homomorphic Encryption</h4>
+<ul>
+<li>Performs operations on encrypted data without decrypting</li>
+<li><strong>Types:</strong></li>
+<li><strong>Partially:</strong> Infinite operations of one type (e.g., RSA is partially homomorphic)</li>
+<li><strong>Somewhat:</strong> Finite number of any operation</li>
+<li><strong>Fully:</strong> Infinite additions OR multiplications</li>
+<li><strong>Benefits:</strong> Supply chain security, cloud data security, compliance (GDPR), data analytics</li>
+<li><strong>Challenges:</strong> Inefficiency, high storage requirements, slow performance</li>
+</ul>
+<h3 id="digital-signatures">Digital Signatures</h3>
+<ul>
+<li><strong>Process:</strong> Sender signs with private key (hash → encrypt hash)</li>
+<li><strong>Verification:</strong> Recipient verifies with sender's public key</li>
+<li><strong>Provides:</strong> Integrity, Authentication, <strong>Nonrepudiation</strong></li>
+<li><strong>Does NOT provide:</strong> Protection against unauthorized reading, theft, or copying</li>
+<li><strong>Replay attack protection:</strong> Add timestamp or counter</li>
+</ul>
+<h3 id="digital-envelope">Digital Envelope</h3>
+<ul>
+<li>Message encrypted with symmetric key</li>
+<li>Symmetric key encrypted with recipient's public key</li>
+<li><strong>Example:</strong> PGP (Pretty Good Privacy)</li>
+<li>Used in S/MIME</li>
+</ul>
+<h3 id="tls-transport-layer-security">TLS (Transport Layer Security)</h3>
+<ul>
+<li>Replaces SSL (SSL had vulnerability found in 2014)</li>
+<li><strong>Two protocols:</strong> 1. <strong>Handshake Protocol:</strong> Negotiates and establishes secure connection 2. <strong>Record Protocol:</strong> Actual data transmission; encryption + authentication</li>
+<li><strong>Phases:</strong> Peer negotiation → Key exchange/authentication → Symmetric encryption</li>
+<li><strong>HTTPS = HTTP + TLS</strong></li>
+</ul>
+<h3 id="ipsec">IPSec</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>What's Encrypted</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transport mode</strong></td>
+<td>Data portion (ESP payload) only</td>
+<td>Host-to-host</td>
+</tr>
+<tr>
+<td><strong>Tunnel mode</strong></td>
+<td>Entire packet including header</td>
+<td>VPN, gateway-to-gateway</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>ESP (Encapsulating Security Payload):</strong> Provides confidentiality</li>
+<li><strong>AH (Authentication Header):</strong> Provides nonrepudiation</li>
+<li><strong>SA (Security Association):</strong> Defines security parameters; managed by IKE</li>
+</ul>
+<h3 id="kerberos">Kerberos</h3>
+<ul>
+<li>Ticket-based SSO for distributed environments</li>
+<li>Current version: <strong>Kerberos 5</strong> (uses AES)</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>KDC (Key Distribution Center)</strong></td>
+<td>Trusted third party; provides authentication services</td>
+</tr>
+<tr>
+<td><strong>TGS (Ticket-Granting Server)</strong></td>
+<td>Validates ticket for specific purpose</td>
+</tr>
+<tr>
+<td><strong>AS (Authentication Server)</strong></td>
+<td>Hosts TGS; verifies authenticity of tickets</td>
+</tr>
+<tr>
+<td><strong>TGT (Ticket-Granting Ticket)</strong></td>
+<td>User authentication token</td>
+</tr>
+<tr>
+<td><strong>ST (Service Ticket)</strong></td>
+<td>Proof of authorization to access a specific resource</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> KDC is a <strong>single point of failure</strong> in Kerberos. If KDC offline → no authentication. Strict time requirements → clock sync critical.</p>
+</blockquote>
+<h3 id="ssh-secure-shell">SSH (Secure Shell)</h3>
+<ul>
+<li>Encrypted remote login; replaced Telnet</li>
+<li><strong>Layer:</strong> Application layer (not network layer like IPSec)</li>
+<li><strong>Best practices:</strong> Centralize key management, change default port, disable root login, implement key attribution, key rotation, continuous audits, implement firewall technology</li>
+</ul>
+<h3 id="dnssec">DNSSEC</h3>
+<ul>
+<li>Adds digital signatures to DNS records</li>
+<li>Prevents DNS cache poisoning and false zones</li>
+<li><strong>Risks introduced by DNSSEC:</strong> DDoS amplification, increased query response volume, slow performance (UDP-based)</li>
+</ul>
+<h3 id="email-security">Email Security</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S/MIME</strong></td>
+<td>Authentication + confidentiality using X.509 certificates</td>
+</tr>
+<tr>
+<td><strong>MOSS</strong></td>
+<td>Multiple-party digital signatures; rarely used</td>
+</tr>
+<tr>
+<td><strong>PEM</strong></td>
+<td>Authentication, integrity, confidentiality, nonrepudiation; uses RSA + DES</td>
+</tr>
+<tr>
+<td><strong>DKIM</strong></td>
+<td>Detects forged sender addresses</td>
+</tr>
+<tr>
+<td><strong>PGP</strong></td>
+<td>Open-source; authentication, integrity, privacy, nonrepudiation</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Email Attacks:</strong>
+- <strong>Bombing:</strong> Sending identical emails repeatedly to one address
+- <strong>Spamming:</strong> Mass unsolicited emails; managed by SPF, Bayesian filtering, greylisting
+- <strong>Spoofing:</strong> Email appears from different source than actual sender
+- <strong>BEC (Business Email Compromise):</strong> Targets employees authorizing financial transactions</p>
+<p><strong>Email Controls:</strong> Spam filters, email encryption, antivirus, SEG (Secure Email Gateway), EAC (Email Attachment Control)</p>
+<hr />
+<p><a name="57"></a></p>
+<h2 id="57-public-key-infrastructure-pki">5.7 Public Key Infrastructure (PKI)</h2>
+<h3 id="overview_5">Overview</h3>
+<p>PKI is a system for managing public key certificates through a trusted hierarchy.</p>
+<p><strong>PKI Components:</strong> Policies, procedures, hardware, software, personnel for managing public key certificates</p>
+<h3 id="digital-certificates">Digital Certificates</h3>
+<ul>
+<li><strong>CA (Certificate Authority):</strong> Issues and manages certificates (e.g., Verisign, Thawte)</li>
+<li><strong>CP (Certificate Policy):</strong> Identifies actors, roles, duties, responsibilities in PKI</li>
+<li><strong>CPS (Certificate Practice Statement):</strong> How the CA issues certificates; includes certificate types, policies, algorithms used, key length, certificate lifetime</li>
+</ul>
+<h3 id="ra-registration-authority">RA (Registration Authority)</h3>
+<ul>
+<li>Delegated administrative functions for a specific community</li>
+<li><strong>RA functions:</strong></li>
+<li>Verify subject information</li>
+<li>Verify right to requested attributes</li>
+<li>Proof of possession of private key</li>
+<li>Report key compromise</li>
+<li>Assign names</li>
+<li>Initiate registration with CA</li>
+<li>Initiate key recovery</li>
+<li>Distribute physical tokens (smart cards)</li>
+</ul>
+<h3 id="key-management-activities">Key Management Activities</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Key creation</strong></td>
+<td>Generating keys via key generator</td>
+</tr>
+<tr>
+<td><strong>Key distribution</strong></td>
+<td>Secure transfer to user/system</td>
+</tr>
+<tr>
+<td><strong>Key storage/custody</strong></td>
+<td>Secure storage; dual custody (2+ people required)</td>
+</tr>
+<tr>
+<td><strong>Key rotation</strong></td>
+<td>Retiring old keys; implementing new ones</td>
+</tr>
+<tr>
+<td><strong>Key recovery/backup</strong></td>
+<td>Key escrow for recovery</td>
+</tr>
+<tr>
+<td><strong>Key destruction</strong></td>
+<td>Suspension, revocation, expiration, or destruction</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="certificate-revocation-reasons">Certificate Revocation Reasons</h3>
+<ol>
+<li>Changes in affiliation (terminated, resigned, died)</li>
+<li>Private key compromise</li>
+<li>Cessation of operation (server decommissioned)</li>
+<li>Superseded (certificate replaced)</li>
+<li>Unspecified</li>
+<li>CA compromise</li>
+</ol>
+<h3 id="crl-certificate-revocation-list">CRL (Certificate Revocation List)</h3>
+<ul>
+<li>Published periodically by CA</li>
+<li><strong>States:</strong> Revoked (irreversible) or Hold (reversible/temporary)</li>
+<li><strong>CRL should include:</strong> Issuer name, revocation date and time, reasons, specific time period, certificate extensions, signature algorithm, serial number, next CRL date</li>
+</ul>
+<h3 id="ocsp-online-certificate-status-protocol">OCSP (Online Certificate Status Protocol)</h3>
+<ul>
+<li>Real-time certificate status check (valid/revoked/unknown)</li>
+<li><strong>OCSP Stapling:</strong> Server caches and "staples" OCSP response to its certificate → improves performance, reduces CA load, enhances privacy</li>
+</ul>
+<h3 id="pki-risks">PKI Risks</h3>
+<ul>
+<li>Outdated protocols</li>
+<li>Weak cryptographic keys (&lt;2048 bits)</li>
+<li>Infrequent key rotation</li>
+<li>Mismanaged certificates (expired certificates → outages)</li>
+<li>Lack of automation</li>
+<li>Insufficient skills and resources</li>
+<li>Unclear certificate ownership</li>
+<li>Lack of policies</li>
+<li>Limited visibility (no centralized inventory)</li>
+<li>Poor private key management</li>
+<li><strong>Compromised root CA</strong> → entire chain of trust broken (store root CA offline!)</li>
+<li>Poor patch management</li>
+</ul>
+<hr />
+<p><a name="58"></a></p>
+<h2 id="58-cloud-and-virtualized-environments">5.8 Cloud and Virtualized Environments</h2>
+<h3 id="virtualization-vs-cloud">Virtualization vs. Cloud</h3>
+<p>| Virtualization | Cloud |--|---------------|-------| <strong>Definition</strong> | Multiple OS on one physical server | Delivers virtualized resources on demand over internet | <strong>Control</strong> | Organization controls | Shared responsibility | <strong>Location</strong> | On-premises | Off-premises |</p>
+<h3 id="hypervisor-types">Hypervisor Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bare metal/Native</strong></td>
+<td>Hypervisor runs directly on hardware; no host OS</td>
+</tr>
+<tr>
+<td><strong>Hosted</strong></td>
+<td>Hypervisor runs on top of host OS</td>
+</tr>
+<tr>
+<td><strong>Containerization</strong></td>
+<td>Containers share kernel with host OS</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="virtualization-risks">Virtualization Risks</h3>
+<ul>
+<li>Rootkits as hypervisors (below OS level; antivirus may not detect)</li>
+<li>Hypervisor misconfiguration → unauthorized resource access</li>
+<li>Guest tools attack vectors</li>
+<li>Snapshots contain sensitive RAM data</li>
+<li>Hosted virtualization lacks hypervisor access controls</li>
+</ul>
+<h3 id="virtualization-controls">Virtualization Controls</h3>
+<ul>
+<li>Strong physical/logical access over host and management console</li>
+<li>Configuration management and system hardening</li>
+<li>Network separation (avoid VMs in DMZ; management tools on separate network)</li>
+<li>Strong change management</li>
+</ul>
+<h3 id="virtual-circuits">Virtual Circuits</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Security</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PVC (Permanent Virtual Circuit)</strong></td>
+<td>Always available; like leased line</td>
+<td>Requires constant monitoring</td>
+</tr>
+<tr>
+<td><strong>SVC (Switched Virtual Circuit)</strong></td>
+<td>On-demand; disassembled after use</td>
+<td>More secure; less monitoring needed</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="vlan">VLAN</h3>
+<ul>
+<li>Hardware-imposed network segmentation by switches</li>
+<li><strong>Static VLAN:</strong> Port-based assignment</li>
+<li><strong>Dynamic VLAN:</strong> Negotiated based on MAC/IP address</li>
+<li><strong>Benefits:</strong> Controls broadcast traffic, reduces sniffers, protects against broadcast storms, performance and security</li>
+</ul>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> VLANs ≠ Subnets. VLANs created by switches; subnets created by IP addressing.</p>
+</blockquote>
+<h3 id="vsan-virtual-storage-area-network">VSAN (Virtual Storage Area Network)</h3>
+<ul>
+<li>Logical partition for VM storage; used in virtualized/cloud environments</li>
+</ul>
+<p>| SAN | VSAN |--|-----|------| <strong>Infrastructure</strong> | Dedicated physical hardware | Uses existing host resources | <strong>Scalability</strong> | Difficult; requires new hardware | Dynamic allocation | <strong>Cost</strong> | Costly; specialized hardware | Less costly | <strong>Performance</strong> | Specialized hardware optimized | Caching and data mirroring |</p>
+<h3 id="sdn-software-defined-networking">SDN (Software-Defined Networking)</h3>
+<ul>
+<li>Separates control plane from data plane</li>
+</ul>
+<p><strong>Three planes:</strong>
+1. <strong>Data plane:</strong> Forwards actual user data (TCP/IP)
+2. <strong>Control plane:</strong> Dictates path flows; where admin manages the network
+3. <strong>Management plane:</strong> Performance, fault management, configuration of remote devices (SNMP)</p>
+<p><strong>SDN Advantages:</strong> Centralized control, network abstraction, scalability, enhanced security, lower costs, network programmability</p>
+<p><strong>SDN Disadvantages:</strong> Latency, limited device management, network complexity, dependency on controller (single point of failure)</p>
+<p><strong>SDN Attacks:</strong>
+- Unauthorized access via compromised controller
+- Data loss (credentials stolen via switches)
+- Data modification (MITM if TLS not mandatory)
+- DoS on SDN controller (bogus calls → packet flood)
+- Malicious/compromised third-party applications</p>
+<h3 id="containerization">Containerization</h3>
+<ul>
+<li>Single OS with multiple isolated user spaces</li>
+<li><strong>Tools:</strong> Docker (building/sharing/running containers) + Kubernetes (orchestration at scale)</li>
+</ul>
+<p><strong>Benefits:</strong> Faster deployment, platform-agnostic, improved security (isolation), flexibility, operational efficiency, cost reduction, scalability, portability</p>
+<p><strong>Limitations:</strong>
+- Well-supported on Linux; limited on Windows
+- Shared kernel vulnerabilities (if kernel compromised, all containers affected)
+- Networking complexity
+- Monitoring challenges
+- Requires specialized expertise</p>
+<p><strong>Container Security Best Practices:</strong>
+- Systems hardening
+- Monitoring with specialized tools
+- Continuous auditing (logs critical)
+- Vulnerability assessments
+- Patching (update base image → rebuild application image)
+- Isolation (run containers from VM for additional isolation)
+- Incident response planning (forensics limited in containers)
+- Secure container management stack
+- Secure images</p>
+<h3 id="virtualization-vs-containerization">Virtualization vs. Containerization</h3>
+<p>| Virtualization | Containerization |--|---------------|-----------------| <strong>Isolation</strong> | Full OS isolation from host | Lightweight isolation; shared kernel | <strong>OS</strong> | Multiple complete OS | Single host OS | <strong>Guest support</strong> | Various OS (Windows, Linux) | Must match host OS | <strong>Deployment</strong> | Each VM with its own hypervisor | Multiple containers on single host | <strong>Storage</strong> | VHD per VM | Local disks per node | <strong>Load balancing</strong> | Failover clusters | Kubernetes orchestrator |</p>
+<h3 id="cloud-migration-587">Cloud Migration (5.8.7)</h3>
+<p><strong>Three forms:</strong> On-premises to cloud, cloud-to-cloud, reverse (cloud to on-premises)</p>
+<p><strong>Security Risks:</strong>
+- Multi-tenancy risks (unaware of other tenants)
+- API vulnerabilities
+- Compliance risk (data protection regulations)
+- Uncontrolled growth
+- Data loss during migration
+- Data security (insecure APIs, malware in transit)
+- Legacy architecture incompatibility
+- Reduced visibility (transferred to CSP)
+- Data remanence (incomplete data deletion)
+- Talent gap</p>
+<p><strong>Security Steps:</strong>
+- Develop secure migration plan
+- Assess current security posture
+- Establish security standards
+- Train employees on cloud security
+- Secure DevSecOps pipeline
+- Evaluate regulatory requirements
+- Encrypt data with TLS/HTTPS
+- Enable strict access control
+- Automate migration process
+- Data backup</p>
+<h3 id="shared-responsibility-model-srm">Shared Responsibility Model (SRM)</h3>
+<ul>
+<li><strong>CSP always responsible for:</strong> Physical security of cloud infrastructure</li>
+<li><strong>Customer always responsible for:</strong> Data security, GRC in the cloud</li>
+<li><strong>Shared:</strong> Security training, patch management, configuration management</li>
+</ul>
+<h3 id="cloud-deployment-models">Cloud Deployment Models</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Description</th>
+<th>Security Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Public</strong></td>
+<td>CSP owned; accessible to everyone</td>
+<td>Least secure</td>
+</tr>
+<tr>
+<td><strong>Private</strong></td>
+<td>Dedicated infrastructure; customer has more control</td>
+<td>High security</td>
+</tr>
+<tr>
+<td><strong>Hybrid</strong></td>
+<td>Mix of public and private</td>
+<td>Medium-high security</td>
+</tr>
+<tr>
+<td><strong>Community</strong></td>
+<td>Shared by member organizations</td>
+<td>High (like private)</td>
+</tr>
+<tr>
+<td><strong>Multi-cloud</strong></td>
+<td>Multiple public clouds</td>
+<td>Can have loopholes; increased attack surface</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="cloud-service-models">Cloud Service Models</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Description</th>
+<th>Target Users</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IaaS</strong></td>
+<td>Infrastructure (servers, storage, network)</td>
+<td>Sysadmins wanting full OS/app freedom</td>
+</tr>
+<tr>
+<td><strong>PaaS</strong></td>
+<td>Application development sandbox</td>
+<td>Developers</td>
+</tr>
+<tr>
+<td><strong>SaaS</strong></td>
+<td>Complete applications on demand</td>
+<td>End users</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="key-cloud-risks-csa-pandemic-eleven">Key Cloud Risks (CSA Pandemic Eleven)</h3>
+<ol>
+<li>Insufficient IAM and key management</li>
+<li>Insecure interfaces and APIs</li>
+<li>Misconfiguration and inadequate change control</li>
+<li>Lack of cloud security architecture and strategy</li>
+<li>Insecure software development</li>
+<li>Unsecured third-party resources</li>
+<li>System vulnerabilities</li>
+<li>Accidental cloud data disclosure</li>
+<li>Misconfigured container/serverless workloads</li>
+<li>Organized crime, hackers, APTs</li>
+<li>Cloud storage data exfiltration</li>
+</ol>
+<h3 id="devsecops">DevSecOps</h3>
+<ul>
+<li>Integrates security throughout SDLC from beginning ("shift left")</li>
+<li>Merges Dev + Sec + Ops</li>
+<li><strong>Benefits:</strong> Fast/secure delivery, proactive security, fast vulnerability remediation, automation, simplified compliance, standardized security</li>
+<li><strong>Best practices:</strong> Shift security left, incorporate compliance, invest in training, improve culture, enhance observability</li>
+</ul>
+<hr />
+<p><a name="59"></a></p>
+<h2 id="59-mobile-wireless-and-iot-devices">5.9 Mobile, Wireless, and IoT Devices</h2>
+<h3 id="mobile-computing-vulnerabilities-and-risks">Mobile Computing Vulnerabilities and Risks</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Vulnerability</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Less secure wireless networks</td>
+<td>Information interception</td>
+</tr>
+<tr>
+<td>Crossing network perimeters</td>
+<td>Malware propagation</td>
+</tr>
+<tr>
+<td>Discoverable Bluetooth</td>
+<td>Device corruption, data exposure</td>
+</tr>
+<tr>
+<td>Unencrypted data on device</td>
+<td>Data exposure</td>
+</tr>
+<tr>
+<td>No authentication on device</td>
+<td>Unauthorized access</td>
+</tr>
+<tr>
+<td>Unsigned third-party apps</td>
+<td>Malware propagation</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="mobile-device-controls">Mobile Device Controls</h3>
+<ul>
+<li>Device registration in database</li>
+<li>Physical security (cable locks, motion detectors)</li>
+<li>Disable Bluetooth when not in use (airplane mode may not disable Bluetooth)</li>
+<li>Avoid public Wi-Fi; delete unused Wi-Fi networks</li>
+<li>Regular software updates</li>
+<li>Disable location services when not needed</li>
+<li>Strong lock screen passwords (auto-lock after 3 minutes)</li>
+<li>Minimal apps from official stores only</li>
+<li>Regular data backup</li>
+<li>Antivirus software</li>
+<li>MFA for device access</li>
+<li>VPN for enterprise connections</li>
+</ul>
+<h3 id="mdm-mobile-device-management">MDM (Mobile Device Management)</h3>
+<p><strong>Features:</strong>
+- <strong>Encryption</strong>
+- <strong>Remote wiping</strong> (does NOT guarantee data security; data recovery utilities can recover wiped data)
+- <strong>Device lockout</strong>
+- <strong>Asset management</strong> (GPS tracking)
+- <strong>Application control</strong>
+- <strong>Device troubleshooting</strong> (remote)
+- <strong>Credential management</strong>
+- <strong>Secure remote access</strong></p>
+<h3 id="byod-bring-your-own-device">BYOD (Bring Your Own Device)</h3>
+<p><strong>Benefits:</strong> Increased productivity, improved morale, cost savings</p>
+<p><strong>Security Issues:</strong>
+- Protection of sensitive data and intellectual property
+- Protection of connected networks
+- Responsibility for device and stored data
+- Data removal on termination/device loss
+- Malware protection</p>
+<p><strong>BYOD Best Practices:</strong>
+- Establish data ownership upfront
+- Obtain user acceptance (AUA - Acceptable Use Agreement)
+- Enforce organizational security policies for personal devices
+- Define patch management processes
+- Effective antivirus management
+- Consider infrastructure requirements (wireless capacity)
+- Exit BYOD strategy (when employee leaves)</p>
+<h3 id="wireless-networks">Wireless Networks</h3>
+<p><strong>Types by coverage:</strong> | Type | Range | Technology |------|-------|-----------| <strong>WWAN</strong> | Wide area | 4G LTE, 5G, GSM | <strong>WLAN</strong> | Building (~100m) | 802.11 (Wi-Fi); AP connects to wired LAN | <strong>WPAN</strong> | Short range (~15m) | Bluetooth, ZigBee, infrared | <strong>Ad hoc</strong> | Variable | Mobile routers; shifting topology |</p>
+<h3 id="wireless-security-standards-comparison">Wireless Security Standards Comparison</h3>
+<p>| WEP | WPA | WPA2 | WPA3 |--|-----|-----|------|------| <strong>Encryption</strong> | RC4 | TKIP+RC4 | CCMP+AES | AES | <strong>Session key</strong> | 40-bit | 128-bit | 128-bit | 128/192-bit | <strong>Cipher</strong> | Stream | Stream | Block | Block | <strong>Key mgmt</strong> | None | 4-way handshake | 4-way handshake | SAE | <strong>Replay protection</strong> | None | Sequence counter | 48-bit packet number | Mandatory PMF | <strong>Status</strong> | Broken | Replaced | Use AES | Current |</p>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> WEP = broken/avoid. WPA2 with AES = acceptable. WPA3 = current best. CCMP uses AES with 128-bit key.</p>
+</blockquote>
+<h3 id="wireless-security-protocols">Wireless Security Protocols</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>802.1X/EAP</strong></td>
+<td>Port-based network access control; supports RADIUS, TACACS, certificates, smart cards</td>
+</tr>
+<tr>
+<td><strong>EAP</strong></td>
+<td>Authentication framework; not all methods are secure (EAP-MD5 is breakable)</td>
+</tr>
+<tr>
+<td><strong>PEAP</strong></td>
+<td>Wraps EAP in TLS tunnel</td>
+</tr>
+<tr>
+<td><strong>LEAP</strong></td>
+<td>Insecure; avoid (Cisco legacy)</td>
+</tr>
+<tr>
+<td><strong>TKIP</strong></td>
+<td>WPA replacement for WEP; uses RC4; replaced by WPA2</td>
+</tr>
+<tr>
+<td><strong>CCMP</strong></td>
+<td>WPA2 standard; uses AES 128-bit; no successful attacks</td>
+</tr>
+<tr>
+<td><strong>MAC filter</strong></td>
+<td>ACL of authorized MAC addresses; difficult to manage; MAC can be spoofed</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="mobile-payment-systems">Mobile Payment Systems</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>System</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Digital wallets (e-wallets)</strong></td>
+<td>Financial apps storing value digitally</td>
+</tr>
+<tr>
+<td><strong>Mobile wallets</strong></td>
+<td>Device-specific (Apple Pay, Samsung Pay)</td>
+</tr>
+<tr>
+<td><strong>Digital currency wallets</strong></td>
+<td>Cryptocurrency wallets (private keys)</td>
+</tr>
+<tr>
+<td><strong>Contactless payment</strong></td>
+<td>NFC/RFID chip-based payment</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Mobile Payment Threats:</strong> Phishing, mobile malware, spoofing, unauthorized access, tampering, application vulnerabilities, payment fraud, token data compromise, identity theft, cloned applications</p>
+<p><strong>Security Best Practices:</strong>
+- Employ tokenization
+- Device-specific cryptograms
+- 3D Secure authentication
+- Strong Customer Authentication (SCA)
+- Continuous fraud monitoring
+- Regular audits
+- User awareness training</p>
+<h3 id="iot-internet-of-things">IoT (Internet of Things)</h3>
+<p><strong>IoT Risk Categories:</strong>
+- Business risk (health/safety, compliance, privacy, costs)
+- Operational risk (inappropriate access, shadow use, performance)
+- Technical risk (device vulnerabilities, updates, management)</p>
+<p><strong>Major IoT Risks:</strong>
+- Low software quality
+- Lack of encryption (most IoT devices don't encrypt)
+- Low processing power
+- Outdated hardware/software
+- Backdoor accounts
+- Poor device management
+- Interconnectedness (one compromised → spreads)
+- Absence of inbuilt security</p>
+<p><strong>IoT Security Controls:</strong>
+- Physical security (IMEI lock, eSIM)
+- Remote access security (lock SIM to device)
+- Use private networks (avoid public Wi-Fi)
+- Encryption
+- Network isolation (minimize connectivity)
+- Abnormality prevention and detection (firewalls)</p>
+<hr />
+<p><a name="510"></a></p>
+<h2 id="510-security-awareness-training-and-programs">5.10 Security Awareness Training and Programs</h2>
+<h3 id="information-security-learning-continuum">Information Security Learning Continuum</h3>
+<pre><code>Security Awareness → Security Training → Security Education
+(Passive) (Focused/skills) (Deep/professional)
+</code></pre>
+<p>| Awareness | Training | Education |--|-----------|---------|-----------| <strong>Knowledge level</strong> | What (characteristics) | How (operations) | Why (reasons) | <strong>Objective</strong> | Knowledge retention | Practical ability to complete tasks | Broad understanding with critical analysis | <strong>Methods</strong> | Self-paced e-learning, videos | Instructor-led, demos, lab exercises | Seminars, research, lectures | <strong>Time frame</strong> | Short-term | Intermediate-term | Long-term | <strong>Testing</strong> | Quizzes, true/false, multiple choice | Application problem solving, practical tests | Architecture exercises, examinations |</p>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> People = weakest link in information security. Awareness starts at hire and continues regularly.</p>
+</blockquote>
+<h3 id="benefits-of-security-awareness-program">Benefits of Security Awareness Program</h3>
+<ul>
+<li>Supports individual accountability</li>
+<li>Serves as preventive control</li>
+<li>Serves as detective control (employees identify/report incidents)</li>
+<li>Lowers security risk</li>
+<li>Serves as foundation for other security controls</li>
+</ul>
+<h3 id="security-awareness-mechanisms">Security Awareness Mechanisms</h3>
+<ul>
+<li>Computer-based training (CBT)</li>
+<li>Email reminders and security tips</li>
+<li>Written policies and procedures</li>
+<li>Nondisclosure statements</li>
+<li>Newsletters, web pages, videos, posters, login reminders</li>
+<li>Visible enforcement of security rules</li>
+<li>Simulated security incidents</li>
+<li>Rewards for reporting suspicious events</li>
+</ul>
+<h3 id="implementing-awareness-and-training-program">Implementing Awareness and Training Program</h3>
+<p><strong>Steps:</strong>
+1. Define program scope (goals, objectives, strategies)
+2. Select training staff (internal/external)
+3. Identify target audience (through needs assessment)
+4. Motivate management and employees
+5. Administer the program
+6. Maintain the program (update with changing landscape)
+7. Evaluate the program (questionnaires, observations, testing, incident monitoring, focus groups)</p>
+<h3 id="needs-assessment-by-role">Needs Assessment by Role</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Training Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Executive management</strong></td>
+<td>Strategic understanding; legal frameworks; resource allocation</td>
+</tr>
+<tr>
+<td><strong>IS security personnel</strong></td>
+<td>Technical aspects; security policy; best practices</td>
+</tr>
+<tr>
+<td><strong>System owners</strong></td>
+<td>High-level understanding of security controls for their systems</td>
+</tr>
+<tr>
+<td><strong>Sysadmins/IS support</strong></td>
+<td>Technical knowledge similar to security personnel</td>
+</tr>
+<tr>
+<td><strong>Operational staff/users</strong></td>
+<td>Security awareness; acceptable use rules; highest risk group</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<p><a name="511"></a></p>
+<h2 id="511-information-system-attack-methods-and-techniques">5.11 Information System Attack Methods and Techniques</h2>
+<h3 id="fraud-triangle">Fraud Triangle</h3>
+<pre><code> Motivation / \ / \
+Opportunity ---- Rationalization
+</code></pre>
+<ul>
+<li><strong>Motivation:</strong> Perceived financial or other need</li>
+<li><strong>Rationalization:</strong> Justification (e.g., "I deserve it")</li>
+<li><strong>Opportunity:</strong> Method and access to commit fraud (most controllable by organization)</li>
+</ul>
+<h3 id="perpetrators-of-computer-crimes">Perpetrators of Computer Crimes</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hackers</strong></td>
+<td>Explore systems; may not have malicious intent</td>
+</tr>
+<tr>
+<td><strong>Crackers</strong></td>
+<td>Break in with malicious intent (illegal); targeted by law enforcement</td>
+</tr>
+<tr>
+<td><strong>Script kiddies</strong></td>
+<td>Use others' scripts; cannot write their own</td>
+</tr>
+<tr>
+<td><strong>Employees</strong></td>
+<td>Authorized insiders with system access</td>
+</tr>
+<tr>
+<td><strong>IT personnel</strong></td>
+<td>Custodians with easy access; need strong SoD</td>
+</tr>
+<tr>
+<td><strong>Former employees</strong></td>
+<td>May retain access if not promptly revoked</td>
+</tr>
+<tr>
+<td><strong>Nations</strong></td>
+<td>State-sponsored attacks on critical infrastructure</td>
+</tr>
+<tr>
+<td><strong>Hacktivists</strong></td>
+<td>Political motivation</td>
+</tr>
+<tr>
+<td><strong>Organized crime</strong></td>
+<td>Financial motivation</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="computer-crime-types">Computer Crime Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Source</th>
+<th>Target</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Computer is target</td>
+<td>Another computer</td>
+<td>Specific computer</td>
+<td>DoS, hacking</td>
+</tr>
+<tr>
+<td>Computer is subject</td>
+<td>Computer itself</td>
+<td>Another computer</td>
+<td>DDoS, malware</td>
+</tr>
+<tr>
+<td>Computer is tool</td>
+<td>Computer</td>
+<td>Data on computer</td>
+<td>Fraud, unauthorized access, phishing, keyloggers</td>
+</tr>
+<tr>
+<td>Computer is symbol</td>
+<td>User is lured</td>
+<td>Computer user</td>
+<td>Social engineering, phishing, fake websites</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="common-attack-methods-and-techniques">Common Attack Methods and Techniques</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Attack</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alteration attack</strong></td>
+<td>Unauthorized modification of data/code; defended by cryptographic hash</td>
+</tr>
+<tr>
+<td><strong>Botnet</strong></td>
+<td>Compromised "zombie" computers running attack software</td>
+</tr>
+<tr>
+<td><strong>DoS/DDoS</strong></td>
+<td>Floods bandwidth or resources; types include ICMP flood, SYN flood, Smurf, Teardrop, PDoS (phlashing)</td>
+</tr>
+<tr>
+<td><strong>Eavesdropping</strong></td>
+<td>Passive interception of network traffic</td>
+</tr>
+<tr>
+<td><strong>Phishing</strong></td>
+<td>Fraudulent acquisition of credentials; types: spear phishing (targeted), whaling (executives), smishing (SMS), vishing (voice)</td>
+</tr>
+<tr>
+<td><strong>Flooding</strong></td>
+<td>DoS variant filling host memory buffers</td>
+</tr>
+<tr>
+<td><strong>Interrupt attack</strong></td>
+<td>Malicious OS system calls (e.g., boot sector virus)</td>
+</tr>
+<tr>
+<td><strong>Juice jacking</strong></td>
+<td>Malware via public USB charging ports</td>
+</tr>
+<tr>
+<td><strong>Man-in-the-middle</strong></td>
+<td>Attacker intercepts/modifies communications</td>
+</tr>
+<tr>
+<td><strong>Masquerading</strong></td>
+<td>Presenting false identity; IP spoofing variant</td>
+</tr>
+<tr>
+<td><strong>Message modification</strong></td>
+<td>Capturing and altering messages in transit</td>
+</tr>
+<tr>
+<td><strong>Network analysis</strong></td>
+<td>Footprinting/reconnaissance of network infrastructure</td>
+</tr>
+<tr>
+<td><strong>Packet replay</strong></td>
+<td>Capturing and re-injecting network packets</td>
+</tr>
+<tr>
+<td><strong>Pharming</strong></td>
+<td>DNS cache poisoning to redirect to fake sites</td>
+</tr>
+<tr>
+<td><strong>Piggybacking</strong></td>
+<td>Following authorized person through secure door (physical)</td>
+</tr>
+<tr>
+<td><strong>Race conditions (TOC/TOU)</strong></td>
+<td>Exploiting time gap between security check and use</td>
+</tr>
+<tr>
+<td><strong>Salami</strong></td>
+<td>Small fraudulent amounts sliced from transactions</td>
+</tr>
+<tr>
+<td><strong>Social engineering</strong></td>
+<td>Human manipulation (impersonation, dumpster diving, shoulder surfing)</td>
+</tr>
+<tr>
+<td><strong>SQL injection</strong></td>
+<td>Inserting SQL commands into input fields</td>
+</tr>
+<tr>
+<td><strong>Zero-day exploit</strong></td>
+<td>Exploits previously unknown vulnerability; antivirus not effective</td>
+</tr>
+<tr>
+<td><strong>Cryptojacking</strong></td>
+<td>Hijacks computer to mine cryptocurrency</td>
+</tr>
+<tr>
+<td><strong>XSS</strong></td>
+<td>Scripts infect users visiting websites</td>
+</tr>
+<tr>
+<td><strong>CSRF</strong></td>
+<td>Forces victim to execute unwanted actions in authenticated web app</td>
+</tr>
+<tr>
+<td><strong>DNS tunneling</strong></td>
+<td>Inserts malware into DNS queries for persistent access</td>
+</tr>
+<tr>
+<td><strong>URL poisoning</strong></td>
+<td>Alters URL to gain unauthorized access</td>
+</tr>
+<tr>
+<td><strong>DNS spoofing</strong></td>
+<td>Alters DNS records to redirect to fake website</td>
+</tr>
+<tr>
+<td><strong>Traffic analysis</strong></td>
+<td>Analyzes communication patterns (used when encryption prevents content reading)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="malware-types">Malware Types</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Virus</strong></td>
+<td>Self-replicating; attaches to programs; spreads via sharing</td>
+</tr>
+<tr>
+<td><strong>Worm</strong></td>
+<td>Self-propagating without attaching; exploits OS weaknesses</td>
+</tr>
+<tr>
+<td><strong>Trojan horse</strong></td>
+<td>Disguised as legitimate software; opens backdoors</td>
+</tr>
+<tr>
+<td><strong>Logic bomb</strong></td>
+<td>Triggered by event/time/condition (e.g., employee termination date)</td>
+</tr>
+<tr>
+<td><strong>Backdoor/Trap door</strong></td>
+<td>Hidden code allowing unauthorized re-entry</td>
+</tr>
+<tr>
+<td><strong>Ransomware</strong></td>
+<td>Encrypts data; demands payment; double extortion</td>
+</tr>
+<tr>
+<td><strong>Spyware/Adware</strong></td>
+<td>Collects data; transmits to attacker</td>
+</tr>
+<tr>
+<td><strong>Rootkit</strong></td>
+<td>Hides malware; runs below OS level</td>
+</tr>
+<tr>
+<td><strong>Botnet</strong></td>
+<td>Network of compromised zombie computers</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ransomware">Ransomware</h3>
+<p><strong>Stages:</strong>
+1. Initial access (usually phishing email with malicious link/attachment)
+2. File encryption (asymmetric encryption; attacker withholds private key)
+3. Ransom demand (cryptocurrency; ransom note on screen)</p>
+<p><strong>Prevention:</strong>
+- Use secure networks (VPN)
+- Continuous data backups (immutable backups)
+- Effective patch management
+- Strong authentication
+- Minimal attack surface
+- Antiransomware solutions</p>
+<p><strong>Active Infection Response:</strong>
+- Quarantine the machine
+- Contain spread (disconnect suspicious devices)
+- Do NOT switch off system (preserves volatile memory)
+- Create backup of encrypted files
+- Check for decryptors
+- Locate patient zero
+- Wipe and restore from clean backup
+- Report to authorities</p>
+<p><strong>Ethical consideration:</strong> Law enforcement urges NOT paying ransom (encourages more attacks; payment may not result in decryption).</p>
+<h3 id="owasp-top-10">OWASP Top 10</h3>
+<p>The 10 most common web application vulnerabilities (referenced in CISA exam context).</p>
+<hr />
+<p><a name="512"></a></p>
+<h2 id="512-security-testing-tools-and-techniques">5.12 Security Testing Tools and Techniques</h2>
+<h3 id="objectives-of-security-testing">Objectives of Security Testing</h3>
+<ol>
+<li>Identification of assets</li>
+<li>Identification of threats and vulnerabilities</li>
+<li>Identification of risk</li>
+<li>Performance of remediation</li>
+<li>Evaluation of strength of assets and controls</li>
+<li>Adherence to security principles (CIA, authentication, authorization, nonrepudiation)</li>
+</ol>
+<h3 id="security-assessments-vs-security-audits">Security Assessments vs. Security Audits</h3>
+<p>| Security Assessment | Security Audit |--|--------------------|--------------------| <strong>Purpose</strong> | Identify, evaluate, prioritize vulnerabilities and threats | Review against recognized standard or framework | <strong>Nature</strong> | Both quantitative and qualitative | Compliance-based | <strong>Scope</strong> | Any part of IS infrastructure; anytime | Against specific standard (PCI DSS, ISO 27002, HIPAA) | <strong>Output</strong> | Risk profiles; controls to implement | Level of compliance |</p>
+<h3 id="vulnerability-assessment">Vulnerability Assessment</h3>
+<ul>
+<li>Identifies vulnerabilities in target systems</li>
+<li><strong>Goals:</strong></li>
+<li>Evaluate security posture</li>
+<li>Identify, evaluate, prioritize vulnerabilities</li>
+<li>Assess reaction to vulnerabilities/attacks</li>
+<li>Identify exploitation paths</li>
+<li>Decide on controls to implement</li>
+</ul>
+<h3 id="penetration-testing">Penetration Testing</h3>
+<p><strong>Types:</strong> | Type | Description |------|-------------| <strong>External</strong> | Attacks from outside perimeter (internet) | <strong>Internal</strong> | Attacks from within the perimeter | <strong>Blind</strong> | Tester has limited/no knowledge of target | <strong>Double blind</strong> | Both tester and target staff unaware | <strong>Targeted</strong> | Both IT team and testers aware; collaborative |</p>
+<p><strong>Phases:</strong>
+1. Planning (rules of engagement, management approval, goals, timelines, tools)
+2. Reconnaissance/Discovery (network mapping, DNS interrogation, WHOIS, social media, port scanning)
+3. Attacks (privilege escalation, internal information gathering, installing further attack tools)
+4. Reporting (concurrent with all phases)</p>
+<p><strong>Manual vs. Automated:</strong> | Manual | Automated |--|--------|-----------| <strong>Performed by</strong> | Human experts | Tools with minimal human input | <strong>Results</strong> | Comprehensive; can find hidden vulnerabilities | Fixed predefined tests only | <strong>Speed</strong> | Slower | Faster | <strong>Reliability</strong> | More reliable | Less reliable (only partial attack surface) |</p>
+<p><strong>Pen Test vs. Ethical Hacking:</strong> | Penetration Testing | Ethical Hacking |--|--------------------|-----------------| <strong>Scope</strong> | Specific aspect per documented scope | Entire system; multiple attack vectors | <strong>Duration</strong> | Once-off; limited | Continuous | <strong>Results</strong> | Less detailed | In-depth, comprehensive | <strong>Reporting</strong> | Required; proficient writers needed | Not always required |</p>
+<h3 id="vulnerability-assessment-vs-penetration-testing">Vulnerability Assessment vs. Penetration Testing</h3>
+<p>| Vulnerability Assessment | Penetration Testing |--|--------------------------|---------------------| <strong>Goal</strong> | Uncover known vulnerabilities | Uncover AND exploit vulnerabilities | <strong>Frequency</strong> | Quarterly or after changes | Once or twice yearly | <strong>Scope</strong> | Wide and broad (surface scanning) | Focused and deep | <strong>Performers</strong> | Automated tools + in-house oversight | Experienced external experts | <strong>Outcome</strong> | List of known vulnerabilities | Prioritized exploitable vulns + narratives |</p>
+<h3 id="security-testing-techniques">Security Testing Techniques</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Also Known As</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SAST</strong></td>
+<td>White box testing</td>
+<td>Static analysis; source code reviewed without running; developer's perspective; catches early SDLC vulnerabilities; cannot detect runtime vulns</td>
+</tr>
+<tr>
+<td><strong>DAST</strong></td>
+<td>Black box testing</td>
+<td>Dynamic analysis; running application; attacker's perspective; no source code access; catches later SDLC vulnerabilities</td>
+</tr>
+<tr>
+<td><strong>IAST</strong></td>
+<td>Grey box testing</td>
+<td>Combines SAST + DAST; real-time analysis; broader test coverage</td>
+</tr>
+<tr>
+<td><strong>MAST</strong></td>
+<td>Mobile testing</td>
+<td>Static + dynamic + forensics for mobile apps</td>
+</tr>
+<tr>
+<td><strong>SCA</strong></td>
+<td>Software Composition Analysis</td>
+<td>Identifies open-source components with vulnerabilities</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="security-teams-comparison">Security Teams Comparison</h3>
+<p>| Blue Team | Red Team | Purple Team |--|-----------|----------|------------| <strong>Objective</strong> | Detect and mitigate cyberattacks | Test resilience against real attacks | Improve security posture | <strong>Positioning</strong> | Continuous | Periodic | Periodic | <strong>Tools</strong> | EDR, SIEM | Sophisticated/stealthy tools | Sophisticated tools + detection software | <strong>Testing</strong> | No controls tested | Detective and responsive | Detective and preventive |</p>
+<h3 id="soc-security-operations-center">SOC (Security Operations Center)</h3>
+<p>A team of IT security professionals continuously monitoring entire IT infrastructure.</p>
+<p><strong>SOC Activities:</strong>
+- Asset inventory management
+- Security research (threat intelligence)
+- Events monitoring
+- Investigating and triaging incidents
+- Security infrastructure management
+- Information security testing
+- Patch management
+- Incident response
+- Post-mortem and refinement</p>
+<hr />
+<p><a name="513"></a></p>
+<h2 id="513-security-monitoring-logs-tools-and-techniques">5.13 Security Monitoring Logs, Tools, and Techniques</h2>
+<h3 id="information-security-monitoring-benefits">Information Security Monitoring Benefits</h3>
+<ul>
+<li>Enforces accountability</li>
+<li>Promotes positive behavior</li>
+<li>Encourages compliance culture</li>
+<li>Supports investigations</li>
+<li>Identifies security problems</li>
+</ul>
+<h3 id="ids-intrusion-detection-systems">IDS (Intrusion Detection Systems)</h3>
+<p><strong>Broad Categories:</strong> | Type | Description |------|-------------| <strong>Network-based IDS</strong> | Monitors network traffic; placed before or after firewall | <strong>Host-based IDS</strong> | Monitors internal OS resources on specific hosts |</p>
+<p><strong>IDS Types:</strong> | Type | Mechanism |------|-----------| <strong>Signature-based</strong> | Compares against known attack signatures | <strong>Statistical-based</strong> | Defines expected behavior baseline; detects anomalies | <strong>Neural networks</strong> | Self-learning; monitors patterns and creates baseline |</p>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> IDS is NOT a substitute for a firewall; it complements the firewall.</p>
+</blockquote>
+<p><strong>IDS Limitations:</strong> Cannot help with policy definition weaknesses, application-level vulnerabilities, backdoors, or weak I&amp;A schemes.</p>
+<h3 id="ips-intrusion-prevention-systems">IPS (Intrusion Prevention Systems)</h3>
+<ul>
+<li>Goes beyond IDS by actively blocking attacks</li>
+<li>Can disconnect originating sessions, block IP addresses, reconfigure firewall/router</li>
+<li><strong>Concern:</strong> Can become a threat itself if targeted by clever attacker</li>
+</ul>
+<p><strong>IPS Types:</strong> | Type | Description |------|-------------| <strong>HIPS (Host-based)</strong> | Software on individual clients/servers | <strong>NIPS (Network-based)</strong> | Deployed within enterprise network; monitors all traffic | <strong>WIPS (Wireless)</strong> | Monitors radio waves for unauthorized APs |</p>
+<h3 id="ids-vs-ips">IDS vs. IPS</h3>
+<p>| IDS | IPS |--|-----|-----| <strong>Nature</strong> | Monitoring/detection tool | Control-based prevention tool | <strong>Action</strong> | Alerts; requires human action | Stops traffic; can act independently | <strong>Location</strong> | Across organizational network | Same location as firewall | <strong>Configuration</strong> | Inline | Behind firewall; end host or inline mode | <strong>Interrelation</strong> | Cannot do IPS job | Can do IDS job |</p>
+<h3 id="honeypots-and-honeynets">Honeypots and Honeynets</h3>
+<ul>
+<li><strong>Honeypot:</strong> Decoy system that lures hackers; passive; not actively protecting</li>
+<li>High-interaction: Real attack environment</li>
+<li>Low-interaction: Emulates production environment</li>
+<li><strong>Honeynet:</strong> Multiple linked honeypots simulating larger network</li>
+<li>All honeypot/honeynet traffic is assumed suspicious (not for internal use)</li>
+<li><strong>Risk:</strong> External monitoring services may flag as vulnerable</li>
+</ul>
+<h3 id="audit-logging">Audit Logging</h3>
+<ul>
+<li>Access control software logs all access attempts</li>
+<li>Issues: What to log, who can access logs, how long retained</li>
+</ul>
+<p><strong>Access to Logs:</strong>
+- Security managers/system admins should have review access
+- Security/admin personnel maintaining logical access functions may NOT need audit log access
+- Protect integrity using digital signatures, write-once devices, or SIEM</p>
+<h3 id="audit-trail-analysis-tools">Audit Trail Analysis Tools</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audit reduction tools</strong></td>
+<td>Pre-processors reducing log volume; remove known benign records</td>
+</tr>
+<tr>
+<td><strong>Trend/variance detection</strong></td>
+<td>Look for anomalies in behavior patterns</td>
+</tr>
+<tr>
+<td><strong>Attack-signature detection</strong></td>
+<td>Find specific event sequences indicating attacks</td>
+</tr>
+<tr>
+<td><strong>SIEM</strong></td>
+<td>Captures and analyzes audit trails in real-time; aggregates from multiple sources</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="protecting-log-data">Protecting Log Data</h3>
+<ul>
+<li>Centralize log storage</li>
+<li>Implement access controls (users should have append-only, no read access)</li>
+<li>Restrict logging of sensitive data</li>
+<li>Establish log policies (backup, retention)</li>
+<li>Implement secure log transfer (IPSec, TLS)</li>
+<li>Secure storage media</li>
+<li>Protect archived log files (message digests, encryption)</li>
+<li>Implement log disposal controls (ensure complete destruction)</li>
+</ul>
+<h3 id="siem-security-information-and-event-management">SIEM (Security Information and Event Management)</h3>
+<p><strong>Two components:</strong>
+1. <strong>SIM (Security Information Management):</strong> Historical log data analysis
+2. <strong>SEM (Security Event Management):</strong> Real-time monitoring and correlation</p>
+<p><strong>Log Collection Methods:</strong>
+- <strong>Agentless:</strong> SIEM server retrieves logs from hosts (no software on hosts)
+- <strong>Agent-based:</strong> Agent software installed on hosts; real-time filtering and normalization</p>
+<p><strong>SIEM Benefits:</strong> Enhanced analytics, regulatory compliance, faster security response, supports investigations, improves threat intelligence, real-time detection, reduces staffing needs</p>
+<p><strong>SIEM Features:</strong>
+- Policies (rules, alerts, reports, dashboards)
+- Security knowledge base
+- Log data management
+- Event correlation and analytics
+- Notifications and alerts
+- Network visibility
+- Security incident monitoring
+- Compliance reporting</p>
+<h3 id="siem-vs-soar">SIEM vs. SOAR</h3>
+<p>| SIEM | SOAR |--|------|------| <strong>Primary function</strong> | Detect and alert | Detect, alert, AND automate response | <strong>Data sources</strong> | Logs and events from IT infrastructure | SIEM data + endpoint security + cloud alerts + IoT | <strong>Response</strong> | Sends alerts to analysts | Automated response + prediction | <strong>Investigation</strong> | Alerts only | Full investigation with automation |</p>
+<hr />
+<p><a name="514"></a></p>
+<h2 id="514-security-incident-response-management">5.14 Security Incident Response Management</h2>
+<h3 id="incident-response-process-nist-800-61-rev-2">Incident Response Process (NIST 800-61 Rev. 2)</h3>
+<pre><code>Preparation → Detection &amp; Analysis → Containment, Eradication &amp; Recovery → Post-Incident Activity
+</code></pre>
+<h4 id="1-preparation">1. Preparation</h4>
+<ul>
+<li>Define what constitutes an incident</li>
+<li>Create incident response policy</li>
+<li>Develop SOPs</li>
+<li>Establish communication guidelines</li>
+<li>Define IR activities</li>
+<li>Select IR team (size, geographic diversity, 24/7 availability, cost, expertise)</li>
+<li>Establish notification mechanisms</li>
+</ul>
+<h4 id="2-detection-and-analysis">2. Detection and Analysis</h4>
+<ul>
+<li>Use automated detection (IDS/IPS, antivirus, log analyzers)</li>
+<li>Manual detection (user reports)</li>
+<li>Determine type, extent, magnitude of incident</li>
+<li>Use robust monitoring: security cameras, motion detectors, smoke alarms</li>
+</ul>
+<h4 id="3-containment-eradication-and-recovery">3. Containment, Eradication, and Recovery</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Containment</strong></td>
+<td>Stop spread; disconnect from network; disable functions; documented containment strategies per incident type</td>
+</tr>
+<tr>
+<td><strong>Eradication</strong></td>
+<td>Remove malicious code, disable breached accounts</td>
+</tr>
+<tr>
+<td><strong>Recovery</strong></td>
+<td>Restore from backups, rebuild, patch, change passwords, tighten perimeter</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="4-post-incident-activity">4. Post-Incident Activity</h4>
+<ul>
+<li>Lessons-learned meeting</li>
+<li>Update security controls and policies</li>
+<li>Use for future training</li>
+<li>Identify systemic weaknesses</li>
+</ul>
+<h3 id="csirt-computer-security-incident-response-team">CSIRT (Computer Security Incident Response Team)</h3>
+<p><strong>Responsibilities:</strong>
+- Determine scope and extent of damage
+- Determine if information was compromised
+- Implement recovery procedures
+- Supervise additional security measures</p>
+<p><strong>Functions:</strong> Detective, corrective, AND preventive control</p>
+<h3 id="irp-best-practices">IRP Best Practices</h3>
+<ul>
+<li>Automate repetitive tasks</li>
+<li>Use templates and playbooks</li>
+<li>Centralize IR initiatives</li>
+<li>Test the plan regularly (exercises and drills)</li>
+<li>Invest in training and development</li>
+<li>Standardize incident response</li>
+<li>Obtain executive buy-in</li>
+<li>Confirm roles and responsibilities (have reserves)</li>
+<li>Document critical assets by criticality</li>
+<li>Establish crisis communications plan</li>
+</ul>
+<h3 id="soar-security-orchestration-automation-and-response">SOAR (Security Orchestration, Automation, and Response)</h3>
+<p><strong>Three components:</strong>
+1. <strong>Orchestration:</strong> Connects and integrates disparate security systems
+2. <strong>Automation:</strong> Eliminates manual tasks; automates repetitive activities
+3. <strong>Response:</strong> Manages, plans, coordinates responses to threats</p>
+<p><strong>Benefits:</strong> Promotes visibility, reduces security costs, improves efficiency and effectiveness, promotes flexibility, enhances collaboration, streamlines operations</p>
+<hr />
+<p><a name="515"></a></p>
+<h2 id="515-evidence-collection-and-forensics">5.15 Evidence Collection and Forensics</h2>
+<h3 id="types-of-investigations">Types of Investigations</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Administrative</strong></td>
+<td>Provide info to determine appropriate course of action; often HR-related</td>
+</tr>
+<tr>
+<td><strong>Criminal</strong></td>
+<td>When crime is suspected; evidence for court; must prove guilt beyond reasonable doubt</td>
+</tr>
+<tr>
+<td><strong>Civil</strong></td>
+<td>One entity sues another; monetary damages; preponderance of evidence standard</td>
+</tr>
+<tr>
+<td><strong>Regulatory</strong></td>
+<td>Conducted by regulatory body against organization</td>
+</tr>
+<tr>
+<td><strong>Industry standards</strong></td>
+<td>Determines adherence to specific industry standards</td>
+</tr>
+<tr>
+<td><strong>Forensic</strong></td>
+<td>Scientific gathering of evidence for court; documented chain of evidence</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="types-of-computer-forensics">Types of Computer Forensics</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database forensics</strong></td>
+<td>Retrieval and examination of database data and metadata</td>
+</tr>
+<tr>
+<td><strong>Email forensics</strong></td>
+<td>Retrieval and analysis of email content</td>
+</tr>
+<tr>
+<td><strong>Mobile forensics</strong></td>
+<td>Retrieval from mobile devices (messages, photos, contacts)</td>
+</tr>
+<tr>
+<td><strong>Memory forensics</strong></td>
+<td>Data from computer memory/cache (volatile data; live analysis technique)</td>
+</tr>
+<tr>
+<td><strong>Network forensics</strong></td>
+<td>Monitor network traffic; capture, record, analyze network events</td>
+</tr>
+<tr>
+<td><strong>Malware forensics</strong></td>
+<td>Examine code to identify malicious programs</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="phases-of-computer-forensics">Phases of Computer Forensics</h3>
+<ol>
+<li><strong>First response</strong> — IR team gets involved immediately</li>
+<li><strong>Search and seizure</strong> — Search devices involved in crime; collect data for evidence</li>
+<li><strong>Evidence collection</strong> — Collect data using forensic methods</li>
+<li><strong>Evidence security</strong> — Store in safe environment; prevent contamination</li>
+<li><strong>Data acquisition</strong> — Retrieve ESI (Electronically Stored Information) from seized devices</li>
+<li><strong>Data analysis</strong> — Examine authenticated ESI; extraction, processing, modeling</li>
+<li><strong>Evidence assessment</strong> — Relate data to the incident case</li>
+<li><strong>Documentation and reporting</strong> — Report per legal requirements</li>
+<li><strong>Expert witness testimony</strong> — Professional affirms data is valid evidence</li>
+</ol>
+<h3 id="forensic-techniques">Forensic Techniques</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deleted file recovery</strong></td>
+<td>File/data carving; searches for fragments of deleted files</td>
+</tr>
+<tr>
+<td><strong>Reverse steganography</strong></td>
+<td>Searches file hashes to identify hidden changes</td>
+</tr>
+<tr>
+<td><strong>Cross-drive analysis</strong></td>
+<td>Analyzes data across multiple drives; anomaly detection</td>
+</tr>
+<tr>
+<td><strong>Live analysis</strong></td>
+<td>Analyzes volatile data (RAM, cache) while computer is running</td>
+</tr>
+<tr>
+<td><strong>Stochastic forensics</strong></td>
+<td>Reconstructs activity without digital artifacts; used for insider threats</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="data-acquisition">Data Acquisition</h3>
+<ul>
+<li>Transfer all evidence to controlled location</li>
+<li>Check all devices for write-protection (<strong>write-blocker</strong> device)</li>
+<li>Capture volatile data (open ports, files, processes, user logons, RAM) before shutdown</li>
+<li><strong>Imaging:</strong> Bit-for-bit copy of entire disk (sector by sector); captures deleted files, fragments, residual data</li>
+</ul>
+<h3 id="chain-of-custody">Chain of Custody</h3>
+<ul>
+<li>Documents how evidence is handled, maintained, transferred, and modified</li>
+<li><strong>Required for:</strong> Legal proceedings; maintains integrity of evidence</li>
+<li><strong>Contents:</strong> Who had access (chronological), procedures followed, proof copies are identical to original (checksums, timestamps)</li>
+</ul>
+<blockquote>
+<p><strong>🎯 EXAM TIP:</strong> If you boot a suspected system before imaging, you write data to the hard drive — <strong>this can corrupt evidence and break chain of custody</strong>.</p>
+</blockquote>
+<h3 id="best-practices-for-digital-evidence">Best Practices for Digital Evidence</h3>
+<ul>
+<li><strong>Prevent contamination:</strong> Never work on original data; use bit-for-bit images</li>
+<li><strong>Clear chain of custody:</strong> Audit logs; maintain complete record of access</li>
+<li><strong>Implement tamper detection:</strong> Cryptographic hash values</li>
+<li><strong>Secure storage devices:</strong> Password protection; off-site storage</li>
+<li><strong>Keep mobile devices digitally isolated:</strong> Faraday bag; airplane mode; avoid plastic bags (static)</li>
+<li><strong>Encrypt the hard drive:</strong> If heightened security concerns</li>
+<li><strong>Involve forensic experts:</strong> Know when to hand over to specialists</li>
+<li><strong>Avoid changing device power status:</strong> Leave on if on; off if off</li>
+<li><strong>Monitor evidence transactions:</strong> Periodic sign-out records</li>
+<li><strong>Install write-blocking software:</strong> Read-only access to preserve integrity</li>
+<li><strong>Incorporate other evidence:</strong> Internet activity, chat rooms, email headers</li>
+</ul>
+<h3 id="forensic-tools">Forensic Tools</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Acquisition tools</strong></td>
+<td>Gather digital evidence (e.g., SafeBank for mirror-image backups)</td>
+</tr>
+<tr>
+<td><strong>DEBs (Digital Evidence Bags)</strong></td>
+<td>Plastic evidence bags; maintain chain of custody; contain tag file, index file, bag file</td>
+</tr>
+<tr>
+<td><strong>Analysis tools</strong></td>
+<td>Examine digital evidence (e.g., TrueCrypt for encryption, Hide and Seek for steganography)</td>
+</tr>
+<tr>
+<td><strong>File recovery tools</strong></td>
+<td>Recover deleted files (e.g., Encase)</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<p><a name="rapid"></a></p>
+<h2 id="one-page-rapid-revision-sheet">⚡ ONE-PAGE RAPID REVISION SHEET</h2>
+<h3 id="critical-numbers-and-thresholds">Critical Numbers and Thresholds</h3>
+<ul>
+<li><strong>AES:</strong> 128, 192, 256-bit keys (current symmetric standard)</li>
+<li><strong>RSA:</strong> 1024-4096 bit keys (asymmetric)</li>
+<li><strong>MD5:</strong> 128-bit hash (weak)</li>
+<li><strong>SHA-1:</strong> 160-bit hash (deprecated)</li>
+<li><strong>SHA-256:</strong> 256-bit hash (current standard)</li>
+<li><strong>Minimum PKI key:</strong> 2048 bits (below this = vulnerable)</li>
+<li><strong>Password history:</strong> Last 13 passwords</li>
+<li><strong>Failed attempts:</strong> Max 5 → lockout</li>
+<li><strong>Inactivity timeout:</strong> 15 minutes</li>
+<li><strong>Privileged password change:</strong> 30 days</li>
+<li><strong>Regular password change:</strong> 90 days</li>
+<li><strong>Computer room floors:</strong> 3rd–6th floors (avoid basement and top floor)</li>
+<li><strong>Bluetooth range:</strong> ~15m / 49 feet</li>
+<li><strong>WLAN AP range:</strong> ~100m / 300 feet</li>
+<li><strong>Quantum cryptography range:</strong> ~500km</li>
+</ul>
+<h3 id="must-know-distinctions">Must-Know Distinctions</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Concept A</th>
+<th>vs.</th>
+<th>Concept B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IDS (alerts only)</td>
+<td>IPS (actively blocks)</td>
+<td></td>
+</tr>
+<tr>
+<td>MAC (system enforced)</td>
+<td>DAC (user/owner controlled)</td>
+<td></td>
+</tr>
+<tr>
+<td>FIM (cross-domain, decentralized)</td>
+<td>SSO (single domain, centralized)</td>
+<td></td>
+</tr>
+<tr>
+<td>SAN (block-level, dedicated hardware)</td>
+<td>NAS (file-level)</td>
+<td></td>
+</tr>
+<tr>
+<td>SAN (physical storage)</td>
+<td>VSAN (virtual storage)</td>
+<td></td>
+</tr>
+<tr>
+<td>Vulnerability assessment (finds)</td>
+<td>Penetration test (exploits)</td>
+<td></td>
+</tr>
+<tr>
+<td>SIEM (detect &amp; alert)</td>
+<td>SOAR (detect, alert &amp; automate response)</td>
+<td></td>
+</tr>
+<tr>
+<td>FAR/Type 2 (lets bad in)</td>
+<td>FRR/Type 1 (rejects good users)</td>
+<td></td>
+</tr>
+<tr>
+<td>SSL (old, broken 2014)</td>
+<td>TLS (current, replaces SSL)</td>
+<td></td>
+</tr>
+<tr>
+<td>VPN transport mode (data only)</td>
+<td>VPN tunnel mode (whole packet)</td>
+<td></td>
+</tr>
+<tr>
+<td>WEP (broken, avoid)</td>
+<td>WPA3 (current best)</td>
+<td></td>
+</tr>
+<tr>
+<td>Hashing (one-way, integrity)</td>
+<td>Encryption (two-way, confidentiality)</td>
+<td></td>
+</tr>
+<tr>
+<td>VLAN (layer 2, switches)</td>
+<td>Subnet (layer 3, IP addressing)</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="key-acronyms-quick-reference">Key Acronyms Quick Reference</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Acronym</th>
+<th>Full Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CER/EER</strong></td>
+<td>Crossover Error Rate (biometric accuracy measure)</td>
+</tr>
+<tr>
+<td><strong>FAR</strong></td>
+<td>False Acceptance Rate (Type 2 error — lets bad users in)</td>
+</tr>
+<tr>
+<td><strong>FRR</strong></td>
+<td>False Rejection Rate (Type 1 error — rejects good users)</td>
+</tr>
+<tr>
+<td><strong>KDC</strong></td>
+<td>Key Distribution Center (Kerberos; single point of failure)</td>
+</tr>
+<tr>
+<td><strong>OCSP</strong></td>
+<td>Online Certificate Status Protocol (real-time cert status)</td>
+</tr>
+<tr>
+<td><strong>CRL</strong></td>
+<td>Certificate Revocation List</td>
+</tr>
+<tr>
+<td><strong>PKI</strong></td>
+<td>Public Key Infrastructure</td>
+</tr>
+<tr>
+<td><strong>SAST/DAST/IAST</strong></td>
+<td>White/Black/Grey box testing</td>
+</tr>
+<tr>
+<td><strong>CSIRT</strong></td>
+<td>Computer Security Incident Response Team</td>
+</tr>
+<tr>
+<td><strong>SOAR</strong></td>
+<td>Security Orchestration, Automation and Response</td>
+</tr>
+<tr>
+<td><strong>SIEM</strong></td>
+<td>Security Information and Event Management</td>
+</tr>
+<tr>
+<td><strong>SRM</strong></td>
+<td>Shared Responsibility Model</td>
+</tr>
+<tr>
+<td><strong>IGA</strong></td>
+<td>Identity Governance and Administration</td>
+</tr>
+<tr>
+<td><strong>IDaaS</strong></td>
+<td>Identity as a Service</td>
+</tr>
+<tr>
+<td><strong>PAM</strong></td>
+<td>Privileged Access Management</td>
+</tr>
+<tr>
+<td><strong>ZTA</strong></td>
+<td>Zero-Trust Architecture</td>
+</tr>
+<tr>
+<td><strong>CCM</strong></td>
+<td>Cloud Control Matrix (CSA; 197 control objectives, 17 domains)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="framework-quick-table">Framework Quick Table</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Purpose</th>
+<th>Unique Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ISO 27001</td>
+<td>ISMS</td>
+<td>International standard</td>
+</tr>
+<tr>
+<td>COBIT</td>
+<td>IT governance</td>
+<td>Links IT to business</td>
+</tr>
+<tr>
+<td>NIST CSF</td>
+<td>Cybersecurity risk</td>
+<td>Flexible, 5 functions</td>
+</tr>
+<tr>
+<td>PCI DSS</td>
+<td>Payment cards</td>
+<td>12 requirements</td>
+</tr>
+<tr>
+<td>CIS CSC</td>
+<td>Technical controls</td>
+<td>No risk management</td>
+</tr>
+<tr>
+<td>SABSA</td>
+<td>Security architecture</td>
+<td>Risk-driven</td>
+</tr>
+<tr>
+<td>TOGAF</td>
+<td>Enterprise architecture</td>
+<td>Open Group</td>
+</tr>
+<tr>
+<td>CSA STAR</td>
+<td>Cloud assurance</td>
+<td>Voluntary</td>
+</tr>
+<tr>
+<td>CCM</td>
+<td>Cloud controls</td>
+<td>197 objectives, 17 domains</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<p><a name="exam-q"></a></p>
+<h2 id="probable-exam-questions">📝 PROBABLE EXAM QUESTIONS</h2>
+<h3 id="section-51-policies-and-frameworks">Section 5.1 — Policies and Frameworks</h3>
+<ol>
+<li>
+<p><strong>Q:</strong> Which framework provides IT governance and links IT to business goals? - <strong>A:</strong> COBIT</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which access control policy would be MOST appropriate for an employee who is switching departments? - <strong>A:</strong> RBAC — Role-based access ensures rights change when role changes</p>
+</li>
+<li>
+<p><strong>Q:</strong> CIS CSC differs from NIST CSF in that CIS CSC: - <strong>A:</strong> Only addresses technical security controls and lacks risk management focus</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which type of security policy addresses employee internet use? - <strong>A:</strong> Issue-Specific Security Policy (ISSP) — specifically, an Acceptable Use Policy</p>
+</li>
+</ol>
+<h3 id="section-52-physical-controls">Section 5.2 — Physical Controls</h3>
+<ol start="5">
+<li>
+<p><strong>Q:</strong> Which fire suppression system is most appropriate for a computer room? - <strong>A:</strong> FM-200 or Novec 1230 (clean agents; safe for electronics)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which physical control prevents piggybacking? - <strong>A:</strong> Mantrap/airlock</p>
+</li>
+<li>
+<p><strong>Q:</strong> What is the purpose of a UPS in information security? - <strong>A:</strong> Provides power for seconds to 30 minutes during outages to allow proper shutdown</p>
+</li>
+</ol>
+<h3 id="section-53-iam">Section 5.3 — IAM</h3>
+<ol start="8">
+<li>
+<p><strong>Q:</strong> An employee who has transferred between three departments over 5 years has accumulated access rights from all previous roles. This is BEST described as: - <strong>A:</strong> Privilege creep</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which biometric error type is MORE dangerous from a security perspective? - <strong>A:</strong> FAR (Type 2 error) — allows unauthorized users access</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which biometric has the lowest (best) CER? - <strong>A:</strong> Palm geometry/hand geometry</p>
+</li>
+<li>
+<p><strong>Q:</strong> The BEST defense against rainbow table attacks on passwords is: - <strong>A:</strong> Salting (adding random data to passwords before hashing)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which protocol adds an identity layer to OAuth 2.0? - <strong>A:</strong> OpenID Connect (OIDC)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which IAM access control model is most commonly used in industry? - <strong>A:</strong> RBAC (Role-Based Access Control)</p>
+</li>
+</ol>
+<h3 id="section-54-network-security">Section 5.4 — Network Security</h3>
+<ol start="14">
+<li>
+<p><strong>Q:</strong> Which type of firewall architecture provides the HIGHEST level of security? - <strong>A:</strong> Screened subnet (DMZ) — provides three layers of protection</p>
+</li>
+<li>
+<p><strong>Q:</strong> A WAF differs from an NGFW in that: - <strong>A:</strong> WAF protects web applications at Layer 7; NGFW provides network protection at Layers 3-4</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which VPN protocol is most appropriate for mobile users who frequently switch networks? - <strong>A:</strong> IKEv2 (supports fast reconnection)</p>
+</li>
+</ol>
+<h3 id="section-55-dlp">Section 5.5 — DLP</h3>
+<ol start="17">
+<li>
+<p><strong>Q:</strong> An employee is sending sensitive data via USB drive. Which DLP type would detect this? - <strong>A:</strong> Endpoint-based DLP</p>
+</li>
+<li>
+<p><strong>Q:</strong> DLP analysis method that uses database records to match against data in transit: - <strong>A:</strong> Structured fingerprinting (Exact Data Matching - EDM)</p>
+</li>
+</ol>
+<h3 id="section-56-encryption">Section 5.6 — Encryption</h3>
+<ol start="19">
+<li>
+<p><strong>Q:</strong> Which encryption type is recommended for bulk data encryption? - <strong>A:</strong> Symmetric encryption (AES)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Digital signatures provide: - <strong>A:</strong> Integrity, Authentication, and Nonrepudiation (NOT confidentiality)</p>
+</li>
+<li>
+<p><strong>Q:</strong> What is a digital envelope? - <strong>A:</strong> A combination of symmetric encryption (for the message) and asymmetric encryption (for the symmetric key)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Kerberos presents a significant risk because: - <strong>A:</strong> The KDC is a single point of failure</p>
+</li>
+<li>
+<p><strong>Q:</strong> DNSSEC is intended to prevent: - <strong>A:</strong> DNS cache poisoning and DNS false zones</p>
+</li>
+<li>
+<p><strong>Q:</strong> The primary advantage of OCSP stapling is: - <strong>A:</strong> Improved performance and privacy (server caches and attaches OCSP response)</p>
+</li>
+</ol>
+<h3 id="section-57-pki">Section 5.7 — PKI</h3>
+<ol start="25">
+<li>
+<p><strong>Q:</strong> A compromised root CA has what effect? - <strong>A:</strong> Breaks the entire chain of trust; all certificates below it become untrustworthy</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which PKI component verifies certificate revocation in real time? - <strong>A:</strong> OCSP (Online Certificate Status Protocol)</p>
+</li>
+</ol>
+<h3 id="section-58-cloud">Section 5.8 — Cloud</h3>
+<ol start="27">
+<li>
+<p><strong>Q:</strong> In the shared responsibility model, which security aspect is ALWAYS the customer's responsibility? - <strong>A:</strong> Data security and GRC (Governance, Risk, Compliance)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which is always the CSP's responsibility? - <strong>A:</strong> Physical security of the cloud infrastructure</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which cloud deployment model has the highest security and is best for sensitive data? - <strong>A:</strong> Private cloud</p>
+</li>
+<li>
+<p><strong>Q:</strong> A switched virtual circuit (SVC) is MORE secure than a permanent virtual circuit (PVC) because: - <strong>A:</strong> It is disassembled after each use, reducing exposure time</p>
+</li>
+<li>
+<p><strong>Q:</strong> Containers differ from VMs in that containers: - <strong>A:</strong> Share the host OS kernel (not isolated OS per container)</p>
+</li>
+</ol>
+<h3 id="section-59-mobilewirelessiot">Section 5.9 — Mobile/Wireless/IoT</h3>
+<ol start="32">
+<li>
+<p><strong>Q:</strong> Which wireless security standard should be avoided? - <strong>A:</strong> WEP (and LEAP)</p>
+</li>
+<li>
+<p><strong>Q:</strong> WPA3 addresses WPA2 vulnerabilities primarily through: - <strong>A:</strong> SAE (Simultaneous Authentication of Equals) for key exchange</p>
+</li>
+<li>
+<p><strong>Q:</strong> Remote wiping of a mobile device does NOT guarantee: - <strong>A:</strong> Permanent data removal (data recovery utilities can recover wiped data)</p>
+</li>
+</ol>
+<h3 id="section-510-security-awareness">Section 5.10 — Security Awareness</h3>
+<ol start="35">
+<li>
+<p><strong>Q:</strong> Which group presents the GREATEST security risk in terms of information security? - <strong>A:</strong> Operational staff and system users (least technical knowledge)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Security awareness, training, and education differ primarily in: - <strong>A:</strong> Depth and focus — Awareness (what), Training (how), Education (why)</p>
+</li>
+</ol>
+<h3 id="section-511-attacks">Section 5.11 — Attacks</h3>
+<ol start="37">
+<li>
+<p><strong>Q:</strong> Which attack type cannot be defended by antivirus software? - <strong>A:</strong> Zero-day exploit (unknown vulnerability; no signature available)</p>
+</li>
+<li>
+<p><strong>Q:</strong> A disgruntled developer codes a program to delete files on the date of their expected termination. This is: - <strong>A:</strong> A logic bomb</p>
+</li>
+<li>
+<p><strong>Q:</strong> Salami attacks are characterized by: - <strong>A:</strong> Slicing small amounts from many transactions, difficult to detect individually</p>
+</li>
+<li>
+<p><strong>Q:</strong> Ransomware uses what type of encryption? - <strong>A:</strong> Asymmetric encryption (attacker withholds private key)</p>
+</li>
+</ol>
+<h3 id="section-512-security-testing">Section 5.12 — Security Testing</h3>
+<ol start="41">
+<li>
+<p><strong>Q:</strong> Management must ALWAYS be informed before: - <strong>A:</strong> Conducting penetration testing (prior permission required)</p>
+</li>
+<li>
+<p><strong>Q:</strong> White box testing provides access to: - <strong>A:</strong> Source code, architecture, algorithms (developer's perspective)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Which should be done BEFORE penetration testing? - <strong>A:</strong> Vulnerability assessment</p>
+</li>
+<li>
+<p><strong>Q:</strong> A blue team is responsible for: - <strong>A:</strong> Continuous detection and mitigation of cyberattacks</p>
+</li>
+</ol>
+<h3 id="section-513-monitoring">Section 5.13 — Monitoring</h3>
+<ol start="45">
+<li>
+<p><strong>Q:</strong> An IDS is NOT a substitute for a firewall because: - <strong>A:</strong> IDS only detects and alerts; it does not block; firewall actively filters traffic</p>
+</li>
+<li>
+<p><strong>Q:</strong> SIEM differs from a log management system in that SIEM: - <strong>A:</strong> Correlates events from multiple sources in real time and generates alerts</p>
+</li>
+</ol>
+<h3 id="section-514-incident-response">Section 5.14 — Incident Response</h3>
+<ol start="47">
+<li>
+<p><strong>Q:</strong> When a ransomware infection is confirmed, the FIRST action should be: - <strong>A:</strong> Quarantine the infected machine and contain spread</p>
+</li>
+<li>
+<p><strong>Q:</strong> An organization should NOT pay a ransomware demand because: - <strong>A:</strong> It funds criminal activity, and payment does not guarantee decryption</p>
+</li>
+</ol>
+<h3 id="section-515-forensics">Section 5.15 — Forensics</h3>
+<ol start="49">
+<li>
+<p><strong>Q:</strong> Why should a computer suspected of being evidence NOT be turned on or rebooted? - <strong>A:</strong> Booting writes data to the hard drive, potentially destroying evidence and breaking chain of custody</p>
+</li>
+<li>
+<p><strong>Q:</strong> What tool ensures data integrity during forensic investigation? - <strong>A:</strong> Write blocker (prevents modifications to evidence)</p>
+</li>
+<li>
+<p><strong>Q:</strong> Chain of custody in digital forensics documents: - <strong>A:</strong> Who had access, procedures followed, and proof that copies are identical to originals</p>
+</li>
+<li>
+<p><strong>Q:</strong> Live analysis in computer forensics is used to: - <strong>A:</strong> Analyze volatile data (RAM, cache) while the computer is running</p>
+</li>
+</ol>
+<hr />
+<p><a name="mnemonics"></a></p>
+<h2 id="mnemonics-and-memory-tricks">🧠 MNEMONICS AND MEMORY TRICKS</h2>
+<h3 id="cia-triad">CIA Triad</h3>
+<p><strong>"CIA is in control"</strong>
+- <strong>C</strong>onfidentiality — Only authorized can read
+- <strong>I</strong>ntegrity — Data is accurate and unchanged
+- <strong>A</strong>vailability — Data is accessible when needed</p>
+<h3 id="nist-csf-five-functions">NIST CSF Five Functions</h3>
+<p><strong>"I Protect Data, Respond Reliably"</strong>
+- <strong>I</strong>dentify
+- <strong>P</strong>rotect
+- <strong>D</strong>etect
+- <strong>R</strong>espond
+- <strong>R</strong>ecover</p>
+<h3 id="kerberos-components">Kerberos Components</h3>
+<p><strong>"KDC Gives Tickets At Service"</strong>
+- <strong>KDC</strong> = Key Distribution Center
+- <strong>TGS</strong> = Ticket-Granting Server
+- <strong>TGT</strong> = Ticket-Granting Ticket
+- <strong>AS</strong> = Authentication Server
+- <strong>ST</strong> = Service Ticket</p>
+<h3 id="biometric-error-types">Biometric Error Types</h3>
+<p><strong>"FAT - False Acceptance is Type 2"</strong>
+- <strong>FA</strong>R = <strong>T</strong>ype 2 = False Acceptance (lets bad people IN — dangerous!)
+- FRR = Type 1 = False Rejection (rejects good users — inconvenient but safer)
+- <strong>Lower CER = Better biometric</strong></p>
+<h3 id="biometric-accuracy-order-best-to-worst-cer">Biometric Accuracy Order (Best to Worst CER)</h3>
+<p><strong>"Palm Has Impressive Retina, Fingerprint Varies"</strong>
+- <strong>P</strong>alm
+- <strong>H</strong>and geometry
+- <strong>I</strong>ris
+- <strong>R</strong>etina
+- <strong>F</strong>ingerprint
+- <strong>V</strong>oice</p>
+<h3 id="access-control-models-mac-vs-dac">Access Control Models — MAC vs DAC</h3>
+<ul>
+<li><strong>MAC = Mandatory</strong> = Military = Must follow (system enforced, cannot change)</li>
+<li><strong>DAC = Discretionary</strong> = Data owner's Decision (user controlled)</li>
+<li><strong>RBAC = Role-Based</strong> = Really Business-focused (most common)</li>
+</ul>
+<h3 id="firewall-architecture-security-level">Firewall Architecture Security Level</h3>
+<p><strong>"Simple &gt; Dual &gt; Screened"</strong> (security increases)
+- <strong>S</strong>creened-host — moderate
+- <strong>D</strong>ual-homed — higher
+- <strong>S</strong>creened-subnet (DMZ) — HIGHEST</p>
+<h3 id="cloud-service-models-bottom-to-top">Cloud Service Models (Bottom to Top)</h3>
+<p><strong>"I Put Software On Cloud"</strong>
+- <strong>I</strong>aaS → Infrastructure (servers, storage)
+- <strong>P</strong>aaS → Platform (dev environment)
+- <strong>S</strong>aaS → Software (complete apps)</p>
+<h3 id="vpn-protocol-security">VPN Protocol Security</h3>
+<p><strong>IPSec Tunnel mode &gt; IPSec Transport mode &gt; L2TP/IPSec &gt; SSTP &gt; IKEv2 &gt; OpenVPN</strong> (generally)
+- <strong>Tunnel = Total packet protected</strong> (entire IP packet)
+- <strong>Transport = Top layer only</strong> (data only)</p>
+<h3 id="ransomware-response-dont">Ransomware Response — DON'T</h3>
+<ul>
+<li>Don't pay (usually) — funds criminals</li>
+<li>Don't turn off system — preserves volatile memory</li>
+<li>Don't ignore quarantine — ransomware spreads</li>
+</ul>
+<h3 id="password-attacks-what-defeats-each">Password Attacks — What Defeats Each</h3>
+<ul>
+<li>Rainbow table → <strong>Salt</strong> it!</li>
+<li>Brute force → <strong>Lockout</strong> after 5 attempts</li>
+<li>Dictionary → <strong>Complexity</strong> + history</li>
+<li>Phishing → <strong>Awareness</strong> training</li>
+<li>Credential stuffing → <strong>MFA</strong> required</li>
+</ul>
+<h3 id="digital-signature-provides-not">Digital Signature provides (NOT):</h3>
+<p><strong>"IAN — but NOT Cop"</strong> (🧑 named IAN)
+- <strong>I</strong>ntegrity ✓
+- <strong>A</strong>uthentication ✓
+- <strong>N</strong>onrepudiation ✓
+- <strong>C</strong>onfidentiality ✗ (NOT provided by digital signatures)
+- <strong>O</strong>wnership prevention ✗ (cannot prevent copying or theft)</p>
+<h3 id="pki-certificate-revocation-reasons">PKI Certificate Revocation Reasons</h3>
+<p><strong>"ACE SU CA"</strong> — The ACE Suspect is an Unspecified CA compromise
+- <strong>A</strong>ffiliation changes
+- <strong>C</strong>ompromise of private key
+- <strong>E</strong>xpiration (cessation of operation)
+- <strong>S</strong>uperseded
+- <strong>U</strong>nspecified
+- <strong>CA</strong> compromise</p>
+<h3 id="incident-response-phases-nist">Incident Response Phases (NIST)</h3>
+<p><strong>"PDCR"</strong> — Police Departments Control Responses
+- <strong>P</strong>reparation
+- <strong>D</strong>etection and Analysis
+- <strong>C</strong>ontainment, Eradication &amp; Recovery
+- <strong>R</strong>eview (Post-Incident Activity)</p>
+<h3 id="forensic-phases-summary">Forensic Phases Summary</h3>
+<p><strong>"FSEC-DATA-DER"</strong>
+- <strong>F</strong>irst response
+- <strong>S</strong>earch and seizure
+- <strong>E</strong>vidence collection
+- <strong>C</strong>ustody (evidence security)
+- <strong>D</strong>ata acquisition
+- <strong>A</strong>nalysis
+- <strong>T</strong>esting against incident (assessment)
+- <strong>A</strong>nd documentation/reporting
+- <strong>E</strong>xpert witness testimony (if needed)</p>
+<h3 id="wireless-security-evolution">Wireless Security Evolution</h3>
+<p><strong>WEP → WPA → WPA2 → WPA3</strong> (getting stronger)
+- <strong>WEP</strong> = <strong>W</strong>eak, <strong>E</strong>asily <strong>P</strong>enetrated
+- <strong>WPA3</strong> = Current <strong>W</strong>inner, <strong>P</strong>rotects <strong>A</strong>ll, with SAE handshake</p>
+<h3 id="symmetric-vs-asymmetric-quick-remember">Symmetric vs. Asymmetric Quick Remember</h3>
+<ul>
+<li><strong>Symmetric</strong> = <strong>S</strong>ame key = <strong>S</strong>ame speed = <strong>S</strong>uited for bulk</li>
+<li><strong>Asymmetric</strong> = <strong>A</strong>lways two keys = <strong>A</strong>uthentication = <strong>A</strong>lways slower</li>
+</ul>
+<hr />
+<h2 id="key-comparison-tables-summary">📊 KEY COMPARISON TABLES SUMMARY</h2>
+<h3 id="top-5-exam-critical-comparisons">Top 5 Exam-Critical Comparisons</h3>
+<p><strong>1. IDS vs. IPS</strong>
+- IDS = Detective only | IPS = Preventive + Detective</p>
+<p><strong>2. SAN vs. NAS</strong>
+- SAN = Block-level | NAS = File-level</p>
+<p><strong>3. Vulnerability Assessment vs. Penetration Testing</strong>
+- VA = Find | PT = Find AND Exploit</p>
+<p><strong>4. SIEM vs. SOAR</strong>
+- SIEM = Alert | SOAR = Alert + Automate response</p>
+<p><strong>5. FIM vs. SSO</strong>
+- FIM = Cross-domain, decentralized | SSO = Single domain, centralized</p>
+<hr />
+<blockquote>
+<p><strong>📌 FINAL EXAM REMINDER:</strong>
+- Domain 5 = <strong>26% of CISA exam</strong> (~39 questions)
+- Focus areas: IAM, encryption, cloud, network security, incident response, forensics
+- Key themes: POLP, defense in depth, chain of custody, separation of duties
+- IS auditor role: Provide assurance and advice — not just compliance checking</p>
+</blockquote>
+<p><em>Notes based on, Chapter 5: Protection of Information Assets</em></p></article>
+    </main>
+
+    <aside class="toc-panel">
+      <p class="eyebrow">Section map</p>
+      <nav><div class="toc">
+<ul>
+<li><a href="#table-of-contents">📋 TABLE OF CONTENTS</a></li>
+<li><a href="#51-information-asset-security-policies-frameworks-standards-and-guidelines">5.1 Information Asset Security Policies, Frameworks, Standards, and Guidelines</a><ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#policy-elements-8-core">Policy Elements (8 Core)</a></li>
+<li><a href="#characteristics-of-a-good-security-policy">Characteristics of a Good Security Policy</a></li>
+<li><a href="#types-of-security-policies">Types of Security Policies</a></li>
+<li><a href="#standards-vs-frameworks">Standards vs. Frameworks</a></li>
+<li><a href="#key-security-frameworks">Key Security Frameworks</a></li>
+<li><a href="#security-baselines">Security Baselines</a></li>
+</ul>
+</li>
+<li><a href="#52-physical-and-environmental-controls">5.2 Physical and Environmental Controls</a><ul>
+<li><a href="#overview_1">Overview</a></li>
+<li><a href="#power-failure-types-and-controls">Power Failure Types and Controls</a></li>
+<li><a href="#fire-detection-and-suppression">Fire Detection and Suppression</a></li>
+<li><a href="#computer-room-placement-best-practices">Computer Room Placement Best Practices</a></li>
+<li><a href="#physical-access-controls">Physical Access Controls</a></li>
+<li><a href="#physical-access-exposures">Physical Access Exposures</a></li>
+<li><a href="#auditing-physical-security">Auditing Physical Security</a></li>
+<li><a href="#icsscada-security">ICS/SCADA Security</a></li>
+</ul>
+</li>
+<li><a href="#53-identity-and-access-management-iam">5.3 Identity and Access Management (IAM)</a><ul>
+<li><a href="#overview_2">Overview</a></li>
+<li><a href="#iam-components-4">IAM Components (4)</a></li>
+<li><a href="#iam-life-cycle">IAM Life Cycle</a></li>
+<li><a href="#authentication-types">Authentication Types</a></li>
+<li><a href="#single-sign-on-sso">Single Sign-On (SSO)</a></li>
+<li><a href="#authorization-types">Authorization Types</a></li>
+<li><a href="#access-control-models">Access Control Models</a></li>
+<li><a href="#zero-trust-architecture-zta">Zero-Trust Architecture (ZTA)</a></li>
+<li><a href="#privileged-access-management-pam">Privileged Access Management (PAM)</a></li>
+<li><a href="#biometrics">Biometrics</a></li>
+<li><a href="#federated-identity-management-fim">Federated Identity Management (FIM)</a></li>
+<li><a href="#password-security-best-practices">Password Security Best Practices</a></li>
+<li><a href="#password-attacks">Password Attacks</a></li>
+<li><a href="#identity-governance-and-administration-iga">Identity Governance and Administration (IGA)</a></li>
+<li><a href="#idaas-identity-as-a-service">IDaaS (Identity as a Service)</a></li>
+</ul>
+</li>
+<li><a href="#54-network-and-endpoint-security">5.4 Network and Endpoint Security</a><ul>
+<li><a href="#network-types">Network Types</a></li>
+<li><a href="#signal-transmission">Signal Transmission</a></li>
+<li><a href="#vpn">VPN</a></li>
+<li><a href="#firewall-types">Firewall Types</a></li>
+<li><a href="#firewall-implementations">Firewall Implementations</a></li>
+<li><a href="#utm-unified-threat-management">UTM (Unified Threat Management)</a></li>
+<li><a href="#network-segmentation">Network Segmentation</a></li>
+<li><a href="#endpoint-security">Endpoint Security</a></li>
+<li><a href="#cdn-content-delivery-networks">CDN (Content Delivery Networks)</a></li>
+<li><a href="#ntp-network-time-protocol">NTP (Network Time Protocol)</a></li>
+</ul>
+</li>
+<li><a href="#55-data-loss-prevention-dlp">5.5 Data Loss Prevention (DLP)</a><ul>
+<li><a href="#overview_3">Overview</a></li>
+<li><a href="#dlp-types">DLP Types</a></li>
+<li><a href="#data-states">Data States</a></li>
+<li><a href="#causes-of-data-leakage">Causes of Data Leakage</a></li>
+<li><a href="#dlp-content-analysis-methods">DLP Content Analysis Methods</a></li>
+<li><a href="#dlp-deployment-modes">DLP Deployment Modes</a></li>
+</ul>
+</li>
+<li><a href="#56-data-encryption">5.6 Data Encryption</a><ul>
+<li><a href="#overview_4">Overview</a></li>
+<li><a href="#encryption-elements">Encryption Elements</a></li>
+<li><a href="#symmetric-vs-asymmetric-encryption">Symmetric vs. Asymmetric Encryption</a></li>
+<li><a href="#hashing">Hashing</a></li>
+<li><a href="#encryption-vs-hashing-comparison">Encryption vs. Hashing Comparison</a></li>
+<li><a href="#encryption-modes">Encryption Modes</a></li>
+<li><a href="#advanced-encryption-types">Advanced Encryption Types</a><ul>
+<li><a href="#ecc-elliptic-curve-cryptography">ECC (Elliptic Curve Cryptography)</a></li>
+<li><a href="#quantum-cryptography">Quantum Cryptography</a></li>
+<li><a href="#homomorphic-encryption">Homomorphic Encryption</a></li>
+</ul>
+</li>
+<li><a href="#digital-signatures">Digital Signatures</a></li>
+<li><a href="#digital-envelope">Digital Envelope</a></li>
+<li><a href="#tls-transport-layer-security">TLS (Transport Layer Security)</a></li>
+<li><a href="#ipsec">IPSec</a></li>
+<li><a href="#kerberos">Kerberos</a></li>
+<li><a href="#ssh-secure-shell">SSH (Secure Shell)</a></li>
+<li><a href="#dnssec">DNSSEC</a></li>
+<li><a href="#email-security">Email Security</a></li>
+</ul>
+</li>
+<li><a href="#57-public-key-infrastructure-pki">5.7 Public Key Infrastructure (PKI)</a><ul>
+<li><a href="#overview_5">Overview</a></li>
+<li><a href="#digital-certificates">Digital Certificates</a></li>
+<li><a href="#ra-registration-authority">RA (Registration Authority)</a></li>
+<li><a href="#key-management-activities">Key Management Activities</a></li>
+<li><a href="#certificate-revocation-reasons">Certificate Revocation Reasons</a></li>
+<li><a href="#crl-certificate-revocation-list">CRL (Certificate Revocation List)</a></li>
+<li><a href="#ocsp-online-certificate-status-protocol">OCSP (Online Certificate Status Protocol)</a></li>
+<li><a href="#pki-risks">PKI Risks</a></li>
+</ul>
+</li>
+<li><a href="#58-cloud-and-virtualized-environments">5.8 Cloud and Virtualized Environments</a><ul>
+<li><a href="#virtualization-vs-cloud">Virtualization vs. Cloud</a></li>
+<li><a href="#hypervisor-types">Hypervisor Types</a></li>
+<li><a href="#virtualization-risks">Virtualization Risks</a></li>
+<li><a href="#virtualization-controls">Virtualization Controls</a></li>
+<li><a href="#virtual-circuits">Virtual Circuits</a></li>
+<li><a href="#vlan">VLAN</a></li>
+<li><a href="#vsan-virtual-storage-area-network">VSAN (Virtual Storage Area Network)</a></li>
+<li><a href="#sdn-software-defined-networking">SDN (Software-Defined Networking)</a></li>
+<li><a href="#containerization">Containerization</a></li>
+<li><a href="#virtualization-vs-containerization">Virtualization vs. Containerization</a></li>
+<li><a href="#cloud-migration-587">Cloud Migration (5.8.7)</a></li>
+<li><a href="#shared-responsibility-model-srm">Shared Responsibility Model (SRM)</a></li>
+<li><a href="#cloud-deployment-models">Cloud Deployment Models</a></li>
+<li><a href="#cloud-service-models">Cloud Service Models</a></li>
+<li><a href="#key-cloud-risks-csa-pandemic-eleven">Key Cloud Risks (CSA Pandemic Eleven)</a></li>
+<li><a href="#devsecops">DevSecOps</a></li>
+</ul>
+</li>
+<li><a href="#59-mobile-wireless-and-iot-devices">5.9 Mobile, Wireless, and IoT Devices</a><ul>
+<li><a href="#mobile-computing-vulnerabilities-and-risks">Mobile Computing Vulnerabilities and Risks</a></li>
+<li><a href="#mobile-device-controls">Mobile Device Controls</a></li>
+<li><a href="#mdm-mobile-device-management">MDM (Mobile Device Management)</a></li>
+<li><a href="#byod-bring-your-own-device">BYOD (Bring Your Own Device)</a></li>
+<li><a href="#wireless-networks">Wireless Networks</a></li>
+<li><a href="#wireless-security-standards-comparison">Wireless Security Standards Comparison</a></li>
+<li><a href="#wireless-security-protocols">Wireless Security Protocols</a></li>
+<li><a href="#mobile-payment-systems">Mobile Payment Systems</a></li>
+<li><a href="#iot-internet-of-things">IoT (Internet of Things)</a></li>
+</ul>
+</li>
+<li><a href="#510-security-awareness-training-and-programs">5.10 Security Awareness Training and Programs</a><ul>
+<li><a href="#information-security-learning-continuum">Information Security Learning Continuum</a></li>
+<li><a href="#benefits-of-security-awareness-program">Benefits of Security Awareness Program</a></li>
+<li><a href="#security-awareness-mechanisms">Security Awareness Mechanisms</a></li>
+<li><a href="#implementing-awareness-and-training-program">Implementing Awareness and Training Program</a></li>
+<li><a href="#needs-assessment-by-role">Needs Assessment by Role</a></li>
+</ul>
+</li>
+<li><a href="#511-information-system-attack-methods-and-techniques">5.11 Information System Attack Methods and Techniques</a><ul>
+<li><a href="#fraud-triangle">Fraud Triangle</a></li>
+<li><a href="#perpetrators-of-computer-crimes">Perpetrators of Computer Crimes</a></li>
+<li><a href="#computer-crime-types">Computer Crime Types</a></li>
+<li><a href="#common-attack-methods-and-techniques">Common Attack Methods and Techniques</a></li>
+<li><a href="#malware-types">Malware Types</a></li>
+<li><a href="#ransomware">Ransomware</a></li>
+<li><a href="#owasp-top-10">OWASP Top 10</a></li>
+</ul>
+</li>
+<li><a href="#512-security-testing-tools-and-techniques">5.12 Security Testing Tools and Techniques</a><ul>
+<li><a href="#objectives-of-security-testing">Objectives of Security Testing</a></li>
+<li><a href="#security-assessments-vs-security-audits">Security Assessments vs. Security Audits</a></li>
+<li><a href="#vulnerability-assessment">Vulnerability Assessment</a></li>
+<li><a href="#penetration-testing">Penetration Testing</a></li>
+<li><a href="#vulnerability-assessment-vs-penetration-testing">Vulnerability Assessment vs. Penetration Testing</a></li>
+<li><a href="#security-testing-techniques">Security Testing Techniques</a></li>
+<li><a href="#security-teams-comparison">Security Teams Comparison</a></li>
+<li><a href="#soc-security-operations-center">SOC (Security Operations Center)</a></li>
+</ul>
+</li>
+<li><a href="#513-security-monitoring-logs-tools-and-techniques">5.13 Security Monitoring Logs, Tools, and Techniques</a><ul>
+<li><a href="#information-security-monitoring-benefits">Information Security Monitoring Benefits</a></li>
+<li><a href="#ids-intrusion-detection-systems">IDS (Intrusion Detection Systems)</a></li>
+<li><a href="#ips-intrusion-prevention-systems">IPS (Intrusion Prevention Systems)</a></li>
+<li><a href="#ids-vs-ips">IDS vs. IPS</a></li>
+<li><a href="#honeypots-and-honeynets">Honeypots and Honeynets</a></li>
+<li><a href="#audit-logging">Audit Logging</a></li>
+<li><a href="#audit-trail-analysis-tools">Audit Trail Analysis Tools</a></li>
+<li><a href="#protecting-log-data">Protecting Log Data</a></li>
+<li><a href="#siem-security-information-and-event-management">SIEM (Security Information and Event Management)</a></li>
+<li><a href="#siem-vs-soar">SIEM vs. SOAR</a></li>
+</ul>
+</li>
+<li><a href="#514-security-incident-response-management">5.14 Security Incident Response Management</a><ul>
+<li><a href="#incident-response-process-nist-800-61-rev-2">Incident Response Process (NIST 800-61 Rev. 2)</a><ul>
+<li><a href="#1-preparation">1. Preparation</a></li>
+<li><a href="#2-detection-and-analysis">2. Detection and Analysis</a></li>
+<li><a href="#3-containment-eradication-and-recovery">3. Containment, Eradication, and Recovery</a></li>
+<li><a href="#4-post-incident-activity">4. Post-Incident Activity</a></li>
+</ul>
+</li>
+<li><a href="#csirt-computer-security-incident-response-team">CSIRT (Computer Security Incident Response Team)</a></li>
+<li><a href="#irp-best-practices">IRP Best Practices</a></li>
+<li><a href="#soar-security-orchestration-automation-and-response">SOAR (Security Orchestration, Automation, and Response)</a></li>
+</ul>
+</li>
+<li><a href="#515-evidence-collection-and-forensics">5.15 Evidence Collection and Forensics</a><ul>
+<li><a href="#types-of-investigations">Types of Investigations</a></li>
+<li><a href="#types-of-computer-forensics">Types of Computer Forensics</a></li>
+<li><a href="#phases-of-computer-forensics">Phases of Computer Forensics</a></li>
+<li><a href="#forensic-techniques">Forensic Techniques</a></li>
+<li><a href="#data-acquisition">Data Acquisition</a></li>
+<li><a href="#chain-of-custody">Chain of Custody</a></li>
+<li><a href="#best-practices-for-digital-evidence">Best Practices for Digital Evidence</a></li>
+<li><a href="#forensic-tools">Forensic Tools</a></li>
+</ul>
+</li>
+<li><a href="#one-page-rapid-revision-sheet">⚡ ONE-PAGE RAPID REVISION SHEET</a><ul>
+<li><a href="#critical-numbers-and-thresholds">Critical Numbers and Thresholds</a></li>
+<li><a href="#must-know-distinctions">Must-Know Distinctions</a></li>
+<li><a href="#key-acronyms-quick-reference">Key Acronyms Quick Reference</a></li>
+<li><a href="#framework-quick-table">Framework Quick Table</a></li>
+</ul>
+</li>
+<li><a href="#probable-exam-questions">📝 PROBABLE EXAM QUESTIONS</a><ul>
+<li><a href="#section-51-policies-and-frameworks">Section 5.1 — Policies and Frameworks</a></li>
+<li><a href="#section-52-physical-controls">Section 5.2 — Physical Controls</a></li>
+<li><a href="#section-53-iam">Section 5.3 — IAM</a></li>
+<li><a href="#section-54-network-security">Section 5.4 — Network Security</a></li>
+<li><a href="#section-55-dlp">Section 5.5 — DLP</a></li>
+<li><a href="#section-56-encryption">Section 5.6 — Encryption</a></li>
+<li><a href="#section-57-pki">Section 5.7 — PKI</a></li>
+<li><a href="#section-58-cloud">Section 5.8 — Cloud</a></li>
+<li><a href="#section-59-mobilewirelessiot">Section 5.9 — Mobile/Wireless/IoT</a></li>
+<li><a href="#section-510-security-awareness">Section 5.10 — Security Awareness</a></li>
+<li><a href="#section-511-attacks">Section 5.11 — Attacks</a></li>
+<li><a href="#section-512-security-testing">Section 5.12 — Security Testing</a></li>
+<li><a href="#section-513-monitoring">Section 5.13 — Monitoring</a></li>
+<li><a href="#section-514-incident-response">Section 5.14 — Incident Response</a></li>
+<li><a href="#section-515-forensics">Section 5.15 — Forensics</a></li>
+</ul>
+</li>
+<li><a href="#mnemonics-and-memory-tricks">🧠 MNEMONICS AND MEMORY TRICKS</a><ul>
+<li><a href="#cia-triad">CIA Triad</a></li>
+<li><a href="#nist-csf-five-functions">NIST CSF Five Functions</a></li>
+<li><a href="#kerberos-components">Kerberos Components</a></li>
+<li><a href="#biometric-error-types">Biometric Error Types</a></li>
+<li><a href="#biometric-accuracy-order-best-to-worst-cer">Biometric Accuracy Order (Best to Worst CER)</a></li>
+<li><a href="#access-control-models-mac-vs-dac">Access Control Models — MAC vs DAC</a></li>
+<li><a href="#firewall-architecture-security-level">Firewall Architecture Security Level</a></li>
+<li><a href="#cloud-service-models-bottom-to-top">Cloud Service Models (Bottom to Top)</a></li>
+<li><a href="#vpn-protocol-security">VPN Protocol Security</a></li>
+<li><a href="#ransomware-response-dont">Ransomware Response — DON'T</a></li>
+<li><a href="#password-attacks-what-defeats-each">Password Attacks — What Defeats Each</a></li>
+<li><a href="#digital-signature-provides-not">Digital Signature provides (NOT):</a></li>
+<li><a href="#pki-certificate-revocation-reasons">PKI Certificate Revocation Reasons</a></li>
+<li><a href="#incident-response-phases-nist">Incident Response Phases (NIST)</a></li>
+<li><a href="#forensic-phases-summary">Forensic Phases Summary</a></li>
+<li><a href="#wireless-security-evolution">Wireless Security Evolution</a></li>
+<li><a href="#symmetric-vs-asymmetric-quick-remember">Symmetric vs. Asymmetric Quick Remember</a></li>
+</ul>
+</li>
+<li><a href="#key-comparison-tables-summary">📊 KEY COMPARISON TABLES SUMMARY</a><ul>
+<li><a href="#top-5-exam-critical-comparisons">Top 5 Exam-Critical Comparisons</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+      <div id="toc-empty" class="empty-state" hidden>No section headings match the current filter.</div>
+    </aside>
+  </div>
+  <button class="btn focus-fab" data-action="toggle-focus">Exit focus mode</button>
+</div>
+
+  <script>
+(() => {
+  const storageKey = "cisa-study-theme";
+  const focusKey = "cisa-study-focus";
+  const root = document.documentElement;
+
+  const savedTheme = window.localStorage.getItem(storageKey);
+  if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+  }
+
+  const themeBtn = document.querySelector("[data-action='toggle-theme']");
+  if (themeBtn) {
+    const syncThemeLabel = () => {
+      const theme = root.getAttribute("data-theme") || "light";
+      themeBtn.textContent = theme === "dark" ? "Switch to light" : "Switch to dark";
+    };
+    syncThemeLabel();
+    themeBtn.addEventListener("click", () => {
+      const nextTheme = (root.getAttribute("data-theme") || "light") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", nextTheme);
+      window.localStorage.setItem(storageKey, nextTheme);
+      syncThemeLabel();
+    });
+  }
+
+  const focusButtons = Array.from(document.querySelectorAll("[data-action='toggle-focus']"));
+  if (window.localStorage.getItem(focusKey) === "true") {
+    document.body.classList.add("focus-mode");
+  }
+  if (focusButtons.length) {
+    const syncFocusButtons = () => {
+      const active = document.body.classList.contains("focus-mode");
+      focusButtons.forEach((button) => {
+        const isFloating = button.classList.contains("focus-fab");
+        button.textContent = active ? "Exit focus mode" : "Focus mode";
+        button.classList.toggle("is-active", active && !isFloating);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    };
+    const toggleFocus = () => {
+      document.body.classList.toggle("focus-mode");
+      window.localStorage.setItem(focusKey, String(document.body.classList.contains("focus-mode")));
+      syncFocusButtons();
+    };
+    syncFocusButtons();
+    focusButtons.forEach((button) => button.addEventListener("click", toggleFocus));
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && document.body.classList.contains("focus-mode")) {
+        toggleFocus();
+      }
+    });
+  }
+
+  const progressBar = document.querySelector(".progress-bar");
+  const updateProgress = () => {
+    if (!progressBar) {
+      return;
+    }
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progressBar.style.transform = `scaleX(${ratio})`;
+  };
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+
+  const searchInput = document.querySelector("[data-search]");
+  if (searchInput) {
+    const selector = searchInput.getAttribute("data-target");
+    const items = selector ? Array.from(document.querySelectorAll(selector)) : [];
+    const emptyStateId = searchInput.getAttribute("data-empty-state");
+    const emptyState = emptyStateId ? document.getElementById(emptyStateId) : null;
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const haystack = (item.getAttribute("data-search-text") || item.textContent || "").toLowerCase();
+        const show = !query || haystack.includes(query);
+        item.style.display = show ? "" : "none";
+        if (show) {
+          visible += 1;
+        }
+      });
+      if (emptyState) {
+        emptyState.hidden = visible !== 0;
+      }
+    });
+  }
+
+  const headingLinks = Array.from(document.querySelectorAll(".toc-panel a[href^='#']"));
+  const headingTargets = headingLinks
+    .map((link) => {
+      let id = link.getAttribute("href").slice(1);
+      try {
+        id = decodeURIComponent(id);
+      } catch {
+        // Keep raw fragment when it is not URI-encoded.
+      }
+      const target = document.getElementById(id);
+      return target ? { link, target } : null;
+    })
+    .filter(Boolean);
+
+  if (headingTargets.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const current = headingTargets.find((item) => item.target === entry.target);
+          if (!current) {
+            return;
+          }
+          if (entry.isIntersecting) {
+            headingLinks.forEach((link) => link.classList.remove("is-active"));
+            current.link.classList.add("is-active");
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 1] }
+    );
+    headingTargets.forEach((item) => observer.observe(item.target));
+  }
+
+  const article = document.querySelector(".article");
+  if (article) {
+    const isAnswerLabel = (text) => /^(?:answer\s*[:.)-]|a\s*[.):-]\s*)/i.test((text || "").trim());
+
+    const buildAnswerDetails = (contentNode) => {
+      const details = document.createElement("details");
+      details.className = "answer-collapsible";
+      const summary = document.createElement("summary");
+      summary.textContent = "Show answer";
+      const wrapper = document.createElement("div");
+      wrapper.className = "answer-content";
+      wrapper.appendChild(contentNode.cloneNode(true));
+      details.appendChild(summary);
+      details.appendChild(wrapper);
+      return details;
+    };
+
+    // Split paragraphs where question and answer appear in the same paragraph.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      const htmlValue = p.innerHTML;
+      const qaMatch = htmlValue.match(
+        /^(.*?)(?:\s*-\s*|\s+)?<strong>\s*(?:Answer\s*[:.)-]|A\s*[.):-][^<]*)<\/strong>\s*([\s\S]*)$/i
+      );
+      if (!qaMatch || !/<strong>\s*Q\d*\s*:\s*<\/strong>/i.test(qaMatch[1])) {
+        return;
+      }
+
+      p.innerHTML = qaMatch[1].trim();
+      const answerP = document.createElement("p");
+      answerP.innerHTML = `<strong>Answer:</strong> ${qaMatch[2].trim()}`;
+      p.insertAdjacentElement("afterend", buildAnswerDetails(answerP));
+    });
+
+    // Wrap standalone answer paragraphs.
+    Array.from(article.querySelectorAll("p")).forEach((p) => {
+      if (p.closest("details.answer-collapsible")) {
+        return;
+      }
+      if (!isAnswerLabel(p.textContent)) {
+        return;
+      }
+      p.replaceWith(buildAnswerDetails(p));
+    });
+
+    // Wrap answer-only blockquotes.
+    Array.from(article.querySelectorAll("blockquote")).forEach((blockquote) => {
+      if (blockquote.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstParagraph = blockquote.querySelector("p");
+      if (!firstParagraph || !isAnswerLabel(firstParagraph.textContent)) {
+        return;
+      }
+      blockquote.replaceWith(buildAnswerDetails(blockquote));
+    });
+
+    // Wrap list items that are answer lines, keeping the list structure valid.
+    Array.from(article.querySelectorAll("li")).forEach((li) => {
+      if (li.closest("details.answer-collapsible")) {
+        return;
+      }
+      const firstStrong = li.querySelector(":scope > strong");
+      if (!firstStrong || !isAnswerLabel(firstStrong.textContent)) {
+        return;
+      }
+
+      const payload = document.createElement("div");
+      while (li.firstChild) {
+        payload.appendChild(li.firstChild);
+      }
+      li.appendChild(buildAnswerDetails(payload));
+    });
+  }
+})();
+</script>
+</body>
+</html>
