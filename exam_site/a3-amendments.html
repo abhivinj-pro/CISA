@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A3 Amendments — CISA Exam Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+/* ── Reset & Base ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-subtle: #94a3b8;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #dbeafe;
+  --color-correct: #16a34a;
+  --color-correct-light: #dcfce7;
+  --color-shadow: rgba(15, 23, 42, 0.08);
+  --sidebar-width: 260px;
+  --header-height: 60px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --transition: 0.2s ease;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+ul { list-style: none; }
+
+/* ── Top Header ────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.header-logo .logo-badge {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.header-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.header-breadcrumb a:hover { color: #ffffff; }
+.header-breadcrumb .sep { color: #475569; }
+.header-breadcrumb .current { color: #cbd5e1; font-weight: 500; }
+
+.header-stats {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+}
+
+.header-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-stats .stat-value {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+/* ── Layout ────────────────────────────────────── */
+.page-layout {
+  display: flex;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ── Sidebar ───────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.sidebar-section-label {
+  padding: 0 16px 8px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-left: 3px solid transparent;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  line-height: 1.4;
+}
+
+.sidebar-nav-item:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.sidebar-nav-item.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-left-color: var(--color-primary);
+  font-weight: 600;
+}
+
+.sidebar-nav-item .cat-code {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: currentColor;
+  color: transparent;
+  /* fallback */
+}
+
+.sidebar-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.sidebar-nav-item.active .sidebar-cat-badge {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.sidebar-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  background: var(--color-bg);
+  padding: 1px 7px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 12px 16px;
+}
+
+/* ── Main Content ──────────────────────────────── */
+.main-content {
+  flex: 1;
+  padding: 32px 40px 64px;
+  max-width: 900px;
+  min-width: 0;
+}
+
+/* ── Category Hero ─────────────────────────────── */
+.category-hero {
+  margin-bottom: 32px;
+  padding: 28px 32px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 4px var(--color-shadow);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.cat-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.category-hero .cat-code-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.category-hero h1 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.category-hero p {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.cat-stats-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 14px;
+}
+
+.cat-stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.cat-stat-chip strong { color: var(--color-text); font-weight: 600; }
+
+/* ── Question Card ─────────────────────────────── */
+.question-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px var(--color-shadow);
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+
+.question-card:hover {
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+.question-card.answered {
+  border-left: 3px solid var(--color-primary);
+}
+
+/* Card Header */
+.q-header {
+  padding: 20px 24px 16px;
+}
+
+.q-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.q-number-badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.q-index {
+  font-size: 0.8125rem;
+  color: var(--color-text-subtle);
+}
+
+.q-text {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+/* Options */
+.q-options {
+  padding: 0 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.q-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.q-option:hover {
+  background: #f8fafc;
+}
+
+.q-option.highlighted {
+  background: var(--color-correct-light);
+  border-color: #86efac;
+}
+
+.opt-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: #e2e8f0;
+  color: #475569;
+  transition: background var(--transition), color var(--transition);
+}
+
+.q-option.highlighted .opt-letter {
+  background: var(--color-correct);
+  color: #fff;
+}
+
+.opt-text {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.55;
+  padding-top: 2px;
+}
+
+/* Answer Section */
+.q-answer-section {
+  border-top: 1px solid var(--color-border);
+  background: #fafafa;
+}
+
+.btn-reveal {
+  width: 100%;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  transition: background var(--transition);
+}
+
+.btn-reveal:hover {
+  background: var(--color-primary-light);
+}
+
+.btn-reveal svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.btn-reveal[aria-expanded="true"] svg.chevron {
+  transform: rotate(180deg);
+}
+
+.btn-reveal[aria-expanded="true"] {
+  color: var(--color-text-muted);
+}
+
+/* Answer Panel */
+.answer-panel {
+  border-top: 1px solid var(--color-border);
+  padding: 20px 24px 24px;
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.correct-answer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--color-correct-light);
+  border: 1px solid #86efac;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-correct);
+  margin-bottom: 20px;
+}
+
+.correct-answer-chip svg {
+  width: 16px;
+  height: 16px;
+}
+
+.justifications-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 12px;
+}
+
+.justification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.justification-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.justification-item.is-correct {
+  background: var(--color-correct-light);
+  border-color: #86efac;
+}
+
+.just-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.justification-item.is-correct .just-letter {
+  background: var(--color-correct);
+  color: #fff;
+}
+
+.just-text {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  line-height: 1.65;
+  flex: 1;
+}
+
+/* ── Index Page ────────────────────────────────── */
+.index-hero {
+  text-align: center;
+  padding: 64px 24px 48px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.index-hero .hero-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+.index-hero h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.index-hero p {
+  font-size: 1.0625rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  padding: 0 32px 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.category-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: box-shadow var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 1px 4px var(--color-shadow);
+}
+
+.category-card:hover {
+  box-shadow: 0 8px 24px var(--color-shadow);
+  transform: translateY(-2px);
+}
+
+.category-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+}
+
+.category-card .cat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.category-card h2 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.35;
+}
+
+.category-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.category-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.q-count-badge {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.cat-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+}
+
+.cat-link-btn svg { width: 14px; height: 14px; }
+
+/* ── Progress Indicator ────────────────────────── */
+.progress-bar-wrap {
+  height: 3px;
+  background: var(--color-border);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 99;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ── Scrollbar ─────────────────────────────────── */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { padding: 20px 16px 48px; }
+  .categories-grid { grid-template-columns: 1fr; padding: 0 16px 48px; }
+  .index-hero h1 { font-size: 1.75rem; }
+  .category-hero { flex-direction: column; }
+}
+
+    .q-number-badge { background: #fffbeb; color: #f59e0b; }
+    .sidebar-nav-item.active .sidebar-cat-badge { background: #f59e0b; }
+    .sidebar-nav-item.active { color: #f59e0b; border-left-color: #f59e0b; background: #fffbeb; }
+    .btn-reveal { color: #f59e0b; }
+    .btn-reveal:hover { background: #fffbeb; }
+    .cat-icon-wrap { background: #fffbeb; }
+    .cat-link-btn { background: #fffbeb; color: #f59e0b; }
+    .cat-link-btn:hover { filter: brightness(0.95); }
+    </style>
+</head>
+<body>
+<header class="site-header">
+  <a href="index.html" class="header-logo">
+    <span class="logo-badge">CISA</span>
+    Exam Prep
+  </a>
+  <div class="header-breadcrumb">
+    <span class="sep">/</span>
+    <a href="index.html">Amendments</a>
+    <span class="sep">/</span>
+    <span class="current">A3 Amendments</span>
+  </div>
+  <div class="header-stats">
+    <div class="stat-item">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 5.5a2 2 0 0 1 0 4"/><circle cx="8" cy="11.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+      <span class="stat-value">25</span> questions
+    </div>
+    <div class="stat-item" style="font-size:0.8125rem;color:#94a3b8">
+      <span class="stat-answered">0 / 25 answered</span>
+    </div>
+  </div>
+</header>
+<div class="progress-bar-wrap"><div class="progress-bar-fill"></div></div>
+<div class="page-layout">
+  
+<nav class="sidebar" aria-label="Categories">
+  <p class="sidebar-section-label">Amendments</p>
+  <a href="a1-amendments.html" class="sidebar-nav-item " data-cat="A1" title="A1 Amendments">  <span class="sidebar-cat-badge">A1</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A1 Amendments</span>  <span class="sidebar-count">40</span></a>
+<a href="a2-amendments.html" class="sidebar-nav-item " data-cat="A2" title="A2 Amendments">  <span class="sidebar-cat-badge">A2</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A2 Amendments</span>  <span class="sidebar-count">32</span></a>
+<a href="a3-amendments.html" class="sidebar-nav-item active" data-cat="A3" title="A3 Amendments">  <span class="sidebar-cat-badge">A3</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A3 Amendments</span>  <span class="sidebar-count">25</span></a>
+<a href="a4-amendments.html" class="sidebar-nav-item " data-cat="A4" title="A4 Amendments">  <span class="sidebar-cat-badge">A4</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A4 Amendments</span>  <span class="sidebar-count">28</span></a>
+<a href="a5-amendments.html" class="sidebar-nav-item " data-cat="A5" title="A5 Amendments">  <span class="sidebar-cat-badge">A5</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A5 Amendments</span>  <span class="sidebar-count">45</span></a>
+  <div class="sidebar-divider"></div>
+  <a href="index.html" class="sidebar-nav-item" style="font-size:0.8rem;color:var(--color-text-subtle)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h5a2 2 0 0 1 2 2v9a1.5 1.5 0 0 0-1.5-1.5H2V3Z"/><path d="M14 3H9a2 2 0 0 0-2 2v9a1.5 1.5 0 0 1 1.5-1.5H14V3Z"/></svg>&nbsp; Back to Home
+  </a>
+</nav>
+  <main class="main-content">
+    <div class="category-hero">
+      <div class="cat-icon-wrap" style="background:#fffbeb;">
+        <span style="color:#f59e0b;font-size:1.5rem">⚙️</span>
+      </div>
+      <div>
+        <p class="cat-code-label">A3 · Amendments</p>
+        <h1>A3 Amendments</h1>
+        <p>Amendment practice questions for A3: IS Acquisition, Development &amp; Implementation.</p>
+        <div class="cat-stats-row">
+          <div class="cat-stat-chip">
+            <strong>25</strong> questions available
+          </div>
+        </div>
+      </div>
+    </div>
+    
+<article class="question-card" id="q-A3-1" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-1</span>
+      <span class="q-index">Question 1 of 25</span>
+    </div>
+    <p class="q-text">When preparing a business case to support the need of an electronic data warehouse solution, which of the following choices is the MOST important to assist management in the decision-making process?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Discuss a single solution.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Consider security controls.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Demonstrate feasibility.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Consult the audit department.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-1">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-1" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">A business case should discuss all possible solutions to a given problem, which enables management to select the best option. This may include the option not to undertake the project.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">It may be important to include security considerations in the business case if security is important to the solution and will address the problem; however, the feasibility study is more important and is necessary regardless of the type of problem.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The business case should demonstrate feasibility for any potential project. By including a feasibility study in the business case along with a cost-benefit analysis, management can make an informed decision.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Although the person preparing the business case may consult with the organization audit department, this is situational and not necessary to include in the business case.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-2" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-2</span>
+      <span class="q-index">Question 2 of 25</span>
+    </div>
+    <p class="q-text">When identifying an earlier project completion time, which is to be accomplished by paying a premium for early completion, the activities that should be selected are those:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">whose sum of activity time is the shortest.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">that have zero slack time.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">that give the longest possible completion time.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">whose sum of slack time is the shortest.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-2">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-2" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Attention should focus on the tasks within the critical path that have no slack time.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">A critical path&#x27;s activity time is longer than that for any other path through the network. This path is important because if everything goes as scheduled, its length gives the shortest possible completion time for the overall project. Activities on the critical path become candidates for crashing (i.e., for reduction in their time by payment of a premium for early completion). Activities on the critical path have zero slack time and, conversely, activities with zero slack time are on a critical path. By successively relaxing activities on a critical path, a curve showing total project costs versus time can be obtained.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">The critical path is the longest time length of the activities but is not based on the longest time of any individual activity.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">A task on the critical path has no slack time.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-3" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-3</span>
+      <span class="q-index">Question 3 of 25</span>
+    </div>
+    <p class="q-text">Which testing environment is required to ensure complete code coverage to test every code path in software testing, including those that will only be used when an error occurs?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">White box</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Gray box</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Black box</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Dynamic</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-3">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-3" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">For testing the full code, a white box test is required.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Without full visibility of the code, error conditions or other code can be missed; a gray box test is an inappropriate solution.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Without full visibility of the code, error conditions or other code can be missed; a black box test is an inappropriate solution.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Using dynamic testing that runs against live code can result in missed conditions due to sections of code not being exposed to typical usage.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-4" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-4</span>
+      <span class="q-index">Question 4 of 25</span>
+    </div>
+    <p class="q-text">Which of the following BEST helps organizations in optimizing audit resources and improving the quality of audits?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Independent review of audit work</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Integrated audit approach</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Global auditing standards</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Risk-based audit approach</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-4">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-4" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">An independent review of the audit helps in improving the quality of future audits but may not help in optimizing resources.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">An integrated audit approach focuses on combining different types of audits at the same time; the results of different audit scopes can be shared to provide a focused and quality audit report.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Global auditing standards help in improving the quality of an audit but may not help in optimizing resources.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">A risk-based audit approach focuses on allocating resources to high-risk areas to make audits more effective but may not optimize resources.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-5" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-5</span>
+      <span class="q-index">Question 5 of 25</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor’s PRIMARY concern when application developers wish to use a copy of yesterday&#x27;s production transaction file for volume tests is that:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">users may prefer to use contrived data for testing.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">unauthorized access to sensitive data may result.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">error handling and credibility checks may not be fully proven.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">the full functionality of the new process may not necessarily be tested.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-5">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-5" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Production data are easier for users to use for comparison purposes.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Unless the data are sanitized, there is a risk of disclosing sensitive data.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">There is a risk that former production data may not test all error routines; however, this is not as serious as the risk of release of sensitive data.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Using a copy of production data may not test all functionality, but this is not as serious as the risk of disclosure of sensitive data.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-6" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-6</span>
+      <span class="q-index">Question 6 of 25</span>
+    </div>
+    <p class="q-text">Which of the following is MOST critical for commercial enterprises that are exchanging data through system interfaces?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Data integrity</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Data confidentiality</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Data authentication</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Data availability</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-6">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-6" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Data integrity is the overall accuracy, completeness and consistency of data, which is part of data authentication.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Data confidentiality is the protection of data from unauthorized access but does not have the highest priority. The goal of integrity is the most important in information security, especially for commercial enterprises and their financial transactions, which is part of data authentication.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Data authentication is the process of confirming the origin and integrity of data. It is critical that enterprises can rely on the origin and integrity of data exchanged through system interfaces.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Data availability is a measure of how often enterprise data are available to be used by authorized parties and does not have the highest priority.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-7" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-7</span>
+      <span class="q-index">Question 7 of 25</span>
+    </div>
+    <p class="q-text">What is the PRIMARY goal of natural language processing in the field of artificial intelligence?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">To create algorithms that mimic human cognitive processes and decision making</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">To build intelligent systems capable of autonomously learning from data</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">To develop machines capable of understanding and generating human language</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">To design robots and physical agents that can interact with the environment</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-7">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-7" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Mimicking human cognitive processes and decision making is a broader objective of artificial intelligence and is not specific to natural language processing (NLP).</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Autonomously learning from data is a goal of machine learning, which is a subfield of artificial intelligence, but not the primary focus of NLP.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The primary goal of NLP is to enable machines to understand, interpret and generate human language in a way that is similar to how humans process language. NLP involves tasks such as language translation, sentiment analysis, text summarization and speech recognition.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Designing robots and physical agents that interact with the environment falls within the scope of robotics and embodied artificial intelligence (Al), which are different areas of research than NLP.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-8" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-8</span>
+      <span class="q-index">Question 8 of 25</span>
+    </div>
+    <p class="q-text">A large industrial organization is replacing an obsolete legacy system and evaluating whether to buy a custom solution or develop a system in-house. Which of the following will MOST likely influence the decision?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Technical skills and knowledge within the organization related to sourcing and software development</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Privacy requirements applied to the data processed by the application</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Whether the legacy system being replaced was developed in-house</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">The users not devoting reasonable time to defining the functionalities of the solution</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-8">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-8" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Critical core competencies will most likely be carefully considered before outsourcing the planning phase of the application.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Privacy regulations apply to both solutions.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">While individuals with knowledge of the legacy system are helpful, they may not have the technical skills to build a new system. Therefore, this is not the primary factor influencing the make versus buy decision.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Unclear business requirements (functionalities) similarly affect either development process but are not the primary factor influencing the make versus buy decision.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-9" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-9</span>
+      <span class="q-index">Question 9 of 25</span>
+    </div>
+    <p class="q-text">During the information systems (IS) audit of large payment systems of an organization, it was noticed that during code coverage testing, the quality assurance team analyzed a nonproduction environment using logging and tracing tools. Which of the following code issues is MOST likely to be missed because of this action?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Race condition</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Bounds checking</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Input validation</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Pointer manipulation</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-9">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-9" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">The changes from a testing environment with instrumentation inserted into the code and the production environment for the code can mask timing-related issues like race conditions.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Bounds checking is a coding issue rather than an environmental issue.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Input validation is a coding issue rather than an environmental issue.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Pointer manipulation is a coding issue rather than an environmental issue.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-10" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-10</span>
+      <span class="q-index">Question 10 of 25</span>
+    </div>
+    <p class="q-text">Which of the following BEST describes the concept of overfitting in machine learning (ML)?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Overfitting happens when a model fails to capture the underlying patterns and relationships in the training data.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Overfitting occurs when advanced algorithms are underused in machine learning (ML).</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Overfitting occurs when the training data are insufficient to train a ML model effectively.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Overfitting occurs when a model performs well on the training data but fails to generalize to new, unseen data.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-10">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-10" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Underfitting occurs when a model is too simple and fails to capture the underlying patterns in the data.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The use of advanced algorithms is not directly related to overfitting.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">In this case, the model may not generalize well due to insufficient training data, but this is not an example of overfitting.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Overfitting happens when a model becomes overly complex and starts fitting the noise or random fluctuations in the training data, which leads to poor performance on new, unseen data.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-11" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-11</span>
+      <span class="q-index">Question 11 of 25</span>
+    </div>
+    <p class="q-text">Which of the following BEST helps an information systems (IS) auditor assess and measure the value of a newly implemented system?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Review of business requirements</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">System certification</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Postimplementation review</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">System accreditation</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-11">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-11" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Although reviewing the business requirements is important only a post implementation review provides evidence that the project met the business requirements.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">System certification involves performing a comprehensive assessment against a standard of management, operational and technical controls in an information system to examine the level of compliance in meeting certain requirements, such as standards, policies, processes, procedures, work instructions and guidelines.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">One key objective of a post implementation review is to evaluate the projected cost-benefits or the return-on investment measurements.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">System accreditation is an official management decision to authorize operation of an information system and to explicitly accept the risk to the organization’s operations, assets or individuals based on the implementation of an agreed-on set of requirements and security controls.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-12" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-12</span>
+      <span class="q-index">Question 12 of 25</span>
+    </div>
+    <p class="q-text">An organization is migrating from a legacy system to an enterprise resource planning system. While reviewing the data migration activity, the MOST important concern for the information systems (IS) auditor is to determine that there is a:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">correlation of semantic characteristics of the data migrated between the two systems.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">correlation of arithmetic characteristics of the data migrated between the two systems.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">correlation of functional characteristics of the processes between the two systems.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">relative efficiency of the processes between the two systems.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-12">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-12" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Because the two systems can have a different data representation, including the database schema, the information systems (IS) auditor’s main concern should be to verify that the interpretation of the data (structure) is the same in the new system as it was in the old system.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Arithmetic characteristics represent aspects of data structure and internal definition in the database and, therefore, are less important than the semantic characteristics.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">A review of the correlation of the functional characteristics between the two systems is not relevant to a data migration review.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">A review of the relative efficiencies of the processes between the two systems is not relevant to a data migration review.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-13" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-13</span>
+      <span class="q-index">Question 13 of 25</span>
+    </div>
+    <p class="q-text">Which of the following would be of MOST concern for an information systems (1S) auditor reviewing continuous integration and continuous deployment (CICD) implementation?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Supporting documentation was not always updated prior to deployment.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Developers do not have write access to change logs.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Standard maintenance changes were not documented.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Retention policies were not defined for change logs.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-13">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-13" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Although having all support documentation updated when performing a change is important, this is not the biggest concern for an information systems (IS) auditor.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Developers should not have access to the change logs that recorded their events and actions.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Standard maintenance changes not being documented is the main concern for the IS auditor because documentation of all changes is one of the controls for change management in continuous integration and continuous deployment (CICD). At least, minimum information (e.g., description of the change, success criteria, risk and rollback procedure) should be included for all changes.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Retention policies for change logs allow the enterprise to guarantee that logs are kept for the necessary time. Although not having retention policies can be a concern, this is not the main concern of those listed in this question about CICD implementation.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-14" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-14</span>
+      <span class="q-index">Question 14 of 25</span>
+    </div>
+    <p class="q-text">Which of the following carries the LOWEST risk when managing failures while transitioning from legacy applications to new applications?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Phased changeover</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Abrupt changeover</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Rollback procedure</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Parallel changeover</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-14">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-14" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Phased changeover involves the changeover from the old system to the new system in a phased manner.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">In the abrupt changeover, processing switches from the old system to the new system on a cutoff date and time, and the old system is discontinued after the changeover to the new system takes place. Therefore, the old system is not available as a backup if there are problems when the new system is implemented.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Rollback procedures involve restoring all systems to their previous working state; however, the parallel changeover is the better strategy.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Parallel changeover involves running the old system, then running both the old and new systems in parallel, and finally fully changing to the new system after gaining confidence in the new system&#x27;s functionality. Therefore, at no time will the old system and the new system both be fully operational as one integrated system.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-15" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-15</span>
+      <span class="q-index">Question 15 of 25</span>
+    </div>
+    <p class="q-text">Which of the following helps an information systems (IS) auditor evaluate the quality of new software that is developed and implemented?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Reporting of the mean time between failures over time</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Overall mean time to repair failures</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">First report of the mean time between failures</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Overall response time to correct failures</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-15">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-15" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The mean time between repetitive failures includes the inefficiency in fixing the first reported failures and is a reflection of the performance of the response team or help desk team in fixing the reported issues.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The mean time to repair is a reflection on the performance of the response team or help desk team in addressing reported issues.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The mean time between failures that are first reported represents flaws in the software that users in the production environment report. This information helps the information systems (IS) auditor evaluate the quality of the developed and implemented software.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">The response time reflects the agility of the response or help desk teams in addressing reported issues.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-16" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-16</span>
+      <span class="q-index">Question 16 of 25</span>
+    </div>
+    <p class="q-text">Which of the following is the BEST practice of configuration and release management in software development?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Ad hoc software deployments</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Automated deployment pipelines</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Lack of version control</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Manual tracking of configuration changes</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-16">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-16" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Ad hoc software deployments make software changes without proper planning or documentation and are not considered good practice in configuration and release management. Ad hoc deployments can lead to inconsistencies, version conflicts and difficulties in managing and tracking changes.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Automated deployment pipelines are an important aspect of configuration and release management. They involve automating the deployment process, including building, testing and deploying software to different environments. Automated pipelines ensure consistency, reduce manual errors and enable frequent and efficient releases. Automated pipelines also provide visibility into the deployment process and allow for quick rollbacks in case of issues or failures.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Lack of version control is a detrimental practice in configuration and release management. Version control systems, such as Git, are crucial for tracking changes, managing different versions of software and enabling collaboration among development teams. Version control systems provide a structured and controlled approach to managing code changes, making it easier to revert to previous versions if needed.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Manual tracking of configuration changes is not an optimal practice in configuration and release management. Manual tracking is prone to human errors, can be time consuming and lacks the efficiency and accuracy offered by automated tools and systems. Configuration management tools, such as Ansible® or Puppet®, automate the tracking of configuration changes and help maintain consistency across different environments.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-17" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-17</span>
+      <span class="q-index">Question 17 of 25</span>
+    </div>
+    <p class="q-text">An airline is currently redesigning its reservation system. The configuration team has configured the customer registration process and moved it to the controlled environment. What step did they execute?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Checking in</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Recording the baseline</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Registering configuration item changes</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Checking out</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-17">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-17" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Checking in is the process of moving an item to the controlled environment. When a change is required (and supported by a change control form), the configuration manager will check out the item.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Recording the baseline is a benefit that the enterprise achieves by using configuration management tools related to releases.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Registering configuration item changes is a benefit that the enterprise achieves by using configuration management tools related to releases.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">The process of checking out is meant to prevent or manage simultaneous code edits, with hardware, network and system architects reviewing and approving the changes or updates to the hardware asset and the inventory tracking systems.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-18" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-18</span>
+      <span class="q-index">Question 18 of 25</span>
+    </div>
+    <p class="q-text">Which is the MAIN benefit for an enterprise that has implemented continuous integration and continuous deployment (CICD) change management?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Ensures that all changes are documented</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Increases speed with which software is created and delivered</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Automates testing to detect success or failure of an integration</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Logs all actions taken by developers</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-18">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-18" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Ensuring that all changes are documented is one key control for CICD change management, but it is not the main benefit for the enterprise.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Increasing the speed for the creation and delivery of software is the main goal of implementing continuous integration and continuous deployment (CICD). The other options are pieces required to implement CICD.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Testing automation is a core feature of CICD, but it is not the greatest benefit.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Logging all actions taken by developers is one key control for CICD change management but it is not the main benefit.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-19" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-19</span>
+      <span class="q-index">Question 19 of 25</span>
+    </div>
+    <p class="q-text">Which of the following BEST describes the role of an information systems (IS) auditor in improving quality assurance?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Internal auditor</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Reviewer</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Workshop facilitator</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Consultant</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-19">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-19" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The internal auditor’s role is to provide independent assurance that an organization’s risk management, governance and internal control processes are operating effectively. This assurance is achieved by performing audits, which are quality control, and not necessarily related to quality assurance.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Review is primarily a quality control activity.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">The information systems (IS) auditor may conduct workshops as a consultant in improving quality assurance, which is part of the planning activity.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Audit is primarily a quality control activity; however, the auditor can help an organization in improving quality assurance by guiding it on control effectiveness. This is the role of a consultant.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-20" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-20</span>
+      <span class="q-index">Question 20 of 25</span>
+    </div>
+    <p class="q-text">The MAJOR consideration for an information systems (IS) auditor reviewing an organization&#x27;s IT project portfolio is the:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">IT budget.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">existing IT environment.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">business plan.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">investment plan.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-20">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-20" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The IT budget is important to ensure that the resources are being used in the best manner, but this is secondary to the importance of reviewing the business plan.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The existing IT environment is important and used to determine gap analysis but is secondary to the importance of reviewing the business plan.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">One of the most important determining factors for which projects get funded is how well a project meets an organization&#x27;s strategic objectives. Portfolio management takes a holistic view of a company&#x27;s overall IT strategy. IT strategy should be aligned with the business strategy and, hence, reviewing the business plan should be the major consideration.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">The investment plan is important to set out project priorities, but secondary to the importance of reviewing the business plan.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-21" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-21</span>
+      <span class="q-index">Question 21 of 25</span>
+    </div>
+    <p class="q-text">Which of the following is the BEST indicator that a newly developed system will be used after it is in production?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Regression testing</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">User acceptance testing</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Sociability testing</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Parallel testing</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-21">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-21" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Regression test results do not assist with the user experience and are primarily concerned with new functionality or processes and whether those changes altered or broke previous functionality.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">User acceptance testing is undertaken to provide confidence that a system or system component operates as intended, to provide a basis for evaluating the implementation of the requirements, or to demonstrate the effectiveness or efficiency of the system or component. If the testing results are poor, then the system is unlikely to be adopted by the users.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Sociability test results indicate how the application works with other components within the environment and is not indicative of the user experience.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Parallel testing is performed when the comparison of two applications is needed but does not provide feedback on user satisfaction.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-22" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-22</span>
+      <span class="q-index">Question 22 of 25</span>
+    </div>
+    <p class="q-text">The project steering committee is ultimately responsible for the following:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Day-to-day management and leadership of the project</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Allocating the funding for the project</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Project deliverables, costs and timetables</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Ensuring that system controls are in place</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-22">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-22" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Day-to-day management and leadership of the project is the function of the project manager.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Providing the funding for the project is the function of the project sponsor.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The project steering committee provides overall direction; ensures appropriate representation of the major stakeholders in the project outcome; and takes ultimate responsibility for the deliverables, costs and timetables.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Ensuring that system controls are in place is the function of the project security officer.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-23" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-23</span>
+      <span class="q-index">Question 23 of 25</span>
+    </div>
+    <p class="q-text">The development of an application has been outsourced to an offshore vendor. Which of the following should be of GREATEST concern to an information systems (IS) auditor?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">The right to audit clause was not included in the contract.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">The business case was not established.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">There was no source code escrow agreement.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">The contract does not cover change management procedures.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-23">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-23" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The lack of the right to audit clause presents a risk to the organization; however, the risk is not as consequential as the lack of a business case.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Because the business case was not established, it is likely that the business rationale, risk and risk mitigation strategies for outsourcing the application development were not fully evaluated and the appropriate information was not provided to senior management for formal approval. This situation presents the biggest risk to the organization.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">If the source code is held by the provider and not provided to the organization, the lack of source code escrow presents a risk to the organization; however, the risk is not as consequential as the lack of a business case.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">The lack of change management procedures presents a risk to the organization, especially with the possibility of extraordinary charges for any required changes; however, the risk is not as consequential as the lack of a business case.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-24" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-24</span>
+      <span class="q-index">Question 24 of 25</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor found time constraints and expanded needs to be the root causes for recent violations of corporate data definition standards in a new business intelligence project. Which of the following is the MOST appropriate suggestion for an auditor to make?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Achieve standards alignment through an increase of resources devoted to the project.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Align the data definition standards after completion of the project.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Delay the project until compliance with standards can be achieved.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Enforce standard compliance by adopting punitive measures against violators.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-24">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-24" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Provided that data architecture, technical and operational requirements are sufficiently documented, the alignment to standards can be treated as a specific work package assigned to new project resources.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The use of nonstandard data definitions lowers the efficiency of the new development and increases the risk of errors in critical business decisions. Changing data definition standards after project conclusion creates risk and is not a viable solution.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Delaying the project is an inappropriate suggestion because of business requirements or the likely damage to entire project profitability.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Punishing the violators is outside the authority of the auditor and inappropriate until the reason for the violations have been determined.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A3-25" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A3-25</span>
+      <span class="q-index">Question 25 of 25</span>
+    </div>
+    <p class="q-text">Regression testing is undertaken PRIMARILY to ensure that:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">system functionality meets customer requirements.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">a new system can operate in the target environment.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">applicable development standards have been maintained.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">applied changes have not introduced new errors.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A3-25">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A3-25" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Vvalidation testing is used to test the functionality of the system against detailed requirements to ensure that software construction is traceable to customer requirements.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Sociability testing is used to see whether the system can operate in the target environment without adverse impacts on the existing systems.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Software quality assurance and code reviews are used to determine whether development standards are maintained.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Regression testing is used to test for the introduction of new errors in the system after changes have been applied.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+  </main>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ── Answer Toggle ──────────────────────────────────────────────
+
+  function initAnswerToggles() {
+    document.querySelectorAll('.btn-reveal').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        var panel = btn.parentElement.querySelector('.answer-panel');
+        var card = btn.closest('.question-card');
+
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.hidden = expanded;
+
+        var labelEl = btn.querySelector('.btn-label');
+        if (labelEl) {
+          labelEl.textContent = expanded ? 'Show Answer' : 'Hide Answer';
+        }
+
+        if (!expanded) {
+          // Highlight correct option
+          var correctOpt = card.dataset.answer;
+          card.querySelectorAll('.q-option').forEach(function (opt) {
+            if (opt.dataset.option === correctOpt) {
+              opt.classList.add('highlighted');
+            }
+          });
+          card.classList.add('answered');
+          updateProgress();
+        } else {
+          card.querySelectorAll('.q-option').forEach(function (opt) {
+            opt.classList.remove('highlighted');
+          });
+          card.classList.remove('answered');
+          updateProgress();
+        }
+      });
+    });
+  }
+
+  // ── Reading Progress Bar ───────────────────────────────────────
+
+  function initProgressBar() {
+    var fill = document.querySelector('.progress-bar-fill');
+    if (!fill) return;
+
+    window.addEventListener('scroll', function () {
+      var doc = document.documentElement;
+      var scrollTop = doc.scrollTop || document.body.scrollTop;
+      var scrollHeight = doc.scrollHeight - doc.clientHeight;
+      var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      fill.style.width = Math.min(progress, 100) + '%';
+    }, { passive: true });
+  }
+
+  // ── Question Answered Progress ─────────────────────────────────
+
+  function updateProgress() {
+    var total = document.querySelectorAll('.question-card').length;
+    var answered = document.querySelectorAll('.question-card.answered').length;
+    var statEl = document.querySelector('.stat-answered');
+    if (statEl) {
+      statEl.textContent = answered + ' / ' + total + ' answered';
+    }
+  }
+
+  // ── Sidebar Active Link on Scroll ──────────────────────────────
+
+  function initSidebarScroll() {
+    var links = document.querySelectorAll('.sidebar-nav-item[data-cat]');
+    if (!links.length) return;
+    links.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        a.classList.add('active');
+      });
+    });
+  }
+
+  // ── Back-to-top shortcut (kbd B) ──────────────────────────────
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'b' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      var tag = document.activeElement.tagName;
+      if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  });
+
+  // ── Init ───────────────────────────────────────────────────────
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initAnswerToggles();
+    initProgressBar();
+    initSidebarScroll();
+    updateProgress();
+  });
+}());
+</script>
+</body>
+</html>

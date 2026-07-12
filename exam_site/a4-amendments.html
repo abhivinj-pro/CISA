@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A4 Amendments — CISA Exam Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+/* ── Reset & Base ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-subtle: #94a3b8;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #dbeafe;
+  --color-correct: #16a34a;
+  --color-correct-light: #dcfce7;
+  --color-shadow: rgba(15, 23, 42, 0.08);
+  --sidebar-width: 260px;
+  --header-height: 60px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --transition: 0.2s ease;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+ul { list-style: none; }
+
+/* ── Top Header ────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.header-logo .logo-badge {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.header-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.header-breadcrumb a:hover { color: #ffffff; }
+.header-breadcrumb .sep { color: #475569; }
+.header-breadcrumb .current { color: #cbd5e1; font-weight: 500; }
+
+.header-stats {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+}
+
+.header-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-stats .stat-value {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+/* ── Layout ────────────────────────────────────── */
+.page-layout {
+  display: flex;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ── Sidebar ───────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.sidebar-section-label {
+  padding: 0 16px 8px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-left: 3px solid transparent;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  line-height: 1.4;
+}
+
+.sidebar-nav-item:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.sidebar-nav-item.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-left-color: var(--color-primary);
+  font-weight: 600;
+}
+
+.sidebar-nav-item .cat-code {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: currentColor;
+  color: transparent;
+  /* fallback */
+}
+
+.sidebar-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.sidebar-nav-item.active .sidebar-cat-badge {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.sidebar-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  background: var(--color-bg);
+  padding: 1px 7px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 12px 16px;
+}
+
+/* ── Main Content ──────────────────────────────── */
+.main-content {
+  flex: 1;
+  padding: 32px 40px 64px;
+  max-width: 900px;
+  min-width: 0;
+}
+
+/* ── Category Hero ─────────────────────────────── */
+.category-hero {
+  margin-bottom: 32px;
+  padding: 28px 32px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 4px var(--color-shadow);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.cat-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.category-hero .cat-code-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.category-hero h1 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.category-hero p {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.cat-stats-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 14px;
+}
+
+.cat-stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.cat-stat-chip strong { color: var(--color-text); font-weight: 600; }
+
+/* ── Question Card ─────────────────────────────── */
+.question-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px var(--color-shadow);
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+
+.question-card:hover {
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+.question-card.answered {
+  border-left: 3px solid var(--color-primary);
+}
+
+/* Card Header */
+.q-header {
+  padding: 20px 24px 16px;
+}
+
+.q-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.q-number-badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.q-index {
+  font-size: 0.8125rem;
+  color: var(--color-text-subtle);
+}
+
+.q-text {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+/* Options */
+.q-options {
+  padding: 0 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.q-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.q-option:hover {
+  background: #f8fafc;
+}
+
+.q-option.highlighted {
+  background: var(--color-correct-light);
+  border-color: #86efac;
+}
+
+.opt-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: #e2e8f0;
+  color: #475569;
+  transition: background var(--transition), color var(--transition);
+}
+
+.q-option.highlighted .opt-letter {
+  background: var(--color-correct);
+  color: #fff;
+}
+
+.opt-text {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.55;
+  padding-top: 2px;
+}
+
+/* Answer Section */
+.q-answer-section {
+  border-top: 1px solid var(--color-border);
+  background: #fafafa;
+}
+
+.btn-reveal {
+  width: 100%;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  transition: background var(--transition);
+}
+
+.btn-reveal:hover {
+  background: var(--color-primary-light);
+}
+
+.btn-reveal svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.btn-reveal[aria-expanded="true"] svg.chevron {
+  transform: rotate(180deg);
+}
+
+.btn-reveal[aria-expanded="true"] {
+  color: var(--color-text-muted);
+}
+
+/* Answer Panel */
+.answer-panel {
+  border-top: 1px solid var(--color-border);
+  padding: 20px 24px 24px;
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.correct-answer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--color-correct-light);
+  border: 1px solid #86efac;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-correct);
+  margin-bottom: 20px;
+}
+
+.correct-answer-chip svg {
+  width: 16px;
+  height: 16px;
+}
+
+.justifications-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 12px;
+}
+
+.justification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.justification-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.justification-item.is-correct {
+  background: var(--color-correct-light);
+  border-color: #86efac;
+}
+
+.just-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.justification-item.is-correct .just-letter {
+  background: var(--color-correct);
+  color: #fff;
+}
+
+.just-text {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  line-height: 1.65;
+  flex: 1;
+}
+
+/* ── Index Page ────────────────────────────────── */
+.index-hero {
+  text-align: center;
+  padding: 64px 24px 48px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.index-hero .hero-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+.index-hero h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.index-hero p {
+  font-size: 1.0625rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  padding: 0 32px 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.category-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: box-shadow var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 1px 4px var(--color-shadow);
+}
+
+.category-card:hover {
+  box-shadow: 0 8px 24px var(--color-shadow);
+  transform: translateY(-2px);
+}
+
+.category-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+}
+
+.category-card .cat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.category-card h2 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.35;
+}
+
+.category-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.category-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.q-count-badge {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.cat-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+}
+
+.cat-link-btn svg { width: 14px; height: 14px; }
+
+/* ── Progress Indicator ────────────────────────── */
+.progress-bar-wrap {
+  height: 3px;
+  background: var(--color-border);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 99;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ── Scrollbar ─────────────────────────────────── */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { padding: 20px 16px 48px; }
+  .categories-grid { grid-template-columns: 1fr; padding: 0 16px 48px; }
+  .index-hero h1 { font-size: 1.75rem; }
+  .category-hero { flex-direction: column; }
+}
+
+    .q-number-badge { background: #f0fdf4; color: #10b981; }
+    .sidebar-nav-item.active .sidebar-cat-badge { background: #10b981; }
+    .sidebar-nav-item.active { color: #10b981; border-left-color: #10b981; background: #f0fdf4; }
+    .btn-reveal { color: #10b981; }
+    .btn-reveal:hover { background: #f0fdf4; }
+    .cat-icon-wrap { background: #f0fdf4; }
+    .cat-link-btn { background: #f0fdf4; color: #10b981; }
+    .cat-link-btn:hover { filter: brightness(0.95); }
+    </style>
+</head>
+<body>
+<header class="site-header">
+  <a href="index.html" class="header-logo">
+    <span class="logo-badge">CISA</span>
+    Exam Prep
+  </a>
+  <div class="header-breadcrumb">
+    <span class="sep">/</span>
+    <a href="index.html">Amendments</a>
+    <span class="sep">/</span>
+    <span class="current">A4 Amendments</span>
+  </div>
+  <div class="header-stats">
+    <div class="stat-item">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 5.5a2 2 0 0 1 0 4"/><circle cx="8" cy="11.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+      <span class="stat-value">28</span> questions
+    </div>
+    <div class="stat-item" style="font-size:0.8125rem;color:#94a3b8">
+      <span class="stat-answered">0 / 28 answered</span>
+    </div>
+  </div>
+</header>
+<div class="progress-bar-wrap"><div class="progress-bar-fill"></div></div>
+<div class="page-layout">
+  
+<nav class="sidebar" aria-label="Categories">
+  <p class="sidebar-section-label">Amendments</p>
+  <a href="a1-amendments.html" class="sidebar-nav-item " data-cat="A1" title="A1 Amendments">  <span class="sidebar-cat-badge">A1</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A1 Amendments</span>  <span class="sidebar-count">40</span></a>
+<a href="a2-amendments.html" class="sidebar-nav-item " data-cat="A2" title="A2 Amendments">  <span class="sidebar-cat-badge">A2</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A2 Amendments</span>  <span class="sidebar-count">32</span></a>
+<a href="a3-amendments.html" class="sidebar-nav-item " data-cat="A3" title="A3 Amendments">  <span class="sidebar-cat-badge">A3</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A3 Amendments</span>  <span class="sidebar-count">25</span></a>
+<a href="a4-amendments.html" class="sidebar-nav-item active" data-cat="A4" title="A4 Amendments">  <span class="sidebar-cat-badge">A4</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A4 Amendments</span>  <span class="sidebar-count">28</span></a>
+<a href="a5-amendments.html" class="sidebar-nav-item " data-cat="A5" title="A5 Amendments">  <span class="sidebar-cat-badge">A5</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A5 Amendments</span>  <span class="sidebar-count">45</span></a>
+  <div class="sidebar-divider"></div>
+  <a href="index.html" class="sidebar-nav-item" style="font-size:0.8rem;color:var(--color-text-subtle)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h5a2 2 0 0 1 2 2v9a1.5 1.5 0 0 0-1.5-1.5H2V3Z"/><path d="M14 3H9a2 2 0 0 0-2 2v9a1.5 1.5 0 0 1 1.5-1.5H14V3Z"/></svg>&nbsp; Back to Home
+  </a>
+</nav>
+  <main class="main-content">
+    <div class="category-hero">
+      <div class="cat-icon-wrap" style="background:#f0fdf4;">
+        <span style="color:#10b981;font-size:1.5rem">🛡️</span>
+      </div>
+      <div>
+        <p class="cat-code-label">A4 · Amendments</p>
+        <h1>A4 Amendments</h1>
+        <p>Amendment practice questions for A4: IS Operations &amp; Business Resilience.</p>
+        <div class="cat-stats-row">
+          <div class="cat-stat-chip">
+            <strong>28</strong> questions available
+          </div>
+        </div>
+      </div>
+    </div>
+    
+<article class="question-card" id="q-A4-1" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-1</span>
+      <span class="q-index">Question 1 of 28</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor reviewing the application change management process for a large multinational organization should be MOST concerned when:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Test systems run different configurations than production systems.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Change management records are paper-based.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">The configuration management database is not maintained.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">The test environment is installed on the production server.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-1">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-1" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Although, ideally, production and test systems should be configured identically, there may be reasons why this does not occur. The more significant concern is whether the configuration management database was not maintained. Paper-based change management records are inefficient to maintain and not easy to review in large volumes; however, they do not present a concern from a control point of view if they are properly and diligently maintained. The configuration management database (CMDB) is used to track configuration item (CI) and the dependencies between them. An out-of-date CMDB in a large multinational organization can result in incorrect approvals being obtained or leave out critical dependencies during the test phase. Although it is not ideal to have the test environment installed on the production server, it is not a control-related concern. If the test and production environments are kept separate, they can be installed on the same physical server(s).</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-2" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-2</span>
+      <span class="q-index">Question 2 of 28</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor observed that users are occasionally granted the authority to change system data. This elevated system access is required for the smooth functioning of business operations. Which of the following controls does the IS auditor MOST likely recommend for long-term resolution?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Redesign the controls related to data authorization.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Implement additional separation of duties controls.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Review policy to see if a formal exception process is required.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Implement additional logging controls.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-2">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-2" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Data authorization controls should be driven by the policy. Although there may be some technical controls that can be adjusted, if the data changes happen infrequently, then an exception process is the better choice. Although adequate separation of duties is important, the information systems (IS) auditor must first review policy to see if there is a formal documented process for this type of temporary access controls to enforce separation of duties. If the users are granted access to change data in support of the business requirements, the policy should be followed. If there is no policy for the granting of extraordinary access, then one should be designed to ensure that no unauthorized changes are made. Audit trails are needed whenever temporary elevated access is required. However, this is not the first step the auditor should take in reviewing the overall process.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-3" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-3</span>
+      <span class="q-index">Question 3 of 28</span>
+    </div>
+    <p class="q-text">During the review of data file change management controls, which of the following BEST helps to decrease the research time needed to investigate exceptions?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">One-for-one checking</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Data file security</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Transaction logs</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">File updating and maintenance authorization</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-3">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-3" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">One-for-one checking is a process of verifying data accuracy but does not specifically address decreasing research time for investigating exceptions.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Data file security ensures that data files are protected from unauthorized access but does not directly help in investigating exceptions.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Transaction logs are records of all changes made to data files, providing a detailed history of transactions. These logs are essential for quickly identifying and investigating exceptions by showing what changes were made, by whom, and when.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">File updating and maintenance authorization ensures that changes to data files are properly approved but does not directly reduce the time needed to research exceptions. Transaction logs provide a comprehensive and chronological record of changes, which is crucial for efficiently investigating and resolving exceptions.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-4" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-4</span>
+      <span class="q-index">Question 4 of 28</span>
+    </div>
+    <p class="q-text">During an audit of a small enterprise, the information systems (IS) auditor noted that the IS director has superuser-privilege access that allows the director to process requests for changes to the application access roles (access types). Which of the following should the IS auditor recommend?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Implement a properly documented process for application role change requests.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Hire additional staff to provide a separation of duties for application role changes.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Implement an automated process for changing application roles.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Document the current procedure in detail and make it available on the enterprise intranet.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-4">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-4" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">The information systems (IS) auditor should recommend implementation of a process that can prevent or detect improper changes from being made to the major application roles. The application role change request process should start and be approved by the business owner; then, the IS director can make the changes to the application. Although it is preferred that a strict separation of duties be adhered to and that additional staff be recruited, this practice is not always possible in small enterprises. The IS auditor must look at recommended alternative processes. An automated process for managing application roles may not be practical to prevent improper changes being made by the IS director, who also has the most privileged access to the application. Making the existing process available on the enterprise intranet would not provide any value to protect the system.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-5" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-5</span>
+      <span class="q-index">Question 5 of 28</span>
+    </div>
+    <p class="q-text">An auditor conducting an audit of controls in an IT environment will perform substantive tests for the controls implemented after:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">The control is automated using technical tools.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">The original control design has been changed during implementation.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Confirming the control is designed to mitigate risk.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Confirming the control is implemented as designed.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-5">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-5" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">While automating a control using technical tools can enhance its effectiveness, the auditor needs to confirm the control&#x27;s implementation before performing substantive tests.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Changes in the original control design during implementation require review, but substantive tests should be performed only after confirming that the control is implemented correctly.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Confirming that the control is designed to mitigate risk is important, but substantive tests should be conducted after verifying that the control is implemented as designed.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Substantive tests are conducted to gather evidence about the completeness, accuracy, and validity of data. Before performing these tests, the auditor must confirm that the control is implemented as designed to ensure it operates effectively in mitigating the identified risks. Therefore, the auditor will perform substantive tests after confirming that the control is implemented as designed.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-6" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-6</span>
+      <span class="q-index">Question 6 of 28</span>
+    </div>
+    <p class="q-text">A clerk changed the interest rate for a loan on a master file. The rate entered is outside the normal range for such a loan. Which of the following controls is MOST effective in providing reasonable assurance that the change was authorized?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">The system will not process the change until the clerk’s manager confirms the change by entering an approval code.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">The system generates a weekly report listing all rate exceptions and the report is reviewed by the clerk’s manager.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">The system requires the clerk to enter an approval code.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">The system displays a warning message to the clerk.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-6">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-6" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Requiring an approval code from a manager prevents or detects the use of an unauthorized interest rate in real-time. This ensures that any changes outside the normal range are immediately reviewed and authorized by a higher authority before being processed. Therefore, the most effective control is to require the manager&#x27;s approval before processing the change, ensuring that all changes are properly authorized in real-time.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Generating a weekly report that lists all rate exceptions and having it reviewed by the manager provides after-the-fact visibility into rate changes. However, this does not prevent unauthorized rate changes from being processed before the review.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Requiring the clerk to enter an approval code does not provide separation of duties and does not prevent the clerk from entering an unauthorized rate change.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Displaying a warning message alerts the clerk in case the change is being made in error but does not prevent the clerk from entering an unauthorized rate change.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-7" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-7</span>
+      <span class="q-index">Question 7 of 28</span>
+    </div>
+    <p class="q-text">Which of the following is a KEY benefit of using version control systems in configuration and release management?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Manages complexity in code management</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Eases collaboration with multiple developers</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Limits accessibility for developers</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Provides the ability to track and revert changes</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-7">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-7" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">While version control systems do help manage complexity in code management, this is not the key benefit in the context of configuration and release management.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Version control systems do facilitate collaboration among multiple developers by providing a centralized platform for code sharing, version tracking, and merging changes. This is an important benefit, but not the primary one in the context of configuration and release management.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Version control systems can limit accessibility by providing access controls, but this is complementary to their primary purpose.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">The primary benefit of version control systems in configuration and release management is their ability to track and revert changes. Version control systems keep detailed records of code changes, including who made the changes, when they were made, and what modifications were implemented. This functionality allows for easy identification of issues, collaborative development, and the ability to revert to previous versions if needed, which is crucial for effective configuration and release management. Tracking changes is essential for maintaining the integrity of the codebase and ensuring that any operational issues can be quickly identified and resolved by reverting to a stable version.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-8" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-8</span>
+      <span class="q-index">Question 8 of 28</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor is asked to audit the change management process for all IT operational systems. Which of the following documents will BEST aid the auditor in defining the scope for the audit project?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Enterprise architecture (EA)</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Control catalog</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Risk register</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">IT organizational chart</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-8">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-8" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">The enterprise architecture (EA) document provides comprehensive information about the IT environment, including the systems, processes, and interdependencies. This information is crucial for the IS auditor to define the scope of the audit on the change management process for all IT systems. Therefore, the enterprise architecture (EA) document is the most effective in providing the necessary information to define the audit scope for the change management process across all IT operational systems.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The control catalog is essential for planning the testing of controls, which comes after defining the audit scope. It helps identify the controls that need to be tested but does not provide the broad IT environment context needed to define the scope.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">The risk register helps the IS auditor determine the systems to audit based on the priority of their associated risks. It is useful for audit planning but not specifically for defining the scope of the change management audit.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">The IT organizational chart helps the IS auditor understand the process flow and the roles and responsibilities within the IT department. While useful during audit planning, it is not the most helpful document for defining the scope of the audit.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-9" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-9</span>
+      <span class="q-index">Question 9 of 28</span>
+    </div>
+    <p class="q-text">In a small organization, developers may release emergency changes directly to production. Which of the following will BEST control the risk in this situation?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Approve and document the emergency changes promptly after release.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Implement a segregated environment for production access and restrict developer access outside of specific time frames.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Implement a defined emergency change management process that includes secondary approval.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Implement strict access controls and permissions on the production machine to prevent unauthorized changes.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-9">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-9" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">It may be appropriate to allow developers to make emergency changes if those changes are documented and approved promptly after the fact. This ensures that all changes are tracked and authorized, maintaining accountability and control over the changes made in emergency situations. Therefore, promptly approving and documenting emergency changes after their release is the most effective way to control the risk in this situation, ensuring that all changes are tracked and authorized.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Limiting developer access to production within specific time frames may help establish some controls, but it does not directly address the risk of unauthorized or unapproved emergency changes.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">While implementing a defined emergency change management process that includes secondary approval is important, it may not be as feasible in an emergency situation where immediate action is required. Prompt documentation and approval after the release is more practical.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Implementing strict access controls and permissions on the production machine is important for preventing unauthorized changes, but it should be done alongside a process for managing and documenting emergency changes.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-10" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-10</span>
+      <span class="q-index">Question 10 of 28</span>
+    </div>
+    <p class="q-text">Which of the following allows software systems or applications to access and interact with a cloud-based infrastructure or service provider?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Simple Network Management Protocol (SNMP)</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Remote procedure call (RPC)</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Circuit-level gateway</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Application programming interface (API)</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-10">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-10" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Simple Network Management Protocol (SNMP) is a network management protocol used for monitoring and managing network devices, but it is not designed specifically for accessing cloud-based infrastructure or service providers.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">A Remote Procedure Call (RPC) is a communication protocol that allows a program to execute a procedure or function in a different address space, but it is not designed specifically for accessing cloud-based infrastructure or service providers.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">A circuit-level gateway is a type of firewall that ensures that packets are transferred correctly between different networks but is not designed specifically for accessing cloud-based infrastructure or service providers.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">An Application Programming Interface (API) allows software systems or applications to access and interact with a cloud-based infrastructure or service provider. APIs provide a set of rules and protocols that enable developers to integrate their applications with cloud services, access resources, and perform various operations.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-11" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-11</span>
+      <span class="q-index">Question 11 of 28</span>
+    </div>
+    <p class="q-text">In a distributed system, which of the following BEST allows different components or modules to communicate and coordinate their activities?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Message queue interface</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Application programming interface (API)</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Remote procedure call (RPC)</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Communication infrastructure interface</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-11">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-11" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">A message queue interface is used for asynchronous communication between applications through message queues, but it is not a general-purpose interface for coordinating activities in a distributed system.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">An application programming interface (API) allows components or modules in a distributed system to communicate and coordinate their activities. An API defines a set of rules and protocols that enable the interaction and exchange of data between software components, making it the best option for facilitating communication and coordination. Therefore, an API is the most effective way to allow different components or modules to communicate and coordinate their activities in a distributed system.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">A Remote Procedure Call (RPC) is a communication protocol that allows a program to execute a procedure or function in a different address space, but it is not specifically focused on coordinating activities in a distributed system.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">A communication infrastructure interface is an interface between the application platform and the communication infrastructure, but it does not specifically enable the coordination and communication of activities between different components or modules in a distributed system.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-12" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-12</span>
+      <span class="q-index">Question 12 of 28</span>
+    </div>
+    <p class="q-text">Which of the following is MOST useful for effective security log management?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Implementing automated tools to collect, analyze, and retain logs</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Archiving and storing logs indefinitely to ensure historical data availability</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Collecting all logs from all systems, databases, devices, and tools</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Security manager reviewing logs daily to detect and respond to security incidents</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-12">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-12" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Effective security log management involves automated tools and processes to collect, analyze, and retain logs from various systems and devices within an organization’s IT infrastructure. Automated log management solutions help streamline the log collection process, centralize logs from different sources, apply real-time analysis techniques to identify security incidents, and retain logs for an appropriate period based on regulatory and compliance requirements. Automated tools can process large volumes of log data and identify abnormal patterns or suspicious activities that a human analyst might miss. These tools can also generate alerts in real-time when they detect potential security incidents. Therefore, implementing automated tools to collect, analyze, and retain logs is the most useful approach for effective security log management.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Storing logs indefinitely is not feasible due to storage limitations and may not align with enterprise and regulatory data retention policies. Retention should be based on regulatory and business requirements.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">It is important to identify the types and nature of logs to be collected for analysis and from which systems, databases, devices, and tools they should be collected. Collecting all logs may not be necessary and can be inefficient.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Having a security officer review logs daily may be tiresome, time-consuming, and impractical for enterprises with a large volume of logs. Automated systems can ease the work of detecting incidents and can process large amounts of data more efficiently.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-13" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-13</span>
+      <span class="q-index">Question 13 of 28</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor has been tasked by an automated manufacturing facility to conduct a risk-based audit of its distributed control supervisory control and data acquisition (SCADA) systems. Which of the following should be the PRIMARY task for the auditor?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Evaluation of communication architecture and connectivity interfaces</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Evaluation of functioning of monitoring terminals, sensors, and actuators</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Assessment of total cost of ownership (TCO) for the SCADA systems</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Evaluation of usability of automated controls for enterprise engineers</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-13">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-13" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Evaluation of communication architecture and connectivity interfaces is critical because communication channels, especially those over the Internet or USB interfaces in air-gapped systems, increase the risk of malware exposure (e.g., Stuxnet). Ensuring secure and robust communication channels is vital to mitigating risks associated with SCADA systems. Therefore, the primary task for the auditor should be the evaluation of the communication architecture and connectivity interfaces to ensure they are secure and mitigate the risk of malware exposure and other security threats.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">While the functioning of monitoring terminals, sensors, and actuators is important, it is not as critical in a risk-based audit as evaluating the security of communication channels.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">The assessment of the total cost of ownership (TCO) is more related to financial considerations and is not the primary concern for an IS auditor focusing on risk assessment.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Evaluating the usability of automated controls for enterprise engineers is less critical in the context of a risk-based audit compared to the potential risks posed by insecure communication channels.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-14" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-14</span>
+      <span class="q-index">Question 14 of 28</span>
+    </div>
+    <p class="q-text">During a review of a business continuity plan (BCP), an information systems (IS) auditor noticed that the point at which a situation is declared to be a crisis has not been defined. The MAJOR risk associated with this is that:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Response and recovery actions are initiated too early.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Activating the appropriate response and recovery actions are delayed during a crisis.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Crisis situations may be underestimated or overlooked.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">The BCP may become too rigid.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-14">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-14" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">While initiating response and recovery actions prematurely can result in unnecessary costs and disruptions, this is not as critical as the risk of delayed responses.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">The absence of a clear definition for declaring a crisis creates the risk of delays in activating the appropriate response and recovery actions. Without a predefined threshold or criteria for identifying a crisis, there can be uncertainty and potential confusion about when to escalate the response, mobilize resources, and implement critical measures. This can lead to valuable time being lost, ineffective decision-making, and delays in mitigating the impacts of the crisis. Therefore, the major risk is that without a clearly defined point for declaring a crisis, the activation of appropriate response and recovery actions could be delayed during a crisis, resulting in greater impact and potential damage.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Crisis situations may indeed be underestimated or overlooked without a clear definition, but this is not as significant a concern as the risk of delayed responses.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Without a defined crisis declaration point, the BCP may become too rigid, potentially leading to unnecessary delays and inefficiencies in responding to incidents. However, this risk is not as significant as the risk of delayed response.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-15" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-15</span>
+      <span class="q-index">Question 15 of 28</span>
+    </div>
+    <p class="q-text">Which of the following is MOST important for an information systems (IS) auditor to verify while conducting a business continuity audit?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Data backups are performed on a timely basis.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">A recovery site is contracted for and available as needed.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Human safety procedures are in place.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Insurance coverage is adequate and premiums are current.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-15">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-15" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Performing data backups is necessary for a business continuity plan, but it is secondary to ensuring human safety.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Having a recovery site is important for business continuity, but the safety of human life takes precedence over this aspect.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The most important element in any business continuity process is the protection of human life. Ensuring that human safety procedures are in place is the highest priority for any IS auditor during a business continuity audit. Therefore, the most important aspect for an IS auditor to verify during a business continuity audit is that human safety procedures are in place, as this is the top priority in any emergency or disaster situation.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">While having adequate insurance coverage is important, it is not as critical as ensuring the safety of personnel.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-16" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-16</span>
+      <span class="q-index">Question 16 of 28</span>
+    </div>
+    <p class="q-text">For effective implementation after a business continuity plan (BCP) has been developed, it is MOST important that the BCP be:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Stored in a secure offsite facility.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Approved by senior management.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Communicated to appropriate personnel.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Made available through the enterprise’s intranet.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-16">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-16" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">If the business continuity plan (BCP) is kept in a safe place, it may not reach the users who need to implement it, making the BCP ineffective.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Senior management approval is important for designing and approving the BCP, but it is less important than ensuring that the plan is communicated to all key personnel.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The implementation of a BCP will be effective only if appropriate personnel are informed and aware of all the aspects of the BCP. Communicating the BCP to the relevant personnel ensures that they know their roles and responsibilities during an emergency. Therefore, for the effective implementation of a BCP, it is most important that the plan be communicated to the appropriate personnel to ensure they are aware of their responsibilities and the procedures to follow during a crisis.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Making a BCP available on an enterprise’s intranet does not guarantee that personnel will access, read, or understand it.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-17" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-17</span>
+      <span class="q-index">Question 17 of 28</span>
+    </div>
+    <p class="q-text">Which of the following is the MOST effective when determining the correctness of individual account balances migrated from one database to another?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Compare the hash total before and after the migration.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Verify that the number of records is the same for both databases.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Perform sample testing of the migrated account balances.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Compare the control totals of all of the transactions.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-17">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-17" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Comparing the hash total only validates data integrity at a batch level, not at the individual transaction level.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Verifying that the number of records is the same does not ensure that the individual fields within the records have been accurately migrated.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Performing sample testing of the migrated account balances involves comparing a selection of individual transactions from the database before and after the migration. This is the most effective method for verifying the correctness of individual account balances. Therefore, sample testing of the migrated account balances is the most effective way to determine the correctness of individual account balances, as it involves direct comparison of individual records before and after migration.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Comparing the control totals does not ensure that the individual records are complete or that their values are accurate.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-18" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-18</span>
+      <span class="q-index">Question 18 of 28</span>
+    </div>
+    <p class="q-text">During an application audit, an information systems (IS) auditor is asked to provide assurance of the database&#x27;s referential integrity. Which of the following should be reviewed?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Field definition</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Master table definition</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Composite keys</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Foreign key structure</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-18">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-18" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Field definitions describe the table layout but are not directly related to referential integrity.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Master table definition describes the database structure but is not directly related to referential integrity.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Composite keys describe how the keys are created but are not directly related to referential integrity.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Referential integrity in a relational database refers to the consistency between coupled (linked) tables. Referential integrity is usually enforced by the combination of a primary key or candidate key (alternate key) and a foreign key. For referential integrity to hold, any field in a table that is declared a foreign key should contain only values from a parent table’s primary key or a candidate key. Therefore, reviewing the foreign key structure is the most appropriate action to provide assurance of the database&#x27;s referential integrity.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-19" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-19</span>
+      <span class="q-index">Question 19 of 28</span>
+    </div>
+    <p class="q-text">A new business requirement necessitated changing database vendors. Which of the following areas should the information systems (IS) auditor PRIMARILY examine concerning this implementation?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Integrity of the data</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Timing of the cutover</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Authorization level of users</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Normalization of the data</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-19">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-19" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">The primary concern when migrating data from one database to another is the integrity of the data. Ensuring that data is migrated completely and correctly is critical to maintaining the accuracy and reliability of the information in the new database. Therefore, the IS auditor should primarily focus on the integrity of the data to ensure that the migration process does not compromise the accuracy and completeness of the data being transferred to the new database system.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The timing of the cutover is important for minimizing disruption, but ensuring data integrity is the primary focus.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">The authorization level of users is relevant, but the main priority during a database migration is to ensure that data integrity is maintained. User authorizations can be reviewed and adjusted as needed after ensuring the data has been correctly migrated.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Normalization is a database design process that helps organize data efficiently. While important for database design, it is not directly related to the primary concern of data integrity during a database migration.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-20" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-20</span>
+      <span class="q-index">Question 20 of 28</span>
+    </div>
+    <p class="q-text">Which interface allows different software applications to access and manipulate a relational database management system (RDBMS)?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Application programming interface (API)</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Structured query language (SQL)</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Object-relational mapping</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Java database connectivity</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-20">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-20" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">An application programming interface (API) allows different software applications to access and manipulate a relational database management system (RDBMS). The API provides a set of functions, methods, or protocols that enable developers to interact with the database, perform queries, and manage data. Therefore, the application programming interface (API) is the correct answer as it enables different software applications to access and manipulate an RDBMS.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Structured Query Language (SQL) is a programming language specifically designed for managing and manipulating relational databases, but it is not an interface. SQL is typically used with an API to interact with the database.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Object-relational mapping is a technique that allows developers to map between objects in an application and relational database tables, but it is not an interface for accessing the RDBMS.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Java Database Connectivity (JDBC) is a Java API that provides methods for connecting to and interacting with a database using the Java programming language, but it is specific to Java and not a general-purpose interface.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-21" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-21</span>
+      <span class="q-index">Question 21 of 28</span>
+    </div>
+    <p class="q-text">Which of the following BEST helps an information systems (IS) auditor in ensuring that automated data conversion from an old system to a new system has been completed successfully?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Operator reports</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Exception reports</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Control totals</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Application logs</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-21">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-21" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Operator reports are manual logs of errors identified by the computer operator, but they may not capture all errors or issues encountered during the automated data conversion process.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Exception reports are automated reports that identify errors encountered during processing, including transactions that are not converted automatically. These reports provide detailed information about specific issues, helping to ensure that the conversion process is complete and accurate. Therefore, exception reports are the most effective tool for an IS auditor to ensure that automated data conversion has been completed successfully, as they provide detailed information on any errors or issues encountered during the process.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Control totals help in ensuring that data has been converted completely but may not identify specific records that were not converted correctly.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Application logs provide errors encountered during application execution, but they may not provide a comprehensive view of all issues related to data conversion.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-22" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-22</span>
+      <span class="q-index">Question 22 of 28</span>
+    </div>
+    <p class="q-text">Which of the following is a MAIN benefit of monitoring operational logs?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">It provides early warnings of possible risk materialization.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">It helps information systems (IS) auditors in detecting problems encountered during operations.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">It gives insight into the health and performance of the IT infrastructure.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">It provides audit trails for transactions processed during operations.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-22">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-22" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">While monitoring operational logs can provide early warnings of possible risk materialization, not all operational logs provide such information comprehensively.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">IS auditors may use logs to detect problems, but this is not the primary benefit of monitoring operational logs.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Monitoring operational logs primarily helps in providing insight into the health and performance of the IT infrastructure. It allows for the collection of data to build performance metrics for various IT resources, such as CPU performance, storage capacity usage, network bandwidth usage, and the maximum number of transactions. Therefore, the main benefit of monitoring operational logs is gaining insight into the health and performance of the IT infrastructure, which helps in maintaining and optimizing IT resources.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">While audit trails are useful for ensuring appropriate processing of transactions, they are more focused on transaction integrity and may not provide comprehensive insights into IT infrastructure performance.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-23" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-23</span>
+      <span class="q-index">Question 23 of 28</span>
+    </div>
+    <p class="q-text">Which of the following is a MAJOR challenge in implementing a log management system?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Complexity of the IT infrastructure</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Multiple formats of logs collected</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Cost of storage due to the volume of logs</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Addressing false-positive alerts</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-23">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-23" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Addressing the complexity of the IT resources that generate logs is a major challenge because the performance of many resources can deteriorate when logging is enabled. It is necessary to determine the type of logs to be captured from each resource and manage the complexity of collecting and correlating logs from diverse systems. Therefore, the complexity of the IT infrastructure is the major challenge in implementing a log management system, as it requires careful planning and management to ensure that logs are collected and analyzed effectively without degrading system performance.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The multiplicity of log formats can be challenging; however, this can be addressed using appropriate parsing techniques and standardized log management tools.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Storage cost is a challenge but can be managed with appropriate budgeting and setting retention periods based on regulatory and business needs.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Addressing false positives can be managed through appropriate planning, tuning of the log management system, and implementing tools in a phased manner.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-24" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-24</span>
+      <span class="q-index">Question 24 of 28</span>
+    </div>
+    <p class="q-text">Which of the following BEST helps an information systems (IS) auditor to detect the problems encountered by application executions during IT operations?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Operating system logs</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Incident reports</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Exception reports</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Computer operator logs</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-24">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-24" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Operating system logs help in identifying problems encountered by operating systems and may not report application-related problems.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Application execution problems may not be reported as incidents unless the interruption is significant enough to be considered an incident, so they would not appear in incident reports.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Exception reports are automated reports that list the problems encountered by the application during execution. These reports provide specific details about application errors and exceptions, making them the most effective tool for detecting issues in application execution. Therefore, exception reports are the best tool for an IS auditor to detect problems encountered by application executions during IT operations.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Computer operator logs are manually entered by the operator during operations and may not identify specific problems with applications comprehensively.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-25" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-25</span>
+      <span class="q-index">Question 25 of 28</span>
+    </div>
+    <p class="q-text">Which of the following should the information systems (IS) auditor review to ensure the correct version of a data file is used for a production run?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Incident or error reports related to the production run</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Schedules detailing the tasks performed by operators</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Logs containing relevant system activity and events</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Reports documenting the distribution of the produced output</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-25">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-25" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Incident or error reports may provide information about errors or issues encountered during the production run, but they are not specifically focused on verifying the correct version of a data file.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Operator work schedules are not directly relevant to verifying the correct version of a data file for a production run.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">System logs and analysis programs can be reviewed by an information systems (IS) auditor to ensure that the correct file version was used for a production run. These logs contain relevant system activity and events that can help verify which version of the data file was used. Therefore, reviewing logs containing relevant system activity and events is the best approach for an IS auditor to ensure that the correct version of a data file is used for a production run.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Output distribution reports primarily focus on identifying and distributing application reports and may not directly contribute to verifying the correct version of a data file used for a production run.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-26" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-26</span>
+      <span class="q-index">Question 26 of 28</span>
+    </div>
+    <p class="q-text">Which of the following roles is MOST appropriate for an information systems (IS) auditor in control self-assessment (CSA) programs?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Assessor</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Participant</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Facilitator</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Manager</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-26">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-26" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The information systems (IS) auditor leads and guides the auditees in assessing their environment by providing insights about the objectives of controls based on risk assessment. - A. Assessor: This role involves evaluating and measuring performance, but in a CSA program, the IS auditor’s primary role is to facilitate the process rather than directly assess it. - B. Participant: While the IS auditor may participate in the process, their main role is to facilitate and guide the participants. - C. Facilitator: The IS auditor acts as the facilitator, leading and guiding the control self-assessment process. The auditor helps management understand control objectives and ensures that the assessment is aligned with risk management principles. - D. Manager: The business unit managers are responsible for and take ownership of internal control systems under their authority, but the IS auditor facilitates the CSA process. Therefore, the role of the IS auditor as a facilitator is most appropriate in CSA programs, helping guide and support the assessment process while management takes responsibility for the controls.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-27" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-27</span>
+      <span class="q-index">Question 27 of 28</span>
+    </div>
+    <p class="q-text">Which of the following groups is the BEST source of information for determining the criticality of application systems as part of a business impact analysis (BIA)?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Business processes owners</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">IT management</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Senior business management</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Industry experts</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-27">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-27" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Business process owners have the most relevant information to contribute because the business impact analysis (BIA) is designed to evaluate the criticality and recovery timelines based on business needs. They understand which applications are essential for their processes and the potential impact of disruptions. Therefore, business process owners are the best source of information for determining the criticality of application systems as part of a business impact analysis.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Although IT management must be involved, they may not be fully aware of the business processes that need to be protected and their relative criticality.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">While senior management must be involved in the BIA process, they may not have the detailed understanding of the specific criticality of applications that need to be protected.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">The BIA depends on the organization&#x27;s unique business needs, so the advice of industry experts is of limited value compared to the insights provided by those who directly manage the business processes.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A4-28" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A4-28</span>
+      <span class="q-index">Question 28 of 28</span>
+    </div>
+    <p class="q-text">When developing a disaster recovery plan (DRP), what criteria should be considered when determining the acceptable downtime?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Annual loss expectancy (ALE)</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Service delivery objective (SDO)</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Quantity of orphan data</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Maximum tolerable outage (MTO)</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A4-28">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A4-28" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Annual loss expectancy (ALE) is related to risk management calculations and financial impact assessments, not directly to determining acceptable downtime for disaster recovery.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Service delivery objective (SDO) is related to the level of services to be delivered but does not directly determine acceptable downtime.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">The quantity of orphan data is relevant to data integrity and recovery processes but is not a criterion for determining acceptable downtime.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Maximum tolerable outage (MTO) is the criterion that indicates the maximum amount of time an organization can tolerate the outage of a system or process before it must resume operations following a disaster. The MTO defines the acceptable downtime and is used to determine recovery time objectives (RTO) for disaster recovery planning. Therefore, the maximum tolerable outage (MTO) is the most important criterion to consider when determining the acceptable downtime for a disaster recovery plan.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+  </main>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ── Answer Toggle ──────────────────────────────────────────────
+
+  function initAnswerToggles() {
+    document.querySelectorAll('.btn-reveal').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        var panel = btn.parentElement.querySelector('.answer-panel');
+        var card = btn.closest('.question-card');
+
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.hidden = expanded;
+
+        var labelEl = btn.querySelector('.btn-label');
+        if (labelEl) {
+          labelEl.textContent = expanded ? 'Show Answer' : 'Hide Answer';
+        }
+
+        if (!expanded) {
+          // Highlight correct option
+          var correctOpt = card.dataset.answer;
+          card.querySelectorAll('.q-option').forEach(function (opt) {
+            if (opt.dataset.option === correctOpt) {
+              opt.classList.add('highlighted');
+            }
+          });
+          card.classList.add('answered');
+          updateProgress();
+        } else {
+          card.querySelectorAll('.q-option').forEach(function (opt) {
+            opt.classList.remove('highlighted');
+          });
+          card.classList.remove('answered');
+          updateProgress();
+        }
+      });
+    });
+  }
+
+  // ── Reading Progress Bar ───────────────────────────────────────
+
+  function initProgressBar() {
+    var fill = document.querySelector('.progress-bar-fill');
+    if (!fill) return;
+
+    window.addEventListener('scroll', function () {
+      var doc = document.documentElement;
+      var scrollTop = doc.scrollTop || document.body.scrollTop;
+      var scrollHeight = doc.scrollHeight - doc.clientHeight;
+      var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      fill.style.width = Math.min(progress, 100) + '%';
+    }, { passive: true });
+  }
+
+  // ── Question Answered Progress ─────────────────────────────────
+
+  function updateProgress() {
+    var total = document.querySelectorAll('.question-card').length;
+    var answered = document.querySelectorAll('.question-card.answered').length;
+    var statEl = document.querySelector('.stat-answered');
+    if (statEl) {
+      statEl.textContent = answered + ' / ' + total + ' answered';
+    }
+  }
+
+  // ── Sidebar Active Link on Scroll ──────────────────────────────
+
+  function initSidebarScroll() {
+    var links = document.querySelectorAll('.sidebar-nav-item[data-cat]');
+    if (!links.length) return;
+    links.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        a.classList.add('active');
+      });
+    });
+  }
+
+  // ── Back-to-top shortcut (kbd B) ──────────────────────────────
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'b' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      var tag = document.activeElement.tagName;
+      if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  });
+
+  // ── Init ───────────────────────────────────────────────────────
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initAnswerToggles();
+    initProgressBar();
+    initSidebarScroll();
+    updateProgress();
+  });
+}());
+</script>
+</body>
+</html>

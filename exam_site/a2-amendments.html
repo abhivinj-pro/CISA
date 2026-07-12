@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A2 Amendments — CISA Exam Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+/* ── Reset & Base ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-subtle: #94a3b8;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #dbeafe;
+  --color-correct: #16a34a;
+  --color-correct-light: #dcfce7;
+  --color-shadow: rgba(15, 23, 42, 0.08);
+  --sidebar-width: 260px;
+  --header-height: 60px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --transition: 0.2s ease;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+ul { list-style: none; }
+
+/* ── Top Header ────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.header-logo .logo-badge {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.header-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.header-breadcrumb a:hover { color: #ffffff; }
+.header-breadcrumb .sep { color: #475569; }
+.header-breadcrumb .current { color: #cbd5e1; font-weight: 500; }
+
+.header-stats {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+}
+
+.header-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-stats .stat-value {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+/* ── Layout ────────────────────────────────────── */
+.page-layout {
+  display: flex;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ── Sidebar ───────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.sidebar-section-label {
+  padding: 0 16px 8px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-left: 3px solid transparent;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  line-height: 1.4;
+}
+
+.sidebar-nav-item:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.sidebar-nav-item.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-left-color: var(--color-primary);
+  font-weight: 600;
+}
+
+.sidebar-nav-item .cat-code {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: currentColor;
+  color: transparent;
+  /* fallback */
+}
+
+.sidebar-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.sidebar-nav-item.active .sidebar-cat-badge {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.sidebar-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  background: var(--color-bg);
+  padding: 1px 7px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 12px 16px;
+}
+
+/* ── Main Content ──────────────────────────────── */
+.main-content {
+  flex: 1;
+  padding: 32px 40px 64px;
+  max-width: 900px;
+  min-width: 0;
+}
+
+/* ── Category Hero ─────────────────────────────── */
+.category-hero {
+  margin-bottom: 32px;
+  padding: 28px 32px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 4px var(--color-shadow);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.cat-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.category-hero .cat-code-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.category-hero h1 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.category-hero p {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.cat-stats-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 14px;
+}
+
+.cat-stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.cat-stat-chip strong { color: var(--color-text); font-weight: 600; }
+
+/* ── Question Card ─────────────────────────────── */
+.question-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px var(--color-shadow);
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+
+.question-card:hover {
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+.question-card.answered {
+  border-left: 3px solid var(--color-primary);
+}
+
+/* Card Header */
+.q-header {
+  padding: 20px 24px 16px;
+}
+
+.q-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.q-number-badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.q-index {
+  font-size: 0.8125rem;
+  color: var(--color-text-subtle);
+}
+
+.q-text {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+/* Options */
+.q-options {
+  padding: 0 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.q-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.q-option:hover {
+  background: #f8fafc;
+}
+
+.q-option.highlighted {
+  background: var(--color-correct-light);
+  border-color: #86efac;
+}
+
+.opt-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: #e2e8f0;
+  color: #475569;
+  transition: background var(--transition), color var(--transition);
+}
+
+.q-option.highlighted .opt-letter {
+  background: var(--color-correct);
+  color: #fff;
+}
+
+.opt-text {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.55;
+  padding-top: 2px;
+}
+
+/* Answer Section */
+.q-answer-section {
+  border-top: 1px solid var(--color-border);
+  background: #fafafa;
+}
+
+.btn-reveal {
+  width: 100%;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  transition: background var(--transition);
+}
+
+.btn-reveal:hover {
+  background: var(--color-primary-light);
+}
+
+.btn-reveal svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.btn-reveal[aria-expanded="true"] svg.chevron {
+  transform: rotate(180deg);
+}
+
+.btn-reveal[aria-expanded="true"] {
+  color: var(--color-text-muted);
+}
+
+/* Answer Panel */
+.answer-panel {
+  border-top: 1px solid var(--color-border);
+  padding: 20px 24px 24px;
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.correct-answer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--color-correct-light);
+  border: 1px solid #86efac;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-correct);
+  margin-bottom: 20px;
+}
+
+.correct-answer-chip svg {
+  width: 16px;
+  height: 16px;
+}
+
+.justifications-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: 12px;
+}
+
+.justification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.justification-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.justification-item.is-correct {
+  background: var(--color-correct-light);
+  border-color: #86efac;
+}
+
+.just-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.justification-item.is-correct .just-letter {
+  background: var(--color-correct);
+  color: #fff;
+}
+
+.just-text {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  line-height: 1.65;
+  flex: 1;
+}
+
+/* ── Index Page ────────────────────────────────── */
+.index-hero {
+  text-align: center;
+  padding: 64px 24px 48px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.index-hero .hero-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+.index-hero h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.index-hero p {
+  font-size: 1.0625rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  padding: 0 32px 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.category-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: box-shadow var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 1px 4px var(--color-shadow);
+}
+
+.category-card:hover {
+  box-shadow: 0 8px 24px var(--color-shadow);
+  transform: translateY(-2px);
+}
+
+.category-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+}
+
+.category-card .cat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.category-card h2 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.35;
+}
+
+.category-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.category-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.q-count-badge {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.cat-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+}
+
+.cat-link-btn svg { width: 14px; height: 14px; }
+
+/* ── Progress Indicator ────────────────────────── */
+.progress-bar-wrap {
+  height: 3px;
+  background: var(--color-border);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 99;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ── Scrollbar ─────────────────────────────────── */
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { padding: 20px 16px 48px; }
+  .categories-grid { grid-template-columns: 1fr; padding: 0 16px 48px; }
+  .index-hero h1 { font-size: 1.75rem; }
+  .category-hero { flex-direction: column; }
+}
+
+    .q-number-badge { background: #f5f3ff; color: #8b5cf6; }
+    .sidebar-nav-item.active .sidebar-cat-badge { background: #8b5cf6; }
+    .sidebar-nav-item.active { color: #8b5cf6; border-left-color: #8b5cf6; background: #f5f3ff; }
+    .btn-reveal { color: #8b5cf6; }
+    .btn-reveal:hover { background: #f5f3ff; }
+    .cat-icon-wrap { background: #f5f3ff; }
+    .cat-link-btn { background: #f5f3ff; color: #8b5cf6; }
+    .cat-link-btn:hover { filter: brightness(0.95); }
+    </style>
+</head>
+<body>
+<header class="site-header">
+  <a href="index.html" class="header-logo">
+    <span class="logo-badge">CISA</span>
+    Exam Prep
+  </a>
+  <div class="header-breadcrumb">
+    <span class="sep">/</span>
+    <a href="index.html">Amendments</a>
+    <span class="sep">/</span>
+    <span class="current">A2 Amendments</span>
+  </div>
+  <div class="header-stats">
+    <div class="stat-item">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="7"/><path d="M8 5.5a2 2 0 0 1 0 4"/><circle cx="8" cy="11.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+      <span class="stat-value">32</span> questions
+    </div>
+    <div class="stat-item" style="font-size:0.8125rem;color:#94a3b8">
+      <span class="stat-answered">0 / 32 answered</span>
+    </div>
+  </div>
+</header>
+<div class="progress-bar-wrap"><div class="progress-bar-fill"></div></div>
+<div class="page-layout">
+  
+<nav class="sidebar" aria-label="Categories">
+  <p class="sidebar-section-label">Amendments</p>
+  <a href="a1-amendments.html" class="sidebar-nav-item " data-cat="A1" title="A1 Amendments">  <span class="sidebar-cat-badge">A1</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A1 Amendments</span>  <span class="sidebar-count">40</span></a>
+<a href="a2-amendments.html" class="sidebar-nav-item active" data-cat="A2" title="A2 Amendments">  <span class="sidebar-cat-badge">A2</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A2 Amendments</span>  <span class="sidebar-count">32</span></a>
+<a href="a3-amendments.html" class="sidebar-nav-item " data-cat="A3" title="A3 Amendments">  <span class="sidebar-cat-badge">A3</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A3 Amendments</span>  <span class="sidebar-count">25</span></a>
+<a href="a4-amendments.html" class="sidebar-nav-item " data-cat="A4" title="A4 Amendments">  <span class="sidebar-cat-badge">A4</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A4 Amendments</span>  <span class="sidebar-count">28</span></a>
+<a href="a5-amendments.html" class="sidebar-nav-item " data-cat="A5" title="A5 Amendments">  <span class="sidebar-cat-badge">A5</span>  <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">A5 Amendments</span>  <span class="sidebar-count">45</span></a>
+  <div class="sidebar-divider"></div>
+  <a href="index.html" class="sidebar-nav-item" style="font-size:0.8rem;color:var(--color-text-subtle)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h5a2 2 0 0 1 2 2v9a1.5 1.5 0 0 0-1.5-1.5H2V3Z"/><path d="M14 3H9a2 2 0 0 0-2 2v9a1.5 1.5 0 0 1 1.5-1.5H14V3Z"/></svg>&nbsp; Back to Home
+  </a>
+</nav>
+  <main class="main-content">
+    <div class="category-hero">
+      <div class="cat-icon-wrap" style="background:#f5f3ff;">
+        <span style="color:#8b5cf6;font-size:1.5rem">🏛️</span>
+      </div>
+      <div>
+        <p class="cat-code-label">A2 · Amendments</p>
+        <h1>A2 Amendments</h1>
+        <p>Amendment practice questions for A2: Governance &amp; Management of IT.</p>
+        <div class="cat-stats-row">
+          <div class="cat-stat-chip">
+            <strong>32</strong> questions available
+          </div>
+        </div>
+      </div>
+    </div>
+    
+<article class="question-card" id="q-A2-1" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-1</span>
+      <span class="q-index">Question 1 of 32</span>
+    </div>
+    <p class="q-text">Which of the following choices BEST helps information owners to properly classify data?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Understanding of technical controls that protect data</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Training on enterprise policies and standards</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Use of an automated data leak prevention tool</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Understanding which people need to access the data</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-1">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-1" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">While understanding how the data are protected is important, technical controls are only effective if the data classification schema is properly understood and applied.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Training on enterprise policies and standards, including the data classification schema, is essential for data owners or custodians. This training ensures they understand how to classify data properly according to the organization&#x27;s policies and standards. Therefore, training on enterprise policies and standards is the best way to help information owners properly classify data.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">An automated data leak prevention (DLP) tool can enhance productivity and security, but it cannot replace the need for data owners to understand and apply the correct classification schema.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Understanding who needs to access the data is important for protecting data, but it is secondary to understanding the data classification schema. Without proper classification, inappropriate access to sensitive data may be granted.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-2" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-2</span>
+      <span class="q-index">Question 2 of 32</span>
+    </div>
+    <p class="q-text">During a risk assessment of a healthcare organization&#x27;s information systems regarding protected health information (PHI), an IS auditor interviews the IS management team. Among the findings from these interviews, which one should concern the IS auditor the most?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Not all outgoing email messages from the organization are encrypted.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Staff members must manually type &quot;[PHI]&quot; in the subject line of email messages for them to be encrypted.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Individual computer screen saver functions are disabled.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Server configurations require users to change their passwords once a year.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-2">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-2" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Encrypting all outgoing email can be costly and is not a common practice across businesses.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Relying on staff to manually indicate emails containing PHI introduces the risk of human error, as they could forget to insert the necessary keyword. It&#x27;s better for the organization to implement automated encryption for outgoing emails that might contain PHI to safeguard sensitive information.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Disabling screen savers could expose sensitive data to internal personnel, but this risk is not as significant as the potential exposure to unauthorized external parties.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Although requiring annual password changes is a concern, it poses less risk compared to the exposure of data to unauthorized external individuals.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-3" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-3</span>
+      <span class="q-index">Question 3 of 32</span>
+    </div>
+    <p class="q-text">During a system development life cycle audit of a human resources and payroll application, the information systems (IS) auditor notes that the data used for user acceptance testing have been masked. The purpose of masking the data is to ensure the:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Confidentiality of the data.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Accuracy of the data.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Completeness of the data.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Reliability of the data.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-3">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-3" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Masking is used to ensure the confidentiality of data, especially in a user acceptance testing (UAT) exercise where testers have access to data that they would not have access to in normal production environments. By masking the data, sensitive information is obscured to protect privacy and comply with data protection regulations. Therefore, the purpose of masking the data is to ensure the confidentiality of the data.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Masking does not ensure the accuracy of the data. If the underlying data are inaccurate, the masked data will also be inaccurate.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Masking does not ensure the completeness of the data. If the underlying data are incomplete, the masked data will also be incomplete.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Masking does not ensure the reliability of the data. If the underlying data are unreliable, the masked data will also be unreliable.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-4" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-4</span>
+      <span class="q-index">Question 4 of 32</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor discovers that some hard drives disposed of by an enterprise were not sanitized in a manner that would reasonably ensure that the data cannot be recovered. In addition, the enterprise does not have a written policy on data disposal. The IS auditor should FIRST:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Draft an audit finding and discuss it with the auditor in charge.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Determine the sensitivity of the information on the hard drives.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Discuss with the IT manager good practices in data disposal.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Develop an appropriate data disposal policy for the enterprise.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-4">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-4" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Drafting a finding without understanding the risk involved is premature. The severity of the finding depends on the sensitivity of the information on the hard drives.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">The first step should be to determine the sensitivity of the information on the hard drives. This will help quantify the risk and understand the potential impact of the data exposure. Therefore, determining the sensitivity of the information on the hard drives is the first step to quantify the risk and understand the potential impact of the data exposure.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Discussing good practices with the IT manager is important, but it should be done after assessing the extent of the risk.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">It is not the role of the IS auditor to develop policies. Instead, the auditor should recommend the development of an appropriate data disposal policy after assessing the risk.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-5" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-5</span>
+      <span class="q-index">Question 5 of 32</span>
+    </div>
+    <p class="q-text">The FIRST step in data classification is to:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Establish ownership.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Perform a criticality analysis.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Define access rules.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Create a data dictionary.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-5">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-5" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Establishing ownership is the first step in data classification because the data owner is responsible for defining the access rules and determining the appropriate level of protection for the data. Ownership establishes accountability and responsibility for the data. Therefore, establishing ownership is the first and most crucial step in the data classification process.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Performing a criticality analysis is important for determining the appropriate levels of protection, but it comes after ownership has been established.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Defining access rules depends on the data classification, which in turn depends on the ownership and criticality analysis.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Creating a data dictionary is a step that comes after the data classification process has been completed, as it documents the details and definitions of the classified data.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-6" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-6</span>
+      <span class="q-index">Question 6 of 32</span>
+    </div>
+    <p class="q-text">The GREATEST benefit of having well-defined data classification policies and procedures is:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">A more accurate inventory of information assets.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">A decreased cost and improvement of controls.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">A reduced risk of inappropriate system access.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">An improved regulatory compliance.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-6">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-6" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">A more accurate inventory of information assets is a benefit but is not the greatest benefit among the choices listed.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">An important benefit of a well-defined data classification process is to lower the cost of protecting data by ensuring that the appropriate controls are applied with respect to the sensitivity of the data. Without a proper classification framework, some security controls may be greater and, therefore, costlier than what is required based on the data classification. Therefore, the greatest benefit of having well-defined data classification policies and procedures is the decreased cost and improvement of controls, ensuring that resources are used effectively and efficiently to protect data based on its sensitivity.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Classifying data can help reduce the risk of inappropriate system access, but this is not the greatest benefit.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Improved regulatory compliance is a significant benefit, but achieving a cost reduction and improvement of controls is an even greater benefit as it directly impacts the organization&#x27;s efficiency and resource allocation.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-7" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-7</span>
+      <span class="q-index">Question 7 of 32</span>
+    </div>
+    <p class="q-text">Which factor is MOST critical to ensuring high-quality data in a data warehouse?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Accuracy of the source data</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Credibility of the data source</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Accuracy of the extraction process</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Accuracy of the data transformation.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-7">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-7" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">The accuracy of the source data is essential for maintaining the quality of data in a data warehouse. If the source data is inaccurate, it will compromise the integrity of the data within the warehouse.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">While the credibility of the data source is important, it cannot transform inaccurate data into quality data.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Accurate extraction processes are crucial but cannot convert inaccurate data into quality data.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Although accurate transformation routines are significant, they cannot turn inaccurate data into quality data.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-8" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-8</span>
+      <span class="q-index">Question 8 of 32</span>
+    </div>
+    <p class="q-text">Which of the following is the responsibility of information asset owners?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Implementation of information security within applications</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Assignment of criticality levels to data</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Implementation of access rules to data and programs</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Provision of physical and logical security for data</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-8">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-8" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Implementation of information security within an application is the responsibility of the data custodians based on the requirements set by the data owner.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">It is the responsibility of owners to define the criticality (and sensitivity) levels of information assets. This ensures that the data is properly classified and appropriate security measures are applied. Therefore, the responsibility of assigning criticality levels to data rests with the information asset owners.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Implementation of access rules is the responsibility of data custodians based on the requirements set by the data owner.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Provision of physical and logical security for data is the responsibility of the security administrator.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-9" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-9</span>
+      <span class="q-index">Question 9 of 32</span>
+    </div>
+    <p class="q-text">While auditing an ecommerce architecture, an information systems (IS) auditor notes that customer master data are stored on the web server for six months after the transaction date and then purged due to inactivity. Which of the following is the PRIMARY concern for the IS auditor?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Availability of customer data</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Integrity of customer data</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Confidentiality of customer data</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">System storage performance</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-9">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-9" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Availability of customer data may be a concern during an Internet connection outage, but this is of lower concern compared to confidentiality.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Integrity of customer data is affected only if security controls are weak enough to permit unauthorized modifications. While important, confidentiality is a larger concern in this context.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Due to its exposure to the Internet, storing customer data on a web server for six months raises significant concerns regarding the confidentiality of customer data. Web servers are often targets for cyber attacks, and storing sensitive customer information on them for extended periods increases the risk of unauthorized access and data breaches. Therefore, the primary concern for the IS auditor is the confidentiality of customer data stored on the web server.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">System storage performance may be a concern due to the volume of data, but the primary issue is ensuring the protection of sensitive customer information.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-10" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-10</span>
+      <span class="q-index">Question 10 of 32</span>
+    </div>
+    <p class="q-text">Which of the following is the PRIMARY objective of an enterprise architecture (EA) framework?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">To provide a business case for developing and implementing IT systems and applications</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">To manage IT-related risk and ensure compliance with legal and regulatory requirements</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">To ensure the efficient and effective use of IT resources and capabilities</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">To align IT with business objectives and strategy and facilitate decision making and innovation</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-10">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-10" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Providing a business case for developing and implementing IT systems is an important aspect of enterprise architecture (EA), but it is not the primary objective.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">While EA can help manage IT-related risk and ensure compliance with legal and regulatory requirements, these are not the primary objectives of an EA framework.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Ensuring the efficient and effective use of IT resources and capabilities is also an important aspect of EA, but it is not the primary objective.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">The primary objective of an EA framework is to align IT with business objectives and strategy, and to facilitate decision making and innovation. EA provides a holistic and integrated view of the enterprise’s IT architecture and ensures that IT capabilities and resources are leveraged to support the enterprise’s goals. This alignment enables the organization to be agile, innovative, and responsive to changing business needs. Therefore, the primary objective of an enterprise architecture (EA) framework is to align IT with business objectives and strategy, and to facilitate decision making and innovation.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-11" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-11</span>
+      <span class="q-index">Question 11 of 32</span>
+    </div>
+    <p class="q-text">Which of the following BEST describes the goal of business process-driven enterprise architecture? It attempts to better understand an organization in terms of:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Its strategies, policies, and standards.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Its laws, regulations, and contractual commitments.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Its organizational structure, roles, and responsibilities.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Its core value-adding and supporting processes.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-11">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-11" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">An organization&#x27;s strategies, policies, and standards are important for guiding the organization&#x27;s direction and decision-making but are not the primary focus of business process-driven enterprise architecture.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Laws, regulations, and contractual commitments are critical for compliance and legal operations, but they are not the main focus in the context of business process-driven enterprise architecture.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Understanding the organizational structure, roles, and responsibilities is important for managing the workforce and operational efficiency, but it does not fully capture the goal of business process-driven enterprise architecture.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Business process-driven enterprise architecture aims to improve a business by understanding its core value-adding and supporting processes. This approach focuses on the processes themselves, their constituent parts, and the technology that supports them. The goal is to progressively redesign and enhance these processes to create more value and improve organizational performance. Therefore, the goal of business process-driven enterprise architecture is to better understand an organization in terms of its core value-adding and supporting processes.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-12" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-12</span>
+      <span class="q-index">Question 12 of 32</span>
+    </div>
+    <p class="q-text">The PRIMARY purpose of an enterprise architecture is to:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Respond to the increasing complexity of IT and modern organizations.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Align IT with the business strategy and ensure that IT investments deliver real returns.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Facilitate understanding, management, and planning for IT investments.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Develop roadmaps to enable safe and successful change from the current state to the desired state.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-12">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-12" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Responding to the increasing complexity of IT and modern organizations is a focus of enterprise architecture (EA), but it is not the primary purpose.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">The main purpose of EA is to enable the enterprise to most effectively achieve its mission, business strategy, and goals through successful alignment between IT and the strategic direction of the business. Ensuring that IT investments deliver real returns by aligning them with business objectives is central to EA. Therefore, the primary purpose of an enterprise architecture is to align IT with the business strategy and ensure that IT investments deliver real returns.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Facilitating understanding, management, and planning for IT investments is an important aspect of EA, but it serves the broader purpose of aligning IT with business strategy.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Developing IT strategies and roadmaps is part of the EA process, but it comes after establishing strategic alignment between IT objectives and business strategies.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-13" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-13</span>
+      <span class="q-index">Question 13 of 32</span>
+    </div>
+    <p class="q-text">Which of the following BEST describes the focus of an information systems (IS) auditor when auditing the enterprise architecture (EA)? The IS auditor should:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Follow the overall EA and use the EA as the main source of information.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Use the EA organizational requirements as the audit criteria to assess the conformity of the EA against those requirements.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Ensure that the information systems are in line with the EA and meet the enterprise’s objectives.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Review the EA documentation to assess whether the EA conforms with the enterprise’s requirements.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-13">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-13" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">While the EA provides important information, the IS auditor needs to gather different types of evidence beyond the EA documentation to assess its conformity with the enterprise’s requirements.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Using the EA organizational requirements as audit criteria is important, but it is part of a broader assessment process rather than the primary focus.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The primary focus of the IS auditor when auditing the EA is to ensure that the information systems are in line with the EA and meet the enterprise’s objectives. This ensures that IT systems and processes support the strategic goals and business needs of the organization. Therefore, the IS auditor&#x27;s main focus when auditing the enterprise architecture is to ensure that the information systems are in line with the EA and meet the enterprise’s objectives.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Reviewing EA documentation is important, but it is only one aspect of the audit. The IS auditor should also assess whether the implementation of the EA aligns with the enterprise’s objectives and requirements.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-14" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-14</span>
+      <span class="q-index">Question 14 of 32</span>
+    </div>
+    <p class="q-text">Which of the following would BEST facilitate the successful implementation of an IT-related framework?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Documenting IT-related policies and procedures</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Ensuring the appropriate business representation within the framework</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Following the latest industry best practices to implement the framework</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Creating a committee to oversee the framework implementation</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-14">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-14" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Documenting IT-related policies and procedures is an important step in the implementation process, but it does not guarantee successful implementation on its own.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Ensuring the appropriate business representation within the IT framework is the best way to align the IT framework with business objectives and needs. This alignment is crucial for successful implementation because it ensures that the framework supports and enhances the business processes and goals. Therefore, ensuring the appropriate business representation within the framework is the most effective way to facilitate the successful implementation of an IT- related framework. This approach ensures that the framework is aligned with business needs and objectives, leading to better support and integration of IT within the organization.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Following the latest industry best practices is beneficial, but the key to successful implementation is ensuring that the framework is tailored to meet the specific needs and objectives of the business.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Creating a committee to oversee the framework implementation is helpful, but without proper business representation, the framework may not fully support the business requirements and objectives.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-15" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-15</span>
+      <span class="q-index">Question 15 of 32</span>
+    </div>
+    <p class="q-text">Enterprise risk appetite is BEST established by:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">The chief legal officer (CLO).</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Security management.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">The audit committee.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">The board of directors.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-15">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-15" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The chief legal officer (CLO) is responsible for minimizing the legal risks of the enterprise and providing guidance on legal issues, but they do not determine the overall risk appetite.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Security management is responsible for protecting the organization&#x27;s assets and managing security risks, but they do not set the enterprise&#x27;s risk appetite.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">The audit committee provides oversight of the financial reporting process, the audit process, the system of internal controls, and compliance with laws and regulations. However, they are not responsible for setting the risk appetite of the enterprise.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">The board of directors is responsible for setting the enterprise&#x27;s risk appetite. This decision should align with the strategic objectives that the enterprise wants to achieve. The board of directors considers the level of risk that the organization is willing to accept in pursuit of its goals and ensures that the risk appetite supports the overall strategy and objectives of the enterprise. Therefore, the board of directors is the most appropriate group to establish the enterprise risk appetite, ensuring it aligns with the organization&#x27;s strategic goals and objectives.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-16" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-16</span>
+      <span class="q-index">Question 16 of 32</span>
+    </div>
+    <p class="q-text">When an organization’s disaster recovery plan (DRP) has a reciprocal agreement, which of the following risk treatment approaches is being applied?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Transfer</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Mitigation</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Avoidance</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Acceptance</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-16">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-16" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Risk transfer involves transferring the risk to a third party, such as buying insurance for activities that pose a risk.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">A reciprocal agreement, in which two organizations agree to provide computing resources to each other in the event of a disaster, is a form of risk mitigation. This agreement helps reduce the impact of a disaster by ensuring that both organizations have backup resources available, thereby mitigating the risk. Therefore, when an organization’s disaster recovery plan includes a reciprocal agreement, it is applying a risk mitigation approach. This strategy helps ensure that the organization can continue operations in the event of a disaster by leveraging resources from another organization.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Risk avoidance involves ceasing operations or activities that give rise to a risk. For example, an organization might stop accepting credit card payments to avoid the risk of credit card information disclosure.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Risk acceptance occurs when an organization decides to accept the risk as it is and takes no action to mitigate or transfer it.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-17" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-17</span>
+      <span class="q-index">Question 17 of 32</span>
+    </div>
+    <p class="q-text">Which of the following is the PRIMARY critical success factor of a control self-assessment (CSA) program?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Assigning a knowledgeable and experienced information systems (IS) auditor as a facilitator for the CSA program</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Conducting a meeting with the business unit representatives, including relevant staff and management</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Developing the measures of success for each CSA phase (planning, implementation, and monitoring)</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Identifying the actions needed to increase the likelihood of achieving the business unit&#x27;s objective</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-17">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-17" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Assigning a knowledgeable and experienced IS auditor as a facilitator is important, but it comes after understanding the primary objective of the business unit.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">Conducting a meeting with the business unit representatives, including relevant staff and management, at the beginning of the process is crucial. This meeting helps to identify the primary objectives of the business unit, which is essential for determining the reliability of the internal control system and ensuring the CSA program&#x27;s alignment with business goals. Therefore, conducting a meeting with the business unit representatives, including relevant staff and management, is the primary critical success factor for a CSA program. This initial step is crucial to ensure that the CSA program is aligned with the business unit&#x27;s objectives and that the internal control system is reliable and effective.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Developing measures of success for each CSA phase is important but occurs after identifying the primary objectives of the business unit during the planning and design phases.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Identifying actions to increase the likelihood of achieving the business unit&#x27;s objectives would be part of the recommendations at the conclusion of the CSA program.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-18" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-18</span>
+      <span class="q-index">Question 18 of 32</span>
+    </div>
+    <p class="q-text">Who is MOST likely responsible for implementing a technical control to mitigate an identified risk?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Custodian</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Compliance officer</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Risk owner</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Senior management</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-18">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-18" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The custodian is responsible for managing the technical aspects and administration of data, but not for deciding and implementing technical controls.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The compliance officer ensures that the organization complies with various laws and regulations, which may include technical controls, but they are not primarily responsible for implementing them.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The risk owner is responsible for managing the identified risk, which includes implementing appropriate technical controls. The risk owner ensures that controls are properly surrounded by procedures, that personnel operating them are adequately trained, that ownership of the control is assigned, and that the control is monitored and tested for effectiveness. Therefore, the risk owner is most likely responsible for implementing a technical control to mitigate an identified risk.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Senior management is ultimately responsible for overseeing and legally accountable for risks within the organization, but they delegate the implementation of technical controls to the appropriate risk owner.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-19" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-19</span>
+      <span class="q-index">Question 19 of 32</span>
+    </div>
+    <p class="q-text">The effectiveness and efficiency of IT governance are dependent FIRST on quality management of:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Strategies and policies.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Processes and procedures.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Functions and services.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Roles and responsibilities.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-19">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-19" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Strategies and policies are the first building blocks of quality management embedded into IT governance. They provide the overarching framework and direction for all subsequent activities and decisions within the IT governance framework. Therefore, the effectiveness and efficiency of IT governance are first and foremost dependent on the quality management of strategies and policies. These elements set the direction and provide the foundation for all other governance activities.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Policies are defined first and then should be underpinned by suitable processes and procedures, ensuring that they are executed effectively.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Functions, services, and their underpinning processes should be managed and directed by relevant strategies and policies. Without a strong strategic foundation, managing these aspects effectively becomes challenging.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Roles and responsibilities are articulated based on strategies, policies, processes, and procedures. Clear roles and responsibilities ensure that individuals know their duties, but they are defined after the overarching strategies and policies are in place.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-20" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-20</span>
+      <span class="q-index">Question 20 of 32</span>
+    </div>
+    <p class="q-text">Which of the following is the MOST important factor for IT management to consider in developing performance metrics?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Risk management and compliance with regulations</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Key IT processes, including solution and service delivery</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Business contribution, including financials</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Critical processes in place to meet customer requirements</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-20">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-20" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Risk management and compliance with regulations are important factors in developing performance metrics, but they are not the most critical when considering overall IT performance.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Key IT processes, including solution and service delivery, are essential, but they are part of the broader picture of meeting customer needs.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Business contribution, including financials, is a significant dimension of performance metrics, but it focuses more on the business impact rather than operational effectiveness.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Identifying critical processes to meet customer requirements is the most important aspect of developing performance metrics. Ensuring that IT processes align with and support customer needs is crucial for delivering value and achieving business objectives. Performance metrics should be designed to measure how well IT services meet these requirements, ensuring customer satisfaction and supporting the overall business strategy. Therefore, the most important factor for IT management to consider in developing performance metrics is the identification and measurement of critical processes that meet customer requirements. This approach ensures that IT services are aligned with business goals and deliver the expected value to customers.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-21" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-21</span>
+      <span class="q-index">Question 21 of 32</span>
+    </div>
+    <p class="q-text">Who is ULTIMATELY responsible for data classification and protection?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Data steward</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Data custodian</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Data owner</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Data controller</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-21">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-21" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Data custodians are responsible for storing and safeguarding the data. This includes information security personnel, such as systems analysts and computer operators, but they do not have ultimate responsibility for classification and protection.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Data stewards have oversight or data governance roles within an organization and are responsible for ensuring the quality and fitness of the organization&#x27;s data assets, including metadata, but they are not ultimately responsible for classification and protection.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Data owners are ultimately responsible for data classification and protection. They are tasked with authorizing access, ensuring access rules are updated when personnel changes occur, and regularly reviewing access rules for the data they oversee. Their role is crucial in defining the sensitivity and criticality of the data, which drives the security measures needed to protect it. Therefore, data owners are ultimately responsible for data classification and protection. They ensure that data is properly classified according to its sensitivity and criticality, and they implement the necessary security measures to protect it.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Data controllers determine the purposes for which and how data are processed, but they do not have the ultimate responsibility for data classification and protection.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-22" data-answer="A">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-22</span>
+      <span class="q-index">Question 22 of 32</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor observes a cryptocurrency miner on a staff member’s computer linked to their account. It is discovered that this is against IT policy. Which of the following would BEST help the enterprise detect these issues sooner?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Reviewing the computer resources usability and activity report</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Enforcing the software accreditation policy to control software installation</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Organizing awareness workshops on IT policy periodically for users</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Monitoring application logs using an automated log monitoring solution</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-22">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-22" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option A
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item is-correct">  <span class="just-letter">A</span>  <span class="just-text">Cryptocurrency mining consumes a large amount of computing resources. Regularly reviewing usability and activity reports of computing resources will help to detect unusual or unauthorized activities such as cryptocurrency mining. This approach directly addresses the detection of resource-intensive activities. Therefore, regularly reviewing the computer resources usability and activity report is the best method to detect unauthorized activities like cryptocurrency mining on staff members&#x27; computers sooner.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Enforcing the software accreditation policy is a preventive control that will help prevent similar incidents in the future, but it will not help detect the already- installed unauthorized tools.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Organizing awareness workshops on IT policy is useful for preventing future incidents by educating users, but it does not directly help in detecting incidents that have already occurred.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Monitoring application logs using an automated log monitoring solution can help detect unauthorized activities. However, if the cryptocurrency mining tool is not authorized, it might not generate logs that are captured by the monitoring solution, making this approach less reliable for detection.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-23" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-23</span>
+      <span class="q-index">Question 23 of 32</span>
+    </div>
+    <p class="q-text">An information systems (IS) audit group has been involved in the integration of an automated audit tool kit with an existing enterprise resource planning (ERP) system. Due to ERP performance issues, the audit tool kit is not permitted to go live. What should the IS auditor’s BEST recommendation be?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Review the implementation of selected integrated controls.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Request additional information systems (IS) audit resources.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Request vendor technical support to resolve performance issues.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Review the results of stress tests during user acceptance testing.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-23">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-23" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Reviewing the implementation of selected integrated controls is useful for validating the technical design and control objectives but does not directly address the performance issues that are preventing the tool from going live.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Requesting additional IS audit resources may be necessary if the tool cannot be implemented, but it is not the immediate solution to address the current performance issues.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Requesting vendor technical support is a good option for resolving performance issues, but it should follow after identifying and understanding the root cause of the performance problems.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Reviewing the results of stress tests during user acceptance testing is the most appropriate recommendation. These tests can provide detailed information about the performance issues, helping to identify specific bottlenecks or areas where the system struggles under load. This understanding is crucial for determining the best course of action to resolve the performance issues. Therefore, the best recommendation is to review the results of stress tests conducted during user acceptance testing to understand and address the performance issues that are preventing the automated audit tool kit from going live.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-24" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-24</span>
+      <span class="q-index">Question 24 of 32</span>
+    </div>
+    <p class="q-text">Which of the following assures an enterprise of the existence and effectiveness of internal controls relative to the service provided by a third party?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Current service level agreement (SLA)</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Recent independent third-party audit report</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Current business continuity plan (BCP) procedures</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Recent disaster recovery plan (DRP) test report</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-24">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-24" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">A service level agreement (SLA) defines the contracted level of service but does not provide assurance related to the existence or effectiveness of internal controls.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">A recent independent third-party audit report, such as those conducted under the Statements on Standards for Attestation Engagements (SSAE) 18 or similar frameworks, provides assurance about the existence and effectiveness of internal controls at the third party. These reports are specifically designed to give stakeholders confidence in the third party&#x27;s internal control environment. Therefore, an independent third-party audit report is the best way to assure an enterprise of the existence and effectiveness of internal controls relative to the service provided by a third party.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">While a business continuity plan (BCP) is essential for ensuring the continuity of operations, it does not provide assurance related to internal controls.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">A disaster recovery plan (DRP) test report is important for verifying the effectiveness of disaster recovery procedures, but it does not address the overall internal control environment.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-25" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-25</span>
+      <span class="q-index">Question 25 of 32</span>
+    </div>
+    <p class="q-text">The initial step in establishing an information security program is:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Developing and implementing an information security standards manual.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Performing a comprehensive security control review by the information systems (IS) auditor.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Adopting an enterprise information security policy statement.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Purchasing security access control software.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-25">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-25" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The security program is driven by the policy, and the standards are derived from the program. Therefore, the development and implementation of standards come after the policy is established.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Auditing and monitoring of controls are essential but should occur after the information security program is established.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Adopting an enterprise information security policy statement is the initial step. This policy reflects the commitment and support from executive management for information security and provides a foundation for the security program. It establishes the direction and priorities for the program and ensures alignment with the organization&#x27;s goals and objectives. Therefore, the initial step in establishing an information security program is adopting an enterprise information security policy statement, which sets the foundation and direction for the entire security program.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Purchasing security access control software is an important step, but it should be done after the policy and program are in place to ensure that the controls align with the overall security strategy.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-26" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-26</span>
+      <span class="q-index">Question 26 of 32</span>
+    </div>
+    <p class="q-text">An information systems (IS) auditor is assessing services provided by an internet service provider (ISP) during an IS compliance audit of a nationwide corporation that operates a governmental program. Which of the following is MOST important?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Review the request for proposal.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Review monthly performance reports generated by the ISP.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Review the service level agreement (SLA).</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Research other clients of the ISP.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-26">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-26" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The request for proposal is not the final contracted agreement and therefore is less relevant than the actual terms of the service level agreement (SLA).</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Monthly performance reports generated by the ISP provide useful information, but they are indirect evidence and may need further verification for accuracy and completeness.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">The service level agreement (SLA) is the most important document to review because it provides the formal agreement between the corporation and the ISP. It details the expected level of service, performance metrics, responsibilities, and penalties for non-compliance. This agreement forms the basis for assessing whether the ISP is meeting the agreed-upon service levels. Therefore, the most important step for the IS auditor is to review the service level agreement (SLA) to ensure that the ISP is meeting the agreed-upon levels of service and performance.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">The services provided to other clients of the ISP are not directly relevant to the audit of the specific corporation&#x27;s compliance with its own SLA.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-27" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-27</span>
+      <span class="q-index">Question 27 of 32</span>
+    </div>
+    <p class="q-text">Which of the following is expected to approve the audit charter?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Chief financial officer</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">CEO</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Audit steering committee</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Audit committee</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-27">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-27" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The chief financial officer (CFO) does not typically approve the audit charter, although they may be involved in allocating funds to support the audit function. The CFO may also be a member of the audit committee or audit steering committee but does not have sole authority to approve the charter.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">The CEO does not usually approve the audit charter. While the CEO may be informed about the charter, the approval is generally done by the audit committee to maintain independence and objectivity.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">The audit steering committee is typically composed of senior management members who work under the framework of the audit charter, but they do not have the authority to approve it.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">The audit committee is responsible for the oversight of the audit function and one of their primary functions is to create and approve the audit charter. This ensures that the internal audit activity has a clear mandate and operates independently and objectively within the organization. Therefore, the audit committee is expected to approve the audit charter.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-28" data-answer="B">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-28</span>
+      <span class="q-index">Question 28 of 32</span>
+    </div>
+    <p class="q-text">During an audit, the information systems (IS) auditor observed that a user can log in to post a transaction and then change roles to authorize the same. Which of the following is the BEST course of action for the IS auditor?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Ask the system administrator to suspend the user’s access.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Check for suitable compensating controls.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Ask the database administrator to merge the two roles into a single role.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Record the finding in the audit report.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-28">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-28" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option B
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">The IS auditor cannot recommend suspending the user&#x27;s access without fully understanding the context and potential compensating controls in place.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">B</span>  <span class="just-text">If a violation of segregation/separation of duties (SoD) is observed, the IS auditor should first look for compensating controls that might mitigate the risk before concluding the findings. This ensures that all relevant controls are considered and the overall risk is accurately assessed. Therefore, the best course of action for the IS auditor is to check for suitable compensating controls that may mitigate the risk associated with the observed violation of SoD.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">An IS auditor would not recommend merging the two roles into a single role, as this would exacerbate the violation of SoD.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">The IS auditor should identify and evaluate all controls, including any compensating controls, before recording findings in the audit report. Only after a thorough evaluation should the finding be documented.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-29" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-29</span>
+      <span class="q-index">Question 29 of 32</span>
+    </div>
+    <p class="q-text">Enterprise governance of IT frameworks has been developed MAINLY to help an organization&#x27;s leaders:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Use resources responsibly and manage information systems risk.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Realize benefits and manage the performance of practices and processes.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Deliver value to stakeholders and preserve the value created.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Establish accountability and manage information security risk.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-29">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-29" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Using resources responsibly and managing information systems risk contribute to value creation and preservation, but they are part of the broader goal.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Realizing benefits and managing the performance of practices and processes are essential aspects of value creation and preservation but are not the primary focus.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Enterprise governance of IT frameworks are designed to help an organization&#x27;s leaders deliver value to stakeholders and preserve the value created. This is achieved through responsible resource usage, benefit realization, performance management, establishing roles and responsibilities, and managing information risks. These frameworks provide a comprehensive approach to aligning IT with business goals, ensuring that IT investments deliver the desired outcomes, and maintaining the necessary performance and risk management practices to sustain value. Therefore, the main purpose of enterprise governance of IT frameworks is to help an organization&#x27;s leaders deliver value to stakeholders and preserve the value created.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Establishing accountability and managing information security risk are important for value preservation, but the main goal is broader and includes value delivery to stakeholders.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-30" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-30</span>
+      <span class="q-index">Question 30 of 32</span>
+    </div>
+    <p class="q-text">The PRIMARY goal of using maturity models in information systems (IS) is to:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Measure the current maturity levels of a certain aspect of an IS organization in a meaningful way.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Prioritize what the organization should do to reach higher maturity levels.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Help gain senior management understanding, commitment and support for IS.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Enable stakeholders to clearly identify strengths and areas of improvement.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-30">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-30" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Measuring and assessing the maturity levels is an important step in the process, but it is not the primary goal.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Prioritizing improvement initiatives is a subsequent step after identifying strengths and areas of improvement.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Gaining senior management support is facilitated by the insights gained from using maturity models, but it is not the primary goal.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">The main purpose of using maturity models is to enable stakeholders to clearly identify strengths and areas of improvement in information systems (IS). By assessing the current maturity levels, stakeholders can understand the current state, identify gaps, and prioritize improvement initiatives effectively. This clarity helps in gaining support from senior management and driving targeted improvements. Therefore, the primary goal of using maturity models in IS is to enable stakeholders to clearly identify strengths and areas of improvement.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-31" data-answer="D">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-31</span>
+      <span class="q-index">Question 31 of 32</span>
+    </div>
+    <p class="q-text">Which of the following BEST describes the function of control self- assessment?</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Quality control</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Quality assessment</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Quality planning</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Quality assurance (QA)</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-31">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-31" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option D
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">Quality control focuses on fulfilling quality requirements by monitoring and evaluating the resulting service or product.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Quality assessment involves data collection and analysis to determine the degree of conformity to predetermined standards and criteria.</span></div>
+<div class="justification-item ">  <span class="just-letter">C</span>  <span class="just-text">Quality planning involves designing a process or service that can meet established goals under operating conditions.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">D</span>  <span class="just-text">Quality assurance (QA) is often achieved by the information systems (IS) auditor serving as a consultant, advising, and facilitating business areas to participate in process improvement and control. One such approach is through the process of control self-assessment, where business areas evaluate the effectiveness of their own controls and identify areas for improvement. Therefore, the function of control self-assessment is best described as quality assurance (QA). This process helps ensure that business areas are actively involved in evaluating and improving their own controls, contributing to the overall quality and effectiveness of the organization&#x27;s processes.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="question-card" id="q-A2-32" data-answer="C">
+  <div class="q-header">
+    <div class="q-meta">
+      <span class="q-number-badge">A2-32</span>
+      <span class="q-index">Question 32 of 32</span>
+    </div>
+    <p class="q-text">The development, implementation, and integration of capability and maturity modeling quality tools, techniques, and processes will MAINLY facilitate and foster the quality of:</p>
+  </div>
+  <div class="q-options">
+    <div class="q-option" data-option="A">  <span class="opt-letter">A</span>  <span class="opt-text">Enterprise IT strategies and policies.</span></div>
+<div class="q-option" data-option="B">  <span class="opt-letter">B</span>  <span class="opt-text">Enterprise IT processes and procedures.</span></div>
+<div class="q-option" data-option="C">  <span class="opt-letter">C</span>  <span class="opt-text">Enterprise IT governance.</span></div>
+<div class="q-option" data-option="D">  <span class="opt-letter">D</span>  <span class="opt-text">Enterprise IT standards and frameworks.</span></div>
+  </div>
+  <div class="q-answer-section">
+    <button class="btn-reveal" aria-expanded="false" aria-controls="answer-A2-32">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5Z"/><circle cx="8" cy="8" r="2"/></svg>
+      <span class="btn-label">Show Answer</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 8 10 12 6"/></svg>
+    </button>
+    <div id="answer-A2-32" class="answer-panel" hidden>
+      <div class="correct-answer-chip">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 8 6 12 14 4"/></svg>
+        Correct Answer: Option C
+      </div>
+      <p class="justifications-heading">Explanations</p>
+      <div class="justification-list">
+        <div class="justification-item ">  <span class="just-letter">A</span>  <span class="just-text">While improved IT governance can enhance the quality of enterprise IT strategies and policies, the primary focus of capability and maturity modeling is broader.</span></div>
+<div class="justification-item ">  <span class="just-letter">B</span>  <span class="just-text">Effective IT governance does improve IT processes and procedures, but the main goal of maturity modeling is to improve governance itself.</span></div>
+<div class="justification-item is-correct">  <span class="just-letter">C</span>  <span class="just-text">Quality management strategies and policies embedded into IT governance outline how IT strategies, policies, processes, procedures, and standards are maintained, used, and improved over time as the enterprise evolves. By focusing on capability and maturity modeling, organizations can ensure that their IT governance is continuously improving, which in turn enhances all its constituent parts. Therefore, the development, implementation, and integration of capability and maturity modeling quality tools, techniques, and processes will mainly facilitate and foster the quality of enterprise IT governance. This holistic improvement ensures that all aspects of IT, including strategies, policies, processes, procedures, standards, and frameworks, are consistently aligned with the organization&#x27;s goals and objectives.</span></div>
+<div class="justification-item ">  <span class="just-letter">D</span>  <span class="just-text">Improved IT governance also impacts enterprise IT standards and frameworks, but the primary objective of maturity modeling is to strengthen the overall governance structure.</span></div>
+      </div>
+    </div>
+  </div>
+</article>
+  </main>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ── Answer Toggle ──────────────────────────────────────────────
+
+  function initAnswerToggles() {
+    document.querySelectorAll('.btn-reveal').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        var panel = btn.parentElement.querySelector('.answer-panel');
+        var card = btn.closest('.question-card');
+
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.hidden = expanded;
+
+        var labelEl = btn.querySelector('.btn-label');
+        if (labelEl) {
+          labelEl.textContent = expanded ? 'Show Answer' : 'Hide Answer';
+        }
+
+        if (!expanded) {
+          // Highlight correct option
+          var correctOpt = card.dataset.answer;
+          card.querySelectorAll('.q-option').forEach(function (opt) {
+            if (opt.dataset.option === correctOpt) {
+              opt.classList.add('highlighted');
+            }
+          });
+          card.classList.add('answered');
+          updateProgress();
+        } else {
+          card.querySelectorAll('.q-option').forEach(function (opt) {
+            opt.classList.remove('highlighted');
+          });
+          card.classList.remove('answered');
+          updateProgress();
+        }
+      });
+    });
+  }
+
+  // ── Reading Progress Bar ───────────────────────────────────────
+
+  function initProgressBar() {
+    var fill = document.querySelector('.progress-bar-fill');
+    if (!fill) return;
+
+    window.addEventListener('scroll', function () {
+      var doc = document.documentElement;
+      var scrollTop = doc.scrollTop || document.body.scrollTop;
+      var scrollHeight = doc.scrollHeight - doc.clientHeight;
+      var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      fill.style.width = Math.min(progress, 100) + '%';
+    }, { passive: true });
+  }
+
+  // ── Question Answered Progress ─────────────────────────────────
+
+  function updateProgress() {
+    var total = document.querySelectorAll('.question-card').length;
+    var answered = document.querySelectorAll('.question-card.answered').length;
+    var statEl = document.querySelector('.stat-answered');
+    if (statEl) {
+      statEl.textContent = answered + ' / ' + total + ' answered';
+    }
+  }
+
+  // ── Sidebar Active Link on Scroll ──────────────────────────────
+
+  function initSidebarScroll() {
+    var links = document.querySelectorAll('.sidebar-nav-item[data-cat]');
+    if (!links.length) return;
+    links.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        a.classList.add('active');
+      });
+    });
+  }
+
+  // ── Back-to-top shortcut (kbd B) ──────────────────────────────
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'b' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      var tag = document.activeElement.tagName;
+      if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  });
+
+  // ── Init ───────────────────────────────────────────────────────
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initAnswerToggles();
+    initProgressBar();
+    initSidebarScroll();
+    updateProgress();
+  });
+}());
+</script>
+</body>
+</html>
